@@ -1,0 +1,26 @@
+---
+title: Blog Article
+description: This is the description of one of the blog articles
+tags: post
+date: Created
+location: Remote
+type: article
+---
+<!DOCTYPE html>
+<html lang="en">
+{% include "head-article.njk" %}
+<!-- Start Body -->
+<body>
+    {% include "nav.njk" %}
+    <article>
+        <small class="info">
+            <time datetime="{{page.date}}">{{page.date | readableDate}}</time>&nbsp;&ndash;&nbsp;
+            {{content | readingTime}}&nbsp;read
+        </small>
+        <h1>{{ title }}</h1>
+        {{content | safe}}
+    </article>
+    {% include "footer.njk" %}
+</body>
+<!-- End Body -->
+</html>
