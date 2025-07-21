@@ -1,4 +1,4 @@
-<header>
+<header role="banner">
     <!-- Burger Menu Container -->
     <div class="burger-menu-container">
         <!-- Burger Button -->
@@ -81,7 +81,7 @@
             </div>
             
             <!-- Navigation Links -->
-            <nav class="burger-nav">
+            <nav class="burger-nav" role="navigation" aria-label="Main navigation">
                 <ul class="burger-nav-links">
                     <li>
                         <a href="{% if '/blog/el/' in page.url or page.url == '/el/' %}/el/{% elif '/blog/tr/' in page.url or page.url == '/tr/' %}/tr/{% else %}/{% endif %}" class="burger-nav-link">Home</a>
