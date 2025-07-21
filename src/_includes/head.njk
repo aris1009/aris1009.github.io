@@ -189,13 +189,13 @@
 
             // Language configuration
             const languages = {
-                'en': { flag: '🇬🇧' },
+                'en-us': { flag: '🇺🇸' },
                 'el': { flag: '🇬🇷' },
                 'tr': { flag: '🇹🇷' }
             };
 
             // Get saved language or default to English
-            let currentLanguage = localStorage.getItem('language') || 'en';
+            let currentLanguage = localStorage.getItem('language') || 'en-us';
 
             // Function to update the current language display
             function updateLanguageDisplay(langCode) {

@@ -1,26 +1,35 @@
 ---
-title: Home
+pagination:
+  data: supportedLocales
+  size: 1
+  alias: locale
 layout: page.njk
-keyword: security, cybersecurity, technology, blog
-permalink: "index.html"
+permalink: "{% if locale == 'en-us' %}index.html{% else %}{{ locale }}/index.html{% endif %}"
 ---
 
-# Security & Technology Blog
+# {{ 'home.heading' | i18n }}
 
-Welcome to my blog about cybersecurity, technology, and digital privacy. Here I share insights, analysis, and practical advice to help you stay secure in the digital world.
+{{ 'home.welcome' | i18n }}
 
-## Latest Posts
+## {{ 'home.latestPosts' | i18n }}
 
 <div class="prose max-w-none">
-{% for post in collections.posts_en_us %}
+{% if locale == 'el' %}
+  {% set posts = collections.postsEl %}
+{% elif locale == 'tr' %}
+  {% set posts = collections.postsTr %}
+{% else %}
+  {% set posts = collections.postsEn_us %}
+{% endif %}
+{% for post in posts %}
 <article class="mb-8 pb-8 border-b border-gray-200">
   <h3 class="text-xl font-semibold mb-2">
     <a href="{{ post.url }}" class="text-blue-600 hover:text-blue-800">{{ post.data.title }}</a>
   </h3>
-  <div class="text-gray-600 text-sm mb-3">{{ post.date | readableDate: post.data.locale }}</div>
+  <div class="text-gray-600 text-sm mb-3">{{ post.date | readableDate }}</div>
   <p class="text-gray-700">{{ post.data.description }}</p>
   <div class="mt-3">
-    <a href="{{ post.url }}" class="text-blue-600 hover:text-blue-800 font-medium">Read more →</a>
+    <a href="{{ post.url }}" class="text-blue-600 hover:text-blue-800 font-medium">{{ 'home.readMore' | i18n }}</a>
   </div>
 </article>
 {% endfor %}

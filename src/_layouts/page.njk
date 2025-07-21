@@ -5,7 +5,7 @@ keyword: page, generic, website
 type: website
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{% if locale == 'el' %}el{% elif locale == 'tr' %}tr{% else %}en{% endif %}">
 {% include "head-website.njk" %}
 <!-- Start Body -->
 <body>

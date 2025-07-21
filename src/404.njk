@@ -1,0 +1,23 @@
+---
+pagination:
+  data: supportedLocales
+  size: 1
+  alias: locale
+layout: page.njk
+title: "{{ 'notFound.title' | i18n }}"
+description: "{{ 'notFound.message' | i18n }}"
+permalink: "{% if locale == 'en-us' %}404.html{% else %}{{ locale }}/404.html{% endif %}"
+eleventyExcludeFromCollections: true
+---
+
+<h1>{{ 'notFound.heading' | i18n }}</h1>
+
+<p>{{ 'notFound.message' | i18n }}</p>
+
+<p><strong>{{ 'notFound.suggestions' | i18n }}</strong></p>
+<ul>
+  <li>{{ 'notFound.checkUrl' | i18n }}</li>
+  <li><a href="{% if locale == 'en-us' %}/{% else %}/{{ locale }}/{% endif %}">{{ 'notFound.goHome' | i18n }}</a></li>
+</ul>
+
+<p>{{ 'notFound.contactError' | i18n }}</p>

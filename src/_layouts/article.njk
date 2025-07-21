@@ -7,7 +7,7 @@ location: Remote
 type: article
 ---
 <!DOCTYPE html>
-<html lang="{% if '/blog/el/' in page.url %}el{% elif '/blog/tr/' in page.url %}tr{% else %}en{% endif %}">
+<html lang="{% if locale == 'el' %}el{% elif locale == 'tr' %}tr{% else %}en{% endif %}">
 {% include "head-article.njk" %}
 <!-- Start Body -->
 <body>
