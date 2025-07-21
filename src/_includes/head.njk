@@ -241,4 +241,83 @@
         } else {
             initLanguageSelector();
         }
+
+        // Burger menu functionality
+        function initBurgerMenu() {
+            const burgerToggle = document.getElementById('burger-toggle');
+            const burgerOverlay = document.getElementById('burger-overlay');
+            const burgerButton = document.querySelector('.burger-button');
+
+            if (!burgerToggle || !burgerOverlay) {
+                return;
+            }
+
+            // Function to toggle burger menu
+            function toggleBurgerMenu() {
+                const isActive = burgerButton.classList.contains('active');
+                
+                if (isActive) {
+                    // Close menu
+                    burgerButton.classList.remove('active');
+                    burgerOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                } else {
+                    // Open menu
+                    burgerButton.classList.add('active');
+                    burgerOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            // Burger button click handler
+            burgerToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleBurgerMenu();
+            });
+
+            // Close menu when clicking on overlay background (not on menu content)
+            burgerOverlay.addEventListener('click', function(e) {
+                if (e.target === burgerOverlay) {
+                    toggleBurgerMenu();
+                }
+            });
+
+            // Close menu when clicking on navigation links
+            const navLinks = document.querySelectorAll('.burger-nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    // Small delay to allow navigation to start
+                    setTimeout(() => {
+                        toggleBurgerMenu();
+                    }, 150);
+                });
+            });
+
+            // Close menu with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && burgerButton.classList.contains('active')) {
+                    toggleBurgerMenu();
+                }
+            });
+
+            // Handle hover effect for burger button
+            burgerToggle.addEventListener('mouseenter', function() {
+                if (!burgerButton.classList.contains('active')) {
+                    burgerButton.style.transform = 'scale(1.05)';
+                }
+            });
+
+            burgerToggle.addEventListener('mouseleave', function() {
+                if (!burgerButton.classList.contains('active')) {
+                    burgerButton.style.transform = 'scale(1)';
+                }
+            });
+        }
+
+        // Initialize burger menu when DOM is loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initBurgerMenu);
+        } else {
+            initBurgerMenu();
+        }
     </script>

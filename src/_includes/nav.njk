@@ -1,79 +1,102 @@
 <header>
-    <!-- Title -->
-    <hgroup>
-        <a href="{% if '/blog/el/' in page.url or page.url == '/el/' %}/el/{% elif '/blog/tr/' in page.url or page.url == '/tr/' %}/tr/{% else %}/{% endif %}" class="title-link">
-            <p class="title">{{meta.siteName}}</p>
-            <p class="motto">{{meta.motto}}</p>
-        </a>
-    </hgroup>
-    <!-- Navigation -->
-    <nav>
-        {% set navPages = collections.all | eleventyNavigation %}
-        <div class="nav-content">
-            <ul class="nav-links">
-                {%- for entry in navPages %}
-                <li {% if entry.url == page.url %} class="active" {% endif %}>
-                    <a href="{{ entry.url | localizeUrl(locale or defaultLocale) | url }}">{{entry.title}}</a>
-                </li>
-                {%- endfor %}
-            </ul>
-            <!-- Controls Container -->
-            <div class="controls-container">
-                <!-- Animated Dark Mode Toggle Pill -->
-                <div class="theme-toggle-container">
-                    <button id="theme-toggle" class="theme-toggle-pill" aria-label="Toggle dark mode" title="Toggle dark/light mode">
-                        <div class="toggle-slider">
-                            <svg class="toggle-icon sun-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
-                            </svg>
-                            <svg class="toggle-icon moon-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-                            </svg>
-                        </div>
-                    </button>
-                </div>
-                
-                <!-- Language Selector -->
-                <div class="language-selector-container">
-                    <button id="language-toggle" class="language-selector" aria-label="Select language" title="Change language">
-                        <span id="current-language" class="language-display">
-                            {% if '/blog/el/' in page.url or page.url == '/el/' %}
-                                <span class="flag">🇬🇷</span>
-                            {% elif '/blog/tr/' in page.url or page.url == '/tr/' %}
-                                <span class="flag">🇹🇷</span>
-                            {% elif '/blog/en-us/' in page.url or page.url == '/' %}
-                                <span class="flag">🇺🇸</span>
-                            {% else %}
-                                <span class="flag">🇺🇸</span>
-                            {% endif %}
-                        </span>
-                    </button>
-                    <div id="language-dropdown" class="language-dropdown">
-                        {% if '/blog/' in page.url %}
-                            {% set blogSlug = page.url | replace('/blog/en-us/', '') | replace('/blog/el/', '') | replace('/blog/tr/', '') | replace('/', '') %}
-                            <a href="/blog/en-us/{{ blogSlug }}/" class="language-option" data-lang="en-us">
-                                <span class="flag">🇺🇸</span>
-                            </a>
-                            <a href="/blog/el/{{ blogSlug }}/" class="language-option" data-lang="el">
-                                <span class="flag">🇬🇷</span>
-                            </a>
-                            <a href="/blog/tr/{{ blogSlug }}/" class="language-option" data-lang="tr">
-                                <span class="flag">🇹🇷</span>
-                            </a>
-                        {% else %}
-                            <a href="/" class="language-option" data-lang="en-us">
-                                <span class="flag">🇺🇸</span>
-                            </a>
-                            <a href="/el/" class="language-option" data-lang="el">
-                                <span class="flag">🇬🇷</span>
-                            </a>
-                            <a href="/tr/" class="language-option" data-lang="tr">
-                                <span class="flag">🇹🇷</span>
-                            </a>
-                        {% endif %}
+    <!-- Burger Menu Container -->
+    <div class="burger-menu-container">
+        <!-- Burger Button -->
+        <button id="burger-toggle" class="burger-button" aria-label="Toggle menu" title="Menu">
+            <div class="burger-icon">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </div>
+        </button>
+        
+        <!-- Controls Container (Theme + Language) -->
+        <div class="header-controls">
+            <!-- Animated Dark Mode Toggle Pill -->
+            <div class="theme-toggle-container">
+                <button id="theme-toggle" class="theme-toggle-pill" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+                    <div class="toggle-slider">
+                        <svg class="toggle-icon sun-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+                        </svg>
+                        <svg class="toggle-icon moon-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                        </svg>
                     </div>
+                </button>
+            </div>
+            
+            <!-- Language Selector -->
+            <div class="language-selector-container">
+                <button id="language-toggle" class="language-selector" aria-label="Select language" title="Change language">
+                    <span id="current-language" class="language-display">
+                        {% if '/blog/el/' in page.url or page.url == '/el/' %}
+                            <span class="flag">🇬🇷</span>
+                        {% elif '/blog/tr/' in page.url or page.url == '/tr/' %}
+                            <span class="flag">🇹🇷</span>
+                        {% elif '/blog/en-us/' in page.url or page.url == '/' %}
+                            <span class="flag">🇺🇸</span>
+                        {% else %}
+                            <span class="flag">🇺🇸</span>
+                        {% endif %}
+                    </span>
+                </button>
+                <div id="language-dropdown" class="language-dropdown">
+                    {% if '/blog/' in page.url %}
+                        {% set blogSlug = page.url | replace('/blog/en-us/', '') | replace('/blog/el/', '') | replace('/blog/tr/', '') | replace('/', '') %}
+                        <a href="/blog/en-us/{{ blogSlug }}/" class="language-option" data-lang="en-us">
+                            <span class="flag">🇺🇸</span>
+                        </a>
+                        <a href="/blog/el/{{ blogSlug }}/" class="language-option" data-lang="el">
+                            <span class="flag">🇬🇷</span>
+                        </a>
+                        <a href="/blog/tr/{{ blogSlug }}/" class="language-option" data-lang="tr">
+                            <span class="flag">🇹🇷</span>
+                        </a>
+                    {% else %}
+                        <a href="/" class="language-option" data-lang="en-us">
+                            <span class="flag">🇺🇸</span>
+                        </a>
+                        <a href="/el/" class="language-option" data-lang="el">
+                            <span class="flag">🇬🇷</span>
+                        </a>
+                        <a href="/tr/" class="language-option" data-lang="tr">
+                            <span class="flag">🇹🇷</span>
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
-    </nav>
+    </div>
+    
+    <!-- Burger Menu Overlay -->
+    <div id="burger-overlay" class="burger-overlay">
+        <div class="burger-menu-content">
+            <!-- Site Branding in Menu -->
+            <div class="burger-branding">
+                <a href="{% if '/blog/el/' in page.url or page.url == '/el/' %}/el/{% elif '/blog/tr/' in page.url or page.url == '/tr/' %}/tr/{% else %}/{% endif %}" class="burger-title-link">
+                    <h1 class="burger-title">{{meta.siteName}}</h1>
+                    <p class="burger-motto">{{meta.motto}}</p>
+                </a>
+            </div>
+            
+            <!-- Navigation Links -->
+            <nav class="burger-nav">
+                <ul class="burger-nav-links">
+                    <li>
+                        <a href="{% if '/blog/el/' in page.url or page.url == '/el/' %}/el/{% elif '/blog/tr/' in page.url or page.url == '/tr/' %}/tr/{% else %}/{% endif %}" class="burger-nav-link">Home</a>
+                    </li>
+                    <li>
+                        <a href="/about/" class="burger-nav-link">About</a>
+                    </li>
+                    <li>
+                        <a href="/acknowledgements/" class="burger-nav-link">Acknowledgements</a>
+                    </li>
+                    <li>
+                        <a href="/ai-disclaimer/" class="burger-nav-link">AI Disclaimer</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 </header>
