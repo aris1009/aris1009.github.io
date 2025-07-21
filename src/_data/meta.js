@@ -4,14 +4,14 @@ module.exports = {
   //  
   language: "en-US",
   lang: "en",
-  siteName: "Security & Tech Blog",
-  shortName: "SecTech Blog",
-  motto: "Simplicity is the ultimate sophistication.",
+  siteName: "Minute Engineering",
+  shortName: "Just a Blog",
+  motto: "",
   authorName: "Aris Konstantoulas",
   siteDescription: "A blog about cybersecurity, technology, and digital privacy",
   sitekeyword: "cybersecurity, security, technology, privacy, hacking, malware",
   creationDate: "21/07/2025",
-  url: process.env.URL || "https://www.marcomicale.eu", // change this url
+  url: process.env.URL || "", // TODO: update this
   robots: "index, follow",
   //
   // Color App
