@@ -7,14 +7,14 @@ location: Remote
 type: article
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{% if '/blog/el/' in page.url %}el{% elif '/blog/tr/' in page.url %}tr{% else %}en{% endif %}">
 {% include "head-article.njk" %}
 <!-- Start Body -->
 <body>
     {% include "nav.njk" %}
     <article>
         <small class="info">
-            <time datetime="{{page.date}}">{{page.date | readableDate}}</time>&nbsp;&ndash;&nbsp;
+            <time datetime="{{page.date}}">{{page.date | readableDate(locale or 'en-us')}}</time>&nbsp;&ndash;&nbsp;
             {{content | readingTime}}&nbsp;read
         </small>
         <h1>{{ title }}</h1>

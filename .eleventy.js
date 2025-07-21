@@ -5,6 +5,9 @@ const readingTime = require("eleventy-plugin-reading-time");
 const htmlmin = require("html-minifier");
 const { DateTime } = require("luxon");
 
+const supportedLocales = ['en-us', 'el', 'tr'];
+const defaultLocale = 'en-us';
+
 module.exports = function (eleventyConfig) {
   eleventyConfig.setBrowserSyncConfig({ open: true });
 
@@ -29,16 +32,34 @@ module.exports = function (eleventyConfig) {
     return content;
   });
 
-  eleventyConfig.addFilter("readableDate", (dateObj) => {
-    return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat(
-      "dd LLL yyyy"
-    );
+  eleventyConfig.addFilter("readableDate", (dateObj, locale) => {
+    const dt = DateTime.fromJSDate(dateObj, { zone: "utc" });
+    const localeMap = {
+      'en-us': 'en-US',
+      'el': 'el-GR',
+      'tr': 'tr-TR'
+    };
+    return dt.setLocale(localeMap[locale] || localeMap[defaultLocale]).toFormat("dd LLL yyyy");
   });
 
   eleventyConfig.addLiquidFilter("dateToRfc3339", pluginRss.dateToRfc3339);
 
+  eleventyConfig.addGlobalData("supportedLocales", supportedLocales);
+  eleventyConfig.addGlobalData("defaultLocale", defaultLocale);
+
+  eleventyConfig.addFilter("localizeUrl", (url, locale) => {
+    if (locale === defaultLocale) return url;
+    return `/${locale}${url}`;
+  });
+
   eleventyConfig.addCollection("posts", function(collectionApi) {
-    return collectionApi.getFilteredByGlob("src/blog/*.md").reverse();
+    return collectionApi.getFilteredByGlob("src/blog/**/*.md").reverse();
+  });
+
+  supportedLocales.forEach(locale => {
+    eleventyConfig.addCollection(`posts_${locale.replace('-', '_')}`, function(collectionApi) {
+      return collectionApi.getFilteredByGlob(`src/blog/**/${locale}.md`).reverse();
+    });
   });
 
   return {
