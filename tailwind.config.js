@@ -364,9 +364,9 @@ module.exports = {
         '"Noto Color Emoji"',
       ],
       serif: [
-        "Roboto Serif",
-        "ui-serif",
+        '"DejaVu Serif"',
         "Georgia",
+        "ui-serif",
         "Cambria",
         '"Times New Roman"',
         "Times",
