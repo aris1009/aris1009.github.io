@@ -213,14 +213,14 @@
 
   /* Language Dropdown */
   .language-dropdown {
-    @apply absolute top-full rounded-lg shadow-lg z-50 opacity-0 invisible transition-all duration-200 ease-in-out;
+    @apply absolute top-full rounded-lg z-50 opacity-0 invisible transition-all duration-200 ease-in-out;
     left: 50%;
     transform: translateX(-50%);
     margin-top: 4px;
     min-width: 80px;
-    background: rgb(248 250 252 / 0.95);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgb(226 232 240 / 0.5);
+    background: transparent;
+    backdrop-filter: none;
+    border: none;
   }
 
   @media (max-width: 640px) {
@@ -231,8 +231,8 @@
   }
 
   html.dark .language-dropdown {
-    background: rgb(39 39 42 / 0.95);
-    border: 1px solid rgb(63 63 70 / 0.5);
+    background: transparent;
+    border: none;
   }
 
   .language-selector-container:hover .language-dropdown {

@@ -1,7 +1,7 @@
 <header>
     <!-- Title -->
     <hgroup>
-        <a href="/" class="title-link">
+        <a href="{% if '/blog/el/' in page.url or page.url == '/el/' %}/el/{% elif '/blog/tr/' in page.url or page.url == '/tr/' %}/tr/{% else %}/{% endif %}" class="title-link">
             <p class="title">{{meta.siteName}}</p>
             <p class="motto">{{meta.motto}}</p>
         </a>
@@ -13,7 +13,7 @@
             <ul class="nav-links">
                 {%- for entry in navPages %}
                 <li {% if entry.url == page.url %} class="active" {% endif %}>
-                    <a href="{{ entry.url | url }}">{{entry.title}}</a>
+                    <a href="{{ entry.url | localizeUrl(locale or defaultLocale) | url }}">{{entry.title}}</a>
                 </li>
                 {%- endfor %}
             </ul>
@@ -37,19 +37,38 @@
                 <div class="language-selector-container">
                     <button id="language-toggle" class="language-selector" aria-label="Select language" title="Change language">
                         <span id="current-language" class="language-display">
-                            <span class="flag">🇬🇧</span>
+                            {% if '/blog/el/' in page.url or page.url == '/el/' %}
+                                <span class="flag">🇬🇷</span>
+                            {% elif '/blog/tr/' in page.url or page.url == '/tr/' %}
+                                <span class="flag">🇹🇷</span>
+                            {% else %}
+                                <span class="flag">🇺🇸</span>
+                            {% endif %}
                         </span>
                     </button>
                     <div id="language-dropdown" class="language-dropdown">
-                        <button class="language-option" data-lang="en" data-flag="🇬🇧">
-                            <span class="flag">🇬🇧</span>
-                        </button>
-                        <button class="language-option" data-lang="el" data-flag="🇬🇷">
-                            <span class="flag">🇬🇷</span>
-                        </button>
-                        <button class="language-option" data-lang="tr" data-flag="🇹🇷">
-                            <span class="flag">🇹🇷</span>
-                        </button>
+                        {% if '/blog/' in page.url %}
+                            {% set blogSlug = page.url | replace('/blog/en-us/', '') | replace('/blog/el/', '') | replace('/blog/tr/', '') | replace('/', '') %}
+                            <a href="/blog/en-us/{{ blogSlug }}/" class="language-option" data-lang="en-us">
+                                <span class="flag">🇺🇸</span>
+                            </a>
+                            <a href="/blog/el/{{ blogSlug }}/" class="language-option" data-lang="el">
+                                <span class="flag">🇬🇷</span>
+                            </a>
+                            <a href="/blog/tr/{{ blogSlug }}/" class="language-option" data-lang="tr">
+                                <span class="flag">🇹🇷</span>
+                            </a>
+                        {% else %}
+                            <a href="/" class="language-option" data-lang="en-us">
+                                <span class="flag">🇺🇸</span>
+                            </a>
+                            <a href="/el/" class="language-option" data-lang="el">
+                                <span class="flag">🇬🇷</span>
+                            </a>
+                            <a href="/tr/" class="language-option" data-lang="tr">
+                                <span class="flag">🇹🇷</span>
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
