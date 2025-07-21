@@ -128,5 +128,18 @@ module.exports = {
       'el': 'Αν θεωρείτε ότι πρόκειται για λάθος, παρακαλώ ενημερώστε με.',
       'tr': 'Bunun bir hata olduğunu düşünüyorsanız, lütfen bana bildirin.'
     }
+  },
+
+  translation: {
+    placeholder: {
+      'en-us': 'This post has not been translated to English yet. It may be available in other languages. You can help translate it or check back later.',
+      'el': 'Αυτή η ανάρτηση δεν έχει μεταφραστεί ακόμη στα ελληνικά. Μπορεί να είναι διαθέσιμη σε άλλες γλώσσες. Μπορείτε να βοηθήσετε στη μετάφρασή της ή να ελέγξετε ξανά αργότερα.',
+      'tr': 'Bu yazı henüz Türkçeye çevrilmemiştir. Diğer dillerde mevcut olabilir. Çevirisine yardımcı olabilir veya daha sonra tekrar kontrol edebilirsiniz.'
+    },
+    notAvailableTitle: {
+      'en-us': 'Translation Not Available',
+      'el': 'Μετάφραση Μη Διαθέσιμη',
+      'tr': 'Çeviri Mevcut Değil'
+    }
   }
 };

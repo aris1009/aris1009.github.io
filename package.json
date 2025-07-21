@@ -7,7 +7,8 @@
     "eleventy": "eleventy",
     "dev:css": "npx tailwindcss -i src/_tailwindCSS/raw-website.css -o _site/css/style.css --watch --minify",
     "dev:11ty": "eleventy --serve --watch",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "new-post": "node scripts/generate-blog-post.js"
   },
   "name": "blog",
   "version": "1.0.0",

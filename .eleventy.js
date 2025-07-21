@@ -62,15 +62,15 @@ module.exports = function(eleventyConfig) {
   });
 
   eleventyConfig.addCollection("postsEn_us", function(collectionApi) {
-    return collectionApi.getFilteredByGlob("src/blog/en/*.md");
+    return collectionApi.getFilteredByGlob("src/blog/en/*.md").filter(post => !post.data.draft);
   });
 
   eleventyConfig.addCollection("postsEl", function(collectionApi) {
-    return collectionApi.getFilteredByGlob("src/blog/el/*.md");
+    return collectionApi.getFilteredByGlob("src/blog/el/*.md").filter(post => !post.data.draft);
   });
 
   eleventyConfig.addCollection("postsTr", function(collectionApi) {
-    return collectionApi.getFilteredByGlob("src/blog/tr/*.md");
+    return collectionApi.getFilteredByGlob("src/blog/tr/*.md").filter(post => !post.data.draft);
   });
 
   eleventyConfig.addCollection("allPosts", function(collectionApi) {
@@ -78,7 +78,7 @@ module.exports = function(eleventyConfig) {
       ...collectionApi.getFilteredByGlob("src/blog/en/*.md"),
       ...collectionApi.getFilteredByGlob("src/blog/el/*.md"),
       ...collectionApi.getFilteredByGlob("src/blog/tr/*.md")
-    ].sort((a, b) => b.date - a.date);
+    ].filter(post => !post.data.draft).sort((a, b) => b.date - a.date);
   });
 
   eleventyConfig.addTransform("htmlmin", function(content, outputPath) {
