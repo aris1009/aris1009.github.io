@@ -2,6 +2,7 @@
 layout: page.njk
 title: "Acknowledgements"
 description: "Credits and acknowledgements for the technologies and themes used in this blog."
+permalink: /acknowledgements/
 ---
 
 This blog was built using several excellent open-source projects and resources. I'd like to acknowledge and thank the creators and contributors.
