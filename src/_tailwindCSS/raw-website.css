@@ -10,13 +10,17 @@
     @apply bg-zinc-900 text-slate-100;
   }
   body {
-    @apply container mx-auto;
+    @apply container mx-auto min-h-screen flex flex-col;
   }
-  header,
-  main,
-  article,
-  footer {
+  header {
     @apply py-6 px-0;
+  }
+  main,
+  article {
+    @apply py-3 px-0 flex-1;
+  }
+  footer {
+    @apply py-6 px-0 mt-auto;
   }
   header,
   footer {
@@ -57,7 +61,7 @@
   }
   main,
   article {
-    @apply prose prose-sky dark:prose-invert dark:prose-p:text-slate-50 dark:prose-li:text-slate-50 dark:prose-lead:text-slate-100 prose-lead:font-light mx-auto text-justify my-2;
+    @apply prose prose-sky dark:prose-invert dark:prose-p:text-slate-50 dark:prose-li:text-slate-50 dark:prose-lead:text-slate-100 prose-lead:font-light mx-auto text-justify;
   }
   h1,
   article > small.info {
@@ -258,15 +262,15 @@
   header {
     @apply gap-6;
   }
-  header,
-  main,
-  article,
-  footer {
+  header {
     @apply py-7 px-3;
   }
   main,
   article {
-    @apply my-2.5;
+    @apply py-4 px-3;
+  }
+  footer {
+    @apply py-7 px-3;
   }
   .title {
     @apply text-4xl;
@@ -286,9 +290,13 @@
   header {
     @apply gap-7 flex-row;
   }
-  header,
+  header {
+    @apply py-8 px-4;
+  }
   main,
-  article,
+  article {
+    @apply py-4 px-4;
+  }
   footer {
     @apply py-8 px-4;
   }
@@ -306,10 +314,6 @@
   }
   .nav-links {
     @apply flex-col gap-0;
-  }
-  main,
-  article {
-    @apply my-3;
   }
   h1,
   article > small.info {
@@ -336,15 +340,15 @@
   html {
     @apply px-8 text-xl;
   }
-  header,
-  main,
-  article,
-  footer {
+  header {
     @apply py-9 px-4;
   }
   main,
   article {
-    @apply max-w-screen-md my-4;
+    @apply py-4 px-4 max-w-screen-md;
+  }
+  footer {
+    @apply py-9 px-4;
   }
   .social {
     @apply grow-0 gap-8 justify-end;
@@ -355,15 +359,15 @@
   html {
     @apply px-9 text-xl;
   }
-  header,
-  main,
-  article,
-  footer {
+  header {
     @apply py-10 px-5;
   }
   main,
   article {
-    @apply max-w-screen-lg my-5;
+    @apply py-4 px-5 max-w-screen-lg;
+  }
+  footer {
+    @apply py-10 px-5;
   }
   .social {
     @apply grow-0 gap-9 justify-end;
