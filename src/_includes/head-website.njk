@@ -13,8 +13,8 @@
             "@context": "http://schema.org",
             "@type": "Webpage",
             "url": "{{pageUrls}}",
-            "name": {{page.URL}}"}}meta.siteName}}",
-            "headline": "{{pageTitle}}",
+            "name": "{{meta.siteName}}",
+            "headline": "{{pageTitle | safe}}",
             "description": "{{pageDescription}}",
             "mainEntityOfPage": {
                 "@type": "WebPage",
