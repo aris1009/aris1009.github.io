@@ -1,6 +1,6 @@
 ---
 layout: article.njk
-title: "'Saklayacak Bir Şeyim Yok' Düşüncesi Sizi Rus Hackerlardan Korumayacak"
+title: "\"Saklayacak Bir Şeyim Yok\" Düşüncesi Sizi Rus Hackerlardan Korumayacak"
 description: "Rus askeri istihbaratının korsan yazılım aracılığıyla sıradan insanları hedef alan son olayları, bu düşüncenin tehlikeli bir şekilde yanlış olduğunu kanıtlıyor."
 date: 2025-07-22
 keyword: güvenlik, kötü amaçlı yazılım, gizlilik, rus hackerlar, siber güvenlik

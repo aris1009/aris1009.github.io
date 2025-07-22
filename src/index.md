@@ -5,6 +5,7 @@ pagination:
   alias: locale
 layout: page.njk
 permalink: "{% if locale == 'en-us' %}index.html{% else %}{{ locale }}/index.html{% endif %}"
+title: Home
 ---
 
 # {{ 'home.heading' | i18n }}

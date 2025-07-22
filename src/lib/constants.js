@@ -33,7 +33,8 @@ const TEMPLATE_FORMATS = [
 const HTML_MINIFY_OPTIONS = {
   useShortDoctype: true,
   removeComments: true,
-  collapseWhitespace: true
+  collapseWhitespace: true,
+  decodeEntities: true
 };
 
 module.exports = {

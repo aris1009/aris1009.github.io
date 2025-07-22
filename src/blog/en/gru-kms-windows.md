@@ -1,6 +1,6 @@
 ---
 layout: article.njk
-title: "Why 'I Have Nothing to Hide' Won't Protect You from Russian Hackers"
+title: "Why \"I Have Nothing to Hide\" Won't Protect You from Russian Hackers"
 description: "Recent events involving Russian military intelligence targeting ordinary people through pirated software prove this thinking dangerously wrong."
 date: 2025-07-22
 keyword: security, malware, privacy, russian hackers, cybersecurity
