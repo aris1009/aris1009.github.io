@@ -63,6 +63,11 @@ module.exports = {
       'en-us': 'read',
       'el': 'ανάγνωση',
       'tr': 'okuma süresi'
+    },
+    readTimeFormat: {
+      'en-us': '{time} min {readText}',
+      'el': '{time} λεπτά {readText}',
+      'tr': '{time} dakika {readText}'
     }
   },
 

@@ -27,7 +27,7 @@ permalink: "{% if locale == 'en-us' %}index.html{% else %}{{ locale }}/index.htm
     <a href="{{ post.url }}" class="text-blue-600 hover:text-blue-800">{{ post.data.title }}</a>
   </h3>
   <div class="text-gray-600 text-sm mb-3">
-    <time datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>
+    <time datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate(locale or 'en-us') }}</time>
   </div>
   <p class="text-gray-700">{{ post.data.description }}</p>
   <div class="mt-3">

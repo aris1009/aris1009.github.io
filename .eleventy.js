@@ -24,8 +24,15 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/_static");
   eleventyConfig.addPassthroughCopy({"src/_static/img": "img"});
 
-  eleventyConfig.addFilter("readableDate", (dateObj) => {
-    return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat("dd LLL yyyy");
+  eleventyConfig.addFilter("readableDate", (dateObj, locale = "en-us") => {
+    const localeMap = {
+      'en-us': 'en-US',
+      'el': 'el',
+      'tr': 'tr'
+    };
+    return DateTime.fromJSDate(dateObj, { zone: "utc" })
+      .setLocale(localeMap[locale] || 'en-US')
+      .toFormat("dd LLL yyyy");
   });
 
   eleventyConfig.addFilter("htmlDateString", (dateObj) => {
@@ -48,6 +55,20 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addFilter("filterTagList", function filterTagList(tags) {
     return (tags || []).filter(tag => ["all", "nav", "post", "posts"].indexOf(tag) === -1);
+  });
+
+  eleventyConfig.addFilter("localizedReadingTime", function(content, locale = "en-us") {
+    const translations = require("./src/_data/translations.js");
+    const readingTimeText = eleventyConfig.getFilter("readingTime")(content);
+    const timeMatch = readingTimeText.match(/(\d+)/);
+    
+    if (!timeMatch) return readingTimeText;
+    
+    const time = timeMatch[1];
+    const readText = translations.article.readTime[locale] || 'read';
+    const format = translations.article.readTimeFormat[locale] || '{time} min {readText}';
+    
+    return format.replace('{time}', time).replace('{readText}', readText);
   });
 
   eleventyConfig.addGlobalData("supportedLocales", ["en-us", "el", "tr"]);
