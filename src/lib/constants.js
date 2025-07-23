@@ -7,10 +7,7 @@ const LOCALE_MAP = {
 };
 
 const FALLBACK_LOCALES = {
-  '': 'en-us',
-  '404.html': 'en-us',
-  'el': 'en-us',
-  'tr': 'en-us'
+  '*': 'en-us'
 };
 
 const DEFAULT_LOCALE = 'en-us';
