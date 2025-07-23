@@ -33,7 +33,7 @@ describe('global-data', () => {
 
     it('should return default locale for English path', () => {
       const mockContext = {
-        page: { filePathStem: '/blog/en/some-post' }
+        page: { filePathStem: '/blog/en-us/some-post' }
       };
       
       const localeFunction = getLocale();

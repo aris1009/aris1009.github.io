@@ -48,7 +48,7 @@ describe('constants', () => {
 
   describe('BLOG_GLOBS', () => {
     it('should have correct glob patterns for each locale', () => {
-      expect(BLOG_GLOBS.en).toBe('src/blog/en/*.md');
+      expect(BLOG_GLOBS['en-us']).toBe('src/blog/en-us/*.md');
       expect(BLOG_GLOBS.el).toBe('src/blog/el/*.md');
       expect(BLOG_GLOBS.tr).toBe('src/blog/tr/*.md');
     });
@@ -65,7 +65,8 @@ describe('constants', () => {
       expect(HTML_MINIFY_OPTIONS).toEqual({
         useShortDoctype: true,
         removeComments: true,
-        collapseWhitespace: true
+        collapseWhitespace: true,
+        decodeEntities: true
       });
     });
   });

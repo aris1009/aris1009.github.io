@@ -22,7 +22,7 @@ describe('collections', () => {
       
       const result = postsEn_us(mockCollectionApi);
       
-      expect(mockCollectionApi.getFilteredByGlob).toHaveBeenCalledWith('src/blog/en/*.md');
+      expect(mockCollectionApi.getFilteredByGlob).toHaveBeenCalledWith('src/blog/en-us/*.md');
       expect(result).toHaveLength(2);
       expect(result.every(post => !post.data.draft)).toBe(true);
     });
