@@ -2,7 +2,7 @@
     <!-- Burger Menu Container -->
     <div class="burger-menu-container">
         <!-- Burger Button -->
-        <button id="burger-toggle" class="burger-button" aria-label="Toggle menu" title="Menu">
+        <button data-testid="burger-toggle" id="burger-toggle" class="burger-button" aria-label="Toggle menu" title="Menu">
             <div class="burger-icon">
                 <span class="burger-line"></span>
                 <span class="burger-line"></span>
@@ -13,7 +13,7 @@
         <!-- Controls Container (Theme + Language) -->
         <div class="header-controls">
             <!-- Animated Dark Mode Toggle Pill -->
-            <div class="theme-toggle-container">
+            <div data-testid="theme-toggle-container" class="theme-toggle-container">
                 <button id="theme-toggle" class="theme-toggle-pill" aria-label="Toggle dark mode" title="Toggle dark/light mode">
                     <div class="toggle-slider">
                         <svg class="toggle-icon sun-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -27,7 +27,7 @@
             </div>
             
             <!-- Language Selector -->
-            <div class="language-selector-container">
+            <div data-testid="language-selector-container" class="language-selector-container">
                 <button id="language-toggle" class="language-selector" aria-label="Select language" title="Change language">
                     <span id="current-language" class="language-display">
                         {% if '/blog/el/' in page.url or page.url == '/el/' %}
