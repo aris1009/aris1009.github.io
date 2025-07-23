@@ -11,7 +11,7 @@ module.exports = {
       'tr': 'Sadelik en yüksek zarafettir.'
     }
   },
-  
+
   home: {
     title: {
       'en-us': 'Home',
@@ -145,6 +145,39 @@ module.exports = {
       'en-us': 'Translation Not Available',
       'el': 'Μετάφραση Μη Διαθέσιμη',
       'tr': 'Çeviri Mevcut Değil'
+    }
+  },
+
+  dictionary: {
+    title: {
+      'en-us': 'Dictionary',
+      'el': 'Λεξικό',
+      'tr': 'Sözlük'
+    },
+    description: {
+      'en-us': 'Technical terms and definitions to help you understand cybersecurity and technology concepts',
+      'el': 'Τεχνικοί όροι και ορισμοί που θα σε βοηθήσουν να κατανοήσεις έννοιες κυβερνοασφάλειας και τεχνολογίας',
+      'tr': 'Siber güvenlik ve teknoloji kavramlarını anlamanıza yardımcı olacak teknik terimler ve tanımlar'
+    },
+    searchPlaceholder: {
+      'en-us': 'Search terms...',
+      'el': 'Αναζήτηση όρων...',
+      'tr': 'Terimleri ara...'
+    },
+    noResults: {
+      'en-us': 'No terms found matching your search.',
+      'el': 'Δεν βρέθηκαν όροι που να ταιριάζουν με την αναζήτησή σου.',
+      'tr': 'Aramanızla eşleşen terim bulunamadı.'
+    },
+    termCount: {
+      'en-us': '{count} terms',
+      'el': '{count} όροι',
+      'tr': '{count} terim'
+    },
+    showingResults: {
+      'en-us': 'Showing {count} of {total} terms',
+      'el': 'Εμφάνιση {count} από {total} όρους',
+      'tr': '{total} terimden {count} gösteriliyor'
     }
   }
 };
