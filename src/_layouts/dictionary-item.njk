@@ -1,0 +1,53 @@
+---
+title: Dictionary Term
+description: Dictionary term definition
+keyword: dictionary, term, definition
+type: website
+---
+<!DOCTYPE html>
+<html lang="{% if locale == 'el' %}el{% elif locale == 'tr' %}tr{% else %}en{% endif %}">
+{% include "head-website.njk" %}
+<!-- Start Body -->
+<body>
+    {% include "nav.njk" %}
+    <main class="max-w-4xl mx-auto px-4 py-8">
+        <nav aria-label="Breadcrumb" class="mb-6">
+            <ol class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+                <li>
+                    <a href="{% if locale == 'en-us' %}/{% else %}/{{ locale }}/{% endif %}" class="hover:text-blue-600 dark:hover:text-blue-400">
+                        Home
+                    </a>
+                </li>
+                <li class="before:content-['/'] before:mx-2">
+                    <a href="/{{ locale }}/dictionary/" class="hover:text-blue-600 dark:hover:text-blue-400">
+                        {{ 'dictionary.title' | i18n }}
+                    </a>
+                </li>
+                <li class="before:content-['/'] before:mx-2 text-gray-900 dark:text-gray-100">
+                    {{ termKey | title }}
+                </li>
+            </ol>
+        </nav>
+        
+        <article>
+            <header class="mb-8">
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                    {{ termKey | title }}
+                </h1>
+            </header>
+            
+            <div class="prose prose-lg dark:prose-invert max-w-none">
+                {{ content | safe }}
+            </div>
+            
+            <footer class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+                <a href="/{{ locale }}/dictionary/" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline">
+                    ← Back to {{ 'dictionary.title' | i18n }}
+                </a>
+            </footer>
+        </article>
+    </main>
+    {% include "footer.njk" %}
+</body>
+<!-- End Body -->
+</html>

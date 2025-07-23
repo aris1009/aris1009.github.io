@@ -95,6 +95,9 @@
                     <li>
                         <a href="/ai-disclaimer/" class="burger-nav-link">AI Disclaimer</a>
                     </li>
+                    <li>
+                        <a href="{% if '/blog/el/' in page.url or page.url == '/el/' %}/el/dictionary/{% elif '/blog/tr/' in page.url or page.url == '/tr/' %}/tr/dictionary/{% else %}/en-us/dictionary/{% endif %}" class="burger-nav-link">{{ 'dictionary.title' | i18n }}</a>
+                    </li>
                 </ul>
             </nav>
         </div>

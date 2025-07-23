@@ -43,11 +43,26 @@ function localizedReadingTime(content, locale = DEFAULT_LOCALE, eleventyConfig) 
   return format.replace('{time}', time).replace('{readText}', readText);
 }
 
+function getDictionaryTerms(dictionaryData, locale = DEFAULT_LOCALE) {
+  if (!dictionaryData || typeof dictionaryData !== 'object') {
+    return [];
+  }
+  
+  return Object.keys(dictionaryData)
+    .map(key => ({
+      key: key,
+      definition: dictionaryData[key][locale] || dictionaryData[key][DEFAULT_LOCALE] || ''
+    }))
+    .filter(term => term.definition)
+    .sort((a, b) => a.key.localeCompare(b.key, LOCALE_MAP[locale] || LOCALE_MAP[DEFAULT_LOCALE]));
+}
+
 module.exports = {
   readableDate,
   htmlDateString,
   head,
   min,
   filterTagList,
-  localizedReadingTime
+  localizedReadingTime,
+  getDictionaryTerms
 };

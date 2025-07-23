@@ -3,45 +3,50 @@ const rssPlugin = require("@11ty/eleventy-plugin-rss");
 const navigationPlugin = require("@11ty/eleventy-navigation");
 const i18n = require("eleventy-plugin-i18n");
 
-const { 
-  filters, 
-  collections, 
-  transforms, 
-  shortcodes, 
-  globalData, 
-  constants 
+const {
+  filters,
+  collections,
+  transforms,
+  shortcodes,
+  globalData,
+  constants
 } = require("./src/lib");
 
-module.exports = function(eleventyConfig) {
+module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(readingTime);
   eleventyConfig.addPlugin(rssPlugin);
   eleventyConfig.addPlugin(navigationPlugin);
-  
+
   eleventyConfig.addPlugin(i18n, {
-    translations: require("./src/_data/translations.js"),
+    translations: {
+      ...require("./src/_data/translations.js")
+    },
     fallbackLocales: constants.FALLBACK_LOCALES,
     markdownIteration: true
   });
 
   eleventyConfig.addPassthroughCopy("src/_static");
-  eleventyConfig.addPassthroughCopy({"src/_static/img": "img"});
+  eleventyConfig.addPassthroughCopy({ "src/_static/img": "img" });
 
   eleventyConfig.addFilter("readableDate", filters.readableDate);
   eleventyConfig.addFilter("htmlDateString", filters.htmlDateString);
   eleventyConfig.addFilter("head", filters.head);
   eleventyConfig.addFilter("min", filters.min);
   eleventyConfig.addFilter("filterTagList", filters.filterTagList);
-  eleventyConfig.addFilter("localizedReadingTime", function(content, locale) {
+  eleventyConfig.addFilter("localizedReadingTime", function (content, locale) {
     return filters.localizedReadingTime(content, locale, eleventyConfig);
   });
+  eleventyConfig.addFilter("getDictionaryTerms", filters.getDictionaryTerms);
 
   eleventyConfig.addGlobalData("supportedLocales", globalData.supportedLocales);
   eleventyConfig.addGlobalData("locale", globalData.getLocale);
+  eleventyConfig.addGlobalData("dictionary", require("./src/_data/dictionary.js"));
 
   eleventyConfig.addCollection("postsEn_us", collections.postsEn_us);
   eleventyConfig.addCollection("postsEl", collections.postsEl);
   eleventyConfig.addCollection("postsTr", collections.postsTr);
   eleventyConfig.addCollection("allPosts", collections.allPosts);
+  eleventyConfig.addCollection("dictionary", collections.dictionary);
 
   eleventyConfig.addTransform("htmlmin", transforms.htmlminTransform);
 

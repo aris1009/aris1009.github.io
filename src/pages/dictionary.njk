@@ -1,0 +1,94 @@
+---
+pagination:
+  data: supportedLocales
+  size: 1
+  alias: locale
+layout: page.njk
+title: "{{ 'dictionary.title' | i18n }}"
+description: "{{ 'dictionary.description' | i18n }}"
+permalink: "{{ locale }}/dictionary/"
+---
+
+<h1>{{ 'dictionary.title' | i18n }}</h1>
+
+<p>{{ 'dictionary.description' | i18n }}</p>
+
+<div class="dictionary-search mb-6">
+  <input 
+    type="text" 
+    id="dictionary-search" 
+    placeholder="{{ 'dictionary.searchPlaceholder' | i18n }}" 
+    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
+  >
+</div>
+
+<div id="search-results" class="text-sm text-gray-600 dark:text-gray-400 mb-4"></div>
+
+<div id="dictionary-list" class="space-y-6">
+  {% set dictionaryTerms = dictionary | getDictionaryTerms(locale) | sort %}
+  {% for term in dictionaryTerms %}
+    <div class="dictionary-term" data-term="{{ term.key | lower }}">
+      <h2 class="text-xl font-semibold mb-2 text-blue-600 dark:text-blue-400" id="{{ term.key }}">
+        {{ term.key | title }}
+      </h2>
+      <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+        {{ term.definition }}
+      </p>
+    </div>
+  {% endfor %}
+</div>
+
+<div id="no-results" class="text-center py-8 text-gray-500 dark:text-gray-400 hidden">
+  {{ 'dictionary.noResults' | i18n }}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('dictionary-search');
+  const dictionaryList = document.getElementById('dictionary-list');
+  const searchResults = document.getElementById('search-results');
+  const noResults = document.getElementById('no-results');
+  const allTerms = document.querySelectorAll('.dictionary-term');
+  const totalTerms = allTerms.length;
+
+  function updateResultsCount(visibleCount) {
+    if (searchInput.value.trim()) {
+      searchResults.textContent = `{{ 'dictionary.showingResults' | i18n }}`.replace('{count}', visibleCount).replace('{total}', totalTerms);
+    } else {
+      searchResults.textContent = `{{ 'dictionary.termCount' | i18n }}`.replace('{count}', totalTerms);
+    }
+  }
+
+  function filterTerms() {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    let visibleCount = 0;
+
+    allTerms.forEach(function(termElement) {
+      const termName = termElement.getAttribute('data-term');
+      const termContent = termElement.textContent.toLowerCase();
+      
+      if (!searchTerm || termName.includes(searchTerm) || termContent.includes(searchTerm)) {
+        termElement.style.display = 'block';
+        visibleCount++;
+      } else {
+        termElement.style.display = 'none';
+      }
+    });
+
+    if (visibleCount === 0 && searchTerm) {
+      dictionaryList.style.display = 'none';
+      noResults.style.display = 'block';
+    } else {
+      dictionaryList.style.display = 'block';
+      noResults.style.display = 'none';
+    }
+
+    updateResultsCount(visibleCount);
+  }
+
+  searchInput.addEventListener('input', filterTerms);
+  
+  // Initialize results count
+  updateResultsCount(totalTerms);
+});
+</script>

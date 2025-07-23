@@ -20,9 +20,14 @@ function allPosts(collectionApi) {
   ].filter(post => !post.data.draft).sort((a, b) => b.date - a.date);
 }
 
+function dictionary(collectionApi) {
+  return collectionApi.getFilteredByGlob("src/pages/dictionary.njk");
+}
+
 module.exports = {
   postsEn_us,
   postsEl,
   postsTr,
-  allPosts
+  allPosts,
+  dictionary
 };
