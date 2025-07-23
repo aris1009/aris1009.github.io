@@ -1,0 +1,76 @@
+{#
+  Link Component Macros
+  
+  Usage examples:
+  {{ externalLink("Google", "https://google.com") }}
+  {{ internalLink("About", "/about/") }}
+  {{ dictionaryLink("encryption", "encryption") }}
+#}
+
+{%- macro externalLink(text, url, ariaLabel) -%}
+<a 
+  href="{{ url }}" 
+  target="_blank" 
+  rel="noopener noreferrer"
+  class="external-link inline-flex items-center"
+  aria-label="{{ ariaLabel or (text + ' (opens in new tab)') }}"
+>
+  <span class="link-text">{{ text }}</span>
+  <span class="emoji-indicator external-emoji" aria-hidden="true">↗️</span>
+</a>
+{%- endmacro -%}
+
+{%- macro internalLink(text, url, ariaLabel) -%}
+<a 
+  href="{{ url }}" 
+  class="internal-link inline-flex items-center"
+  aria-label="{{ ariaLabel or text }}"
+>
+  <span class="link-text">{{ text }}</span>
+  <span class="emoji-indicator internal-emoji" aria-hidden="true">➡️</span>
+</a>
+{%- endmacro -%}
+
+{%- macro dictionaryLink(text, term) -%}
+<button 
+  class="dictionary-link inline-flex items-center"
+  data-dictionary-term="{{ term }}"
+  aria-expanded="false"
+  aria-describedby="tooltip-{{ term }}"
+  title="Click to see definition"
+>
+  <span class="dictionary-text">{{ text }}</span>
+  <span class="emoji-indicator dictionary-emoji" aria-hidden="true">📘</span>
+</button>
+
+{# Dictionary tooltip/info box #}
+<div 
+  id="tooltip-{{ term }}" 
+  class="dictionary-tooltip hidden"
+  role="tooltip"
+  aria-live="polite"
+>
+  <div class="tooltip-content">
+    <button class="tooltip-close" aria-label="Close definition">×</button>
+    <div class="tooltip-term">{{ term | title }}</div>
+    <div class="tooltip-definition">
+      {%- set definition = dictionary[term] -%}
+      {%- if definition -%}
+        {%- if page and page.url -%}
+          {%- if '/blog/el/' in page.url or page.url == '/el/' -%}
+            {{ definition.el or definition['en-us'] }}
+          {%- elif '/blog/tr/' in page.url or page.url == '/tr/' -%}
+            {{ definition.tr or definition['en-us'] }}
+          {%- else -%}
+            {{ definition['en-us'] }}
+          {%- endif -%}
+        {%- else -%}
+          {{ definition['en-us'] }}
+        {%- endif -%}
+      {%- else -%}
+        Term not found in dictionary
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+{%- endmacro -%}

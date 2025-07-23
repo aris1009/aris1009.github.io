@@ -436,3 +436,78 @@
     @apply grow-0 gap-9 justify-end;
   }
 }
+
+/* Link Component Styles */
+@layer components {
+  /* Common link styles */
+  .external-link,
+  .internal-link,
+  .dictionary-link {
+    @apply inline-flex items-center gap-1 transition-colors duration-200;
+  }
+
+  .external-link:hover,
+  .internal-link:hover {
+    @apply text-blue-600 dark:text-blue-400;
+  }
+
+  .dictionary-link {
+    @apply cursor-pointer bg-transparent border-none p-0 text-blue-600 dark:text-blue-400 underline underline-offset-2;
+  }
+
+  .dictionary-link:hover {
+    @apply text-blue-800 dark:text-blue-300;
+  }
+
+  /* Emoji indicators */
+  .emoji-indicator {
+    @apply text-xs opacity-70 ml-0.5;
+    font-size: 0.75em;
+    vertical-align: super;
+  }
+
+  .external-emoji {
+    @apply text-green-600 dark:text-green-400;
+  }
+
+  .internal-emoji {
+    @apply text-blue-600 dark:text-blue-400;
+  }
+
+  .dictionary-emoji {
+    @apply text-purple-600 dark:text-purple-400;
+  }
+
+  /* Dictionary tooltip styles */
+  .dictionary-tooltip {
+    @apply fixed z-50 max-w-sm p-0 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg;
+    transform: translate(-50%, -100%);
+  }
+
+  .dictionary-tooltip.show {
+    @apply block;
+  }
+
+  .tooltip-content {
+    @apply relative p-4;
+  }
+
+  .tooltip-close {
+    @apply absolute top-2 right-2 w-6 h-6 flex items-center justify-center bg-transparent border-none cursor-pointer text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 rounded;
+  }
+
+  .tooltip-term {
+    @apply text-lg font-semibold mb-2 text-blue-600 dark:text-blue-400 pr-8;
+  }
+
+  .tooltip-definition {
+    @apply text-sm text-gray-700 dark:text-gray-300 leading-relaxed;
+  }
+
+  /* Mobile responsive tooltip */
+  @media (max-width: 640px) {
+    .dictionary-tooltip {
+      @apply max-w-xs;
+    }
+  }
+}
