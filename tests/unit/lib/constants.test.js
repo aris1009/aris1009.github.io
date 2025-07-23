@@ -27,10 +27,7 @@ describe('constants', () => {
 
   describe('FALLBACK_LOCALES', () => {
     it('should have correct fallback configuration', () => {
-      expect(FALLBACK_LOCALES['']).toBe('en-us');
-      expect(FALLBACK_LOCALES['404.html']).toBe('en-us');
-      expect(FALLBACK_LOCALES['el']).toBe('en-us');
-      expect(FALLBACK_LOCALES['tr']).toBe('en-us');
+      expect(FALLBACK_LOCALES['*']).toBe('en-us');
     });
   });
 
