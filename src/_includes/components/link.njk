@@ -1,0 +1,75 @@
+{#
+  Link Component with Emoji Indicators
+  
+  Parameters:
+  - text: The link text to display
+  - url: The URL to link to
+  - type: 'external', 'internal', or 'dictionary' (optional, auto-detected if not provided)
+  - ariaLabel: Custom aria-label (optional)
+  - dictionaryTerm: The dictionary term key (required for dictionary type)
+#}
+
+{%- set linkType = type if type else ('external' if url.startsWith('http') else 'internal') -%}
+{%- set isExternal = linkType == 'external' -%}
+{%- set isInternal = linkType == 'internal' -%}
+{%- set isDictionary = linkType == 'dictionary' -%}
+
+{%- if isDictionary -%}
+  <button 
+    class="dictionary-link inline-flex items-center"
+    data-dictionary-term="{{ dictionaryTerm }}"
+    aria-expanded="false"
+    aria-describedby="tooltip-{{ dictionaryTerm }}"
+    title="Click to see definition"
+  >
+    <span class="dictionary-text">{{ text }}</span>
+    <span class="emoji-indicator dictionary-emoji" aria-hidden="true">📘</span>
+  </button>
+  
+  {# Dictionary tooltip/info box #}
+  <div 
+    id="tooltip-{{ dictionaryTerm }}" 
+    class="dictionary-tooltip hidden"
+    role="tooltip"
+    aria-live="polite"
+  >
+    <div class="tooltip-content">
+      <button class="tooltip-close" aria-label="Close definition">×</button>
+      <div class="tooltip-term">{{ dictionaryTerm | title }}</div>
+      <div class="tooltip-definition">
+        {%- set definition = dictionary[dictionaryTerm] -%}
+        {%- if definition -%}
+          {%- if '/blog/el/' in page.url or page.url == '/el/' -%}
+            {{ definition.el or definition['en-us'] }}
+          {%- elif '/blog/tr/' in page.url or page.url == '/tr/' -%}
+            {{ definition.tr or definition['en-us'] }}
+          {%- else -%}
+            {{ definition['en-us'] }}
+          {%- endif -%}
+        {%- else -%}
+          Definition not found
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+{%- elif isExternal -%}
+  <a 
+    href="{{ url }}" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    class="external-link inline-flex items-center"
+    aria-label="{{ ariaLabel or (text + ' (opens in new tab)') }}"
+  >
+    <span class="link-text">{{ text }}</span>
+    <span class="emoji-indicator external-emoji" aria-hidden="true">↗️</span>
+  </a>
+{%- elif isInternal -%}
+  <a 
+    href="{{ url }}" 
+    class="internal-link inline-flex items-center"
+    aria-label="{{ ariaLabel or text }}"
+  >
+    <span class="link-text">{{ text }}</span>
+    <span class="emoji-indicator internal-emoji" aria-hidden="true">➡️</span>
+  </a>
+{%- endif -%}
