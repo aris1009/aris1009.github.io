@@ -4,9 +4,9 @@ const fs = require('fs');
 const path = require('path');
 
 // Configuration
-const LANGUAGES = ['en', 'el', 'tr'];
+const LANGUAGES = ['en-us', 'el', 'tr'];
 const LOCALE_MAP = {
-  'en': 'en-us',
+  'en-us': 'en-us',
   'el': 'el',
   'tr': 'tr'
 };
@@ -21,7 +21,7 @@ function getCurrentDate() {
 // Create placeholder content for any language
 function createPlaceholderContent(lang, slug, title = '', description = '', keywords = '') {
   const placeholderMessages = {
-    'en': {
+    'en-us': {
       title: 'Translation Not Available',
       content: 'This post has not been translated to English yet. It may be available in other languages. You can help translate it or check back later.'
     },

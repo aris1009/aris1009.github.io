@@ -18,7 +18,7 @@ const DEFAULT_LOCALE = 'en-us';
 const EXCLUDED_TAGS = ["all", "nav", "post", "posts"];
 
 const BLOG_GLOBS = {
-  en: "src/blog/en/*.md",
+  "en-us": "src/blog/en-us/*.md",
   el: "src/blog/el/*.md",
   tr: "src/blog/tr/*.md"
 };
