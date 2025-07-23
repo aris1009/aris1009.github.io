@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { readableDate, htmlDateString, head, min, filterTagList, localizedReadingTime } from '../../lib/filters.js';
+import { readableDate, htmlDateString, head, min, filterTagList, localizedReadingTime } from 'src/lib/filters.js';
 
 describe('filters', () => {
   describe('readableDate', () => {

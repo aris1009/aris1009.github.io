@@ -8,7 +8,7 @@ import {
   BLOG_GLOBS,
   TEMPLATE_FORMATS,
   HTML_MINIFY_OPTIONS
-} from '../../lib/constants.js';
+} from 'src/lib/constants.js';
 
 describe('constants', () => {
   describe('SUPPORTED_LOCALES', () => {

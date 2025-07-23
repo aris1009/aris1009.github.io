@@ -72,18 +72,6 @@ permalink: /blog/${LOCALE_MAP[lang]}/${slug}/
 # ${title}
 
 [Write your content here...]
-
-## Section 1
-
-[Add your content...]
-
-## Section 2
-
-[Add your content...]
-
-## Conclusion
-
-[Add your conclusion...]
 `;
 }
 
