@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { htmlminTransform } from '../../lib/transforms.js';
+import { htmlminTransform } from 'src/lib/transforms.js';
 
 describe('transforms', () => {
   describe('htmlminTransform', () => {

@@ -7,20 +7,20 @@ location: Remote
 type: article
 ---
 <!DOCTYPE html>
-<html lang="{% if locale == 'el' %}el{% elif locale == 'tr' %}tr{% else %}en{% endif %}">
-{% include "head-article.njk" %}
-<!-- Start Body -->
-<body>
-    {% include "nav.njk" %}
-    <article>
-        <small class="info">
-            <time datetime="{{page.date}}">{{page.date | readableDate(locale or 'en-us')}}</time> -
+<html lang="{{locale or 'en-us' }}">
+    {% include "head-article.njk" %}
+    <!-- Start Body -->
+    <body>
+        {% include "nav.njk" %}
+        <article>
+            <small class="info">
+                <time datetime="{{page.date}}">{{page.date | readableDate(locale or 'en-us')}}</time> -
             {{content | localizedReadingTime(locale or 'en-us')}}
-        </small>
-        <h1>{{ title }}</h1>
-        {{content | safe}}
-    </article>
-    {% include "footer.njk" %}
-</body>
-<!-- End Body -->
+            </small>
+            <h1>{{ title }}</h1>
+            {{content | safe}}
+        </article>
+        {% include "footer.njk" %}
+    </body>
+    <!-- End Body -->
 </html>

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { currentYear } from '../../lib/shortcodes.js';
+import { currentYear } from 'src/lib/shortcodes.js';
 
 describe('shortcodes', () => {
   describe('currentYear', () => {

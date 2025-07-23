@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { supportedLocales, getLocale } from '../../lib/global-data.js';
+import { supportedLocales, getLocale } from 'src/lib/global-data.js';
 
 describe('global-data', () => {
   describe('supportedLocales', () => {

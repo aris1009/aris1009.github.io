@@ -11,7 +11,7 @@ module.exports = {
   siteDescription: "A blog about cybersecurity, technology, and digital privacy",
   sitekeyword: "cybersecurity, security, technology, privacy, hacking, malware",
   creationDate: "21/07/2025",
-  url: process.env.URL || "https://ariscodes.com",
+  url: process.env.URL || "https://blog.ariscodes.com",
   robots: "index, follow",
   //
   // Color App

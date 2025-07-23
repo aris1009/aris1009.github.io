@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { postsEn_us, postsEl, postsTr, allPosts } from '../../lib/collections.js';
+import { postsEn_us, postsEl, postsTr, allPosts } from 'src/lib/collections.js';
 
 describe('collections', () => {
   const mockCollectionApi = {
