@@ -280,4 +280,82 @@ test.describe('Theme Toggle Functionality', () => {
     const htmlElement = page.locator('html');
     await expect(htmlElement).toHaveClass(/\bdark\b/);
   });
+
+  test('theme toggle button shows correct state immediately on page load in dark mode', async ({ page }) => {
+    // Set dark theme preference
+    await page.goto('/');
+    await page.evaluate(() => {
+      localStorage.setItem('theme', 'dark');
+    });
+    
+    // Navigate to a fresh page
+    await page.goto('/about/');
+    
+    // Check that both HTML and button show dark state immediately
+    const htmlElement = page.locator('html');
+    const toggleButton = page.locator('#theme-toggle');
+    
+    await expect(htmlElement).toHaveClass(/\bdark\b/);
+    
+    // Check button styling - toggle slider should be in dark position
+    const toggleSlider = page.locator('.toggle-slider');
+    await expect(toggleSlider).toHaveCSS('transform', 'matrix(1, 0, 0, 1, 28, 0)'); // translateX(28px)
+    
+    // Check icon states - sun should be hidden, moon should be visible
+    const sunIcon = page.locator('.sun-icon');
+    const moonIcon = page.locator('.moon-icon');
+    await expect(sunIcon).toHaveCSS('opacity', '0');
+    await expect(moonIcon).toHaveCSS('opacity', '1');
+  });
+
+  test('theme toggle button shows correct state immediately on page load in light mode', async ({ page }) => {
+    // Set light theme preference and force light system preference
+    await page.emulateMedia({ colorScheme: 'light' });
+    await page.goto('/');
+    await page.evaluate(() => {
+      localStorage.setItem('theme', 'light');
+    });
+    
+    // Navigate to a fresh page
+    await page.goto('/about/');
+    
+    // Check that both HTML and button show light state immediately
+    const htmlElement = page.locator('html');
+    const toggleButton = page.locator('#theme-toggle');
+    
+    await expect(htmlElement).not.toHaveClass(/\bdark\b/);
+    await expect(htmlElement).not.toHaveClass(/sl-theme-dark/);
+    
+    // Check button styling - toggle slider should be in light position  
+    const toggleSlider = page.locator('.toggle-slider');
+    await expect(toggleSlider).toHaveCSS('transform', 'matrix(1, 0, 0, 1, 0, 0)'); // translateX(0px)
+    
+    // Check icon states - sun should be visible, moon should be hidden
+    const sunIcon = page.locator('.sun-icon');
+    const moonIcon = page.locator('.moon-icon');
+    await expect(sunIcon).toHaveCSS('opacity', '1');
+    await expect(moonIcon).toHaveCSS('opacity', '0');
+  });
+
+  test('no visual flash during navigation with dark theme', async ({ page }) => {
+    // Set dark theme
+    await page.goto('/');
+    await page.evaluate(() => {
+      localStorage.setItem('theme', 'dark');
+    });
+    
+    // Navigate between pages rapidly to test for flash
+    await page.goto('/');
+    await page.goto('/about/');
+    await page.goto('/');
+    
+    // Button should consistently show dark state
+    const toggleSlider = page.locator('.toggle-slider');
+    await expect(toggleSlider).toHaveCSS('transform', 'matrix(1, 0, 0, 1, 28, 0)');
+    
+    const sunIcon = page.locator('.sun-icon');
+    const moonIcon = page.locator('.moon-icon');
+    await expect(sunIcon).toHaveCSS('opacity', '0');
+    await expect(moonIcon).toHaveCSS('opacity', '1');
+  });
 });

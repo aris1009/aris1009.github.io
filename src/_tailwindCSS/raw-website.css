@@ -241,12 +241,12 @@
     }
   }
   
-  .theme-toggle-pill.dark .toggle-slider {
+  html.dark .theme-toggle-pill .toggle-slider {
     transform: translateX(28px);
   }
 
   @media (max-width: 640px) {
-    .theme-toggle-pill.dark .toggle-slider {
+    html.dark .theme-toggle-pill .toggle-slider {
       transform: translateX(24px);
     }
   }
@@ -269,11 +269,11 @@
     @apply text-blue-500 opacity-0 absolute;
   }
   
-  .theme-toggle-pill.dark .sun-icon {
+  html.dark .theme-toggle-pill .sun-icon {
     @apply opacity-0;
   }
   
-  .theme-toggle-pill.dark .moon-icon {
+  html.dark .theme-toggle-pill .moon-icon {
     @apply opacity-100;
   }
 
