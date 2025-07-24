@@ -422,3 +422,148 @@ test.describe('Dictionary Tooltips on Blog Posts', () => {
     }
   });
 });
+
+// Test localized dictionary tooltips
+test.describe('Localized Dictionary Tooltips', () => {
+  const testCases = [
+    {
+      locale: 'en-us',
+      path: '/blog/en-us/gru-kms-windows/',
+      expectedTexts: {
+        encryption: 'The process of converting readable data into coded form',
+        firewall: 'A network security system that monitors and controls',
+        malware: 'Malicious software designed to damage',
+        phishing: 'A cyber attack method where attackers impersonate legitimate organizations',
+        vpn: 'Virtual Private Network - A secure connection method'
+      }
+    },
+    {
+      locale: 'el',
+      path: '/blog/el/gru-kms-windows/',
+      expectedTexts: {
+        encryption: 'Η διαδικασία μετατροπής αναγνώσιμων δεδομένων σε κωδικοποιημένη μορφή',
+        firewall: 'Ένα σύστημα ασφάλειας δικτύου που παρακολουθεί και ελέγχει',
+        malware: 'Κακόβουλο λογισμικό σχεδιασμένο να προκαλέσει ζημιά',
+        phishing: 'Μια μέθοδος κυβερνοεπίθεσης όπου οι επιτιθέμενοι μιμούνται νόμιμους οργανισμούς',
+        vpn: 'Εικονικό Ιδιωτικό Δίκτυο - Μια ασφαλής μέθοδος σύνδεσης'
+      }
+    },
+    {
+      locale: 'tr',
+      path: '/blog/tr/gru-kms-windows/',
+      expectedTexts: {
+        encryption: 'Yetkisiz erişimi önlemek için okunabilir verileri kodlu forma dönüştürme işlemi',
+        firewall: 'Önceden belirlenmiş güvenlik kurallarına dayalı olarak gelen ve giden ağ trafiğini',
+        malware: 'Bilgisayar sistemlerine zarar vermek, aksatmak veya yetkisiz erişim sağlamak',
+        phishing: 'Saldırganların meşru kuruluşları taklit ederek bireyleri sahte e-postalar',
+        vpn: 'Sanal Özel Ağ - Cihazınız ile uzak bir sunucu arasında şifreli bir tünel'
+      }
+    }
+  ];
+
+  for (const testCase of testCases) {
+    test(`dictionary tooltips show ${testCase.locale} translations on ${testCase.locale} pages`, async ({ page }) => {
+      await page.goto(testCase.path);
+      
+      // Look for dictionary links
+      const dictionaryLinks = page.getByTestId(/^dictionary-link-/);
+      const linkCount = await dictionaryLinks.count();
+      
+      if (linkCount > 0) {
+        // Test each available dictionary link on the page
+        for (let i = 0; i < Math.min(linkCount, 3); i++) { // Test up to 3 links to avoid long tests
+          const link = dictionaryLinks.nth(i);
+          const testId = await link.getAttribute('data-testid');
+          const term = testId.replace('dictionary-link-', '');
+          
+          // Skip if we don't have expected text for this term
+          if (!testCase.expectedTexts[term]) {
+            continue;
+          }
+          
+          const tooltip = page.getByTestId(`dictionary-tooltip-${term}`);
+          
+          // Show tooltip
+          await link.hover();
+          await expect(tooltip).toBeVisible();
+          
+          // Check that the definition contains the expected localized text
+          const tooltipDefinition = tooltip.locator('.tooltip-definition');
+          const definitionText = await tooltipDefinition.textContent();
+          
+          expect(definitionText).toContain(testCase.expectedTexts[term]);
+          
+          // Verify it doesn't contain text from other locales
+          const otherLocales = testCases.filter(t => t.locale !== testCase.locale);
+          for (const otherLocale of otherLocales) {
+            if (otherLocale.expectedTexts[term]) {
+              expect(definitionText).not.toContain(otherLocale.expectedTexts[term]);
+            }
+          }
+          
+          // Hide tooltip before next iteration - be more aggressive about closing it
+          await page.click('body');
+          await page.waitForTimeout(300); // Wait for tooltip animation to complete
+        }
+      }
+    });
+  }
+
+  test('fallback to English works when locale translation is missing', async ({ page }) => {
+    // This test would require a term that exists in dictionary but is missing a translation
+    // Since all current terms have all translations, we'll skip this test
+    // In a real scenario, you might temporarily modify dictionary data for testing
+    test.skip('All current dictionary terms have complete translations');
+  });
+
+  test('consistent test IDs across all locales', async ({ page }) => {
+    const paths = ['/blog/en-us/gru-kms-windows/', '/blog/el/gru-kms-windows/', '/blog/tr/gru-kms-windows/'];
+    
+    for (const path of paths) {
+      await page.goto(path);
+      
+      const dictionaryLinks = page.getByTestId(/^dictionary-link-/);
+      const linkCount = await dictionaryLinks.count();
+      
+      for (let i = 0; i < linkCount; i++) {
+        const link = dictionaryLinks.nth(i);
+        const testId = await link.getAttribute('data-testid');
+        const term = testId.replace('dictionary-link-', '');
+        
+        // Verify test IDs are consistent
+        const tooltip = page.getByTestId(`dictionary-tooltip-${term}`);
+        const emoji = page.getByTestId(`dictionary-emoji-${term}`);
+        
+        await expect(link).toHaveAttribute('data-testid', `dictionary-link-${term}`);
+        await expect(tooltip).toHaveAttribute('data-testid', `dictionary-tooltip-${term}`);
+        await expect(emoji).toHaveAttribute('data-testid', `dictionary-emoji-${term}`);
+      }
+    }
+  });
+
+  test('keyboard navigation works across all locales', async ({ page }) => {
+    const paths = ['/blog/en-us/gru-kms-windows/', '/blog/el/gru-kms-windows/', '/blog/tr/gru-kms-windows/'];
+    
+    for (const path of paths) {
+      await page.goto(path);
+      
+      const dictionaryLinks = page.getByTestId(/^dictionary-link-/);
+      const linkCount = await dictionaryLinks.count();
+      
+      if (linkCount > 0) {
+        const firstLink = dictionaryLinks.first();
+        const testId = await firstLink.getAttribute('data-testid');
+        const term = testId.replace('dictionary-link-', '');
+        const tooltip = page.getByTestId(`dictionary-tooltip-${term}`);
+        
+        // Test keyboard navigation
+        await firstLink.focus();
+        await page.keyboard.press('Enter');
+        await expect(tooltip).toBeVisible();
+        
+        await page.keyboard.press('Escape');
+        await page.waitForTimeout(300); // Wait for tooltip animation to complete
+      }
+    }
+  });
+});

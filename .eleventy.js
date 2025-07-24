@@ -53,7 +53,13 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addShortcode("currentYear", shortcodes.currentYear);
   eleventyConfig.addShortcode("externalLink", shortcodes.externalLink);
   eleventyConfig.addShortcode("internalLink", shortcodes.internalLink);
-  eleventyConfig.addShortcode("dictionaryLink", shortcodes.dictionaryLink);
+  eleventyConfig.addShortcode("dictionaryLink", function (text, term) {
+    let locale = this && this.ctx && this.ctx.locale
+      ? this.ctx.locale
+      : 'en-us'
+
+    return shortcodes.dictionaryLink(text, term, locale);
+  });
   eleventyConfig.addShortcode("themeToggle", shortcodes.themeToggle);
 
   return {

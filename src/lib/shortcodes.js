@@ -12,13 +12,14 @@ function internalLink(text, url, ariaLabel = '') {
   return `<a href="${url}" class="internal-link inline-flex items-center" aria-label="${label}"><span class="link-text">${text}</span><span class="emoji-indicator internal-emoji" aria-hidden="true">➡️</span></a>`;
 }
 
-function dictionaryLink(text, term) {
+function dictionaryLink(text, term, locale = 'en-us') {
   const dictionary = require('../_data/dictionary.js');
   const definition = dictionary[term];
   let definitionText = 'Term not found in dictionary';
 
   if (definition) {
-    definitionText = definition['en-us'] || 'Definition not available';
+    // Try the requested locale first, then fallback to English, then error message
+    definitionText = definition[locale] || definition['en-us'] || 'Definition not available';
   }
 
   // Use slot="content" for HTML content in tooltip
