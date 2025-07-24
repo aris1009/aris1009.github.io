@@ -34,9 +34,21 @@ function dictionaryLink(text, term) {
   </sl-tooltip>`;
 }
 
+function themeToggle() {
+  return `<button 
+    class="theme-toggle inline-flex items-center p-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors duration-200" 
+    onclick="window.themeManager.toggle()" 
+    aria-label="Toggle theme"
+    data-testid="theme-toggle">
+    <span class="theme-icon light-icon" data-testid="light-icon" aria-hidden="true">☀️</span>
+    <span class="theme-icon dark-icon" data-testid="dark-icon" aria-hidden="true">🌙</span>
+  </button>`;
+}
+
 module.exports = {
   currentYear,
   externalLink,
   internalLink,
-  dictionaryLink
+  dictionaryLink,
+  themeToggle
 };

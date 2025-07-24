@@ -54,6 +54,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addShortcode("externalLink", shortcodes.externalLink);
   eleventyConfig.addShortcode("internalLink", shortcodes.internalLink);
   eleventyConfig.addShortcode("dictionaryLink", shortcodes.dictionaryLink);
+  eleventyConfig.addShortcode("themeToggle", shortcodes.themeToggle);
 
   return {
     templateFormats: constants.TEMPLATE_FORMATS,

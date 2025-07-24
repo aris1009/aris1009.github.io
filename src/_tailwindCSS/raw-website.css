@@ -490,4 +490,21 @@
   .dictionary-tooltip-content .tooltip-definition {
     @apply text-sm text-gray-700 dark:text-gray-300 leading-relaxed;
   }
+
+  /* Theme Toggle Shortcode Styles */
+  .theme-toggle {
+    @apply relative;
+  }
+
+  .theme-icon {
+    @apply text-base transition-opacity duration-200;
+  }
+
+  .light-icon {
+    @apply opacity-100 dark:opacity-0;
+  }
+
+  .dark-icon {
+    @apply opacity-0 dark:opacity-100 absolute inset-0 flex items-center justify-center;
+  }
 }
