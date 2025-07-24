@@ -4,6 +4,9 @@ class ThemeManager {
   }
 
   init() {
+    // Set initial theme based on saved preference or system preference
+    this.initializeTheme();
+    
     // Set up theme toggle button listener
     this.setupToggleButton();
     
@@ -13,6 +16,24 @@ class ThemeManager {
         this.setTheme(e.matches ? 'dark' : 'light');
       }
     });
+  }
+
+  initializeTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    let theme;
+    if (savedTheme === 'dark' || savedTheme === 'light') {
+      theme = savedTheme;
+    } else {
+      theme = systemPrefersDark ? 'dark' : 'light';
+    }
+    
+    // Only set if different from current state to avoid unnecessary DOM manipulation
+    const currentTheme = this.getCurrentTheme();
+    if (currentTheme !== theme) {
+      this.setTheme(theme);
+    }
   }
 
   setupToggleButton() {
