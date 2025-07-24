@@ -12,7 +12,7 @@ permalink: /blog/el/gru-kms-windows/
 Ακούω συχνά το "Δεν έχω και τίποτα να κρύψω, γιατί να ανησυχώ;"
 Πρόσφατα γεγονότα που εμπλέκουν τις ρωσικές μυστικές υπηρεσίες πληροφοριών να στοχεύει απλούς πολίτες μέσω πειρατικού λογισμικού αποδεικνύουν ότι αυτή η σκέψη είναι επικίνδυνα λανθασμένη.
 
-Στα τέλη του 2023, η [ρωσική GRU](https://en.wikipedia.org/wiki/GRU_(Russian_Federation)) ξεκίνησε μια εξελιγμένη εκστρατεία που όπλισε κάτι που κάνουν εκατομμύρια άνθρωποι κάθε μέρα, το κατέβασμα δωρεάν λογισμικού. Στόχευσαν συγκεκριμένα ανθρώπους που χρησιμοποιούν πειρατικά εργαλεία ενεργοποίησης Windows, μετατρέποντας καθημερινούς υπολογιστές σε δίκτυα κατασκοπείας και βάζοντας ολόκληρες οικογένειες σε κίνδυνο.
+Στα τέλη του 2023, η {% externalLink "ρωσική GRU", "https://en.wikipedia.org/wiki/GRU_(Russian_Federation" %}) ξεκίνησε μια εξελιγμένη εκστρατεία που όπλισε κάτι που κάνουν εκατομμύρια άνθρωποι κάθε μέρα, το κατέβασμα δωρεάν λογισμικού. Στόχευσαν συγκεκριμένα ανθρώπους που χρησιμοποιούν πειρατικά εργαλεία ενεργοποίησης Windows, μετατρέποντας καθημερινούς υπολογιστές σε δίκτυα κατασκοπείας και βάζοντας ολόκληρες οικογένειες σε κίνδυνο.
 
 Να γιατί σε αφορά αυτό, ακόμα κι αν νομίζεις ότι δεν είσαι "και κανένας σημαντικός".
 
@@ -24,7 +24,7 @@ permalink: /blog/el/gru-kms-windows/
 - **Dark Crystal RAT**: Κλέβει κωδικούς, παίρνει στιγμιότυπα οθόνης και καταγράφει ό,τι πληκτρολογείς.
 - **Kalambur**: Δημιουργεί μόνιμες πίσω πόρτες χρησιμοποιώντας το δίκτυο Tor.
 
-Σύμφωνα με [έρευνες](https://blog.eclecticiq.com/sandworm-apt-targets-ukrainian-users-with-trojanized-microsoft-kms-activation-tools-in-cyber-espionage-campaigns), αυτά τα ψεύτικα εργαλεία έχουν διανεμηθεί μέσω torrent sites και παράνομων φόρουμ λογισμικού, στοχεύοντας κυρίως ουκρανούς χρήστες αλλά με δυνατότητα παγκόσμιας επέκτασης.
+Σύμφωνα με {% externalLink "έρευνες", "https://blog.eclecticiq.com/sandworm-apt-targets-ukrainian-users-with-trojanized-microsoft-kms-activation-tools-in-cyber-espionage-campaigns" %}, αυτά τα ψεύτικα εργαλεία έχουν διανεμηθεί μέσω torrent sites και παράνομων φόρουμ λογισμικού, στοχεύοντας κυρίως ουκρανούς χρήστες αλλά με δυνατότητα παγκόσμιας επέκτασης.
 
 Το τρομακτικό της υπόθεσης; Τα εργαλεία ενεργοποίησης όντως δουλεύουν. Τα Windows σου ενεργοποιούνται, όλα φαίνονται φυσιολογικά, αλλά ο υπολογιστής σου τώρα ανήκει στη ρωσική υπηρεσία πληροφοριών.
 
@@ -63,7 +63,7 @@ Tο επιχείρημα "δεν έχω και τίποτα να κρύψω" α�
 - Διανομή spam emails που μπορεί να έχει ανεπιθύμητες συνέπειες για τις επαφές σου
 
 **Διείσδυση σε Δίκτυα**  
-Αν συνδέεσαι σε δίκτυα της δουλειάς, οικογενειακό Wi-Fi ή δημόσιο internet, το malware μπορεί να εξαπλωθεί σε:
+Αν συνδέεσαι σε δίκτυα της δουλειάς, οικογενειακό Wi-Fi ή δημόσιο internet, το {% dictionaryLink "malware", "malware" %} μπορεί να εξαπλωθεί σε:
 - Συστήματα του εργοδότη σου, πιθανώς κοστίζοντας δουλειές και βλάπτοντας επιχειρήσεις
 - Συσκευές μελών της οικογένειας συνδεδεμένες στο ίδιο δίκτυο
 - Υπολογιστές φίλων όταν μοιράζεσαι αρχεία ή επισκέπτεσαι τα σπίτια τους
@@ -71,14 +71,14 @@ Tο επιχείρημα "δεν έχω και τίποτα να κρύψω" α�
 **Επιθέσεις Social Engineering**  
 Οι χάκερς χρησιμοποιούν τις κλεμμένες προσωπικές πληροφορίες σου για να:
 - Σε μιμηθούν σε επιθέσεις εναντίον φίλων και οικογένειας
-- Δημιουργήσουν πειστικά phishing emails ή μηνύματα (Telegram, Discord, WhatsApp κτλ) χρησιμοποιώντας τις αληθινές σχέσεις σου
+- Δημιουργήσουν πειστικά {% dictionaryLink "phishing", "phishing" %} emails ή μηνύματα (Telegram, Discord, WhatsApp κτλ) χρησιμοποιώντας τις αληθινές σχέσεις σου
 - Αποκτήσουν πρόσβαση σε λογαριασμούς ανθρώπων που σε εμπιστεύονται
 
-Σύμφωνα με την [τεκμηρίωση του CERT-UA](https://socprime.com/blog/detect-sandworm-apt-attacks-against-ukraine/), επιβεβαιωμένα περιστατικά περιλαμβάνουν παραβιασμό ουκρανικών εταιρειών κοινής ωφέλειας μέσω υπαλλήλων που χρησιμοποιούσαν πειρατικό λογισμικό σε προσωπικές συσκευές που αργότερα συνδέθηκαν σε δίκτυα εργασίας.
+Σύμφωνα με την {% externalLink "τεκμηρίωση του CERT-UA", "https://socprime.com/blog/detect-sandworm-apt-attacks-against-ukraine/" %}, επιβεβαιωμένα περιστατικά περιλαμβάνουν παραβιασμό ουκρανικών εταιρειών κοινής ωφέλειας μέσω υπαλλήλων που χρησιμοποιούσαν πειρατικό λογισμικό σε προσωπικές συσκευές που αργότερα συνδέθηκαν σε δίκτυα εργασίας.
 
 ## Συμβαίνει Ήδη
 
-Όλα αυτά δεν είναι θεωρητικά. [Ουκρανικές κυβερνητικές πηγές](https://itc.ua/en/news/russian-hackers-attack-ukrainians-with-windows-kms-activator-and-fake-updates/) επιβεβαιώνουν ενεργές εκστρατείες που στοχεύουν υπολογιστές πολιτών, με καταγεγραμμένες περιπτώσεις:
+Όλα αυτά δεν είναι θεωρητικά. {% externalLink "Ουκρανικές κυβερνητικές πηγές", "https://itc.ua/en/news/russian-hackers-attack-ukrainians-with-windows-kms-activator-and-fake-updates/" %} επιβεβαιώνουν ενεργές εκστρατείες που στοχεύουν υπολογιστές πολιτών, με καταγεγραμμένες περιπτώσεις:
 
 - Προσωπικές συσκευές που παραβιάστηκαν μέσω ψεύτικων εργαλείων ενεργοποίησης
 - Οικογενειακά δίκτυα που διεισδύθηκαν αφού ένας υπολογιστής μολύνθηκε
@@ -131,12 +131,12 @@ Tο επιχείρημα "δεν έχω και τίποτα να κρύψω" α�
 - Ενημέρωσε τα μέλη της οικογένειας σου και τους φίλους σου για αυτούς τους κινδύνους
 - Διατήρησε offline αντίγραφα ασφαλείας σημαντικών δεδομένων
 
-Σύμφωνα με τις οδηγίες [ασφάλειας της Microsoft](https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=HackTool:Win32/KMSActivator.A!MSR&threatId=-2147224043), το Windows Defender αυτόματα εντοπίζει και αφαιρεί αυτές τις απειλές όταν χρησιμοποιείς νόμιμο λογισμικό και ενημερώσεις ασφάλειας.
+Σύμφωνα με τις οδηγίες {% externalLink "ασφάλειας της Microsoft", "https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=HackTool:Win32/KMSActivator.A!MSR&threatId=-2147224043" %}, το Windows Defender αυτόματα εντοπίζει και αφαιρεί αυτές τις απειλές όταν χρησιμοποιείς νόμιμο λογισμικό και ενημερώσεις ασφάλειας.
 
 Να σε τι καταλήγει: Το επιχείρημα "δεν έχω και τίποτα να κρύψω" απλά δεν ισχύει. Οι χάκερς δε νοιάζονται αν είσαι σημαντικός, χρειάζονται απλά να είσαι online και ανυπεράσπιστος.
 
 **Πηγές:**
-- [EclecticIQ: Sandworm APT Targets Ukrainian Users](https://blog.eclecticiq.com/sandworm-apt-targets-ukrainian-users-with-trojanized-microsoft-kms-activation-tools-in-cyber-espionage-campaigns)
-- [SOC Prime: Detect Sandworm APT Attacks Against Ukraine](https://socprime.com/blog/detect-sandworm-apt-attacks-against-ukraine/)
-- [Microsoft Security Intelligence: KMSActivator Threat Description](https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=HackTool:Win32/KMSActivator.A!MSR&threatId=-2147224043)
-- [ITC.ua: Russian Hackers Attack Ukrainians with Windows KMS Activator](https://itc.ua/en/news/russian-hackers-attack-ukrainians-with-windows-kms-activator-and-fake-updates/)
+- {% externalLink "EclecticIQ: Sandworm APT Targets Ukrainian Users", "https://blog.eclecticiq.com/sandworm-apt-targets-ukrainian-users-with-trojanized-microsoft-kms-activation-tools-in-cyber-espionage-campaigns" %}
+- {% externalLink "SOC Prime: Detect Sandworm APT Attacks Against Ukraine", "https://socprime.com/blog/detect-sandworm-apt-attacks-against-ukraine/" %}
+- {% externalLink "Microsoft Security Intelligence: KMSActivator Threat Description", "https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=HackTool:Win32/KMSActivator.A!MSR&threatId=-2147224043" %}
+- {% externalLink "ITC.ua: Russian Hackers Attack Ukrainians with Windows KMS Activator", "https://itc.ua/en/news/russian-hackers-attack-ukrainians-with-windows-kms-activator-and-fake-updates/" %}

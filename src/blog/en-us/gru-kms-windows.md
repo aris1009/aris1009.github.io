@@ -21,10 +21,10 @@ Here's why this matters to you, even if you think you're "nobody important."
 The operation works through fake Microsoft KMS activators, tools people use to activate Windows without paying for a license. The Russian hackers have created malicious versions that look and work exactly like the real thing, but secretly install three dangerous programs on your computer:
 
 - **BACKORDER**: A program that disables Windows Defender and opens your system.
-- **Dark Crystal RAT**: Steals passwords, takes screenshots, and records everything you type.
+- **Dark Crystal RAT**: This {% dictionaryLink "malware", "malware" %} steals passwords, takes screenshots, and records everything you type.
 - **Kalambur**: Creates permanent backdoors using Tor networks.
 
-According to [cybersecurity researchers](https://blog.eclecticiq.com/sandworm-apt-targets-ukrainian-users-with-trojanized-microsoft-kms-activation-tools-in-cyber-espionage-campaigns), these fake tools have been distributed through torrent sites and illicit software forums, primarily targeting Ukrainian users but with potential for global expansion.
+According to {% externalLink "cybersecurity researchers", "https://blog.eclecticiq.com/sandworm-apt-targets-ukrainian-users-with-trojanized-microsoft-kms-activation-tools-in-cyber-espionage-campaigns" %}, these fake tools have been distributed through torrent sites and illicit software forums, primarily targeting Ukrainian users but with potential for global expansion.
 
 The scary part? The activation tools actually work. Your Windows gets activated, everything seems normal, but your computer is now owned by Russian intelligence.
 
@@ -71,14 +71,14 @@ If you connect to workplace networks, family Wi-Fi, or public internet, malware 
 **Social Engineering Attacks**  
 Hackers use your stolen personal information to:
 - Impersonate you in attacks against friends and family
-- Create convincing phishing emails or text messages (Telegram, Discord, WhatsApp etc) using your real relationships
+- Create convincing {% dictionaryLink "phishing", "phishing" %} emails or text messages (Telegram, Discord, WhatsApp etc) using your real relationships
 - Access accounts belonging to people who trust you
 
-According to [CERT-UA documentation](https://socprime.com/blog/detect-sandworm-apt-attacks-against-ukraine/), confirmed incidents include compromise of Ukrainian utility companies through employees using pirated software on personal devices later connected to work networks.
+According to {% externalLink "CERT-UA documentation", "https://socprime.com/blog/detect-sandworm-apt-attacks-against-ukraine/" %}, confirmed incidents include compromise of Ukrainian utility companies through employees using pirated software on personal devices later connected to work networks.
 
 ## It's Already Happening
 
-This isn't theoretical. [Government sources](https://itc.ua/en/news/russian-hackers-attack-ukrainians-with-windows-kms-activator-and-fake-updates/) confirm active campaigns targeting civilian computers, with documented cases of:
+This isn't theoretical. {% externalLink "Government sources", "https://itc.ua/en/news/russian-hackers-attack-ukrainians-with-windows-kms-activator-and-fake-updates/" %} confirm active campaigns targeting civilian computers, with documented cases of:
 
 - Personal devices compromised through fake activation tools
 - Family networks infiltrated after one computer got infected
@@ -129,14 +129,15 @@ The solution isn't complicated, but it requires changing some habits:
 
 **Awareness and Education**
 - Educate family members about these risks
+- Learn more cybersecurity terms from our {% internalLink "dictionary", "/en-us/dictionary/" %}
 - Maintain offline backups of important data
 
-According to [Microsoft's security guidance](https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=HackTool:Win32/KMSActivator.A!MSR&threatId=-2147224043), Windows Defender automatically detects and removes these threats when using legitimate software and security updates.
+According to {% externalLink "Microsoft's security guidance", "https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=HackTool:Win32/KMSActivator.A!MSR&threatId=-2147224043" %}, Windows Defender automatically detects and removes these threats when using legitimate software and security updates.
 
 Here's what it comes down to: The "nothing to hide" argument simply doesn't hold anymore. Hackers don't care if you're important --they just need you online and unprotected.
 
 **Sources:**
-- [EclecticIQ: Sandworm APT Targets Ukrainian Users](https://blog.eclecticiq.com/sandworm-apt-targets-ukrainian-users-with-trojanized-microsoft-kms-activation-tools-in-cyber-espionage-campaigns)
-- [SOC Prime: Detect Sandworm APT Attacks Against Ukraine](https://socprime.com/blog/detect-sandworm-apt-attacks-against-ukraine/)
-- [Microsoft Security Intelligence: KMSActivator Threat Description](https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=HackTool:Win32/KMSActivator.A!MSR&threatId=-2147224043)
-- [ITC.ua: Russian Hackers Attack Ukrainians with Windows KMS Activator](https://itc.ua/en/news/russian-hackers-attack-ukrainians-with-windows-kms-activator-and-fake-updates/)
+- {% externalLink "EclecticIQ: Sandworm APT Targets Ukrainian Users", "https://blog.eclecticiq.com/sandworm-apt-targets-ukrainian-users-with-trojanized-microsoft-kms-activation-tools-in-cyber-espionage-campaigns" %}
+- {% externalLink "SOC Prime: Detect Sandworm APT Attacks Against Ukraine", "https://socprime.com/blog/detect-sandworm-apt-attacks-against-ukraine/" %}
+- {% externalLink "Microsoft Security Intelligence: KMSActivator Threat Description", "https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=HackTool:Win32/KMSActivator.A!MSR&threatId=-2147224043" %}
+- {% externalLink "ITC.ua: Russian Hackers Attack Ukrainians with Windows KMS Activator", "https://itc.ua/en/news/russian-hackers-attack-ukrainians-with-windows-kms-activator-and-fake-updates/" %}
