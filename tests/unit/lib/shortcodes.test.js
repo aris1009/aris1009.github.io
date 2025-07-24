@@ -117,6 +117,49 @@ describe('shortcodes', () => {
       expect(result).not.toContain('Μια μέθοδος κυβερνοεπίθεσης'); // Greek text should not appear
     });
 
+    it('should use Greek definition when locale is "el"', () => {
+      const result = dictionaryLink('test', 'phishing', 'el');
+      
+      expect(result).toContain('Μια μέθοδος κυβερνοεπίθεσης όπου οι επιτιθέμενοι μιμούνται νόμιμους οργανισμούς');
+      expect(result).not.toContain('A cyber attack method where attackers impersonate legitimate organizations');
+    });
+
+    it('should use Turkish definition when locale is "tr"', () => {
+      const result = dictionaryLink('test', 'phishing', 'tr');
+      
+      expect(result).toContain('Saldırganların meşru kuruluşları taklit ederek bireyleri sahte e-postalar');
+      expect(result).not.toContain('A cyber attack method where attackers impersonate legitimate organizations');
+    });
+
+    it('should fallback to English when requested locale is not available', () => {
+      const result = dictionaryLink('test', 'encryption', 'fr'); // French not supported
+      
+      expect(result).toContain('The process of converting readable data into coded form');
+      expect(result).not.toContain('Η διαδικασία μετατροπής'); // Should not contain Greek
+    });
+
+    it('should generate correct test IDs regardless of locale', () => {
+      const resultEn = dictionaryLink('test', 'vpn', 'en-us');
+      const resultEl = dictionaryLink('test', 'vpn', 'el');
+      const resultTr = dictionaryLink('test', 'vpn', 'tr');
+      
+      // All should have the same test IDs
+      expect(resultEn).toContain('data-testid="dictionary-tooltip-vpn"');
+      expect(resultEl).toContain('data-testid="dictionary-tooltip-vpn"');
+      expect(resultTr).toContain('data-testid="dictionary-tooltip-vpn"');
+      
+      expect(resultEn).toContain('data-testid="dictionary-link-vpn"');
+      expect(resultEl).toContain('data-testid="dictionary-link-vpn"');
+      expect(resultTr).toContain('data-testid="dictionary-link-vpn"');
+    });
+
+    it('should handle unknown terms with fallback locale', () => {
+      const result = dictionaryLink('unknown term', 'nonexistent', 'el');
+      
+      expect(result).toContain('Term not found in dictionary');
+      expect(result).toContain('Nonexistent'); // Capitalized unknown term
+    });
+
     it('should preserve CSS classes for styling', () => {
       const result = dictionaryLink('test', 'encryption');
       
