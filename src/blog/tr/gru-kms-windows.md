@@ -24,7 +24,7 @@ Bu operasyon sahte Microsoft KMS etkinleştiriciler üzerinden çalışıyor - i
 - **Dark Crystal RAT**: Şifreleri çalan, ekran görüntüleri alan ve yazdığın her şeyi kaydeden program.
 - **Kalambur**: Tor ağları kullanarak kalıcı arka kapılar oluşturan program.
 
-Siber güvenlik [araştırmacılarına göre](https://blog.eclecticiq.com/sandworm-apt-targets-ukrainian-users-with-trojanized-microsoft-kms-activation-tools-in-cyber-espionage-campaigns), bu sahte araçlar torrent siteleri ve yasadışı yazılım forumları üzerinden dağıtılmış, öncelikle Ukraynalı kullanıcıları hedef alıyor ama küresel genişleme potansiyeli de var.
+Siber güvenlik {% externalLink "araştırmacılarına göre", "https://blog.eclecticiq.com/sandworm-apt-targets-ukrainian-users-with-trojanized-microsoft-kms-activation-tools-in-cyber-espionage-campaigns" %}, bu sahte araçlar torrent siteleri ve yasadışı yazılım forumları üzerinden dağıtılmış, öncelikle Ukraynalı kullanıcıları hedef alıyor ama küresel genişleme potansiyeli de var.
 
 Korkutucu olan kısım? Etkinleştirme araçları gerçekten çalışıyor. Windows'un etkinleşiyor, her şey normal görünüyor ama bilgisayarın artık Rus istihbaratının malı.
 
@@ -71,14 +71,14 @@ Makinenin şunlar için kullanılan enfekte bilgisayar ağlarına katılıyor:
 **Sosyal Mühendislik Saldırıları**  
 Hackerlar çaldıkları kişisel bilgilerini şunlar için kullanıyor:
 - Arkadaşlara ve aileye karşı saldırılarda seni taklit etmek
-- Gerçek ilişkilerini kullanarak ikna edici phishing e-postaları veya mesajları (Telegram, Discord, WhatsApp vs.) oluşturmak
+- Gerçek ilişkilerini kullanarak ikna edici {% dictionaryLink "phishing", "phishing" %} e-postaları veya mesajları (Telegram, Discord, WhatsApp vs.) oluşturmak
 - Sana güvenen insanlara ait hesaplara erişim sağlamak
 
-[CERT-UA](<https://socprime.com/blog/detect-sandworm-apt-attacks-against-ukraine/), belgelerine göre, doğrulanmış vakalar arasında kişisel cihazlarda korsan yazılım kullanan çalışanlar vasıtasıyla Ukraynalı kamu hizmeti şirketlerinin ele geçirilmesi de var - bu cihazlar daha sonra iş ağlarına bağlanmış.
+{% externalLink "CERT-UA", "https://socprime.com/blog/detect-sandworm-apt-attacks-against-ukraine/" %}, belgelerine göre, doğrulanmış vakalar arasında kişisel cihazlarda korsan yazılım kullanan çalışanlar vasıtasıyla Ukraynalı kamu hizmeti şirketlerinin ele geçirilmesi de var - bu cihazlar daha sonra iş ağlarına bağlanmış.
 
 ## Bu Zaten Yaşanıyor
 
-Bu teorik değil. [Resmi kaynaklar](https://itc.ua/en/news/russian-hackers-attack-ukrainians-with-windows-kms-activator-and-fake-updates/) sivil bilgisayarları hedef alan aktif kampanyaları doğruluyor, belgelenmiş vakalar arasında şunlar var:
+Bu teorik değil. {% externalLink "Resmi kaynaklar", "https://itc.ua/en/news/russian-hackers-attack-ukrainians-with-windows-kms-activator-and-fake-updates/" %} sivil bilgisayarları hedef alan aktif kampanyaları doğruluyor, belgelenmiş vakalar arasında şunlar var:
 
 - Sahte etkinleştirme araçları yoluyla ele geçirilen kişisel cihazlar
 - Bir bilgisayar enfekte olduktan sonra sızan aile ağları
@@ -118,7 +118,7 @@ Bugün çalınan bilgiler yıllarca, belki de sonsuza dek saklanıyor. Bir üniv
 
 **Temel Güvenlik Hijyeni**
 - İşletim sistemi ve tüm yazılımları otomatik olarak güncel tut
-- Ücretsiz antivirüs veya ücretsiz VPN'ler kullanma
+- Ücretsiz antivirüs veya ücretsiz {% dictionaryLink "VPN", "vpn" %}'ler kullanma
 - Windows kullanıyorsan Windows Defender'ın etkin, çalışır durumda ve sık güncellenen olduğundan emin ol
 - Beklenmeyen pop-up'lar veya yavaş performans gibi olağandışı aktivite için cihazlarını izle
 
@@ -131,12 +131,12 @@ Bugün çalınan bilgiler yıllarca, belki de sonsuza dek saklanıyor. Bir üniv
 - Aile üyelerini bu riskler hakkında eğit
 - Önemli verilerin çevrimdışı yedeklerini tut
 
-Microsoft'un [güvenlik rehberliğine göre](https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=HackTool:Win32/KMSActivator.A!MSR&threatId=-2147224043), yasal yazılım ve güvenlik güncellemelerini kullandığında Windows Defender bu tehditleri otomatik olarak tespit edip kaldırıyor.
+Microsoft'un {% externalLink "güvenlik rehberliğine göre", "https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=HackTool:Win32/KMSActivator.A!MSR&threatId=-2147224043" %}, yasal yazılım ve güvenlik güncellemelerini kullandığında Windows Defender bu tehditleri otomatik olarak tespit edip kaldırıyor.
 
 Sonuç şu: "Saklayacak bir şeyim yok" argümanı artık geçerli değil. Hackerlar önemli olup olmadığını umursamıyor - sadece çevrimiçi ve korunmasız olman yeterli.
 
 **Sources:**
-- [EclecticIQ: Sandworm APT Targets Ukrainian Users](https://blog.eclecticiq.com/sandworm-apt-targets-ukrainian-users-with-trojanized-microsoft-kms-activation-tools-in-cyber-espionage-campaigns)
-- [SOC Prime: Detect Sandworm APT Attacks Against Ukraine](https://socprime.com/blog/detect-sandworm-apt-attacks-against-ukraine/)
-- [Microsoft Security Intelligence: KMSActivator Threat Description](https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=HackTool:Win32/KMSActivator.A!MSR&threatId=-2147224043)
-- [ITC.ua: Russian Hackers Attack Ukrainians with Windows KMS Activator](https://itc.ua/en/news/russian-hackers-attack-ukrainians-with-windows-kms-activator-and-fake-updates/)
+- {% externalLink "EclecticIQ: Sandworm APT Targets Ukrainian Users", "https://blog.eclecticiq.com/sandworm-apt-targets-ukrainian-users-with-trojanized-microsoft-kms-activation-tools-in-cyber-espionage-campaigns" %}
+- {% externalLink "SOC Prime: Detect Sandworm APT Attacks Against Ukraine", "https://socprime.com/blog/detect-sandworm-apt-attacks-against-ukraine/" %}
+- {% externalLink "Microsoft Security Intelligence: KMSActivator Threat Description", "https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=HackTool:Win32/KMSActivator.A!MSR&threatId=-2147224043" %}
+- {% externalLink "ITC.ua: Russian Hackers Attack Ukrainians with Windows KMS Activator", "https://itc.ua/en/news/russian-hackers-attack-ukrainians-with-windows-kms-activator-and-fake-updates/" %}

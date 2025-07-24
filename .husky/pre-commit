@@ -1,0 +1,48 @@
+#!/bin/sh
+
+# Run tests first (original husky behavior)
+npm test
+if [ $? -ne 0 ]; then
+  echo "❌ Tests failed, aborting commit"
+  exit 1
+fi
+
+# Check if any blog files are staged
+STAGED_BLOG_FILES=$(git diff --cached --name-only | grep "^src/blog/.*\.md$" || true)
+
+if [ -n "$STAGED_BLOG_FILES" ]; then
+  echo ""
+  echo "📝 Blog files detected in staging area, processing links..."
+  echo "Staged blog files:"
+  echo "$STAGED_BLOG_FILES" | sed 's/^/  - /'
+  
+  # Run the link processing script
+  npm run links
+  if [ $? -ne 0 ]; then
+    echo "❌ Link processing failed, aborting commit"
+    exit 1
+  fi
+  
+  # Check if the script made any changes
+  MODIFIED_FILES=$(git diff --name-only | grep "^src/blog/.*\.md$" || true)
+  
+  if [ -n "$MODIFIED_FILES" ]; then
+    echo ""
+    echo "✨ Link processing completed! The following files were updated:"
+    echo "$MODIFIED_FILES" | sed 's/^/  - /'
+    echo ""
+    echo "📦 Automatically staging processed files..."
+    
+    # Automatically stage the processed blog files
+    echo "$MODIFIED_FILES" | xargs git add
+    
+    echo "✅ Processed files have been staged and will be included in this commit"
+  else
+    echo "✅ No link processing changes needed"
+  fi
+else
+  echo "ℹ️  No blog files staged, skipping link processing"
+fi
+
+# Ensure we exit with success if we reach here
+exit 0
