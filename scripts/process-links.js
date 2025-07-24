@@ -101,7 +101,8 @@ function isMarkdownLinkAlreadyProcessed(match) {
  */
 function processExternalLinks(content) {
   // Match markdown links: [text](url) - handle complex URLs including those with parentheses
-  const markdownLinkRegex = /\[([^\]]+)\]\(([^)]+(?:\([^)]*\)[^)]*)*)\)/g;
+  // This regex handles both URLs with and without parentheses by using alternation
+  const markdownLinkRegex = /\[([^\]]+)\]\(([^)]+\([^)]*\)[^)]*|[^)]+)\)/g;
   
   return content.replace(markdownLinkRegex, (match, text, url) => {
     // Clean up the URL (remove any extra whitespace)
