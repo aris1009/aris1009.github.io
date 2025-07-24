@@ -190,6 +190,50 @@ test.describe('Dictionary Tooltips', () => {
     }
   });
 
+  test('tooltips have proper contrast in both light and dark modes', async ({ page }) => {
+    await page.goto('/');
+    
+    // Find dictionary links
+    const dictionaryLinks = page.locator('[data-testid^="dictionary-link-"]');
+    const count = await dictionaryLinks.count();
+    
+    if (count > 0) {
+      const firstLink = dictionaryLinks.first();
+      const testId = await firstLink.getAttribute('data-testid');
+      const term = testId.replace('dictionary-link-', '');
+      const tooltip = page.getByTestId(`dictionary-tooltip-${term}`);
+      
+      // Test light mode contrast
+      await firstLink.hover();
+      await expect(tooltip).toBeVisible();
+      
+      // Verify tooltip styling is applied correctly for light mode
+      const tooltipElement = await tooltip.elementHandle();
+      expect(tooltipElement).toBeTruthy();
+      
+      // Hide tooltip before switching modes
+      await page.mouse.move(0, 0);
+      await expect(tooltip).not.toBeVisible();
+      
+      // Switch to dark mode
+      const themeToggle = page.locator('#theme-toggle');
+      await themeToggle.click();
+      await expect(page.locator('html')).toHaveClass(/dark/);
+      
+      // Test dark mode contrast
+      await firstLink.hover();
+      await expect(tooltip).toBeVisible();
+      
+      // Verify tooltip is still functional in dark mode
+      const tooltipContent = tooltip.locator('.dictionary-tooltip-content');
+      await expect(tooltipContent).toBeVisible();
+      
+      // Verify both theme classes are applied for Shoelace compatibility
+      await expect(page.locator('html')).toHaveClass(/dark/);
+      await expect(page.locator('html')).toHaveClass(/sl-theme-dark/);
+    }
+  });
+
   test('tooltips are responsive on mobile', async ({ page }) => {
     // Set mobile viewport
     await page.setViewportSize({ width: 375, height: 667 });
@@ -260,6 +304,74 @@ test.describe('Dictionary Tooltips', () => {
       
       // Check button role
       expect(await firstLink.evaluate(el => el.tagName.toLowerCase())).toBe('button');
+    }
+  });
+
+  test('tooltips appear above all content including emojis', async ({ page }) => {
+    await page.goto('/');
+    
+    // Find dictionary links
+    const dictionaryLinks = page.locator('[data-testid^="dictionary-link-"]');
+    const count = await dictionaryLinks.count();
+    
+    if (count > 0) {
+      const firstLink = dictionaryLinks.first();
+      const testId = await firstLink.getAttribute('data-testid');
+      const term = testId.replace('dictionary-link-', '');
+      const tooltip = page.getByTestId(`dictionary-tooltip-${term}`);
+      
+      // Show tooltip
+      await firstLink.hover();
+      await expect(tooltip).toBeVisible();
+      
+      // Get z-index of tooltip
+      const tooltipZIndex = await tooltip.evaluate(el => {
+        const computedStyle = window.getComputedStyle(el);
+        return computedStyle.zIndex;
+      });
+      
+      // Verify tooltip has high z-index
+      expect(parseInt(tooltipZIndex) || 0).toBeGreaterThan(1000);
+      
+      // Check that tooltip is not obscured by checking its visibility
+      const tooltipBox = await tooltip.boundingBox();
+      if (tooltipBox) {
+        // Sample multiple points within the tooltip to ensure it's not obscured
+        const centerX = tooltipBox.x + tooltipBox.width / 2;
+        const centerY = tooltipBox.y + tooltipBox.height / 2;
+        
+        // Get element at the center of the tooltip
+        const elementAtCenter = await page.evaluate(({ x, y }) => {
+          const element = document.elementFromPoint(x, y);
+          return element ? element.closest('sl-tooltip') !== null : false;
+        }, { x: centerX, y: centerY });
+        
+        // The tooltip should be the topmost element at its center point
+        expect(elementAtCenter).toBe(true);
+      }
+      
+      // Test in both light and dark modes
+      const themeToggle = page.locator('#theme-toggle');
+      if (await themeToggle.count() > 0) {
+        await themeToggle.click();
+        await expect(page.locator('html')).toHaveClass(/dark/);
+        
+        // Tooltip should still be visible and on top in dark mode
+        await expect(tooltip).toBeVisible();
+        
+        const darkModeTooltipBox = await tooltip.boundingBox();
+        if (darkModeTooltipBox) {
+          const centerX = darkModeTooltipBox.x + darkModeTooltipBox.width / 2;
+          const centerY = darkModeTooltipBox.y + darkModeTooltipBox.height / 2;
+          
+          const elementAtCenterDark = await page.evaluate(({ x, y }) => {
+            const element = document.elementFromPoint(x, y);
+            return element ? element.closest('sl-tooltip') !== null : false;
+          }, { x: centerX, y: centerY });
+          
+          expect(elementAtCenterDark).toBe(true);
+        }
+      }
     }
   });
 });

@@ -478,7 +478,42 @@
     @apply text-purple-600 dark:text-purple-400;
   }
 
-  /* Shoelace Dictionary Tooltip Content Styling */
+  /* Shoelace Dictionary Tooltip Styling */
+  sl-tooltip[data-testid^="dictionary-tooltip"] {
+    /* Light mode tooltip styling */
+    --sl-tooltip-background-color: #f8f9fa;
+    --sl-tooltip-color: #1f2937;
+    --sl-tooltip-border-color: #e5e7eb;
+    --sl-tooltip-border-width: 1px;
+    --sl-tooltip-border-radius: 8px;
+    --sl-tooltip-padding: 12px;
+    --sl-tooltip-arrow-size: 6px;
+    --sl-tooltip-font-size: 14px;
+    --sl-tooltip-font-weight: 400;
+    --sl-tooltip-line-height: 1.5;
+    --sl-tooltip-max-width: 280px;
+    --sl-tooltip-z-index: 9999;
+  }
+
+  /* Dark mode tooltip styling */
+  html.dark sl-tooltip[data-testid^="dictionary-tooltip"],
+  html.sl-theme-dark sl-tooltip[data-testid^="dictionary-tooltip"] {
+    --sl-tooltip-background-color: #374151;
+    --sl-tooltip-color: #f9fafb;
+    --sl-tooltip-border-color: #4b5563;
+    --sl-tooltip-border-width: 1px;
+  }
+
+  /* Ensure shadow DOM parts respect high z-index */
+  sl-tooltip[data-testid^="dictionary-tooltip"]::part(popup) {
+    z-index: 9999 !important;
+  }
+
+  sl-tooltip[data-testid^="dictionary-tooltip"]::part(base) {
+    z-index: 9999 !important;
+  }
+
+  /* Dictionary Tooltip Content Styling */
   .dictionary-tooltip-content {
     @apply p-0;
   }
