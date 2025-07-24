@@ -9,8 +9,6 @@ updates:
       time: "09:00"
       timezone: "UTC"
     open-pull-requests-limit: 10
-    reviewers:
-      - "aris1009"
     assignees:
       - "aris1009"
     commit-message:
