@@ -16,27 +16,27 @@ function dictionaryLink(text, term) {
   const dictionary = require('../_data/dictionary.js');
   const definition = dictionary[term];
   let definitionText = 'Term not found in dictionary';
-  
+
   if (definition) {
     definitionText = definition['en-us'] || 'Definition not available';
   }
-  
-  return `<button class="dictionary-link inline-flex items-center" data-dictionary-term="${term}" aria-expanded="false" aria-describedby="tooltip-${term}" title="Click to see definition">
-    <span class="dictionary-text">${text}</span>
-    <span class="emoji-indicator dictionary-emoji" aria-hidden="true">📘</span>
-  </button>
-  <div id="tooltip-${term}" class="dictionary-tooltip hidden" role="tooltip" aria-live="polite">
-    <div class="tooltip-content">
-      <button class="tooltip-close" aria-label="Close definition">×</button>
+
+  // Use slot="content" for HTML content in tooltip
+  return `<sl-tooltip placement="bottom" data-testid="dictionary-tooltip-${term}">
+    <div slot="content" class="dictionary-tooltip-content">
       <div class="tooltip-term">${term.charAt(0).toUpperCase() + term.slice(1)}</div>
       <div class="tooltip-definition">${definitionText}</div>
     </div>
-  </div>`;
+    <button class="dictionary-link inline-flex items-center" data-testid="dictionary-link-${term}" aria-label="Definition of ${term}">
+      <span class="dictionary-text">${text}</span>
+      <span class="emoji-indicator dictionary-emoji" data-testid="dictionary-emoji-${term}" aria-hidden="true">📘</span>
+    </button>
+  </sl-tooltip>`;
 }
 
 module.exports = {
   currentYear,
   externalLink,
-  internalLink,  
+  internalLink,
   dictionaryLink
 };

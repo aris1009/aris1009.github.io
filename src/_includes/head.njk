@@ -38,6 +38,20 @@
 <!-- CSS -->
     <link rel="preload" href="{{'/css/style.css' | url}}" as="style">
     <link rel="stylesheet" href="{{'/css/style.css' | url}}" media="all">
+    <!-- Shoelace CSS -->
+    <link
+        rel="stylesheet"
+        media="(prefers-color-scheme:light)"
+        href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css"
+    />
+    <link
+        rel="stylesheet"
+        media="(prefers-color-scheme:dark)"
+        href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/dark.css"
+        onload="document.documentElement.classList.add('sl-theme-dark');"
+    />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace-autoloader.js"></script>
+
 <!-- Sitemap -->
     <link rel="sitemap"
           type="application/rss+xml"
@@ -322,5 +336,13 @@
         }
     </script>
     
-    <!-- Link Component Script -->
-    <script src="{{ '/js/link-component.js' | url }}"></script>
+    <!-- Shoelace Web Components -->
+    <script type="module">
+        import { setBasePath } from '{{'/node_modules/@shoelace-style/shoelace/dist/utilities/base-path.js' | url}}';
+        
+        // Set the base path for Shoelace assets
+        setBasePath('{{'/node_modules/@shoelace-style/shoelace/dist' | url}}');
+        
+        // Import only the tooltip component we need
+        import '{{'/node_modules/@shoelace-style/shoelace/dist/components/tooltip/tooltip.js' | url}}';
+    </script>
