@@ -31,6 +31,7 @@ const HTML_MINIFY_OPTIONS = {
   useShortDoctype: true,
   removeComments: true,
   collapseWhitespace: true,
+  conservativeCollapse: true,
   decodeEntities: true
 };
 

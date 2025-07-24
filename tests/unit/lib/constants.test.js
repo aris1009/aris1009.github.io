@@ -63,6 +63,7 @@ describe('constants', () => {
         useShortDoctype: true,
         removeComments: true,
         collapseWhitespace: true,
+        conservativeCollapse: true,
         decodeEntities: true
       });
     });
