@@ -25,12 +25,12 @@ module.exports = {
     },
     welcome: {
       'en-us': 'Welcome to my blog about cybersecurity, technology, and digital privacy. Here I share insights, analysis, and practical advice to help you stay secure in the digital world.',
-      'el': 'Καλώς ήρθατε στο ιστολόγιό μου για την κυβερνοασφάλεια, την τεχνολογία και την ψηφιακή ιδιωτικότητα. Εδώ μοιράζομαι εμπειρίες, αναλύσεις και πρακτικές συμβουλές για να σας βοηθήσω να παραμείνετε ασφαλείς στον ψηφιακό κόσμο.',
+      'el': 'Καλώς ήρθες στο ιστολόγιό μου για την κυβερνοασφάλεια, την τεχνολογία και την τεχνητή νοημοσύνη. Εδώ μοιράζομαι εμπειρίες, αναλύσεις και πρακτικές συμβουλές για να σε βοηθήσω να παραμείς ασφαλείς στον ψηφιακό κόσμο.',
       'tr': 'Siber güvenlik, teknoloji ve dijital gizlilik üzerine olan bloguma hoş geldiniz. Burada dijital dünyada güvende kalmanıza yardımcı olmak için deneyimlerimi, analizlerimi ve pratik önerilerimi paylaşıyorum.'
     },
     latestPosts: {
       'en-us': 'Latest Posts',
-      'el': 'Τελευταίες Αναρτήσεις',
+      'el': 'Πρόσφατες Αναρτήσεις',
       'tr': 'Son Yazılar'
     },
     readMore: {
@@ -43,7 +43,7 @@ module.exports = {
   nav: {
     about: {
       'en-us': 'About',
-      'el': 'Περί',
+      'el': 'Σχετικά',
       'tr': 'Hakkında'
     },
     acknowledgements: {
@@ -178,6 +178,105 @@ module.exports = {
       'en-us': 'Showing {count} of {total} terms',
       'el': 'Εμφάνιση {count} από {total} όρους',
       'tr': '{total} terimden {count} gösteriliyor'
+    }
+  },
+
+  about: {
+    description: {
+      'en-us': 'Learn more about the author and the purpose of this cybersecurity and technology blog.',
+      'el': 'Μάθετε περισσότερα για τον συγγραφέα και τον σκοπό αυτού του ιστολογίου κυβερνοασφάλειας και τεχνολογίας.',
+      'tr': 'Yazar ve bu siber güvenlik ve teknoloji blogunun amacı hakkında daha fazla bilgi edinin.'
+    },
+    title: {
+      'en-us': 'About This Blog',
+      'el': 'Σχετικά με αυτό το Ιστολόγιο',
+      'tr': 'Bu Blog Hakkında'
+    },
+    myBackground: {
+      'en-us': 'My Background',
+      'el': 'Το Υπόβαθρό μου',
+      'tr': 'Geçmişim'
+    },
+    whyExists: {
+      'en-us': 'Why This Blog Exists',
+      'el': 'Γιατί Υπάρχει αυτό το Ιστολόγιο',
+      'tr': 'Bu Blog Neden Var'
+    },
+    whatYouFind: {
+      'en-us': 'What You\'ll Find Here',
+      'el': 'Τι θα Βρεις Εδώ',
+      'tr': 'Burada Neler Bulacaksınız'
+    },
+    myApproach: {
+      'en-us': 'My Approach',
+      'el': 'Η Προσέγγισή μου',
+      'tr': 'Yaklaşımım'
+    },
+    personalNote: {
+      'en-us': 'Personal Note',
+      'el': 'Προσωπική Σημείωση',
+      'tr': 'Kişisel Not'
+    },
+    contact: {
+      'en-us': 'Contact',
+      'el': 'Επικοινωνία',
+      'tr': 'İletişim'
+    }
+  },
+
+  acknowledgements: {
+    description: {
+      'en-us': 'Credits and acknowledgements for the technologies and themes used in this blog.',
+      'el': 'Αναγνωρίσεις και ευχαριστίες για τις τεχνολογίες και το στυλ που χρησιμοποιούνται σε αυτό το ιστολόγιο.',
+      'tr': 'Bu blogda kullanılan teknolojiler ve temalar için krediler ve teşekkürler.'
+    },
+    staticSiteGenerator: {
+      'en-us': 'Static Site Generator',
+      'el': 'Ιστοσελίδα',
+      'tr': 'Statik Site Üreticisi'
+    },
+    theme: {
+      'en-us': 'Theme',
+      'el': 'Θέμα',
+      'tr': 'Tema'
+    },
+    additionalTechnologies: {
+      'en-us': 'Additional Technologies',
+      'el': 'Επιπλέον Τεχνολογίες',
+      'tr': 'Ek Teknolojiler'
+    },
+    thankYou: {
+      'en-us': 'Thank You',
+      'el': 'Ευχαριστώ',
+      'tr': 'Teşekkür Ederim'
+    }
+  },
+
+  aiDisclaimer: {
+    description: {
+      'en-us': 'Transparency about AI assistance in content creation and development of this blog.',
+      'el': 'Διαφάνεια σχετικά με τη βοήθεια της Τεχνητής Νοημοσύνης στη δημιουργία περιεχομένου και την ανάπτυξη αυτού του ιστολογίου.',
+      'tr': 'Bu blogun içerik oluşturma ve geliştirme sürecinde yapay zeka yardımı konusunda şeffaflık.'
+    },
+    title: {
+      'en-us': 'AI Usage Disclaimer',
+      'el': 'Δήλωση Χρήσης Τεχνητής Νοημοσύνης',
+      'tr': 'Yapay Zeka Kullanım Feragatnamesi'
+    },
+    aboutDevelopment: {
+      'en-us': 'About This Blog\'s Development',
+      'el': 'Σχετικά με την Ανάπτυξη αυτού του Ιστολογίου',
+      'tr': 'Bu Blogun Gelişimi Hakkında'
+    },
+    aiEnhancementPolicy: {
+      'en-us': 'AI Enhancement Policy',
+      'el': 'Πολιτική Βελτίωσης με Τεχνητή Νοημοσύνη',
+      'tr': 'Yapay Zeka Geliştirme Politikası'
+    },
+    transparencyCommitment: {
+      'en-us': 'Transparency Commitment',
+      'el': 'Δέσμευση για Διαφάνεια',
+      'tr': 'Şeffaflık Taahhüdü'
     }
   }
 };
