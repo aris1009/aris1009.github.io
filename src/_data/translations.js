@@ -278,5 +278,69 @@ module.exports = {
       'el': 'Δέσμευση για Διαφάνεια',
       'tr': 'Şeffaflık Taahhüdü'
     }
+  },
+
+  labels: {
+    difficulty: {
+      beginner: {
+        'en-us': 'Beginner',
+        'el': 'Για αρχάριους',
+        'tr': 'Başlangıç'
+      },
+      expert: {
+        'en-us': 'Technical',
+        'el': 'Τεχνικό',
+        'tr': 'Uzman'
+      }
+    },
+    contentType: {
+      tutorial: {
+        'en-us': 'Tutorial',
+        'el': 'Διδακτικό',
+        'tr': 'Öğretici'
+      },
+      guide: {
+        'en-us': 'Guide',
+        'el': 'Αναφορά',
+        'tr': 'Rehber'
+      },
+      opinion: {
+        'en-us': 'Opinion',
+        'el': 'Γνώμη',
+        'tr': 'Görüş'
+      },
+      news: {
+        'en-us': 'News',
+        'el': 'Ειδήσεις',
+        'tr': 'Haberler'
+      },
+      'case-study': {
+        'en-us': 'Case Study',
+        'el': 'Μελέτη',
+        'tr': 'Vaka Çalışması'
+      }
+    },
+    ariaLabels: {
+      contentClassifications: {
+        'en-us': 'Content classifications',
+        'el': 'Ταξινομήσεις περιεχομένου',
+        'tr': 'İçerik sınıflandırmaları'
+      },
+      difficultyLevel: {
+        'en-us': 'Difficulty level',
+        'el': 'Επίπεδο δυσκολίας',
+        'tr': 'Zorluk seviyesi'
+      },
+      contentType: {
+        'en-us': 'Content type',
+        'el': 'Τύπος περιεχομένου',
+        'tr': 'İçerik türü'
+      },
+      technology: {
+        'en-us': 'Technology',
+        'el': 'Τεχνολογία',
+        'tr': 'Teknoloji'
+      }
+    }
   }
 };

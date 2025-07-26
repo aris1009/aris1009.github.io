@@ -4,6 +4,9 @@ title: "\"Saklayacak Bir Şeyim Yok\" Düşüncesi Sizi Rus Hackerlardan Korumay
 description: "Rus askeri istihbaratının korsan yazılım aracılığıyla sıradan insanları hedef alan son olayları, bu düşüncenin tehlikeli bir şekilde yanlış olduğunu kanıtlıyor."
 date: 2025-07-22
 keyword: güvenlik, kötü amaçlı yazılım, gizlilik, rus hackerlar, siber güvenlik
+difficulty: beginner
+contentType: case-study
+technologies: ['Windows', 'KMS']
 type: article
 locale: tr
 permalink: /blog/tr/gru-kms-windows/
