@@ -18,6 +18,7 @@ type: article
             {{content | localizedReadingTime(locale or 'en-us')}}
             </small>
             <h1>{{ title }}</h1>
+            {% articleLabels difficulty, contentType, technologies %}
             {{content | safe}}
         </article>
         {% include "footer.njk" %}
