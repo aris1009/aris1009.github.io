@@ -8,6 +8,7 @@
 {%- set pageUrls %}{{meta.url}}{{page.url}}{% endset -%}
 {% include "head.njk" %}
     <!-- Schema json -->
+    {%- set schemaKeywords %}{% if keyword %}{{keyword}}{% endif %}{% if difficulty %}, {{difficulty}}{% endif %}{% if contentType %}, {{contentType}}{% endif %}{% if technologies %}{% for tech in technologies %}, {{tech}}{% endfor %}{% endif %}{% endset -%}
     <script type="application/ld+json">
         {
             "@context": "http://schema.org",
@@ -34,7 +35,15 @@
                     "url": "{{meta.url}}img/avatar.webpg"
                 }
             },
-            "description": "{{pageDescription}}"
+            "description": "{{pageDescription}}"{% if difficulty %},
+            "skillLevel": "{{difficulty}}"{% endif %}{% if technologies %},
+            "teaches": [{% for tech in technologies %}"{{tech}}"{% if not loop.last %}, {% endif %}{% endfor %}]{% endif %}{% if schemaKeywords.length > 0 %},
+            "keywords": "{{schemaKeywords | trim}}"{% endif %}{% if contentType %},
+            "genre": "{{contentType}}"{% endif %}{% if difficulty or contentType or technologies %},
+            "audience": {
+                "@type": "Audience",
+                "audienceType": "developers"
+            }{% endif %}
         }
     </script>
 </head>

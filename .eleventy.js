@@ -61,6 +61,13 @@ module.exports = function (eleventyConfig) {
     return shortcodes.dictionaryLink(text, term, locale);
   });
   eleventyConfig.addShortcode("themeToggle", shortcodes.themeToggle);
+  eleventyConfig.addShortcode("articleLabels", function (difficulty, contentType, technologies) {
+    let locale = this && this.ctx && this.ctx.locale
+      ? this.ctx.locale
+      : 'en-us'
+
+    return shortcodes.articleLabels(difficulty, contentType, technologies, locale);
+  });
 
   return {
     templateFormats: constants.TEMPLATE_FORMATS,
