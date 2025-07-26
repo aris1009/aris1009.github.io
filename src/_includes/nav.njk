@@ -30,12 +30,10 @@
             <div data-testid="language-selector-container" class="language-selector-container">
                 <button id="language-toggle" class="language-selector" aria-label="Select language" title="Change language">
                     <span id="current-language" class="language-display">
-                        {% if '/blog/el/' in page.url or page.url == '/el/' %}
+                        {% if '/blog/el/' in page.url or '/el/' in page.url %}
                             <span class="flag">🇬🇷</span>
-                        {% elif '/blog/tr/' in page.url or page.url == '/tr/' %}
+                        {% elif '/blog/tr/' in page.url or '/tr/' in page.url %}
                             <span class="flag">🇹🇷</span>
-                        {% elif '/blog/en-us/' in page.url or page.url == '/' %}
-                            <span class="flag">🇺🇸</span>
                         {% else %}
                             <span class="flag">🇺🇸</span>
                         {% endif %}
@@ -53,6 +51,46 @@
                         <a href="/blog/tr/{{ blogSlug }}/" class="language-option" data-lang="tr">
                             <span class="flag">🇹🇷</span>
                         </a>
+                    {% elif '/about/' in page.url %}
+                        <a href="/en-us/about/" class="language-option" data-lang="en-us">
+                            <span class="flag">🇺🇸</span>
+                        </a>
+                        <a href="/el/about/" class="language-option" data-lang="el">
+                            <span class="flag">🇬🇷</span>
+                        </a>
+                        <a href="/tr/about/" class="language-option" data-lang="tr">
+                            <span class="flag">🇹🇷</span>
+                        </a>
+                    {% elif '/acknowledgements/' in page.url %}
+                        <a href="/en-us/acknowledgements/" class="language-option" data-lang="en-us">
+                            <span class="flag">🇺🇸</span>
+                        </a>
+                        <a href="/el/acknowledgements/" class="language-option" data-lang="el">
+                            <span class="flag">🇬🇷</span>
+                        </a>
+                        <a href="/tr/acknowledgements/" class="language-option" data-lang="tr">
+                            <span class="flag">🇹🇷</span>
+                        </a>
+                    {% elif '/ai-disclaimer/' in page.url or '/el/ai-disclaimer/' in page.url or '/tr/ai-disclaimer/' in page.url %}
+                        <a href="/en-us/ai-disclaimer/" class="language-option" data-lang="en-us">
+                            <span class="flag">🇺🇸</span>
+                        </a>
+                        <a href="/el/ai-disclaimer/" class="language-option" data-lang="el">
+                            <span class="flag">🇬🇷</span>
+                        </a>
+                        <a href="/tr/ai-disclaimer/" class="language-option" data-lang="tr">
+                            <span class="flag">🇹🇷</span>
+                        </a>
+                    {% elif '/dictionary/' in page.url %}
+                        <a href="/en-us/dictionary/" class="language-option" data-lang="en-us">
+                            <span class="flag">🇺🇸</span>
+                        </a>
+                        <a href="/el/dictionary/" class="language-option" data-lang="el">
+                            <span class="flag">🇬🇷</span>
+                        </a>
+                        <a href="/tr/dictionary/" class="language-option" data-lang="tr">
+                            <span class="flag">🇹🇷</span>
+                        </a>
                     {% else %}
                         <a href="/" class="language-option" data-lang="en-us">
                             <span class="flag">🇺🇸</span>
@@ -64,7 +102,6 @@
                             <span class="flag">🇹🇷</span>
                         </a>
                     {% endif %}
-                </div>
             </div>
         </div>
     </div>
@@ -74,7 +111,7 @@
         <div class="burger-menu-content">
             <!-- Site Branding in Menu -->
             <div class="burger-branding">
-                <a href="{% if '/blog/el/' in page.url or page.url == '/el/' %}/el/{% elif '/blog/tr/' in page.url or page.url == '/tr/' %}/tr/{% else %}/{% endif %}" class="burger-title-link">
+                <a href="{% if '/blog/el/' in page.url or '/el/' in page.url %}/el/{% elif '/blog/tr/' in page.url or '/tr/' in page.url %}/tr/{% else %}/{% endif %}" class="burger-title-link">
                     <h1 class="burger-title">{{meta.siteName}}</h1>
                     <p class="burger-motto">{{meta.motto}}</p>
                 </a>
@@ -84,19 +121,19 @@
             <nav class="burger-nav" role="navigation" aria-label="Main navigation">
                 <ul class="burger-nav-links">
                     <li>
-                        <a href="{% if '/blog/el/' in page.url or page.url == '/el/' %}/el/{% elif '/blog/tr/' in page.url or page.url == '/tr/' %}/tr/{% else %}/{% endif %}" class="burger-nav-link">Home</a>
+                        <a href="{% if '/blog/el/' in page.url or '/el/' in page.url %}/el/{% elif '/blog/tr/' in page.url or '/tr/' in page.url %}/tr/{% else %}/{% endif %}" class="burger-nav-link">{{ 'home.title' | i18n }}</a>
                     </li>
                     <li>
-                        <a href="/about/" class="burger-nav-link">About</a>
+                        <a href="{% if '/blog/el/' in page.url or '/el/' in page.url %}/el/about/{% elif '/blog/tr/' in page.url or '/tr/' in page.url %}/tr/about/{% else %}/en-us/about/{% endif %}" class="burger-nav-link">{{ 'nav.about' | i18n }}</a>
                     </li>
                     <li>
-                        <a href="/acknowledgements/" class="burger-nav-link">Acknowledgements</a>
+                        <a href="{% if '/blog/el/' in page.url or '/el/' in page.url %}/el/acknowledgements/{% elif '/blog/tr/' in page.url or '/tr/' in page.url %}/tr/acknowledgements/{% else %}/en-us/acknowledgements/{% endif %}" class="burger-nav-link">{{ 'nav.acknowledgements' | i18n }}</a>
                     </li>
                     <li>
-                        <a href="/ai-disclaimer/" class="burger-nav-link">AI Disclaimer</a>
+                        <a href="{% if '/blog/el/' in page.url or '/el/' in page.url %}/el/ai-disclaimer/{% elif '/blog/tr/' in page.url or '/tr/' in page.url %}/tr/ai-disclaimer/{% else %}/en-us/ai-disclaimer/{% endif %}" class="burger-nav-link">{{ 'nav.aiDisclaimer' | i18n }}</a>
                     </li>
                     <li>
-                        <a href="{% if '/blog/el/' in page.url or page.url == '/el/' %}/el/dictionary/{% elif '/blog/tr/' in page.url or page.url == '/tr/' %}/tr/dictionary/{% else %}/en-us/dictionary/{% endif %}" class="burger-nav-link">{{ 'dictionary.title' | i18n }}</a>
+                        <a href="{% if '/blog/el/' in page.url or '/el/' in page.url %}/el/dictionary/{% elif '/blog/tr/' in page.url or '/tr/' in page.url %}/tr/dictionary/{% else %}/en-us/dictionary/{% endif %}" class="burger-nav-link">{{ 'dictionary.title' | i18n }}</a>
                     </li>
                 </ul>
             </nav>
