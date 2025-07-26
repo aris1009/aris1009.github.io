@@ -15,7 +15,7 @@ draft: false
 
 AI-powered coding assistants like Claude Code promise to revolutionize how we develop software, but the reality is more nuanced. While these tools can dramatically boost productivity, they require thoughtful guidance and careful oversight to deliver their full potential.
 
-!{% internalLink "Claude Code in action", "/_static/img/claude-code.png" %}
+![Claude Code in action](/_static/img/claude-code.png "Claude Code in action")
 
 ## What You'll Learn
 
