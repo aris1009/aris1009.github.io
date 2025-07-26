@@ -9,7 +9,7 @@
     "dev:11ty": "eleventy --serve --watch",
     "start": "npm run dev",
     "new-post": "node scripts/generate-blog-post.js",
-    "test": "vitest",
+    "test": "CI=true vitest",
     "test:watch": "vitest --watch",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",

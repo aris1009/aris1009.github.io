@@ -6,7 +6,7 @@ pagination:
 layout: page.njk
 title: "{{ 'notFound.title' | i18n }}"
 description: "{{ 'notFound.message' | i18n }}"
-permalink: "{% if locale == 'en-us' %}404.html{% else %}{{ locale }}/404.html{% endif %}"
+permalink: "{{ locale }}/404.html"
 eleventyExcludeFromCollections: true
 ---
 
