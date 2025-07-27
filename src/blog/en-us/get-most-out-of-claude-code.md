@@ -38,7 +38,7 @@ One of Claude Code's most powerful features is its ability to spawn multiple spe
 
 You can parallelize tasks simply by asking Claude Code to do so. Here's an example prompt:
 
-```
+```text
 Spin up 5 agents, one for each microservice in this monorepo. Have each agent:
 1. Document the service's API endpoints
 2. Analyze dependencies and data flow
@@ -82,17 +82,17 @@ Use the `/agents` command to:
 ### Example Use Cases
 
 **Specialized Code Review Agent:**
-```
+```text
 Create an agent specifically trained on your company's coding standards, security requirements, and architectural patterns.
 ```
 
 **Documentation Agent:**
-```
+```text
 Set up an agent that focuses exclusively on writing technical documentation, API docs, and README files in your preferred style.
 ```
 
 **Testing Agent:**
-```
+```text
 Configure an agent specialized in writing comprehensive test suites, including unit tests, integration tests, and edge case coverage.
 ```
 
@@ -114,17 +114,17 @@ Claude Code can engage its reasoning capabilities more deeply when explicitly pr
 Deep thinking mode excels at:
 
 **Algorithm Implementation:**
-```
+```text
 Think deeply about implementing an efficient Aho-Corasick string matching algorithm for our text processing pipeline.
 ```
 
 **Complex Problem Solving:**
-```
+```text
 Think deeply about the architectural trade-offs between using a message queue vs. direct API calls for our microservices communication.
 ```
 
 **Data Structure Design:**
-```
+```text
 Think deeply about designing a cache invalidation strategy that handles both TTL and dependency-based expiration.
 ```
 
@@ -184,7 +184,7 @@ Users currently can't save their preferences across sessions
 
 **2. Enhance with AI Research**
 Feed your specification into a research-capable AI (like Perplexity):
-```
+```text
 Take this feature specification and create a comprehensive PRD with implementation details, security considerations, and test scenarios.
 ```
 
