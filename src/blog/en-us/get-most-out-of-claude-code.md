@@ -26,6 +26,7 @@ AI-powered coding assistants like Claude Code promise to revolutionize how we de
 
 *Disclaimer: As I write this post, I have Claude Code running in the background implementing a new labeling system for this very blog—a perfect example of the techniques we'll discuss.*
 
+---
 
 # Claude Code Specifics
 
@@ -140,6 +141,7 @@ Think deeply about designing a cache invalidation strategy that handles both TTL
 2. **Prepare for higher costs** and potential rate limiting
 3. **Combine with concrete examples** to guide the reasoning process
 
+---
 
 # Universal Techniques for AI-Assisted Development
 
@@ -306,6 +308,8 @@ Brown-field projects present a different challenge: context confusion. The most 
 
 The goal is to establish consistent direction. Over time, this approach organically guides the entire codebase toward your target architecture while preventing AI-generated code from perpetuating legacy patterns or creating new inconsistencies.
 
+---
+
 # What to Really Expect from AI Coding Tools
 
 The AI-assisted development landscape changes rapidly, and what works today may be obsolete tomorrow. However, certain patterns have emerged about where these tools excel and where they consistently struggle.
@@ -380,6 +384,7 @@ The implementation was syntactically correct and each piece made sense in isolat
 
 This type of failure—where individual components work but the system logic is fundamentally flawed—represents a class of problems that AI agents consistently struggle with.
 
+---
 
 # Summary and Key Takeaways
 
