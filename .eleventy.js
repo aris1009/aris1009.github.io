@@ -27,7 +27,6 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy("src/_static");
   eleventyConfig.addPassthroughCopy({ "src/_static/img": "img" });
-  eleventyConfig.addPassthroughCopy({ "src/_tailwindCSS/prism.css": "_static/css/prism.css" });
 
   eleventyConfig.addFilter("readableDate", filters.readableDate);
   eleventyConfig.addFilter("htmlDateString", filters.htmlDateString);
