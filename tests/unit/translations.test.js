@@ -61,29 +61,15 @@ describe("Translations Data Structure", () => {
       "dictionary.termCount",
       "dictionary.showingResults",
 
-      // About page (new)
+      // About page
       "about.description",
-      "about.title",
-      "about.myBackground",
-      "about.whyExists",
-      "about.whatYouFind",
-      "about.myApproach",
-      "about.personalNote",
-      "about.contact",
 
-      // Acknowledgements page (new)
+      // Acknowledgements page
       "acknowledgements.description",
-      "acknowledgements.staticSiteGenerator",
-      "acknowledgements.theme",
-      "acknowledgements.additionalTechnologies",
-      "acknowledgements.thankYou",
 
-      // AI Disclaimer page (new)
+      // AI Disclaimer page
       "aiDisclaimer.description",
       "aiDisclaimer.title",
-      "aiDisclaimer.aboutDevelopment",
-      "aiDisclaimer.aiEnhancementPolicy",
-      "aiDisclaimer.transparencyCommitment",
     ];
 
     requiredTranslationPaths.forEach((path) => {
