@@ -55,6 +55,11 @@ module.exports = {
       'en-us': 'AI Disclaimer',
       'el': 'Δήλωση για την Τ.Ν.',
       'tr': 'YZ Feragatnamesi'
+    },
+    aiToolset: {
+      'en-us': 'AI Toolset',
+      'el': 'Εργαλεία Τ.Ν.',
+      'tr': 'YZ Araç Seti'
     }
   },
 
@@ -207,6 +212,14 @@ module.exports = {
       'en-us': 'AI Usage Disclaimer',
       'el': 'Δήλωση Χρήσης Τεχνητής Νοημοσύνης',
       'tr': 'Yapay Zeka Kullanım Feragatnamesi'
+    }
+  },
+
+  aiToolset: {
+    description: {
+      'en-us': 'A curated collection of AI tools and services for productivity, development, and content creation.',
+      'el': 'Μια επιμελημένη συλλογή εργαλείων και υπηρεσιών Τεχνητής Νοημοσύνης για παραγωγικότητα, ανάπτυξη και δημιουργία περιεχομένου.',
+      'tr': 'Verimlilik, geliştirme ve içerik oluşturma için özenle seçilmiş yapay zeka araçları ve hizmetleri koleksiyonu.'
     }
   },
 
