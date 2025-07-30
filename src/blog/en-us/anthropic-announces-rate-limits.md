@@ -85,7 +85,7 @@ Use a monitoring tool for Claude Code usage. I personally use {% externalLink "s
 **2. Use Claude Code strategically**  
 Out of all agentic coding tools, Claude Code is, in my humble opinion, superior for actual code generation. Save it for implementing and use other tools (eg {% externalLink "Perplexity", "https://www.perplexity.ai/" %}) for research, planning, and questions. This alone can double your effective coding time. Pairing two cheaper subscriptions on different providers is better than a more expensive one on the same provider.
 
-**3. Master the 5-hour window system** 
+**3. Master the 5-hour window system**  
 Claude's rate limits work in 5-hour fixed windows. Here's the key insight:
 
 - First message at 6:18 AM → Window resets at 11:00 AM

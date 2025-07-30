@@ -2,7 +2,7 @@
 layout: article.njk
 title: "Getting the Most Out of Claude Code: A Developer's Guide to AI-Assisted Programming"
 description: "Master Claude Code with proven techniques, best practices, and workflows to boost your programming productivity while maintaining code quality."
-date: 2025-07-26
+date: 2025-07-28
 keyword: claude-code, ai-programming, developer-productivity, agentic-coding
 difficulty: expert
 contentType: guide
