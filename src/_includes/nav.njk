@@ -81,6 +81,16 @@
                         <a href="/tr/ai-disclaimer/" class="language-option" data-lang="tr">
                             <span class="flag">🇹🇷</span>
                         </a>
+                    {% elif '/ai-toolset/' in page.url or '/el/ai-toolset/' in page.url or '/tr/ai-toolset/' in page.url %}
+                        <a href="/en-us/ai-toolset/" class="language-option" data-lang="en-us">
+                            <span class="flag">🇺🇸</span>
+                        </a>
+                        <a href="/el/ai-toolset/" class="language-option" data-lang="el">
+                            <span class="flag">🇬🇷</span>
+                        </a>
+                        <a href="/tr/ai-toolset/" class="language-option" data-lang="tr">
+                            <span class="flag">🇹🇷</span>
+                        </a>
                     {% elif '/dictionary/' in page.url %}
                         <a href="/en-us/dictionary/" class="language-option" data-lang="en-us">
                             <span class="flag">🇺🇸</span>
@@ -131,6 +141,9 @@
                     </li>
                     <li>
                         <a href="{% if '/blog/el/' in page.url or '/el/' in page.url %}/el/ai-disclaimer/{% elif '/blog/tr/' in page.url or '/tr/' in page.url %}/tr/ai-disclaimer/{% else %}/en-us/ai-disclaimer/{% endif %}" class="burger-nav-link">{{ 'nav.aiDisclaimer' | i18n }}</a>
+                    </li>
+                    <li>
+                        <a href="{% if '/blog/el/' in page.url or '/el/' in page.url %}/el/ai-toolset/{% elif '/blog/tr/' in page.url or '/tr/' in page.url %}/tr/ai-toolset/{% else %}/en-us/ai-toolset/{% endif %}" class="burger-nav-link">{{ 'nav.aiToolset' | i18n }}</a>
                     </li>
                     <li>
                         <a href="{% if '/blog/el/' in page.url or '/el/' in page.url %}/el/dictionary/{% elif '/blog/tr/' in page.url or '/tr/' in page.url %}/tr/dictionary/{% else %}/en-us/dictionary/{% endif %}" class="burger-nav-link">{{ 'dictionary.title' | i18n }}</a>
