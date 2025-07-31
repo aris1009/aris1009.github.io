@@ -55,16 +55,16 @@ function initializeCopyButtons() {
   // Primary integration: Hook into Prism after highlighting
   if (window.Prism) {
     // Hook for when Prism highlights elements
-    Prism.hooks.add('after-highlight', addCopyButtonsToCodeBlocks);
+    window.Prism.hooks.add('after-highlight', addCopyButtonsToCodeBlocks);
     
     // Handle Prism re-highlighting edge case
-    Prism.hooks.add('before-highlight', env => {
+    window.Prism.hooks.add('before-highlight', env => {
       if (env.element && env.element.classList.contains('has-copy-button')) {
         env.element.dataset.preserveCopyButton = 'true';
       }
     });
     
-    Prism.hooks.add('after-highlight', env => {
+    window.Prism.hooks.add('after-highlight', env => {
       if (env.element && env.element.dataset.preserveCopyButton) {
         env.element.classList.add('has-copy-button');
         delete env.element.dataset.preserveCopyButton;
@@ -113,9 +113,19 @@ function initializeCopyButtons() {
 }
 
 // Initialize when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeCopyButtons);
-} else {
-  // DOM is already ready
-  initializeCopyButtons();
+if (typeof document !== 'undefined') {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeCopyButtons);
+  } else {
+    // DOM is already ready
+    initializeCopyButtons();
+  }
+}
+
+// Export functions for testing
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    addCopyButtonsToCodeBlocks,
+    initializeCopyButtons
+  };
 }
