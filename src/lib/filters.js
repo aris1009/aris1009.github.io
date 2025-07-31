@@ -29,6 +29,19 @@ function filterTagList(tags) {
   return (tags || []).filter(tag => EXCLUDED_TAGS.indexOf(tag) === -1);
 }
 
+// Utility function for translation lookup with fallback (shared with shortcodes)
+function getTranslatedText(translations, path, locale, fallback) {
+  const keys = path.split('.');
+  let current = translations;
+  
+  for (const key of keys) {
+    current = current?.[key];
+    if (!current) break;
+  }
+  
+  return current?.[locale] || current?.['en-us'] || fallback;
+}
+
 function localizedReadingTime(content, locale = DEFAULT_LOCALE, eleventyConfig) {
   const translations = require("../_data/translations.js");
   const readingTimeText = eleventyConfig.getFilter("readingTime")(content);
@@ -37,8 +50,8 @@ function localizedReadingTime(content, locale = DEFAULT_LOCALE, eleventyConfig) 
   if (!timeMatch) return readingTimeText;
   
   const time = timeMatch[1];
-  const readText = translations.article.readTime[locale] || 'read';
-  const format = translations.article.readTimeFormat[locale] || '{time} min {readText}';
+  const readText = getTranslatedText(translations, 'article.readTime', locale, 'read');
+  const format = getTranslatedText(translations, 'article.readTimeFormat', locale, '{time} min {readText}');
   
   return format.replace('{time}', time).replace('{readText}', readText);
 }

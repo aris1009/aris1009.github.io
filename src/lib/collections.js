@@ -1,16 +1,16 @@
 const { BLOG_GLOBS } = require("./constants");
 
-function postsEn_us(collectionApi) {
-  return collectionApi.getFilteredByGlob(BLOG_GLOBS["en-us"]).filter(post => !post.data.draft).reverse();
+// Factory function to create posts collection for any locale
+function createPostsCollection(locale) {
+  return function(collectionApi) {
+    return collectionApi.getFilteredByGlob(BLOG_GLOBS[locale]).filter(post => !post.data.draft).reverse();
+  };
 }
 
-function postsEl(collectionApi) {
-  return collectionApi.getFilteredByGlob(BLOG_GLOBS.el).filter(post => !post.data.draft).reverse();
-}
-
-function postsTr(collectionApi) {
-  return collectionApi.getFilteredByGlob(BLOG_GLOBS.tr).filter(post => !post.data.draft).reverse();
-}
+// Create locale-specific collection functions
+const postsEn_us = createPostsCollection("en-us");
+const postsEl = createPostsCollection("el");
+const postsTr = createPostsCollection("tr");
 
 function allPosts(collectionApi) {
   return [

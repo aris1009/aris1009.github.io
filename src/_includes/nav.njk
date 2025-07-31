@@ -129,24 +129,30 @@
             
             <!-- Navigation Links -->
             <nav class="burger-nav" role="navigation" aria-label="Main navigation">
-                <ul class="burger-nav-links">
+                <!-- Primary Navigation Section -->
+                <ul class="burger-nav-links burger-nav-primary">
                     <li>
                         <a href="{% if '/blog/el/' in page.url or '/el/' in page.url %}/el/{% elif '/blog/tr/' in page.url or '/tr/' in page.url %}/tr/{% else %}/{% endif %}" class="burger-nav-link">{{ 'home.title' | i18n }}</a>
                     </li>
                     <li>
                         <a href="{% if '/blog/el/' in page.url or '/el/' in page.url %}/el/about/{% elif '/blog/tr/' in page.url or '/tr/' in page.url %}/tr/about/{% else %}/en-us/about/{% endif %}" class="burger-nav-link">{{ 'nav.about' | i18n }}</a>
                     </li>
+                </ul>
+
+                <!-- Resources Section -->
+                <ul class="burger-nav-links burger-nav-secondary">
+                    <sl-divider></sl-divider>
                     <li>
-                        <a href="{% if '/blog/el/' in page.url or '/el/' in page.url %}/el/acknowledgements/{% elif '/blog/tr/' in page.url or '/tr/' in page.url %}/tr/acknowledgements/{% else %}/en-us/acknowledgements/{% endif %}" class="burger-nav-link">{{ 'nav.acknowledgements' | i18n }}</a>
-                    </li>
-                    <li>
-                        <a href="{% if '/blog/el/' in page.url or '/el/' in page.url %}/el/ai-disclaimer/{% elif '/blog/tr/' in page.url or '/tr/' in page.url %}/tr/ai-disclaimer/{% else %}/en-us/ai-disclaimer/{% endif %}" class="burger-nav-link">{{ 'nav.aiDisclaimer' | i18n }}</a>
+                        <a href="{% if '/blog/el/' in page.url or '/el/' in page.url %}/el/dictionary/{% elif '/blog/tr/' in page.url or '/tr/' in page.url %}/tr/dictionary/{% else %}/en-us/dictionary/{% endif %}" class="burger-nav-link">{{ 'dictionary.title' | i18n }}</a>
                     </li>
                     <li>
                         <a href="{% if '/blog/el/' in page.url or '/el/' in page.url %}/el/ai-toolset/{% elif '/blog/tr/' in page.url or '/tr/' in page.url %}/tr/ai-toolset/{% else %}/en-us/ai-toolset/{% endif %}" class="burger-nav-link">{{ 'nav.aiToolset' | i18n }}</a>
                     </li>
                     <li>
-                        <a href="{% if '/blog/el/' in page.url or '/el/' in page.url %}/el/dictionary/{% elif '/blog/tr/' in page.url or '/tr/' in page.url %}/tr/dictionary/{% else %}/en-us/dictionary/{% endif %}" class="burger-nav-link">{{ 'dictionary.title' | i18n }}</a>
+                        <a href="{% if '/blog/el/' in page.url or '/el/' in page.url %}/el/ai-disclaimer/{% elif '/blog/tr/' in page.url or '/tr/' in page.url %}/tr/ai-disclaimer/{% else %}/en-us/ai-disclaimer/{% endif %}" class="burger-nav-link">{{ 'nav.aiDisclaimer' | i18n }}</a>
+                    </li>
+                    <li>
+                        <a href="{% if '/blog/el/' in page.url or '/el/' in page.url %}/el/acknowledgements/{% elif '/blog/tr/' in page.url or '/tr/' in page.url %}/tr/acknowledgements/{% else %}/en-us/acknowledgements/{% endif %}" class="burger-nav-link">{{ 'nav.acknowledgements' | i18n }}</a>
                     </li>
                 </ul>
             </nav>

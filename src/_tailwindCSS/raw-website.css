@@ -130,7 +130,7 @@
 
   /* Burger Navigation */
   .burger-nav {
-    @apply flex-1 p-8;
+    @apply flex-1 p-8 flex flex-col justify-between h-full;
   }
 
   .burger-nav-links {
@@ -140,6 +140,11 @@
   .burger-nav-link {
     @apply text-lg font-medium text-slate-700 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors duration-200 py-2 border-b border-transparent hover:border-sky-600 dark:hover:border-sky-400;
   }
+
+  .nav-divider {
+    @apply mb-4;
+  }
+  
   main,
   article {
     @apply prose prose-sky dark:prose-invert dark:prose-p:text-slate-50 dark:prose-li:text-slate-50 dark:prose-lead:text-slate-100 prose-lead:font-light mx-auto text-justify;

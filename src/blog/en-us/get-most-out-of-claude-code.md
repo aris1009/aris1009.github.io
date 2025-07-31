@@ -320,11 +320,11 @@ The AI-assisted development landscape changes rapidly, and what works today may 
 
 AI agents perform exceptionally well with DSLs and configuration templates where patterns are well-established and syntax is rigid. Tasks like generating Terraform modules, Helm charts, GitHub Actions workflows, or nginx configuration files typically produce excellent results, especially when you provide examples from your existing setup.
 
-The structured nature of these languages, combined with extensive documentation and examples in training data, makes them ideal candidates for AI assistance. I've had consistent success generating complex infrastructure-as-code configurations that would have taken hours to write manually.
+The structured nature of these languages, combined with extensive documentation and examples in training data, makes them ideal candidates for AI assistance. I've had consistent success generating complex {% dictionaryLink "infrastructure-as-code", "infrastructure-as-code" %} configurations that would have taken hours to write manually.
 
 ### RFC-Based and Standardized Implementations
 
-When implementing well-documented standards like OAuth 2.0, SAML, SCIM, or OpenAPI specifications, AI agents can quickly produce functional implementations. The extensive documentation and standardized patterns make these tasks particularly suitable for AI assistance.
+When implementing well-documented standards like OAuth 2.0, SAML, SCIM, or {% dictionaryLink "OpenAPI", "openapi" %} specifications, AI agents can quickly produce functional implementations. The extensive documentation and standardized patterns make these tasks particularly suitable for AI assistance.
 
 **Critical Caveat:** While the implementation may be functionally correct, you must personally understand the security implications of authentication and authorization code. AI agents lack the critical thinking necessary to identify subtle security vulnerabilities or implementation pitfalls that could compromise your system.
 
