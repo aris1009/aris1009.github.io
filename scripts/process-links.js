@@ -72,18 +72,7 @@ function isExternalUrl(url) {
   }
 }
 
-/**
- * Check if content already has shortcodes (to avoid double processing)
- */
-function hasExistingShortcodes(content) {
-  const shortcodePatterns = [
-    /{%\s*externalLink\s/,
-    /{%\s*internalLink\s/,
-    /{%\s*dictionaryLink\s/
-  ];
-  
-  return shortcodePatterns.some(pattern => pattern.test(content));
-}
+// Note: hasExistingShortcodes was removed as individual link processing is now preferred
 
 /**
  * Check if a specific markdown link is already wrapped in any shortcode
@@ -255,10 +244,10 @@ function processFile(filePath) {
 }
 
 /**
- * Process all blog posts in the specified directories
+ * Create and initialize statistics tracker
  */
-function processAllPosts(options = {}) {
-  const stats = {
+function createStatsTracker() {
+  return {
     totalFiles: 0,
     processedFiles: 0,
     skippedFiles: 0,
@@ -269,50 +258,57 @@ function processAllPosts(options = {}) {
       dictionaryLinks: 0
     }
   };
-  
-  // Override config with command line options
-  if (options.includeDictionary !== undefined) {
-    CONFIG.dictionaryDetection.enabled = options.includeDictionary;
-  }
-  
+}
+
+/**
+ * Print processing configuration to console
+ */
+function printProcessingConfiguration() {
   console.log('🔗 Processing blog post links...\n');
   console.log('Configuration:');
   console.log(`  - Dictionary detection: ${CONFIG.dictionaryDetection.enabled ? 'enabled' : 'disabled'}`);
   console.log(`  - Skip if has shortcodes: ${CONFIG.skipIfHasShortcodes}`);
   console.log(`  - Dictionary terms available: ${dictionaryTerms.length}\n`);
+}
+
+/**
+ * Process all files in a single directory
+ */
+function processDirectoryFiles(blogDir, stats) {
+  const fullDirPath = path.join(process.cwd(), blogDir);
   
-  for (const blogDir of CONFIG.blogDirs) {
-    const fullDirPath = path.join(process.cwd(), blogDir);
-    
-    if (!fs.existsSync(fullDirPath)) {
-      console.log(`Directory not found: ${blogDir}`);
-      continue;
-    }
-    
-    console.log(`\n📁 Processing directory: ${blogDir}`);
-    
-    const files = fs.readdirSync(fullDirPath).filter(file => file.endsWith('.md'));
-    
-    for (const file of files) {
-      const filePath = path.join(fullDirPath, file);
-      stats.totalFiles++;
-      
-      const result = processFile(filePath);
-      
-      if (result.processed) {
-        stats.processedFiles++;
-        if (result.changes?.hasExternalLinks) stats.changes.externalLinks++;
-        if (result.changes?.hasInternalLinks) stats.changes.internalLinks++;
-        if (result.changes?.hasDictionaryLinks) stats.changes.dictionaryLinks++;
-      } else if (result.reason === 'error') {
-        stats.errorFiles++;
-      } else {
-        stats.skippedFiles++;
-      }
-    }
+  if (!fs.existsSync(fullDirPath)) {
+    console.log(`Directory not found: ${blogDir}`);
+    return;
   }
   
-  // Print summary
+  console.log(`\n📁 Processing directory: ${blogDir}`);
+  
+  const files = fs.readdirSync(fullDirPath).filter(file => file.endsWith('.md'));
+  
+  for (const file of files) {
+    const filePath = path.join(fullDirPath, file);
+    stats.totalFiles++;
+    
+    const result = processFile(filePath);
+    
+    if (result.processed) {
+      stats.processedFiles++;
+      if (result.changes?.hasExternalLinks) stats.changes.externalLinks++;
+      if (result.changes?.hasInternalLinks) stats.changes.internalLinks++;
+      if (result.changes?.hasDictionaryLinks) stats.changes.dictionaryLinks++;
+    } else if (result.reason === 'error') {
+      stats.errorFiles++;
+    } else {
+      stats.skippedFiles++;
+    }
+  }
+}
+
+/**
+ * Print processing summary to console
+ */
+function printProcessingSummary(stats) {
   console.log('\n📊 Processing Summary:');
   console.log(`  Total files: ${stats.totalFiles}`);
   console.log(`  Processed: ${stats.processedFiles}`);
@@ -322,6 +318,26 @@ function processAllPosts(options = {}) {
   console.log(`  External links: ${stats.changes.externalLinks} files`);
   console.log(`  Internal links: ${stats.changes.internalLinks} files`);
   console.log(`  Dictionary links: ${stats.changes.dictionaryLinks} files`);
+}
+
+/**
+ * Process all blog posts in the specified directories
+ */
+function processAllPosts(options = {}) {
+  const stats = createStatsTracker();
+  
+  // Override config with command line options
+  if (options.includeDictionary !== undefined) {
+    CONFIG.dictionaryDetection.enabled = options.includeDictionary;
+  }
+  
+  printProcessingConfiguration();
+  
+  for (const blogDir of CONFIG.blogDirs) {
+    processDirectoryFiles(blogDir, stats);
+  }
+  
+  printProcessingSummary(stats);
   
   return stats;
 }
@@ -410,6 +426,10 @@ module.exports = {
   isMarkdownLinkAlreadyProcessed,
   processFile,
   processAllPosts,
+  createStatsTracker,
+  printProcessingConfiguration,
+  processDirectoryFiles,
+  printProcessingSummary,
   CONFIG
 };
 

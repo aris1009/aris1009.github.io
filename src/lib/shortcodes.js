@@ -2,15 +2,15 @@ function currentYear() {
   return `${new Date().getFullYear()}`;
 }
 
-function externalLink(text, url, ariaLabel = '') {
+const externalLink = (text, url, ariaLabel = '') => {
   const label = ariaLabel || `${text} (opens in new tab)`;
   return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="external-link inline-flex items-center" aria-label="${label}"><span class="link-text">${text}</span><span class="emoji-indicator external-emoji" aria-hidden="true">↗️</span></a>`;
-}
+};
 
-function internalLink(text, url, ariaLabel = '') {
+const internalLink = (text, url, ariaLabel = '') => {
   const label = ariaLabel || text;
   return `<a href="${url}" class="internal-link inline-flex items-center" aria-label="${label}"><span class="link-text">${text}</span><span class="emoji-indicator internal-emoji" aria-hidden="true">➡️</span></a>`;
-}
+};
 
 function dictionaryLink(text, term, locale = 'en-us') {
   const dictionary = require('../_data/dictionary.js');
@@ -46,6 +46,70 @@ function themeToggle() {
   </button>`;
 }
 
+// Utility function for translation lookup with fallback
+function getTranslatedText(translations, path, locale, fallback) {
+  const keys = path.split('.');
+  let current = translations;
+  
+  for (const key of keys) {
+    current = current?.[key];
+    if (!current) break;
+  }
+  
+  return current?.[locale] || current?.['en-us'] || fallback;
+}
+
+// Create difficulty label with proper variant and accessibility
+function createDifficultyLabel(difficulty, locale, translations) {
+  if (!difficulty) return null;
+  
+  const difficultyText = getTranslatedText(translations, `labels.difficulty.${difficulty}`, locale, difficulty);
+  const ariaLabelText = getTranslatedText(translations, 'labels.ariaLabels.difficultyLevel', locale, 'Difficulty level');
+  const ariaLabel = `${ariaLabelText}: ${difficultyText}`;
+  
+  const variants = {
+    'beginner': 'success',
+    'expert': 'primary'
+  };
+  const variant = variants[difficulty] || 'neutral';
+  
+  return `<sl-tag variant="${variant}" size="small" pill data-testid="difficulty-label-${difficulty}" role="img" aria-label="${ariaLabel}">
+    ${difficultyText}
+  </sl-tag>`;
+}
+
+// Create content type label with accessibility
+function createContentTypeLabel(contentType, locale, translations) {
+  if (!contentType) return null;
+  
+  const contentTypeText = getTranslatedText(translations, `labels.contentType.${contentType}`, locale, contentType);
+  const ariaLabelText = getTranslatedText(translations, 'labels.ariaLabels.contentType', locale, 'Content type');
+  const ariaLabel = `${ariaLabelText}: ${contentTypeText}`;
+  
+  return `<sl-tag size="small" pill data-testid="content-type-label-${contentType}" role="img" aria-label="${ariaLabel}">
+    ${contentTypeText}
+  </sl-tag>`;
+}
+
+// Create technology labels (limited to 5 for UI clarity)
+function createTechnologyLabels(technologies, locale, translations) {
+  if (!technologies || !Array.isArray(technologies) || technologies.length === 0) {
+    return [];
+  }
+  
+  const technologyAriaText = getTranslatedText(translations, 'labels.ariaLabels.technology', locale, 'Technology');
+  
+  return technologies.slice(0, 5).map(tech => {
+    const techId = tech.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+    const ariaLabel = `${technologyAriaText}: ${tech}`;
+    
+    return `<sl-tag size="small" pill data-testid="tech-tag-${techId}" role="img" aria-label="${ariaLabel}">
+      ${tech}
+    </sl-tag>`;
+  });
+}
+
+// Main function - now focused on orchestration and HTML generation
 function articleLabels(difficulty, contentType, technologies = [], locale = 'en-us') {
   const translations = require("../_data/translations.js");
   
@@ -53,56 +117,17 @@ function articleLabels(difficulty, contentType, technologies = [], locale = 'en-
     return '';
   }
 
-  const labels = [];
-  
-  // Difficulty label (highest priority)
-  if (difficulty) {
-    const difficultyText = translations.labels.difficulty[difficulty]?.[locale] || 
-                          translations.labels.difficulty[difficulty]?.['en-us'] || 
-                          difficulty;
-    const ariaLabel = `${translations.labels.ariaLabels.difficultyLevel[locale] || 'Difficulty level'}: ${difficultyText}`;
-    
-    const variants = {
-      'beginner': 'success',
-      'expert': 'primary'
-    };
-
-    const variant = variants[difficulty] || 'neutral';
-    
-    labels.push(`<sl-tag variant="${variant}" size="small" pill data-testid="difficulty-label-${difficulty}" role="img" aria-label="${ariaLabel}">
-      ${difficultyText}
-    </sl-tag>`);
-  }
-
-  // Content type label 
-  if (contentType) {
-    const contentTypeText = translations.labels.contentType[contentType]?.[locale] || 
-                           translations.labels.contentType[contentType]?.['en-us'] || 
-                           contentType;
-    const ariaLabel = `${translations.labels.ariaLabels.contentType[locale] || 'Content type'}: ${contentTypeText}`;
-    
-    labels.push(`<sl-tag sl-tag size="small" pill data-testid="content-type-label-${contentType}" role="img" aria-label="${ariaLabel}">
-      ${contentTypeText}
-    </sl-tag>`);
-  }
-
-  // Technology tags (limit to 5 for UI clarity)
-  if (technologies && Array.isArray(technologies)) {
-    technologies.slice(0, 5).forEach(tech => {
-      const techId = tech.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-      const ariaLabel = `${translations.labels.ariaLabels.technology[locale] || 'Technology'}: ${tech}`;
-      
-      labels.push(`<sl-tag size="small" pill data-testid="tech-tag-${techId}" role="img" aria-label="${ariaLabel}">
-        ${tech}
-      </sl-tag>`);
-    });
-  }
+  const labels = [
+    createDifficultyLabel(difficulty, locale, translations),
+    createContentTypeLabel(contentType, locale, translations),
+    ...createTechnologyLabels(technologies, locale, translations)
+  ].filter(Boolean);
 
   if (labels.length === 0) {
     return '';
   }
 
-  const classificationsLabel = translations.labels.ariaLabels.contentClassifications[locale] || 'Content classifications';
+  const classificationsLabel = getTranslatedText(translations, 'labels.ariaLabels.contentClassifications', locale, 'Content classifications');
   
   return `<div class="article-labels flex flex-wrap gap-2 mb-4" role="group" aria-label="${classificationsLabel}">
     ${labels.join('\n    ')}
