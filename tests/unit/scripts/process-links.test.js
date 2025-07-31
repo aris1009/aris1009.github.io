@@ -160,6 +160,66 @@ describe('process-links.js', () => {
       const expected = '   {% externalLink "Google", "https://google.com" %}   ';
       expect(processExternalLinks(input)).toBe(expected);
     });
+
+    describe('Image Link Exclusion', () => {
+      it('should not process external image links', () => {
+        const input = 'Check out this image: ![Claude Code in action](https://example.com/image.png "Title")';
+        expect(processExternalLinks(input)).toBe(input);
+      });
+
+      it('should not process internal image links', () => {
+        const input = 'Local image: ![Local image](/_static/img/claude-code.png "Claude Code in action")';
+        expect(processExternalLinks(input)).toBe(input);
+      });
+
+      it('should process regular links but ignore image links in same content', () => {
+        const input = 'Visit [Google](https://google.com) and see ![Image](https://example.com/img.png).';
+        const expected = 'Visit {% externalLink "Google", "https://google.com" %} and see ![Image](https://example.com/img.png).';
+        expect(processExternalLinks(input)).toBe(expected);
+      });
+
+      it('should handle multiple image links without processing them', () => {
+        const input = '![First](https://example.com/1.png) and ![Second](https://example.com/2.jpg)';
+        expect(processExternalLinks(input)).toBe(input);
+      });
+
+      it('should handle image links with complex URLs (parentheses)', () => {
+        const input = '![Wikipedia Image](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/GRU_(Russian_Federation).svg/220px-GRU_(Russian_Federation).svg.png)';
+        expect(processExternalLinks(input)).toBe(input);
+      });
+
+      it('should handle mixed content with both images and regular links', () => {
+        const input = `Check out this article [about security](https://security.com) and see this diagram:
+![Security Diagram](https://example.com/diagram.png "Security Overview")
+Also visit [another resource](https://resource.com).`;
+        
+        const expected = `Check out this article {% externalLink "about security", "https://security.com" %} and see this diagram:
+![Security Diagram](https://example.com/diagram.png "Security Overview")
+Also visit {% externalLink "another resource", "https://resource.com" %}.`;
+        
+        expect(processExternalLinks(input)).toBe(expected);
+      });
+
+      it('should handle image links with alt text containing brackets', () => {
+        const input = '![Image [with brackets]](https://example.com/image.png)';
+        expect(processExternalLinks(input)).toBe(input);
+      });
+
+      it('should handle image links with special characters in alt text', () => {
+        const input = '![Image "with quotes" & special chars](https://example.com/image.png)';
+        expect(processExternalLinks(input)).toBe(input);
+      });
+
+      it('should handle relative image paths', () => {
+        const input = '![Relative image](./images/local.png)';
+        expect(processExternalLinks(input)).toBe(input);
+      });
+
+      it('should handle absolute internal image paths', () => {
+        const input = '![Internal image](/_static/img/screenshot.png)';
+        expect(processExternalLinks(input)).toBe(input);
+      });
+    });
   });
 
   describe('processInternalLinks', () => {
@@ -189,6 +249,41 @@ describe('process-links.js', () => {
       const input = 'Internal ["quoted" link](/blog/post) test.';
       const expected = 'Internal {% internalLink "\\"quoted\\" link", "/blog/post" %} test.';
       expect(processInternalLinks(input)).toBe(expected);
+    });
+
+    describe('Image Link Exclusion for Internal Links', () => {
+      it('should not process internal image links', () => {
+        const input = 'Local image: ![Local image](/_static/img/claude-code.png "Claude Code in action")';
+        expect(processInternalLinks(input)).toBe(input);
+      });
+
+      it('should not process relative image links', () => {
+        const input = 'Relative image: ![Relative image](./images/local.png)';
+        expect(processInternalLinks(input)).toBe(input);
+      });
+
+      it('should process regular internal links but ignore image links', () => {
+        const input = 'Visit [my blog](/blog) and see ![screenshot](/_static/img/screen.png).';
+        const expected = 'Visit {% internalLink "my blog", "/blog" %} and see ![screenshot](/_static/img/screen.png).';
+        expect(processInternalLinks(input)).toBe(expected);
+      });
+
+      it('should handle multiple internal image links without processing them', () => {
+        const input = '![First](/_static/img/1.png) and ![Second](./images/2.jpg)';
+        expect(processInternalLinks(input)).toBe(input);
+      });
+
+      it('should handle mixed internal content with both images and regular links', () => {
+        const input = `Read [my article](/blog/article) and see this image:
+![Article Image](/_static/img/article.png "Article Overview")
+Also check [another page](./other).`;
+        
+        const expected = `Read {% internalLink "my article", "/blog/article" %} and see this image:
+![Article Image](/_static/img/article.png "Article Overview")
+Also check {% internalLink "another page", "./other" %}.`;
+        
+        expect(processInternalLinks(input)).toBe(expected);
+      });
     });
   });
 
@@ -233,6 +328,161 @@ describe('process-links.js', () => {
       // "and" is in the excluded words list
       expect(processDictionaryTerms(input)).not.toContain('dictionaryLink');
     });
+
+    it('should not process dictionary terms inside code blocks', () => {
+      const input = `Text with encryption term.
+
+\`\`\`javascript
+function encrypt(data) {
+  return encryption.encode(data);
+}
+\`\`\`
+
+More encryption text.`;
+      
+      const result = processDictionaryTerms(input);
+      
+      // Should process terms outside code blocks
+      expect(result).toContain('{% dictionaryLink "encryption", "encryption" %}');
+      
+      // Should NOT process terms inside code blocks
+      const codeBlockMatch = result.match(/```javascript[\s\S]*?```/);
+      expect(codeBlockMatch).toBeTruthy();
+      expect(codeBlockMatch[0]).not.toContain('dictionaryLink');
+      expect(codeBlockMatch[0]).toContain('return encryption.encode(data);');
+    });
+
+    it('should handle multiple code blocks correctly', () => {
+      const input = `First encryption text.
+
+\`\`\`bash
+# This encryption should not be processed
+openssl enc -aes-256-cbc -in file.txt
+\`\`\`
+
+Middle encryption text.
+
+\`\`\`python
+def encrypt_data(data):
+    # encryption logic here
+    return encrypted
+\`\`\`
+
+Final encryption text.`;
+      
+      const result = processDictionaryTerms(input);
+      
+      // Should process terms outside all code blocks (3 occurrences)
+      const outsideMatches = result.match(/{% dictionaryLink "encryption", "encryption" %}/g);
+      expect(outsideMatches).toHaveLength(3);
+      
+      // Should not process terms inside either code block
+      const bashBlock = result.match(/```bash[\s\S]*?```/);
+      const pythonBlock = result.match(/```python[\s\S]*?```/);
+      
+      expect(bashBlock[0]).not.toContain('dictionaryLink');
+      expect(pythonBlock[0]).not.toContain('dictionaryLink');
+      expect(bashBlock[0]).toContain('# This encryption should not be processed');
+      expect(pythonBlock[0]).toContain('# encryption logic here');
+    });
+
+    it('should handle code blocks with languages specified', () => {
+      const input = `Text with encryption.
+
+\`\`\`typescript
+interface EncryptionService {
+  encrypt(data: string): string;
+}
+\`\`\`
+
+More encryption text.`;
+      
+      const result = processDictionaryTerms(input);
+      
+      const codeBlock = result.match(/```typescript[\s\S]*?```/);
+      expect(codeBlock[0]).not.toContain('dictionaryLink');
+      expect(codeBlock[0]).toContain('encrypt(data: string)');
+    });
+
+    it('should handle nested code blocks and mixed content', () => {
+      const input = `Regular encryption text.
+
+\`\`\`markdown
+# Documentation
+
+Some text about encryption here.
+
+\`\`\`javascript
+const encryption = require('crypto');
+\`\`\`
+\`\`\`
+
+Final encryption text.`;
+      
+      const result = processDictionaryTerms(input);
+      
+      // Should process terms outside code blocks
+      expect(result).toContain('Regular {% dictionaryLink "encryption", "encryption" %} text.');
+      expect(result).toContain('Final {% dictionaryLink "encryption", "encryption" %} text.');
+      
+      // Should not process terms inside the code block
+      const codeBlock = result.match(/```markdown[\s\S]*?```/);
+      expect(codeBlock[0]).not.toContain('dictionaryLink');
+      expect(codeBlock[0]).toContain('Some text about encryption here.');
+    });
+
+    it('should handle code blocks without language specification', () => {
+      const input = `Text with encryption.
+
+\`\`\`
+function processEncryption() {
+  // encryption code
+}
+\`\`\`
+
+More encryption text.`;
+      
+      const result = processDictionaryTerms(input);
+      
+      const codeBlock = result.match(/```\n[\s\S]*?```/);
+      expect(codeBlock[0]).not.toContain('dictionaryLink');
+      expect(codeBlock[0]).toContain('// encryption code');
+    });
+
+    it('should handle single-line code blocks', () => {
+      const input = `Text with encryption.
+\`\`\`
+const key = generateEncryptionKey();
+\`\`\`
+More encryption text.`;
+      
+      const result = processDictionaryTerms(input);
+      
+      const codeBlock = result.match(/```[\s\S]*?```/);
+      expect(codeBlock[0]).not.toContain('dictionaryLink');
+      expect(codeBlock[0]).toContain('generateEncryptionKey()');
+    });
+
+    it('should handle malformed code blocks gracefully', () => {
+      const input = `Text with encryption.
+
+\`\`\`javascript
+function test() {
+  return encryption;
+}
+// Missing closing backticks
+
+More encryption text.`;
+      
+      const result = processDictionaryTerms(input);
+      
+      // Should still process the first occurrence
+      expect(result).toContain('Text with {% dictionaryLink "encryption", "encryption" %}.');
+      
+      // The malformed block should not be processed as it's considered inside the code block
+      expect(result).toContain('return encryption;');
+      expect(result).not.toContain('return {% dictionaryLink "encryption", "encryption" %};');
+    });
   });
 
   describe('Edge Cases and Regression Tests', () => {
@@ -245,6 +495,40 @@ describe('process-links.js', () => {
       expect(result).toContain('GRU_(Russian_Federation)"');
       expect(result).not.toContain('GRU_(Russian_Federation"'); // Should not be missing the final )
       expect(result).not.toContain('})'); // Should not have hanging }) outside shortcode
+    });
+
+    it('should not process the Claude Code image link mentioned in the bug report', () => {
+      // This is the exact case that was failing - image links being incorrectly processed
+      const input = '![Claude Code in action](/_static/img/claude-code.png "Claude Code in action")';
+      
+      // Should remain completely unchanged
+      expect(processExternalLinks(input)).toBe(input);
+      expect(processInternalLinks(input)).toBe(input);
+      
+      // Should not contain any shortcode syntax
+      expect(processExternalLinks(input)).not.toContain('externalLink');
+      expect(processExternalLinks(input)).not.toContain('internalLink');
+      expect(processInternalLinks(input)).not.toContain('externalLink');
+      expect(processInternalLinks(input)).not.toContain('internalLink');
+    });
+
+    it('should handle content with both Claude Code image and regular links', () => {
+      const input = `Here's how to use Claude Code:
+
+![Claude Code in action](/_static/img/claude-code.png "Claude Code in action")
+
+You can read more about it in the [documentation](https://docs.anthropic.com) or visit [our website](https://anthropic.com).`;
+
+      const expectedExternal = `Here's how to use Claude Code:
+
+![Claude Code in action](/_static/img/claude-code.png "Claude Code in action")
+
+You can read more about it in the {% externalLink "documentation", "https://docs.anthropic.com" %} or visit {% externalLink "our website", "https://anthropic.com" %}.`;
+
+      expect(processExternalLinks(input)).toBe(expectedExternal);
+      
+      // The image should still be unchanged after processing
+      expect(processExternalLinks(input)).toContain('![Claude Code in action](/_static/img/claude-code.png "Claude Code in action")');
     });
 
     it('should handle Wikipedia URLs with parentheses in different languages', () => {

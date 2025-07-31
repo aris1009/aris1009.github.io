@@ -91,7 +91,8 @@ function isMarkdownLinkAlreadyProcessed(match) {
 function processExternalLinks(content) {
   // Match markdown links: [text](url) - handle complex URLs including those with parentheses
   // This regex handles both URLs with and without parentheses by using alternation
-  const markdownLinkRegex = /\[([^\]]+)\]\(([^)]+\([^)]*\)[^)]*|[^)]+)\)/g;
+  // Important: Uses negative lookbehind (?<!\!) to exclude image links that start with ![
+  const markdownLinkRegex = /(?<!\!)\[([^\]]+)\]\(([^)]+\([^)]*\)[^)]*|[^)]+)\)/g;
   
   return content.replace(markdownLinkRegex, (match, text, url) => {
     // Clean up the URL (remove any extra whitespace)
@@ -122,8 +123,9 @@ function processExternalLinks(content) {
  * Process internal links - convert markdown links to internalLink shortcodes
  */
 function processInternalLinks(content) {
-  // Match markdown links: [text](url)
-  const markdownLinkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  // Match markdown links: [text](url) - exclude image links that start with ![
+  // Important: Uses negative lookbehind (?<!\!) to exclude image links that start with ![
+  const markdownLinkRegex = /(?<!\!)\[([^\]]+)\]\(([^)]+)\)/g;
   
   return content.replace(markdownLinkRegex, (match, text, url) => {
     // Clean up the URL
@@ -179,7 +181,20 @@ function processDictionaryTerms(content) {
     
     // Only replace if not already inside a link or shortcode
     const lines = processedContent.split('\n');
+    let insideCodeBlock = false;
+    
     const processedLines = lines.map(line => {
+      // Check for code block boundaries (triple backticks)
+      if (line.trim().startsWith('```')) {
+        insideCodeBlock = !insideCodeBlock;
+        return line; // Don't process the code block delimiter itself
+      }
+      
+      // Skip lines inside code blocks
+      if (insideCodeBlock) {
+        return line;
+      }
+      
       // Skip lines that already contain shortcodes or markdown links
       if (/{%.*%}/.test(line) || /\[[^\]]*\]\([^)]*\)/.test(line)) {
         return line;
