@@ -426,3 +426,58 @@ code[class*="language-css"] {
 	box-shadow: inset 5px 0 0 #f7d87c;
 	z-index: 0;
 }
+
+/* Copy Button Styles */
+.code-block-wrapper {
+	position: relative;
+	overflow: visible; /* Ensure button visibility */
+}
+
+.code-copy-button {
+	position: absolute;
+	top: 0.75rem;
+	right: 0.75rem;
+	z-index: 10;
+	opacity: 0.7;
+	transition: opacity 0.2s ease;
+	
+	/* Shoelace tooltip theming for light mode */
+	--sl-tooltip-background-color: var(--sl-color-neutral-900);
+	--sl-tooltip-color: var(--sl-color-neutral-0);
+}
+
+.code-copy-button:hover,
+.code-copy-button:focus {
+	opacity: 1;
+}
+
+/* Ensure code blocks have space for the copy button */
+.code-block-wrapper pre[class*="language-"] {
+	padding-right: 2.5rem; /* Space for button */
+}
+
+/* Dark theme adjustments for copy button */
+.dark .code-copy-button {
+	--sl-tooltip-background-color: var(--sl-color-neutral-0);
+	--sl-tooltip-color: var(--sl-color-neutral-900);
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+	.code-copy-button {
+		border: 1px solid CanvasText;
+		background: Canvas;
+	}
+}
+
+/* Mobile responsiveness */
+@media (max-width: 640px) {
+	.code-copy-button {
+		top: 0.5rem;
+		right: 0.5rem;
+	}
+	
+	.code-block-wrapper pre[class*="language-"] {
+		padding-right: 2rem;
+	}
+}
