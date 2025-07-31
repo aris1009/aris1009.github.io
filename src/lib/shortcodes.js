@@ -24,10 +24,11 @@ function dictionaryLink(text, term, locale = 'en-us') {
 
   // Use slot="content" for HTML content in tooltip
   return `<sl-tooltip placement="bottom" data-testid="dictionary-tooltip-${term}">
-    <div slot="content" class="dictionary-tooltip-content">
-      <div class="tooltip-term">${term.charAt(0).toUpperCase() + term.slice(1)}</div>
-      <div class="tooltip-definition">${definitionText}</div>
-    </div>
+    <span slot="content" class="dictionary-tooltip-content">
+      <span class="tooltip-term">${term.charAt(0).toUpperCase() + term.slice(1)}</span>
+      <br />
+      <span class="tooltip-definition">${definitionText}</span>
+    </span>
     <button class="dictionary-link inline-flex items-center" data-testid="dictionary-link-${term}" aria-label="Definition of ${term}">
       <span class="dictionary-text">${text}</span>
       <span class="emoji-indicator dictionary-emoji" data-testid="dictionary-emoji-${term}" aria-hidden="true">📘</span>

@@ -47,7 +47,6 @@ Additional tools and utilities that power the development and build process:
 This blog builds upon the **Minimalism** theme by [Marco Micale](https://github.com/MarcoMicale).
 
 - **Theme Repository**: [https://github.com/MarcoMicale/Minimalism](https://github.com/MarcoMicale/Minimalism)
-- **Creator**: Marco Micale
 
 ## Thank You
 
@@ -95,7 +94,6 @@ Thank you to all the open-source developers and contributors who make projects l
 Αυτό το ιστολόγιο χρησιμοποιεί το θέμα **Minimalism** από τον [Marco Micale](https://github.com/MarcoMicale).
 
 - **Αποθετήριο Θέματος**: [https://github.com/MarcoMicale/Minimalism](https://github.com/MarcoMicale/Minimalism)
-- **Δημιουργός**: Marco Micale
 
 ## Ευχαριστίες
 
@@ -143,7 +141,6 @@ Geliştirme ve yapı sürecini destekleyen ek araçlar ve yardımcı programlar:
 Bu blog, [Marco Micale](https://github.com/MarcoMicale) tarafından yapılan **Minimalism** temasını kullanır.
 
 - **Tema Deposu**: [https://github.com/MarcoMicale/Minimalism](https://github.com/MarcoMicale/Minimalism)
-- **Yaratıcı**: Marco Micale
 
 ## Teşekkürler
 

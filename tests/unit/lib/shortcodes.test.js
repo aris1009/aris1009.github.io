@@ -94,7 +94,7 @@ describe('shortcodes', () => {
     it('should capitalize term names correctly', () => {
       const result = dictionaryLink('test', 'malware');
       
-      expect(result).toContain('class="tooltip-term">Malware</div>'); // Direct HTML in slot content
+      expect(result).toContain('class="tooltip-term">Malware</span>'); // Direct HTML in slot content
     });
 
     it('should include all required accessibility attributes', () => {
