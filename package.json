@@ -33,7 +33,7 @@
     "@11ty/eleventy": "^2.0.1",
     "@11ty/eleventy-navigation": "^1.0.4",
     "@11ty/eleventy-plugin-rss": "^1.2.0",
-    "@playwright/test": "^1.54.1",
+    "@playwright/test": "^1.55.1",
     "@tailwindcss/typography": "^0.5.10",
     "eleventy-plugin-reading-time": "^0.0.1",
     "html-minifier": "^4.0.0",
