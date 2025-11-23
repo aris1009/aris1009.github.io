@@ -65,7 +65,9 @@ describe('Code Copy Buttons', () => {
       observe: vi.fn(),
       disconnect: vi.fn()
     };
-    mockMutationObserver = vi.fn(() => mockObserverInstance);
+    mockMutationObserver = vi.fn(function() {
+      return mockObserverInstance;
+    });
 
     // Mock Prism.js
     mockPrism = {
@@ -280,7 +282,7 @@ describe('Code Copy Buttons', () => {
 
     it('should process new code blocks when DOM changes', async () => {
       let mutationCallback;
-      mockMutationObserver.mockImplementation((callback) => {
+      mockMutationObserver.mockImplementation(function(callback) {
         mutationCallback = callback;
         return mockObserverInstance;
       });
@@ -309,7 +311,7 @@ describe('Code Copy Buttons', () => {
 
     it('should ignore non-element nodes in mutations', async () => {
       let mutationCallback;
-      mockMutationObserver.mockImplementation((callback) => {
+      mockMutationObserver.mockImplementation(function(callback) {
         mutationCallback = callback;
         return mockObserverInstance;
       });
