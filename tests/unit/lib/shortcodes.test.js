@@ -5,7 +5,9 @@ describe('shortcodes', () => {
   describe('currentYear', () => {
     it('should return current year as string', () => {
       const mockDate = new Date('2023-06-15');
-      vi.spyOn(global, 'Date').mockImplementation(() => mockDate);
+      vi.spyOn(global, 'Date').mockImplementation(function() {
+        return mockDate;
+      });
       
       const result = currentYear();
       
@@ -17,7 +19,9 @@ describe('shortcodes', () => {
 
     it('should handle year transitions correctly', () => {
       const mockDate = new Date('2024-01-01');
-      vi.spyOn(global, 'Date').mockImplementation(() => mockDate);
+      vi.spyOn(global, 'Date').mockImplementation(function() {
+        return mockDate;
+      });
       
       const result = currentYear();
       

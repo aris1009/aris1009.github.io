@@ -52,10 +52,12 @@ describe('Code Copy Buttons Integration', () => {
           add: vi.fn()
         }
       },
-      MutationObserver: vi.fn(() => ({
-        observe: vi.fn(),
-        disconnect: vi.fn()
-      })),
+      MutationObserver: vi.fn(function() {
+        return {
+          observe: vi.fn(),
+          disconnect: vi.fn()
+        };
+      }),
       requestIdleCallback: vi.fn(callback => callback()),
       Node: { ELEMENT_NODE: 1 }
     };
@@ -211,11 +213,13 @@ describe('Code Copy Buttons Integration', () => {
     });
 
     it('should handle mutation observer events correctly', () => {
-      const mockObserver = vi.fn(() => ({
-        observe: vi.fn(),
-        disconnect: vi.fn()
-      }));
-      
+      const mockObserver = vi.fn(function() {
+        return {
+          observe: vi.fn(),
+          disconnect: vi.fn()
+        };
+      });
+
       global.MutationObserver = mockObserver;
       
       // Simulate observer creation
