@@ -451,6 +451,11 @@ code[class*="language-css"] {
 	opacity: 1;
 }
 
+/* Ensure code blocks have space for the copy button */
+.code-block-wrapper pre[class*="language-"] {
+	padding-right: 2.5rem; /* Space for button */
+}
+
 /* Dark theme adjustments for copy button */
 .dark .code-copy-button {
 	--sl-tooltip-background-color: var(--sl-color-neutral-0);
