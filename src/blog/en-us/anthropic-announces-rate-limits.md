@@ -13,7 +13,7 @@ permalink: /blog/en-us/dealing-with-rate-limits/
 draft: false
 ---
 
-# Rate limits? Again?
+## Rate limits? Again?
 
 Only a few hours after I published my {% internalLink "previous blog", "/blog/en-us/get-most-out-of-claude-code/" %}, Anthropic had the courtesy to share the dreaded email I was expecting rather sooner than later:
 
