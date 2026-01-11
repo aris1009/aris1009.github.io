@@ -358,7 +358,7 @@ This experiment exposed another {% dictionaryLink "side channel", "side-channel"
 - **OS**: Linux with {% dictionaryLink "ASLR", "aslr" %} enabled
 - At least 3 independent DNS injection processes per device
 - Capability to monitor traffic from hundreds of millions of IPs
-- 80.3% of vulnerable addresses belong to AS4538 (CERNET)
+- 80.3% of vulnerable addresses belong to AS4538 (CERNET: China Education and Research Network)
 - The x86_64 stack pointers in leaked data served as a {% dictionaryLink "side channel", "side-channel" %} to infer *when* the GFW was being patched in real time
 
 
