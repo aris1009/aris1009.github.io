@@ -150,6 +150,28 @@
     @apply prose prose-sky dark:prose-invert dark:prose-p:text-slate-50 dark:prose-li:text-slate-50 dark:prose-lead:text-slate-100 prose-lead:font-light mx-auto text-left;
   }
 
+  /* Custom prose header sizing with CSS custom properties for easy configuration */
+  :root {
+    --header-scale-h1: 1.875rem; /* text-3xl */
+    --header-scale-h2: 1.5rem;   /* text-2xl (~0.8x of h1) */
+    --header-scale-h3: 1.25rem;  /* text-xl (~0.83x of h2) */
+  }
+
+  article :where(h1):not(:where([class~="not-prose"], [class~="not-prose"] *)),
+  main :where(h1):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    font-size: var(--header-scale-h1);
+  }
+
+  article :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)),
+  main :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    font-size: var(--header-scale-h2);
+  }
+
+  article :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)),
+  main :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    font-size: var(--header-scale-h3);
+  }
+
   /* Inline code styling - GitHub style */
   article :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)):not(pre code),
   main :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)):not(pre code) {
