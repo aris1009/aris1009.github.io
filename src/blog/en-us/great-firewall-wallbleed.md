@@ -13,7 +13,7 @@ permalink: /blog/en-us/great-firewall-wallbleed/
 draft: false
 ---
 
-# Pretext
+## Pretext
 
 The Great {% dictionaryLink "Firewall", "firewall" %} (GFW) of China is a highly-sophisticated internet-censorship and surveillance program. China uses it to control access to the world wide web inside their vast territory.
 
@@ -27,7 +27,7 @@ In this post I'll focus on two things:
 
 But first, let's understand:
 
-# What is Domain Name System (DNS)?
+## What is Domain Name System (DNS)?
 
 DNS is the system that resolves human-readable domain names (like google.com) to IP addresses that machines understand.
 
@@ -41,7 +41,7 @@ In summary: {% dictionaryLink "DNS poisoning", "dns-poisoning" %} is polluting t
 
 Now let's explore how the GFW does this.
 
-# The GFW racing to serve you a forged DNS response
+## The GFW racing to serve you a forged DNS response
 
 The GFW uses {% dictionaryLink "DNS poisoning", "dns-poisoning" %} as a censorship tool.
 
@@ -51,7 +51,7 @@ The system exploits DNS caching to propagate false information through downstrea
 
 Notably these injectors respond to *any* DNS traffic transiting Chinese infrastructure. This extends China's censorship influence beyond its borders.
 
-# Checking the forged IPs
+## Checking the forged IPs
 
 Let's roll up our sleeves and see these forged responses in action.
 
@@ -167,7 +167,7 @@ This is the GFW actively intercepting our DNS queries and poisoning our cache wi
 
 Try this yourself. You'll likely get a different forged IP. I've consistently seen IPs belonging to random foreign entities, Dropbox, and even IBM. I attached a list of forged IPs in the Sources section of this article.
 
-# Dissecting the DNS response with tshark
+## Dissecting the DNS response with tshark
 
 Let's go deeper and inspect the actual DNS packets using tshark.
 
@@ -250,7 +250,7 @@ Feel free to reach out if you want to discuss answers or have more questions.
 
 ---
 
-# Finally, how does Wallbleed work?
+## Finally, how does Wallbleed work?
 
 Two more pieces of knowledge before we understand the exploit.
 
@@ -301,7 +301,7 @@ Over a few years they exfiltrated and pieced together more than 5 billion packet
 
 ---
 
-# Wallbleed impact and timeline
+## Wallbleed impact and timeline
 
 This bug was there for... 14 years. Here's the timeline:
 
@@ -363,7 +363,7 @@ This experiment exposed another {% dictionaryLink "side channel", "side-channel"
 
 
 
-# Implications
+## Implications
 
 ## Targeted surveillance capability
 
@@ -403,7 +403,7 @@ The confirmed customers include:
 In short: Gleg Networks is exporting digital authoritarianism as a managed service. This caliber of censorship and control is no longer reserved for superpowers. Authoritarian governments around the world no longer need to build their own infrastructure; they can buy it from China.
 
 
-# Sources
+## Sources
 
 **Academic Papers:**
 - {% externalLink "Wallbleed: A Memory Disclosure Vulnerability in the Great Firewall of China — GFW Report", "https://gfw.report/publications/ndss25/en/" %}
