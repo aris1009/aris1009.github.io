@@ -10,7 +10,7 @@ technologies: ['DNS']
 type: article
 locale: en-us
 permalink: /blog/en-us/great-firewall-wallbleed/
-draft: true
+draft: false
 ---
 
 # Pretext
