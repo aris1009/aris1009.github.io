@@ -440,10 +440,15 @@ code[class*="language-css"] {
 	z-index: 10;
 	opacity: 0.7;
 	transition: opacity 0.2s ease;
-	
+
 	/* Shoelace tooltip theming for light mode */
 	--sl-tooltip-background-color: var(--sl-color-neutral-900);
 	--sl-tooltip-color: var(--sl-color-neutral-0);
+}
+
+/* Remove padding from the button inside shadow DOM */
+.code-copy-button::part(button) {
+	padding: 0;
 }
 
 .code-copy-button:hover,
