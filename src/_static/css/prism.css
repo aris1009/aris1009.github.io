@@ -478,12 +478,17 @@ code[class*="language-css"] {
 }
 
 /* Mobile responsiveness */
-@media (max-width: 640px) {
+@media (max-width: 449px) {
 	.code-copy-button {
 		top: 0.5rem;
 		right: 0.5rem;
 	}
-	
+
+	/* Ensure adequate touch target on mobile */
+	.code-copy-button::part(button) {
+		padding: var(--sl-spacing-x-small);
+	}
+
 	.code-block-wrapper pre[class*="language-"] {
 		padding-right: 2rem;
 	}
