@@ -19,7 +19,7 @@ The Great {% dictionaryLink "Firewall", "firewall" %} (GFW) of China is a highly
 
 What makes it unique? China combines technical blocking with cultural engineering. They built a complete domestic internet ecosystem (Baidu, WeChat, Alibaba) that reduces citizens' pressure to circumvent censorship. At the same time, they strategically degrade foreign services through infrastructure imbalances, creating natural user migration toward domestic platforms.
 
-The GFW operates through multiple layers: DNS poisoning, IP blocking, and Deep Packet Inspection.
+The GFW operates through multiple layers: {% dictionaryLink "DNS poisoning", "dns-poisoning" %}, IP blocking, and {% dictionaryLink "Deep Packet Inspection", "deep-packet-inspection" %}.
 
 In this post I'll focus on two things:
 - How the GFW performs DNS Poisoning
@@ -37,13 +37,13 @@ Replaying this request every time you visit a website is inefficient. To optimiz
 
 Cloudflare has a great article explaining how DNS works with visualizations. It also covers DNS poisoning, one of the techniques the GFW employs. Go read it: {% externalLink "DNS Cache Poisoning", "https://www.cloudflare.com/learning/dns/dns-cache-poisoning/" %}
 
-In summary: DNS poisoning is polluting the DNS cache with an incorrect IP address. This results in either blocking a website or redirecting users to a malicious one.
+In summary: {% dictionaryLink "DNS poisoning", "dns-poisoning" %} is polluting the DNS cache with an incorrect IP address. This results in either blocking a website or redirecting users to a malicious one.
 
 Now let's explore how the GFW does this.
 
 # The GFW racing to serve you a forged DNS response
 
-The GFW uses DNS poisoning as a censorship tool.
+The GFW uses {% dictionaryLink "DNS poisoning", "dns-poisoning" %} as a censorship tool.
 
 DNS injectors are deployed throughout Chinese infrastructure, continuously monitoring all DNS traffic. When they detect a blacklisted domain query, they immediately transmit forged responses containing random IP addresses. These injectors are positioned geographically close to users; they need to *win the race* against legitimate responses.
 
@@ -56,7 +56,7 @@ Notably these injectors respond to *any* DNS traffic transiting Chinese infrastr
 Let's roll up our sleeves and see these forged responses in action.
 
 To follow along you'll need these CLI tools:
-1. tshark - comes with Wireshark, or install standalone: {% externalLink "tshark.dev", "https://tshark.dev/setup/install/" %}
+1. tshark - comes with {% externalLink "Wireshark", "https://www.wireshark.org/" %}, or install standalone: {% externalLink "tshark.dev", "https://tshark.dev/setup/install/" %}
 2. {% externalLink "curl", "https://curl.se/download.html" %} or your HTTP client of choice
 3. jq - pretty prints JSON responses (nice-to-have, skip if you want)
 4. nslookup - most likely already on your system
@@ -161,7 +161,7 @@ curl ipinfo.io/128.242.240.189 | jq
 }
 ```
 
-A bit of OSINT reveals HostRoyale Technologies Pvt Ltd has no affiliation with facebook.com whatsoever.
+A bit of {% dictionaryLink "OSINT", "osint" %} reveals HostRoyale Technologies Pvt Ltd has no affiliation with facebook.com whatsoever.
 
 This is the GFW actively intercepting our DNS queries and poisoning our cache with forged IPs *before* the authoritative DNS server can respond with the legitimate one.
 
@@ -260,13 +260,13 @@ Wallbleed is a word play on the catastrophic Heartbleed vulnerability. Heartblee
 
 Never heard of Heartbleed? An {% externalLink "xkcd comic", "https://xkcd.com/1354/" %} explains it brilliantly.
 
-In short: proper bounds checking is not performed (or entirely forgotten), the client provides an input length that doesn't match their payload, and data exfiltration becomes possible. {% externalLink "MongoBleed", "https://www.akamai.com/blog/security-research/cve-2025-14847-all-you-need-to-know-about-mongobleed" %} is the same type of vulnerability.
+In short: proper bounds checking is not performed (or entirely forgotten), the client provides an input length that doesn't match their payload, and {% dictionaryLink "data exfiltration", "data-exfiltration" %} becomes possible. {% externalLink "MongoBleed", "https://www.akamai.com/blog/security-research/cve-2025-14847-all-you-need-to-know-about-mongobleed" %} is the same type of vulnerability.
 
 Looks like we software engineers don't learn from our past mistakes. Maybe we should write Rust; it comes with memory-safety and runtime bounds checking.
 
 ## Wallbleed
 
-Same story. No proper bounds checking, data exfiltration becomes possible.
+Same story. No proper bounds checking, {% dictionaryLink "data exfiltration", "data-exfiltration" %} becomes possible.
 
 But where are these bounds? Let's run tshark again with the `-x` flag to see the hex representation of our DNS query:
 
@@ -292,7 +292,7 @@ Lines `0030` and `0040` contain what we're looking for:
 
 The attacker-controlled input is the `.` character: `03`.
 
-The researchers who discovered Wallbleed figured out that by manipulating this value, they could make the DNS injectors "bleed" data, up to 125 bytes per crafted query.
+The researchers who discovered Wallbleed figured out that by manipulating this value, they could make the DNS injectors "bleed" data, up to 125 bytes per crafted query. This is a classic {% dictionaryLink "buffer over-read", "buffer-over-read" %} vulnerability.
 
 Over a few years they exfiltrated and pieced together more than 5 billion packets. How?
 - crafting efficient DNS queries to maximize data exfiltration
@@ -317,7 +317,7 @@ This bug was there for... 14 years. Here's the timeline:
 
 ## Collection methodology
 
-From a single machine at UMass Amherst, researchers sent 100 packets per second to a Tencent VPS they controlled inside China. Over approximately 2.5 years, they collected **5.1 billion Wallbleed responses** from DNS injectors scattered throughout China's internet infrastructure.
+From a single machine at {% externalLink "UMass Amherst", "https://www.umass.edu/" %}, researchers sent 100 packets per second to a Tencent VPS they controlled inside China. Over approximately 2.5 years, they collected **5.1 billion Wallbleed responses** from DNS injectors scattered throughout China's internet infrastructure.
 
 Here's the key insight: you'd expect these DNS injectors to only handle DNS traffic. They don't. They scan *everything*. The researchers found real live internet traffic from users in China—not just DNS queries.
 
@@ -334,7 +334,7 @@ The types of data that bled out:
 - HTTP headers, cookies, passwords
 - SMTP, SSH, TLS commands
 - TCP/UDP packet contents
-- x86_64 stack frames with ASLR-enabled pointers
+- x86_64 stack frames with {% dictionaryLink "ASLR", "aslr" %}-enabled pointers
 - executable code fragments
 - RFC 1918 private addresses—revealing GFW's internal network topology
 
@@ -350,16 +350,16 @@ The researchers devised an experiment. They sent 30 UDP packets per second conta
 
 It worked. They saw their own probe packets in the leaked data.
 
-This experiment exposed another side channel: traffic in the injectors' memory only persists for 0-5 seconds before being overwritten. During low-load periods (around 4 AM), they captured more probe traffic. During high-load evenings, less. This revealed the cyclical activity patterns of users in the area.
+This experiment exposed another {% dictionaryLink "side channel", "side-channel" %}: traffic in the injectors' memory only persists for 0-5 seconds before being overwritten. During low-load periods (around 4 AM), they captured more probe traffic. During high-load evenings, less. This revealed the cyclical activity patterns of users in the area.
 
 ## What we learned about the GFW's architecture
 
 - **CPU**: x86_64
-- **OS**: Linux with ASLR enabled
+- **OS**: Linux with {% dictionaryLink "ASLR", "aslr" %} enabled
 - At least 3 independent DNS injection processes per device
 - Capability to monitor traffic from hundreds of millions of IPs
-- 80.3% of vulnerable addresses belong to AS4538 (CERNET)
-- The x86_64 stack pointers in leaked data served as a side channel to infer *when* the GFW was being patched in real time
+- 80.3% of vulnerable addresses belong to AS4538 (CERNET: China Education and Research Network)
+- The x86_64 stack pointers in leaked data served as a {% dictionaryLink "side channel", "side-channel" %} to infer *when* the GFW was being patched in real time
 
 
 
@@ -389,7 +389,7 @@ It took until March 2024 for a complete fix.
 
 In September 2025, 600GB of internal documents and source code leaked from Gleg Networks, a Chinese cybersecurity company. This company was founded by someone dubbed "the father of the Great {% dictionaryLink "Firewall", "firewall" %} of China." They work closely with MISA Lab (Massive and Effective Stream Analysis), part of the state-run Chinese Academy of Sciences.
 
-This is, to date, the largest internal document and source code leak in the history of the Great {% dictionaryLink "Firewall", "firewall" %}. Amnesty International, the Tor Project, and other organizations analyzed it extensively.
+This is, to date, the largest internal document and source code leak in the history of the Great {% dictionaryLink "Firewall", "firewall" %}. {% externalLink "Amnesty International", "https://www.amnesty.org/" %}, the {% externalLink "Tor Project", "https://www.torproject.org/" %}, and other organizations analyzed it extensively.
 
 What they found is disturbing: **China's censorship and surveillance software is sold to other countries.**
 

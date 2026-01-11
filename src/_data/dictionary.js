@@ -123,5 +123,40 @@ module.exports = {
     "en-us": "The practice of managing and provisioning computing infrastructure through machine-readable definition files, rather than manual hardware configuration. IaC enables version control, automation, and reproducible deployments of infrastructure.",
     "el": "Η πρακτική διαχείρισης και παροχής υπολογιστικής υποδομής μέσω αρχείων ορισμού αναγνώσιμων από μηχανή, αντί για χειροκίνητη διαμόρφωση hardware. Το IaC επιτρέπει έλεγχο έκδοσης, αυτοματοποίηση και αναπαραγώγιμες αναπτύξεις υποδομής.",
     "tr": "Bilgi işlem altyapısını manuel donanım yapılandırması yerine makine tarafından okunabilir tanım dosyaları aracılığıyla yönetme ve sağlama uygulaması. IaC, sürüm kontrolü, otomasyon ve altyapının tekrarlanabilir dağıtımlarını mümkün kılar."
+  },
+  "dns-poisoning": {
+    "en-us": "A cyber attack that corrupts DNS cache data, causing DNS resolvers to return incorrect IP addresses. Attackers inject forged DNS responses to redirect users to malicious websites or block access to legitimate ones.",
+    "el": "Μια κυβερνοεπίθεση που διαφθείρει τα δεδομένα της DNS cache, αναγκάζοντας τους DNS resolvers να επιστρέφουν λανθασμένες διευθύνσεις IP. Οι επιτιθέμενοι εισάγουν πλαστές DNS απαντήσεις για να ανακατευθύνουν χρήστες σε κακόβουλες ιστοσελίδες ή να μπλοκάρουν την πρόσβαση σε νόμιμες.",
+    "tr": "DNS önbellek verilerini bozan ve DNS çözümleyicilerinin yanlış IP adresleri döndürmesine neden olan bir siber saldırı. Saldırganlar, kullanıcıları kötü amaçlı web sitelerine yönlendirmek veya meşru sitelere erişimi engellemek için sahte DNS yanıtları enjekte eder."
+  },
+  "deep-packet-inspection": {
+    "en-us": "A network analysis technique that examines the full content of data packets as they pass through a checkpoint. DPI can filter, monitor, and block traffic based on packet contents, commonly used for censorship, security, and traffic management.",
+    "el": "Μια τεχνική ανάλυσης δικτύου που εξετάζει το πλήρες περιεχόμενο των πακέτων δεδομένων καθώς περνούν από ένα σημείο ελέγχου. Το DPI μπορεί να φιλτράρει, να παρακολουθεί και να μπλοκάρει κίνηση βάσει του περιεχομένου των πακέτων, χρησιμοποιείται συνήθως για λογοκρισία, ασφάλεια και διαχείριση κίνησης.",
+    "tr": "Veri paketlerinin bir kontrol noktasından geçerken tam içeriğini inceleyen bir ağ analizi tekniği. DPI, paket içeriğine göre trafiği filtreleyebilir, izleyebilir ve engelleyebilir; genellikle sansür, güvenlik ve trafik yönetimi için kullanılır."
+  },
+  "buffer-over-read": {
+    "en-us": "A memory safety vulnerability where a program reads data beyond the boundaries of an allocated buffer. This can leak sensitive information from adjacent memory, as seen in Heartbleed and Wallbleed vulnerabilities.",
+    "el": "Μια ευπάθεια ασφάλειας μνήμης όπου ένα πρόγραμμα διαβάζει δεδομένα πέρα από τα όρια ενός εκχωρημένου buffer. Αυτό μπορεί να διαρρεύσει ευαίσθητες πληροφορίες από γειτονική μνήμη, όπως φάνηκε στις ευπάθειες Heartbleed και Wallbleed.",
+    "tr": "Bir programın tahsis edilmiş bir arabelleğin sınırlarının ötesinde veri okuduğu bir bellek güvenliği açığı. Bu, Heartbleed ve Wallbleed güvenlik açıklarında görüldüğü gibi, komşu bellekten hassas bilgilerin sızmasına neden olabilir."
+  },
+  "data-exfiltration": {
+    "en-us": "The unauthorized transfer of data from a computer or network. Attackers use various techniques to steal sensitive information, including exploiting vulnerabilities, malware, or social engineering to extract data without detection.",
+    "el": "Η μη εξουσιοδοτημένη μεταφορά δεδομένων από υπολογιστή ή δίκτυο. Οι επιτιθέμενοι χρησιμοποιούν διάφορες τεχνικές για να κλέψουν ευαίσθητες πληροφορίες, συμπεριλαμβανομένης της εκμετάλλευσης ευπαθειών, malware ή κοινωνικής μηχανικής για εξαγωγή δεδομένων χωρίς ανίχνευση.",
+    "tr": "Verilerin bir bilgisayar veya ağdan yetkisiz olarak aktarılması. Saldırganlar, güvenlik açıklarını, kötü amaçlı yazılımları veya sosyal mühendisliği kullanarak hassas bilgileri tespit edilmeden çalmak için çeşitli teknikler kullanır."
+  },
+  "aslr": {
+    "en-us": "Address Space Layout Randomization - A security technique that randomizes the memory addresses used by system and application processes. ASLR makes it harder for attackers to predict target addresses for exploitation.",
+    "el": "Address Space Layout Randomization - Μια τεχνική ασφαλείας που τυχαιοποιεί τις διευθύνσεις μνήμης που χρησιμοποιούνται από διεργασίες συστήματος και εφαρμογών. Το ASLR δυσκολεύει τους επιτιθέμενους να προβλέψουν διευθύνσεις-στόχους για εκμετάλλευση.",
+    "tr": "Adres Alanı Düzeni Rastgeleleştirme - Sistem ve uygulama süreçleri tarafından kullanılan bellek adreslerini rastgeleleştiren bir güvenlik tekniği. ASLR, saldırganların istismar için hedef adresleri tahmin etmesini zorlaştırır."
+  },
+  "side-channel": {
+    "en-us": "An attack that exploits information gained from the physical implementation of a system rather than weaknesses in the algorithm itself. Side channels include timing information, power consumption, electromagnetic leaks, or even sound.",
+    "el": "Μια επίθεση που εκμεταλλεύεται πληροφορίες που αποκτώνται από τη φυσική υλοποίηση ενός συστήματος αντί για αδυναμίες στον ίδιο τον αλγόριθμο. Τα side channels περιλαμβάνουν πληροφορίες χρονισμού, κατανάλωση ενέργειας, ηλεκτρομαγνητικές διαρροές ή ακόμα και ήχο.",
+    "tr": "Algoritmanın kendisindeki zayıflıklar yerine bir sistemin fiziksel uygulamasından elde edilen bilgileri kullanan bir saldırı. Yan kanallar zamanlama bilgisi, güç tüketimi, elektromanyetik sızıntılar veya hatta sesi içerir."
+  },
+  "osint": {
+    "en-us": "Open Source Intelligence - The collection and analysis of publicly available information from sources like websites, social media, public records, and news. OSINT is used in security research, investigations, and threat intelligence.",
+    "el": "Open Source Intelligence - Η συλλογή και ανάλυση δημόσια διαθέσιμων πληροφοριών από πηγές όπως ιστοσελίδες, κοινωνικά δίκτυα, δημόσια αρχεία και ειδήσεις. Το OSINT χρησιμοποιείται στην έρευνα ασφαλείας, τις έρευνες και την πληροφορία απειλών.",
+    "tr": "Açık Kaynak İstihbaratı - Web siteleri, sosyal medya, kamu kayıtları ve haberler gibi kaynaklardan kamuya açık bilgilerin toplanması ve analizi. OSINT, güvenlik araştırması, soruşturmalar ve tehdit istihbaratında kullanılır."
   }
 };
