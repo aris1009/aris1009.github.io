@@ -122,7 +122,7 @@
             <!-- Site Branding in Menu -->
             <div class="burger-branding">
                 <a href="{% if '/blog/el/' in page.url or '/el/' in page.url %}/el/{% elif '/blog/tr/' in page.url or '/tr/' in page.url %}/tr/{% else %}/{% endif %}" class="burger-title-link">
-                    <h1 class="burger-title">{{meta.siteName}}</h1>
+                    <div class="burger-title">{{meta.siteName}}</div>
                     <p class="burger-motto">{{meta.motto}}</p>
                 </a>
             </div>

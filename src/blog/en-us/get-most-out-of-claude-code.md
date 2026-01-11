@@ -28,7 +28,7 @@ AI-powered coding assistants like Claude Code promise to revolutionize how we de
 
 ---
 
-# Claude Code Specifics
+## Claude Code Specifics
 
 ## Subagents: Parallel Task Execution
 
@@ -143,7 +143,7 @@ Think deeply about designing a cache invalidation strategy that handles both TTL
 
 ---
 
-# Universal Techniques for AI-Assisted Development
+## Universal Techniques for AI-Assisted Development
 
 These strategies work across all AI coding tools, not just Claude Code. Master these fundamentals to improve your results regardless of which AI assistant you're using.
 
@@ -310,7 +310,7 @@ The goal is to establish consistent direction. Over time, this approach organica
 
 ---
 
-# What to Really Expect from AI Coding Tools
+## What to Really Expect from AI Coding Tools
 
 The AI-assisted development landscape changes rapidly, and what works today may be obsolete tomorrow. However, certain patterns have emerged about where these tools excel and where they consistently struggle.
 
@@ -386,7 +386,7 @@ This type of failure—where individual components work but the system logic is 
 
 ---
 
-# Summary and Key Takeaways
+## Summary and Key Takeaways
 
 **Claude Code Mastery:**
 - Use subagents for parallel analysis and exploration, but avoid coordinated implementation tasks
