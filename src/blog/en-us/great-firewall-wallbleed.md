@@ -260,7 +260,7 @@ Wallbleed is a word play on the catastrophic Heartbleed vulnerability. Heartblee
 
 Never heard of Heartbleed? An {% externalLink "xkcd comic", "https://xkcd.com/1354/" %} explains it brilliantly.
 
-In short: proper bounds checking is not performed properly (or forgotten), the client provides an input length that doesn't match their payload, and data exfiltration becomes possible. {% externalLink "MongoBleed", "https://www.akamai.com/blog/security-research/cve-2025-14847-all-you-need-to-know-about-mongobleed" %} is the same type of vulnerability.
+In short: proper bounds checking is not performed (or entirely forgotten), the client provides an input length that doesn't match their payload, and data exfiltration becomes possible. {% externalLink "MongoBleed", "https://www.akamai.com/blog/security-research/cve-2025-14847-all-you-need-to-know-about-mongobleed" %} is the same type of vulnerability.
 
 Looks like we software engineers don't learn from our past mistakes. Maybe we should write Rust; it comes with memory-safety and runtime bounds checking.
 
