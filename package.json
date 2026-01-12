@@ -15,6 +15,7 @@
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
     "links": "node scripts/process-links.js",
+    "image-perf": "node scripts/measure-image-performance.js",
     "prepare": "husky"
   },
   "name": "blog",
@@ -31,8 +32,7 @@
   "license": "ISC",
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
-    "@11ty/eleventy-navigation": "^1.0.4",
-    "@11ty/eleventy-plugin-rss": "^1.2.0",
+    "@11ty/eleventy-img": "^6.0.2",
     "@playwright/test": "^1.57.0",
     "@tailwindcss/typography": "^0.5.19",
     "eleventy-plugin-reading-time": "^0.0.1",
@@ -42,10 +42,12 @@
     "luxon": "^3.7.2",
     "npm-run-all": "^4.1.5",
     "rimraf": "^6.1.2",
+    "sharp": "^0.33.0",
     "tailwindcss": "^3.4.19",
     "vitest": "^4.0.16"
   },
   "dependencies": {
+    "@11ty/eleventy-navigation": "^1.0.5",
     "eleventy-plugin-i18n": "^0.1.3"
   }
 }

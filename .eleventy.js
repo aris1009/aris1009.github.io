@@ -1,5 +1,4 @@
 const readingTime = require("eleventy-plugin-reading-time");
-const rssPlugin = require("@11ty/eleventy-plugin-rss");
 const navigationPlugin = require("@11ty/eleventy-navigation");
 const i18n = require("eleventy-plugin-i18n");
 
@@ -9,12 +8,12 @@ const {
   transforms,
   shortcodes,
   globalData,
-  constants
+  constants,
+  imageShortcodes
 } = require("./src/lib");
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(readingTime);
-  eleventyConfig.addPlugin(rssPlugin);
   eleventyConfig.addPlugin(navigationPlugin);
 
   eleventyConfig.addPlugin(i18n, {
@@ -50,9 +49,16 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addTransform("htmlmin", transforms.htmlminTransform);
 
+  // Existing shortcodes
   eleventyConfig.addShortcode("currentYear", shortcodes.currentYear);
   eleventyConfig.addShortcode("externalLink", shortcodes.externalLink);
   eleventyConfig.addShortcode("internalLink", shortcodes.internalLink);
+  
+  // Add image shortcodes
+  eleventyConfig.addAsyncShortcode("responsiveImage", imageShortcodes.responsiveImage);
+  eleventyConfig.addAsyncShortcode("heroImage", imageShortcodes.heroImage);
+  eleventyConfig.addAsyncShortcode("thumbnail", imageShortcodes.thumbnail);
+  
   eleventyConfig.addShortcode("dictionaryLink", function (text, term) {
     let locale = this && this.ctx && this.ctx.locale
       ? this.ctx.locale
@@ -68,6 +74,10 @@ module.exports = function (eleventyConfig) {
 
     return shortcodes.articleLabels(difficulty, contentType, technologies, locale);
   });
+
+  // Add passthrough copy for optimized images
+  eleventyConfig.addPassthroughCopy({ "img/optimized": "img/optimized" });
+  eleventyConfig.addPassthroughCopy({ "img/placeholders": "img/placeholders" });
 
   return {
     templateFormats: constants.TEMPLATE_FORMATS,

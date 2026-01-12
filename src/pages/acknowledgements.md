@@ -33,7 +33,6 @@ This blog was built using several excellent open-source projects and resources. 
 
 This blog is enhanced by several Eleventy plugins that provide additional functionality:
 - **[@11ty/eleventy-navigation](https://github.com/11ty/eleventy-navigation)** - Navigation plugin for structured site navigation
-- **[@11ty/eleventy-plugin-rss](https://github.com/11ty/eleventy-plugin-rss)** - RSS feed generation for blog syndication
 - **[eleventy-plugin-reading-time](https://github.com/johanbrook/eleventy-plugin-reading-time)** - Reading time calculation for articles
 - **[eleventy-plugin-i18n](https://github.com/adamduncan/eleventy-plugin-i18n)** - Internationalization support for multiple languages
 
@@ -80,7 +79,6 @@ Thank you to all the open-source developers and contributors who make projects l
 
 Αυτό το ιστολόγιο ενισχύεται από διάφορα Eleventy plugins που παρέχουν επιπλέον λειτουργικότητα:
 - **[@11ty/eleventy-navigation](https://github.com/11ty/eleventy-navigation)** - Plugin πλοήγησης για δομημένη πλοήγηση ιστότοπου
-- **[@11ty/eleventy-plugin-rss](https://github.com/11ty/eleventy-plugin-rss)** - Παραγωγή RSS feed για blog syndication
 - **[eleventy-plugin-reading-time](https://github.com/johanbrook/eleventy-plugin-reading-time)** - Υπολογισμός χρόνου ανάγνωσης για άρθρα
 - **[eleventy-plugin-i18n](https://github.com/adamduncan/eleventy-plugin-i18n)** - Υποστήριξη διεθνοποίησης για πολλαπλές γλώσσες
 
@@ -127,7 +125,6 @@ Bu blog, birkaç mükemmel açık kaynak proje ve kaynak kullanılarak oluşturu
 
 Bu blog, ek işlevsellik sağlayan çeşitli Eleventy eklentileri ile geliştirilmiştir:
 - **[@11ty/eleventy-navigation](https://github.com/11ty/eleventy-navigation)** - Yapılandırılmış site navigasyonu için navigasyon eklentisi
-- **[@11ty/eleventy-plugin-rss](https://github.com/11ty/eleventy-plugin-rss)** - Blog dağıtımı için RSS feed üretimi
 - **[eleventy-plugin-reading-time](https://github.com/johanbrook/eleventy-plugin-reading-time)** - Makaleler için okuma süresi hesaplama
 - **[eleventy-plugin-i18n](https://github.com/adamduncan/eleventy-plugin-i18n)** - Çoklu dil için uluslararasılaştırma desteği
 
