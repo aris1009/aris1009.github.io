@@ -4,6 +4,7 @@ const transforms = require("./transforms");
 const shortcodes = require("./shortcodes");
 const globalData = require("./global-data");
 const constants = require("./constants");
+const imageShortcodes = require("./image-shortcodes");
 
 module.exports = {
   filters,
@@ -11,5 +12,6 @@ module.exports = {
   transforms,
   shortcodes,
   globalData,
-  constants
+  constants,
+  imageShortcodes
 };

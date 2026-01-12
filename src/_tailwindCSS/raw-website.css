@@ -640,3 +640,142 @@
     }
   }
 }
+
+/* Image Optimization Styles */
+@layer components {
+  /* Base responsive image styles */
+  img {
+    @apply max-w-full h-auto;
+  }
+
+  /* Responsive image container */
+  .image-container {
+    @apply relative overflow-hidden my-6;
+  }
+
+  /* Hero image styling */
+  .hero-image {
+    @apply w-full rounded-lg shadow-lg;
+  }
+
+  /* Article image styling */
+  .article-image {
+    @apply w-full rounded-md shadow-md my-6;
+  }
+
+  /* Thumbnail styling */
+  .thumbnail {
+    @apply rounded-full object-cover;
+  }
+
+  /* Progressive loading with blur effect */
+  .image-with-placeholder {
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  .image-with-placeholder.loading {
+    @apply blur-sm scale-105;
+  }
+
+  .image-with-placeholder.loaded {
+    @apply blur-0 scale-100;
+  }
+
+  /* Lazy loading fade-in */
+  img[loading="lazy"] {
+    @apply opacity-0 transition-opacity duration-300;
+  }
+
+  img[loading="lazy"].loaded {
+    @apply opacity-100;
+  }
+
+  /* Picture element wrapper */
+  .picture-wrapper {
+    @apply block;
+  }
+
+  /* Ensure proper aspect ratio preservation */
+  .aspect-ratio-container {
+    @apply relative w-full;
+    aspect-ratio: attr(data-aspect-ratio);
+  }
+
+  /* Dark mode image adjustments */
+  html.dark img {
+    @apply brightness-95 contrast-125;
+  }
+
+  /* High image quality for retina displays */
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    img {
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+    }
+  }
+
+  /* Print optimization */
+  @media print {
+    img {
+      @apply max-w-xs mx-auto block;
+      page-break-inside: avoid;
+    }
+    
+    .hero-image,
+    .article-image {
+      @apply shadow-none border border-gray-300;
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .image-with-placeholder,
+    img[loading="lazy"] {
+      @apply transition-none;
+    }
+  }
+
+  /* Support for picture element in older browsers */
+  .picture-fallback {
+    @apply block w-full h-auto;
+  }
+
+  /* Gallery styles for multiple images */
+  .image-gallery {
+    @apply grid gap-4 my-8;
+  }
+
+  .image-grid-2 {
+    @apply grid-cols-1 md:grid-cols-2;
+  }
+
+  .image-grid-3 {
+    @apply grid-cols-1 md:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .image-grid-4 {
+    @apply grid-cols-1 md:grid-cols-2 lg:grid-cols-4;
+  }
+
+  .gallery-item {
+    @apply relative overflow-hidden rounded-lg;
+  }
+
+  .gallery-item img {
+    @apply w-full h-48 object-cover transition-transform duration-300 hover:scale-105;
+  }
+
+  /* Caption styling */
+  .image-caption {
+    @apply text-sm text-gray-600 dark:text-gray-400 mt-2 text-center italic;
+  }
+
+  /* Lightbox support for future enhancement */
+  .lightbox-trigger {
+    @apply cursor-pointer;
+  }
+
+  .lightbox-trigger:hover img {
+    @apply brightness-90;
+  }
+}
