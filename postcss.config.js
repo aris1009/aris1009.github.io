@@ -2,7 +2,7 @@ module.exports = {
   plugins: [
     require('tailwindcss'),
     require('autoprefixer'),
-    process.env.NODE_ENV === 'production' ? require('@fullhuman/postcss-purgecss')({
+    process.env.NODE_ENV === 'production' ? require('@fullhuman/postcss-purgecss').default({
       content: [
         'src/**/*.{html,njk,md,json,js}',
         '.eleventy.js'

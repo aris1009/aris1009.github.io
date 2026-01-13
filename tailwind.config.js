@@ -1,5 +1,23 @@
 module.exports = {
-  content: ["./src/**/*.{html,njk,md,json,js}", "./.eleventy.js"],
+  content: process.env.NODE_ENV === 'production' ? [
+    'src/**/*.{html,njk,md,json,js}',
+    '.eleventy.js'
+  ] : [],
+  safelist: process.env.NODE_ENV === 'production' ? [
+    // Shoelace components
+    { pattern: /^sl-/ },
+    // Dark mode
+    'dark',
+    // Prose styles
+    'prose',
+    { pattern: /^prose-/ },
+    // Responsive breakpoints
+    'sm',
+    'md',
+    'lg',
+    'xl',
+    '2xl'
+  ] : [],
   presets: [],
   darkMode: "class", // Enable class-based dark mode
   theme: {
