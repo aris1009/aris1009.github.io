@@ -17,9 +17,12 @@ jobs:
       with:
         node-version: '22'
         cache: 'npm'
-        
+
     - name: Install dependencies
       run: npm ci && npm install --cpu=x64 --os=linux --libc=glibc sharp
+
+    - name: Build site
+      run: npm run build
       
     - name: Run unit tests
       run: CI=true VITE_USE_NATIVE=0 npm test
@@ -29,6 +32,3 @@ jobs:
 
     - name: Run e2e tests
       run: npm run test:e2e
-      
-    - name: Build site
-      run: npm run build

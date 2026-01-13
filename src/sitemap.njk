@@ -1,0 +1,20 @@
+---
+permalink: /sitemap.xml
+layout: null
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- for page in collections.all %}
+  {%- if page.url and page.url != "/sitemap.xml" %}
+  <url>
+    <loc>{{ meta.url }}{{ page.url }}</loc>
+    {%- if page.date %}
+    <lastmod>{{ page.date | htmlDateString }}</lastmod>
+    {%- endif %}
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  {%- endif %}
+{%- endfor %}
+</urlset>
