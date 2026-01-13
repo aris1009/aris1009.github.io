@@ -1,5 +1,6 @@
 const readingTime = require("eleventy-plugin-reading-time");
 const navigationPlugin = require("@11ty/eleventy-navigation");
+const sitemap = require("@quasibit/eleventy-plugin-sitemap");
 const i18n = require("eleventy-plugin-i18n");
 
 const {
@@ -15,6 +16,12 @@ const {
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(readingTime);
   eleventyConfig.addPlugin(navigationPlugin);
+
+  eleventyConfig.addPlugin(sitemap, {
+    sitemap: {
+      hostname: require("./src/_data/meta.js").url
+    }
+  });
 
   eleventyConfig.addPlugin(i18n, {
     translations: {
