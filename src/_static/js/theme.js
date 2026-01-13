@@ -47,7 +47,7 @@ class ThemeManager {
 
   setTheme(theme) {
     const html = document.documentElement;
-    
+
     if (theme === 'dark') {
       html.classList.add('dark');
       html.classList.add('sl-theme-dark');
@@ -55,9 +55,15 @@ class ThemeManager {
       html.classList.remove('dark');
       html.classList.remove('sl-theme-dark');
     }
-    
+
+    // Switch Prism theme
+    const prismLink = document.getElementById('prism-theme');
+    if (prismLink) {
+      prismLink.href = theme === 'dark' ? '/_css/prism-dark.css' : '/_css/prism-light.css';
+    }
+
     localStorage.setItem('theme', theme);
-    
+
     document.dispatchEvent(new CustomEvent('themeChanged', {
       detail: { theme }
     }));
