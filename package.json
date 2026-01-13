@@ -1,7 +1,8 @@
 {
   "scripts": {
     "dev": "run-p dev:*",
-    "build": "run-s clean css:website eleventy",
+    "build": "run-s clean favicons css:website eleventy",
+    "favicons": "node scripts/generate-favicons.js",
     "clean": "rimraf _site",
     "css:website": "npx tailwindcss -i src/_tailwindCSS/raw-website.css -o _site/css/style.css --minify",
     "eleventy": "eleventy",
@@ -20,7 +21,7 @@
   },
   "name": "blog",
   "version": "1.0.0",
-  "description": "Security & Technology Blog",
+  "description": "AI & Security Blog",
   "main": "index.js",
   "keywords": [
     "blog",
