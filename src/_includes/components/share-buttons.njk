@@ -1,0 +1,30 @@
+{# Social share buttons component #}
+{%- set fullUrl = meta.url + page.url -%}
+{%- set encodedUrl = fullUrl | urlEncode -%}
+{%- set encodedTitle = title | urlEncode -%}
+<div class="flex gap-4 mt-8 mb-8">
+  {# Twitter/X share button #}
+  <a href="https://twitter.com/intent/tweet?url={{ encodedUrl }}&text={{ encodedTitle }}"
+     target="_blank"
+     rel="noopener noreferrer"
+     class="inline-flex items-center justify-center w-10 h-10 text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200"
+     aria-label="Share on Twitter/X">
+    <span class="text-lg" aria-hidden="true">🐦</span>
+  </a>
+
+  {# LinkedIn share button #}
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ encodedUrl }}"
+     target="_blank"
+     rel="noopener noreferrer"
+     class="inline-flex items-center justify-center w-10 h-10 text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200"
+     aria-label="Share on LinkedIn">
+    <span class="text-lg" aria-hidden="true">💼</span>
+  </a>
+
+  {# Copy link button #}
+  <button onclick="navigator.clipboard.writeText(window.location.href)"
+          class="inline-flex items-center justify-center w-10 h-10 text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200"
+          aria-label="Copy link">
+    <span class="text-lg" aria-hidden="true">📋</span>
+  </button>
+</div>
