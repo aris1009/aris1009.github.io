@@ -35,8 +35,12 @@
     "@11ty/eleventy-img": "^6.0.2",
     "@playwright/test": "^1.57.0",
     "@quasibit/eleventy-plugin-sitemap": "^2.2.0",
+    "@rollup/plugin-commonjs": "^29.0.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-terser": "^0.4.4",
     "@tailwindcss/typography": "^0.5.19",
     "eleventy-plugin-reading-time": "^0.0.1",
+    "esbuild": "^0.27.2",
     "html-minifier": "^4.0.0",
     "husky": "^9.1.7",
     "jsdom": "^27.4.0",
@@ -50,6 +54,7 @@
   },
   "dependencies": {
     "@11ty/eleventy-navigation": "^1.0.5",
+    "@shoelace-style/shoelace": "^2.20.1",
     "eleventy-plugin-i18n": "^0.1.3"
   }
 }
