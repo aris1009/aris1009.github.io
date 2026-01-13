@@ -35,9 +35,11 @@
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@300;400;500;600;700;800&subset=latin-ext&display=swap">
     </noscript>
-<!-- CSS -->
-    <link rel="preload" href="{{'/css/style.css' | url}}" as="style">
-    <link rel="stylesheet" href="{{'/css/style.css' | url}}" media="all">
+<!-- Critical CSS -->
+<style>{{ criticalCSS | safe }}</style>
+<!-- Deferred CSS loading -->
+<link rel="preload" href="/css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/css/style.css"></noscript>
     <!-- Shoelace CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/dark.css" />

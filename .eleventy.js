@@ -39,14 +39,25 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("head", filters.head);
   eleventyConfig.addFilter("min", filters.min);
   eleventyConfig.addFilter("filterTagList", filters.filterTagList);
-  eleventyConfig.addFilter("localizedReadingTime", function (content, locale) {
-    return filters.localizedReadingTime(content, locale, eleventyConfig);
-  });
-  eleventyConfig.addFilter("getDictionaryTerms", filters.getDictionaryTerms);
+   eleventyConfig.addFilter("localizedReadingTime", function (content, locale) {
+     return filters.localizedReadingTime(content, locale, eleventyConfig);
+   });
+   eleventyConfig.addFilter("getDictionaryTerms", filters.getDictionaryTerms);
+   eleventyConfig.addFilter("urlEncode", filters.urlEncode);
 
-  eleventyConfig.addGlobalData("supportedLocales", globalData.supportedLocales);
-  eleventyConfig.addGlobalData("locale", globalData.getLocale);
-  eleventyConfig.addGlobalData("dictionary", require("./src/_data/dictionary.js"));
+   eleventyConfig.addGlobalData("supportedLocales", globalData.supportedLocales);
+   eleventyConfig.addGlobalData("locale", globalData.getLocale);
+   eleventyConfig.addGlobalData("dictionary", require("./src/_data/dictionary.js"));
+
+   // Add critical CSS for production builds only
+   if (process.env.NODE_ENV === 'production') {
+     const { buildCriticalCSS } = require('./scripts/build-critical.js');
+     eleventyConfig.addGlobalData('criticalCSS', async () => {
+       return await buildCriticalCSS();
+     });
+   } else {
+     eleventyConfig.addGlobalData('criticalCSS', '');
+   }
 
   eleventyConfig.addCollection("postsEn_us", collections.postsEn_us);
   eleventyConfig.addCollection("postsEl", collections.postsEl);
