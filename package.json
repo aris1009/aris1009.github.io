@@ -35,6 +35,7 @@
     "@11ty/eleventy-img": "^6.0.2",
     "@playwright/test": "^1.57.0",
     "@quasibit/eleventy-plugin-sitemap": "^2.2.0",
+    "@rollup/plugin-terser": "^0.4.4",
     "@tailwindcss/typography": "^0.5.19",
     "eleventy-plugin-reading-time": "^0.0.1",
     "html-minifier": "^4.0.0",

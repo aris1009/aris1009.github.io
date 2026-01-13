@@ -122,10 +122,5 @@ if (typeof document !== 'undefined') {
   }
 }
 
-// Export functions for testing
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    addCopyButtonsToCodeBlocks,
-    initializeCopyButtons
-  };
-}
+// Export for ES6 modules
+export { addCopyButtonsToCodeBlocks };

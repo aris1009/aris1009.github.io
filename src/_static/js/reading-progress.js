@@ -1,4 +1,4 @@
-class ReadingProgressBar {
+export class ReadingProgressBar {
   constructor() {
     this.progressBar = null;
     this.progressFill = null;
