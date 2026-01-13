@@ -53,7 +53,7 @@ describe('constants', () => {
 
   describe('TEMPLATE_FORMATS', () => {
     it('should contain supported template formats', () => {
-      expect(TEMPLATE_FORMATS).toEqual(['md', 'njk', 'html', 'liquid']);
+      expect(TEMPLATE_FORMATS).toEqual(['md', 'njk', 'html', 'liquid', 'webmanifest']);
     });
   });
 

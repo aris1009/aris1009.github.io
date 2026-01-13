@@ -19,9 +19,9 @@ module.exports = {
       'tr': 'Ana Sayfa'
     },
     heading: {
-      'en-us': 'Security & Technology Blog',
-      'el': 'Ιστολόγιο Ασφάλειας & Τεχνολογίας',
-      'tr': 'Güvenlik & Teknoloji Blogu'
+      'en-us': 'AI & Security Blog',
+      'el': 'ΤΝ & Κυβερνοασφάλεια',
+      'tr': 'Güvenlik Blogu'
     },
     welcome: {
       'en-us': 'Welcome to my blog about cybersecurity, technology, and digital privacy. Here I share insights, analysis, and practical advice to help you stay secure in the digital world.',
