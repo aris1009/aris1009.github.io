@@ -778,4 +778,26 @@
   .lightbox-trigger:hover img {
     @apply brightness-90;
   }
+
+  /* Back to Top Button */
+  .back-to-top {
+    @apply fixed bottom-8 right-8 flex items-center justify-center transition-opacity duration-300 opacity-0 pointer-events-none z-40;
+  }
+
+  .back-to-top .icon {
+    @apply h-8 w-8 stroke-1 stroke-slate-900 dark:stroke-slate-100;
+  }
+
+  .back-to-top:hover .icon,
+  .back-to-top:focus .icon {
+    @apply stroke-sky-600;
+  }
+
+  .back-to-top.back-to-top--visible {
+    @apply opacity-100 pointer-events-auto;
+  }
+
+  .back-to-top:focus {
+    @apply outline-none;
+  }
 }
