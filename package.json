@@ -1,9 +1,12 @@
 {
   "scripts": {
-    "dev": "run-p dev:*",
-    "build": "run-s clean css:website eleventy",
+    "dev": "npm-run-all clean build:js:dev dev:css --parallel eleventy:serve",
+    "build": "run-s clean css:website build:js eleventy",
     "clean": "rimraf _site",
     "css:website": "npx tailwindcss -i src/_tailwindCSS/raw-website.css -o _site/css/style.css --minify",
+    "build:js": "rollup -c build.config.js",
+    "build:js:dev": "rollup -c build.config.js --watch",
+    "analyze:js": "rollup -c build.config.js --plugin rollup-plugin-analyzer",
     "eleventy": "eleventy",
     "dev:css": "npx tailwindcss -i src/_tailwindCSS/raw-website.css -o _site/css/style.css --watch --minify",
     "dev:11ty": "eleventy --serve --watch",
