@@ -60,7 +60,7 @@ function getDictionaryTerms(dictionaryData, locale = DEFAULT_LOCALE) {
   if (!dictionaryData || typeof dictionaryData !== 'object') {
     return [];
   }
-  
+
   return Object.keys(dictionaryData)
     .map(key => ({
       key: key,
@@ -70,6 +70,28 @@ function getDictionaryTerms(dictionaryData, locale = DEFAULT_LOCALE) {
     .sort((a, b) => a.key.localeCompare(b.key, LOCALE_MAP[locale] || LOCALE_MAP[DEFAULT_LOCALE]));
 }
 
+function getBundlePreloads(pageType) {
+  const bundles = {
+    core: '/js/core.js',
+    featureLoader: '/js/feature-loader.js'
+  };
+
+  let preloads = [];
+
+  // Always preload core bundle
+  preloads.push(`<script type='module' src='${bundles.core}'></script>`);
+
+  // Always load feature loader with defer
+  preloads.push(`<script type='module' src='${bundles.featureLoader}' defer></script>`);
+
+  // Add article bundle preload for blog pages
+  if (pageType === 'article') {
+    preloads.push(`<link rel="modulepreload" href="/js/article.js">`);
+  }
+
+  return preloads.join('\n    ');
+}
+
 module.exports = {
   readableDate,
   htmlDateString,
@@ -77,5 +99,6 @@ module.exports = {
   min,
   filterTagList,
   localizedReadingTime,
-  getDictionaryTerms
+  getDictionaryTerms,
+  getBundlePreloads
 };
