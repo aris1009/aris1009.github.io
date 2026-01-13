@@ -2,6 +2,36 @@ module.exports = {
   content: ["./src/**/*.{html,njk,md,json,js}", "./.eleventy.js"],
   presets: [],
   darkMode: "class", // Enable class-based dark mode
+  safelist: {
+    standard: [
+      // Prose classes from @tailwindcss/typography
+      'prose',
+      'prose-sky',
+      'dark:prose-invert',
+      'dark:prose-p:text-slate-50',
+      'dark:prose-li:text-slate-50',
+      'dark:prose-lead:text-slate-100',
+      'prose-lead:font-light',
+      // Dictionary test IDs
+      /^dictionary-/,
+      /^dictionary-tooltip-/,
+      /^dictionary-emoji-/,
+      // Shoelace components
+      /^sl-/,
+      // Dark mode
+      'dark',
+      // Responsive breakpoints
+      'sm',
+      'md',
+      'lg',
+      'xl',
+      '2xl'
+    ],
+    patterns: [
+      /^prose/,
+      /^prose-/
+    ]
+  },
   theme: {
     screens: {
       sm: "450px",
