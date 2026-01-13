@@ -1,6 +1,6 @@
 main,
 article {
-  @apply prose prose-sky dark:prose-invert dark:prose-p:text-slate-50 dark:prose-li:text-slate-50 dark:prose-lead:text-slate-100 prose-lead:font-light mx-auto text-left;
+  @apply mx-auto text-left text-slate-900 dark:text-slate-100 max-w-none;
 }
 
 /* Custom prose header sizing with CSS custom properties for easy configuration */
