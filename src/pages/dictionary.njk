@@ -4,9 +4,10 @@ pagination:
   size: 1
   alias: locale
 layout: page.njk
-title: "{{ 'dictionary.title' | i18n }}"
-description: "{{ 'dictionary.description' | i18n }}"
 permalink: "{{ locale }}/dictionary/"
+eleventyComputed:
+  title: "{{ 'dictionary.title' | i18n }}"
+  description: "{{ 'dictionary.description' | i18n }}"
 ---
 
 <h1>{{ 'dictionary.title' | i18n }}</h1>

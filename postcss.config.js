@@ -1,34 +1,27 @@
+const purgecss = require('@fullhuman/postcss-purgecss').purgeCSSPlugin;
+
 module.exports = {
   plugins: [
     require('tailwindcss'),
     require('autoprefixer'),
-    process.env.NODE_ENV === 'production' ? require('@fullhuman/postcss-purgecss')({
+    process.env.NODE_ENV === 'production' ? purgecss({
       content: [
-        'src/**/*.{html,njk,md,json,js}',
-        '.eleventy.js'
+        '_site/**/*.html'
       ],
       safelist: {
         standard: [
-          // Dictionary test IDs
           /^dictionary-/,
-          /^dictionary-tooltip-/,
-          /^dictionary-emoji-/,
-          // Shoelace components
           /^sl-/,
-          // Dark mode
+          /^back-to-top/,
+          /^theme-toggle/,
+          /^toggle-/,
+          /^burger-/,
+          /^reading-progress/,
           'dark',
-          // Prose styles
           'prose',
-          /^prose-/,
-          // Responsive breakpoints
-          'sm',
-          'md',
-          'lg',
-          'xl',
-          '2xl'
+          /^prose-/
         ]
-      },
-      variables: true
+      }
     }) : null
   ].filter(Boolean)
 };
