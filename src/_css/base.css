@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply px-5 bg-zinc-100 font-serif text-base text-slate-900 transition-all;
+  }
+  html.dark {
+    @apply bg-zinc-900 text-slate-100;
+  }
+  body {
+    @apply container mx-auto min-h-screen flex flex-col;
+  }
+  header {
+    @apply py-4 px-0;
+  }
+  main,
+  article {
+    @apply py-3 px-0 flex-1;
+  }
+  footer {
+    @apply py-6 px-0 mt-auto;
+  }
+  header,
+  footer {
+    @apply border-zinc-300 dark:border-zinc-800;
+  }
+  header {
+    @apply flex items-center justify-between border-b relative;
+  }
+}

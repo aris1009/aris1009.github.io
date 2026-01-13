@@ -1,0 +1,57 @@
+/* Language Selector Specific */
+.language-selector {
+  @apply flex items-center justify-center bg-gray-200 dark:bg-gray-700;
+}
+
+.language-display {
+  @apply flex items-center justify-center;
+}
+
+.flag {
+  @apply text-base leading-none;
+}
+
+@media (max-width: 640px) {
+  .flag {
+    @apply text-sm;
+  }
+}
+
+/* Language Dropdown */
+.language-dropdown {
+  @apply absolute top-full rounded-lg z-50 opacity-0 invisible transition-all duration-200 ease-in-out;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 4px;
+  min-width: 80px;
+  background: transparent;
+  backdrop-filter: none;
+  border: none;
+}
+
+@media (max-width: 640px) {
+  .language-dropdown {
+    min-width: 70px;
+    margin-top: 2px;
+  }
+}
+
+html.dark .language-dropdown {
+  background: transparent;
+  border: none;
+}
+
+.language-selector-container:hover .language-dropdown {
+  @apply opacity-100 visible;
+}
+
+.language-option {
+  @apply w-full flex items-center justify-center px-3 py-2 text-left border-none cursor-pointer transition-colors duration-150 hover:bg-gray-100 dark:hover:bg-gray-700 first:rounded-t-lg last:rounded-b-lg;
+  background: transparent;
+}
+
+@media (max-width: 640px) {
+  .language-option {
+    @apply px-2 py-1.5;
+  }
+}

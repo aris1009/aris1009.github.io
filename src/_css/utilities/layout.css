@@ -1,0 +1,100 @@
+@media (min-width: 450px) {
+  html {
+    @apply px-6 text-lg;
+  }
+  header {
+    @apply py-5 px-3;
+  }
+  main,
+  article {
+    @apply py-4 px-3;
+  }
+  footer {
+    @apply py-7 px-3;
+  }
+  .burger-title {
+    @apply text-3xl;
+  }
+  .elenco-posts {
+    @apply gap-6;
+  }
+}
+
+@media (min-width: 768px) {
+  html {
+    @apply px-7 text-xl;
+  }
+  header {
+    @apply py-6 px-4;
+  }
+  main,
+  article {
+    @apply py-4 px-4;
+  }
+  footer {
+    @apply py-8 px-4;
+  }
+  .burger-menu-content {
+    @apply w-96;
+  }
+  .burger-title {
+    @apply text-4xl;
+  }
+  h1,
+  article > small.info {
+    @apply text-left;
+  }
+  .elenco-posts {
+    @apply gap-7;
+  }
+  footer {
+    @apply flex-row items-center justify-between;
+  }
+  .credit {
+    @apply grow-0 text-center;
+  }
+  .links {
+    @apply absolute left-1/2 transform -translate-x-1/2;
+  }
+  .social {
+    @apply grow-0 gap-7 justify-end;
+  }
+}
+
+@media (min-width: 1280px) {
+  html {
+    @apply px-8 text-xl;
+  }
+  header {
+    @apply py-9 px-4;
+  }
+  main,
+  article {
+    @apply py-4 px-4 max-w-screen-md;
+  }
+  footer {
+    @apply py-9 px-4;
+  }
+  .social {
+    @apply grow-0 gap-8 justify-end;
+  }
+}
+
+@media (min-width: 1600px) {
+  html {
+    @apply px-9 text-xl;
+  }
+  header {
+    @apply py-10 px-5;
+  }
+  main,
+  article {
+    @apply py-4 px-5 max-w-screen-lg;
+  }
+  footer {
+    @apply py-10 px-5;
+  }
+  .social {
+    @apply grow-0 gap-9 justify-end;
+  }
+}

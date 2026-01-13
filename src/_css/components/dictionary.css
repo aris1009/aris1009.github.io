@@ -1,0 +1,87 @@
+/* Link Component Styles */
+/* Common link styles */
+.external-link,
+.internal-link,
+.dictionary-link {
+  @apply inline-flex items-center gap-1 transition-colors duration-200;
+}
+
+.external-link:hover,
+.internal-link:hover {
+  @apply text-blue-600 dark:text-blue-400;
+}
+
+.dictionary-link {
+  @apply cursor-pointer bg-transparent border-none p-0 text-blue-600 dark:text-blue-400 underline underline-offset-2;
+}
+
+.dictionary-link:hover {
+  @apply text-blue-800 dark:text-blue-300;
+}
+
+/* Emoji indicators */
+.emoji-indicator {
+  @apply text-xs opacity-70 ml-0.5;
+  font-size: 0.75em;
+  vertical-align: super;
+}
+
+.external-emoji {
+  @apply text-green-600 dark:text-green-400;
+}
+
+.internal-emoji {
+  @apply text-blue-600 dark:text-blue-400;
+}
+
+.dictionary-emoji {
+  @apply text-purple-600 dark:text-purple-400;
+}
+
+/* Shoelace Dictionary Tooltip Styling */
+sl-tooltip[data-testid^="dictionary-tooltip"] {
+  /* Light mode tooltip styling */
+  --sl-tooltip-background-color: #f8f9fa;
+  --sl-tooltip-color: #1f2937;
+  --sl-tooltip-border-color: #e5e7eb;
+  --sl-tooltip-border-width: 1px;
+  --sl-tooltip-border-radius: 8px;
+  --sl-tooltip-padding: 12px;
+  --sl-tooltip-arrow-size: 6px;
+  --sl-tooltip-font-size: 14px;
+  --sl-tooltip-font-weight: 400;
+  --sl-tooltip-line-height: 1.5;
+  --sl-tooltip-max-width: 280px;
+  --sl-tooltip-z-index: 9999;
+}
+
+/* Dark mode tooltip styling */
+html.dark sl-tooltip[data-testid^="dictionary-tooltip"],
+html.sl-theme-dark sl-tooltip[data-testid^="dictionary-tooltip"] {
+  --sl-tooltip-background-color: #374151;
+  --sl-tooltip-color: #f9fafb;
+  --sl-tooltip-border-color: #4b5563;
+  --sl-tooltip-border-width: 1px;
+}
+
+/* Ensure shadow DOM parts respect high z-index */
+sl-tooltip[data-testid^="dictionary-tooltip"]::part(popup) {
+  z-index: 9999 !important;
+}
+
+sl-tooltip[data-testid^="dictionary-tooltip"]::part(base) {
+  z-index: 9999 !important;
+}
+
+/* Dictionary Tooltip Content Styling */
+.dictionary-tooltip-content {
+  @apply p-0;
+}
+
+.dictionary-tooltip-content .tooltip-term {
+  @apply text-lg font-semibold mb-2 text-blue-600 dark:text-blue-400;
+}
+
+.dictionary-tooltip-content .tooltip-definition {
+  @apply text-sm text-gray-700 dark:text-gray-300 leading-relaxed;
+}

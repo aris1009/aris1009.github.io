@@ -1,0 +1,112 @@
+/* Controls Container (Language + Theme Toggle) */
+.controls-container {
+  @apply flex items-center justify-center gap-3;
+}
+
+@media (max-width: 640px) {
+  .controls-container {
+    @apply gap-2;
+  }
+}
+
+/* Uniform Control Styling */
+.theme-toggle-container,
+.language-selector-container {
+  @apply relative flex items-center justify-center;
+}
+
+.theme-toggle-pill,
+.language-selector {
+  @apply relative rounded-full border-none cursor-pointer transition-all duration-300 ease-in-out focus:outline-none flex items-center justify-center;
+  width: 56px;
+  height: 28px;
+  filter: grayscale(0.6);
+}
+
+@media (max-width: 640px) {
+  .theme-toggle-pill,
+  .language-selector {
+    width: 48px;
+    height: 24px;
+  }
+}
+
+.theme-toggle-pill:hover,
+.language-selector:hover,
+.language-selector-container:hover .language-selector {
+  filter: grayscale(0);
+}
+
+/* Theme Toggle Specific */
+.theme-toggle-pill {
+  @apply bg-gray-200 dark:bg-gray-700;
+}
+
+.toggle-slider {
+  @apply absolute bg-white dark:bg-gray-800 rounded-full shadow-md transition-all duration-300 ease-in-out flex items-center justify-center;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  transform: translateX(0);
+}
+
+@media (max-width: 640px) {
+  .toggle-slider {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+html.dark .theme-toggle-pill .toggle-slider {
+  transform: translateX(28px);
+}
+
+@media (max-width: 640px) {
+  html.dark .theme-toggle-pill .toggle-slider {
+    transform: translateX(24px);
+  }
+}
+
+.toggle-icon {
+  @apply w-4 h-4 transition-all duration-300 ease-in-out;
+}
+
+@media (max-width: 640px) {
+  .toggle-icon {
+    @apply w-3 h-3;
+  }
+}
+
+.sun-icon {
+  @apply text-yellow-500 opacity-100;
+}
+
+.moon-icon {
+  @apply text-blue-500 opacity-0 absolute;
+}
+
+html.dark .theme-toggle-pill .sun-icon {
+  @apply opacity-0;
+}
+
+html.dark .theme-toggle-pill .moon-icon {
+  @apply opacity-100;
+}
+
+/* Theme Toggle Shortcode Styles */
+.theme-toggle {
+  @apply relative;
+}
+
+.theme-icon {
+  @apply text-base transition-opacity duration-200;
+}
+
+.light-icon {
+  @apply opacity-100 dark:opacity-0;
+}
+
+.dark-icon {
+  @apply opacity-0 dark:opacity-100 absolute inset-0 flex items-center justify-center;
+}

@@ -1,0 +1,23 @@
+footer {
+  @apply border-t flex flex-col-reverse justify-between items-center gap-5;
+}
+.credit {
+  @apply text-center;
+}
+.links {
+  @apply text-center text-sm flex flex-row gap-4 justify-center items-center;
+}
+.links a {
+  @apply text-sky-600 hover:text-sky-800 hover:underline transition-colors;
+}
+.social {
+  @apply flex flex-row gap-5 grow justify-evenly;
+}
+.icon {
+  @apply h-6 w-6 stroke-1 stroke-slate-900 dark:stroke-slate-100;
+}
+.icon:hover,
+.icon:focus,
+.icon:focus-within {
+  @apply hover:stroke-sky-600;
+}
