@@ -22,9 +22,10 @@ const BLOG_GLOBS = {
 
 const TEMPLATE_FORMATS = [
   "md",
-  "njk", 
+  "njk",
   "html",
-  "liquid"
+  "liquid",
+  "webmanifest"
 ];
 
 const HTML_MINIFY_OPTIONS = {
