@@ -14,6 +14,12 @@ const {
 } = require("./src/lib");
 
 module.exports = function (eleventyConfig) {
+  // Configure .webmanifest files to use Nunjucks template engine
+  eleventyConfig.addExtension("webmanifest", {
+    key: "njk",
+    extension: "webmanifest"
+  });
+
   eleventyConfig.addPlugin(readingTime);
   eleventyConfig.addPlugin(navigationPlugin);
 
@@ -91,6 +97,7 @@ module.exports = function (eleventyConfig) {
     markdownTemplateEngine: "njk",
     htmlTemplateEngine: "njk",
     dataTemplateEngine: "njk",
+    webmanifestTemplateEngine: "njk",
     dir: {
       input: "src",
       includes: "_includes",
