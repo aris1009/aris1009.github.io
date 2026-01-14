@@ -3,7 +3,7 @@
  * Handles progressive loading, lazy loading, and intersection observer
  */
 
-class ImageOptimizer {
+export class ImageOptimizer {
   constructor() {
     this.observer = null;
     this.init();
