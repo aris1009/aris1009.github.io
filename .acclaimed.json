@@ -1,0 +1,31 @@
+[{
+  "url": "http://localhost:8080/",
+  "width": 1920,
+  "height": 1800,
+  "css": "http://localhost:8080/css/style.css",
+  "out": "_site/css/critical.css",
+  "forceInclude": [
+    "html",
+    "body",
+    "header",
+    "main",
+    "article",
+    "footer",
+    "container",
+    "mx-auto",
+    "px-5",
+    "py-4",
+    "bg-zinc-100",
+    "dark:bg-zinc-900",
+    "text-slate-900",
+    "dark:text-slate-100",
+    "font-serif",
+    "prose",
+    "prose-sky",
+    "dark:prose-invert",
+    "burger-menu",
+    "theme-toggle",
+    "language-selector"
+  ],
+  "forceExclude": ["@font-face"]
+}]
