@@ -4,9 +4,10 @@ pagination:
   size: 1
   alias: locale
 layout: page.njk
-title: "{{ 'nav.acknowledgements' | i18n }}"
-description: "{{ 'acknowledgements.description' | i18n }}"
 permalink: "{{ locale }}/acknowledgements/"
+eleventyComputed:
+  title: "{{ 'nav.acknowledgements' | i18n }}"
+  description: "{{ 'acknowledgements.description' | i18n }}"
 ---
 
 {% if locale == 'en-us' %}
