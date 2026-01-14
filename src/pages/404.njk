@@ -4,10 +4,11 @@ pagination:
   size: 1
   alias: locale
 layout: page.njk
-title: "{{ 'notFound.title' | i18n }}"
-description: "{{ 'notFound.message' | i18n }}"
 permalink: "{{ locale }}/404.html"
 eleventyExcludeFromCollections: true
+eleventyComputed:
+  title: "{{ 'notFound.title' | i18n }}"
+  description: "{{ 'notFound.message' | i18n }}"
 ---
 
 <h1>{{ 'notFound.heading' | i18n }}</h1>

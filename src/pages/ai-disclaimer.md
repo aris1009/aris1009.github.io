@@ -4,9 +4,10 @@ pagination:
   size: 1
   alias: locale
 layout: page.njk
-title: "{{ 'nav.aiDisclaimer' | i18n }}"
-description: "{{ 'aiDisclaimer.description' | i18n }}"
 permalink: "{{ locale }}/ai-disclaimer/"
+eleventyComputed:
+  title: "{{ 'nav.aiDisclaimer' | i18n }}"
+  description: "{{ 'aiDisclaimer.description' | i18n }}"
 ---
 
 # {{ 'aiDisclaimer.title' | i18n }}

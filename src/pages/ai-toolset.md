@@ -4,9 +4,10 @@ pagination:
   size: 1
   alias: locale
 layout: page.njk
-title: "{{ 'nav.aiToolset' | i18n }}"
-description: "{{ 'aiToolset.description' | i18n }}"
 permalink: "{{ locale }}/ai-toolset/"
+eleventyComputed:
+  title: "{{ 'nav.aiToolset' | i18n }}"
+  description: "{{ 'aiToolset.description' | i18n }}"
 ---
 
 {% if locale == 'en-us' %}
