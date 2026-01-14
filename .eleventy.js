@@ -50,6 +50,7 @@ module.exports = function (eleventyConfig) {
     return filters.localizedReadingTime(content, locale, eleventyConfig);
   });
   eleventyConfig.addFilter("getDictionaryTerms", filters.getDictionaryTerms);
+  eleventyConfig.addFilter("getBundlePreloads", filters.getBundlePreloads);
 
   eleventyConfig.addGlobalData("supportedLocales", globalData.supportedLocales);
   eleventyConfig.addGlobalData("locale", globalData.getLocale);
