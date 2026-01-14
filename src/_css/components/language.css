@@ -1,0 +1,17 @@
+/* Language component styles */
+.language-selector {
+  display: inline-block;
+  position: relative;
+}
+
+.language-selector select {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.language-selector option {
+  padding: 0.5rem;
+}

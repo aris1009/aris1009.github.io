@@ -1,0 +1,18 @@
+/* Dictionary component styles */
+.dictionary-link {
+  color: #0066cc;
+  text-decoration: none;
+  border-bottom: 1px dotted #0066cc;
+}
+
+.dictionary-link:hover {
+  color: #004499;
+}
+
+.dictionary-tooltip {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.5rem;
+  max-width: 300px;
+}
