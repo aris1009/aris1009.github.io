@@ -94,7 +94,7 @@
         (function() {
             const savedTheme = localStorage.getItem('theme');
             const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            
+
             let isDarkMode;
             if (savedTheme === 'dark') {
                 isDarkMode = true;
@@ -103,7 +103,7 @@
             } else {
                 isDarkMode = systemPrefersDark;
             }
-            
+
             // Apply theme immediately for both Tailwind and Shoelace
             if (isDarkMode) {
                 document.documentElement.classList.add('dark');
@@ -112,6 +112,12 @@
                 document.documentElement.classList.remove('dark');
                 document.documentElement.classList.remove('sl-theme-dark');
             }
+
+            // Load appropriate Prism theme
+            const prismLink = document.getElementById('prism-theme');
+            if (prismLink) {
+                prismLink.href = isDarkMode ? '{{'/_css/prism-dark.css' | url}}' : '{{'/_css/prism-light.css' | url}}';
+            }
         })();
     </script>
     
@@ -119,7 +125,7 @@
     <script src="{{'/_static/js/theme.js' | url}}"></script>
     
     <!-- Prism.js for syntax highlighting -->
-    <link rel="stylesheet" href="{{'/_static/css/prism.css' | url}}">
+    <link id="prism-theme" rel="stylesheet" href="{{'/_css/prism-light.css' | url}}">
     <script src="{{'/_static/js/prism.js' | url}}" defer></script>
     
     <!-- Code copy buttons -->
