@@ -2,14 +2,16 @@
     <!-- Burger Menu Container -->
     <div class="burger-menu-container">
         <!-- Burger Button -->
-        <button data-testid="burger-toggle" id="burger-toggle" class="burger-button" aria-label="Toggle menu" title="Menu">
+        <burger-menu overlay-id="burger-overlay">
+        <button data-testid="burger-toggle" id="burger-toggle" data-trigger class="burger-button" aria-label="Toggle menu" aria-expanded="false" title="Menu">
             <div class="burger-icon">
                 <span class="burger-line"></span>
                 <span class="burger-line"></span>
                 <span class="burger-line"></span>
             </div>
         </button>
-        
+        </burger-menu>
+
         <!-- Controls Container (Theme + Language) -->
         <div class="header-controls">
             <!-- Animated Dark Mode Toggle Pill -->
@@ -117,7 +119,7 @@
     </div>
     
     <!-- Burger Menu Overlay -->
-    <div id="burger-overlay" class="burger-overlay">
+    <div id="burger-overlay" data-overlay class="burger-overlay">
         <div class="burger-menu-content">
             <!-- Site Branding in Menu -->
             <div class="burger-branding">
