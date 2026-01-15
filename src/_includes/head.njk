@@ -133,73 +133,7 @@
 
     <!-- Web Components -->
     <script src="{{'/_static/js/components/burger-menu.js' | url}}" defer></script>
-
-    <script>
-        // Language selector functionality
-        function initLanguageSelector() {
-            const languageContainer = document.querySelector('.language-selector-container');
-            const currentLanguageDisplay = document.getElementById('current-language');
-            const languageOptions = document.querySelectorAll('.language-option');
-            
-            if (!languageContainer || !currentLanguageDisplay) {
-                return;
-            }
-
-            // Language configuration
-            const languages = {
-                'en-us': { flag: '🇺🇸' },
-                'el': { flag: '🇬🇷' },
-                'tr': { flag: '🇹🇷' }
-            };
-
-            // Get saved language or default to English
-            let currentLanguage = localStorage.getItem('language') || 'en-us';
-
-            // Function to update the current language display
-            function updateLanguageDisplay(langCode) {
-                const lang = languages[langCode];
-                if (lang) {
-                    currentLanguageDisplay.innerHTML = `
-                        <span class="flag">${lang.flag}</span>
-                    `;
-                }
-            }
-
-            // Initialize display with current language
-            updateLanguageDisplay(currentLanguage);
-
-            // Handle language option clicks
-            languageOptions.forEach(option => {
-                option.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const selectedLang = this.getAttribute('data-lang');
-                    
-                    if (selectedLang && languages[selectedLang]) {
-                        currentLanguage = selectedLang;
-                        updateLanguageDisplay(selectedLang);
-                        localStorage.setItem('language', selectedLang);
-                        
-                        // Force dropdown to close immediately after selection
-                        languageContainer.style.pointerEvents = 'none';
-                        setTimeout(() => {
-                            languageContainer.style.pointerEvents = 'auto';
-                        }, 300);
-                        
-                        // Optional: Trigger page reload or language change event
-                        // For now, just log the change
-                        console.log('Language changed to:', selectedLang);
-                    }
-                });
-            });
-        }
-
-        // Initialize language selector when DOM is loaded
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initLanguageSelector);
-        } else {
-            initLanguageSelector();
-        }
-    </script>
+    <script src="{{'/_static/js/components/language-selector.js' | url}}" defer></script>
 
     {% if process.env.NODE_ENV === 'production' %}
     <script type="text/javascript">

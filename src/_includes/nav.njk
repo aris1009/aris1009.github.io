@@ -29,6 +29,7 @@
             </div>
             
             <!-- Language Selector -->
+            <language-selector>
             <div data-testid="language-selector-container" class="language-selector-container">
                 <button id="language-toggle" class="language-selector" aria-label="Select language" title="Change language">
                     <span id="current-language" class="language-display">
@@ -42,80 +43,12 @@
                     </span>
                 </button>
                 <div id="language-dropdown" class="language-dropdown">
-                    {% if '/blog/' in page.url %}
-                        {% set blogSlug = page.url | replace('/blog/en-us/', '') | replace('/blog/el/', '') | replace('/blog/tr/', '') | replace('/', '') %}
-                        <a href="/blog/en-us/{{ blogSlug }}/" class="language-option" data-lang="en-us">
-                            <span class="flag">🇺🇸</span>
-                        </a>
-                        <a href="/blog/el/{{ blogSlug }}/" class="language-option" data-lang="el">
-                            <span class="flag">🇬🇷</span>
-                        </a>
-                        <a href="/blog/tr/{{ blogSlug }}/" class="language-option" data-lang="tr">
-                            <span class="flag">🇹🇷</span>
-                        </a>
-                    {% elif '/about/' in page.url %}
-                        <a href="/en-us/about/" class="language-option" data-lang="en-us">
-                            <span class="flag">🇺🇸</span>
-                        </a>
-                        <a href="/el/about/" class="language-option" data-lang="el">
-                            <span class="flag">🇬🇷</span>
-                        </a>
-                        <a href="/tr/about/" class="language-option" data-lang="tr">
-                            <span class="flag">🇹🇷</span>
-                        </a>
-                    {% elif '/acknowledgements/' in page.url %}
-                        <a href="/en-us/acknowledgements/" class="language-option" data-lang="en-us">
-                            <span class="flag">🇺🇸</span>
-                        </a>
-                        <a href="/el/acknowledgements/" class="language-option" data-lang="el">
-                            <span class="flag">🇬🇷</span>
-                        </a>
-                        <a href="/tr/acknowledgements/" class="language-option" data-lang="tr">
-                            <span class="flag">🇹🇷</span>
-                        </a>
-                    {% elif '/ai-disclaimer/' in page.url or '/el/ai-disclaimer/' in page.url or '/tr/ai-disclaimer/' in page.url %}
-                        <a href="/en-us/ai-disclaimer/" class="language-option" data-lang="en-us">
-                            <span class="flag">🇺🇸</span>
-                        </a>
-                        <a href="/el/ai-disclaimer/" class="language-option" data-lang="el">
-                            <span class="flag">🇬🇷</span>
-                        </a>
-                        <a href="/tr/ai-disclaimer/" class="language-option" data-lang="tr">
-                            <span class="flag">🇹🇷</span>
-                        </a>
-                    {% elif '/ai-toolset/' in page.url or '/el/ai-toolset/' in page.url or '/tr/ai-toolset/' in page.url %}
-                        <a href="/en-us/ai-toolset/" class="language-option" data-lang="en-us">
-                            <span class="flag">🇺🇸</span>
-                        </a>
-                        <a href="/el/ai-toolset/" class="language-option" data-lang="el">
-                            <span class="flag">🇬🇷</span>
-                        </a>
-                        <a href="/tr/ai-toolset/" class="language-option" data-lang="tr">
-                            <span class="flag">🇹🇷</span>
-                        </a>
-                    {% elif '/dictionary/' in page.url %}
-                        <a href="/en-us/dictionary/" class="language-option" data-lang="en-us">
-                            <span class="flag">🇺🇸</span>
-                        </a>
-                        <a href="/el/dictionary/" class="language-option" data-lang="el">
-                            <span class="flag">🇬🇷</span>
-                        </a>
-                        <a href="/tr/dictionary/" class="language-option" data-lang="tr">
-                            <span class="flag">🇹🇷</span>
-                        </a>
-                    {% else %}
-                        <a href="/" class="language-option" data-lang="en-us">
-                            <span class="flag">🇺🇸</span>
-                        </a>
-                        <a href="/el/" class="language-option" data-lang="el">
-                            <span class="flag">🇬🇷</span>
-                        </a>
-                        <a href="/tr/" class="language-option" data-lang="tr">
-                            <span class="flag">🇹🇷</span>
-                        </a>
-                    {% endif %}
+                    <a href="#" class="language-option" data-lang="en-us"><span class="flag">🇺🇸</span></a>
+                    <a href="#" class="language-option" data-lang="el"><span class="flag">🇬🇷</span></a>
+                    <a href="#" class="language-option" data-lang="tr"><span class="flag">🇹🇷</span></a>
+                </div>
             </div>
-        </div>
+            </language-selector>
     </div>
     
     <!-- Burger Menu Overlay -->
