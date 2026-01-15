@@ -2,19 +2,22 @@
     <!-- Burger Menu Container -->
     <div class="burger-menu-container">
         <!-- Burger Button -->
-        <button data-testid="burger-toggle" id="burger-toggle" class="burger-button" aria-label="Toggle menu" title="Menu">
+        <burger-menu overlay-id="burger-overlay">
+        <button data-testid="burger-toggle" id="burger-toggle" data-trigger class="burger-button" aria-label="Toggle menu" aria-expanded="false" title="Menu">
             <div class="burger-icon">
                 <span class="burger-line"></span>
                 <span class="burger-line"></span>
                 <span class="burger-line"></span>
             </div>
         </button>
-        
+        </burger-menu>
+
         <!-- Controls Container (Theme + Language) -->
         <div class="header-controls">
             <!-- Animated Dark Mode Toggle Pill -->
+            <theme-toggle>
             <div data-testid="theme-toggle-container" class="theme-toggle-container">
-                <button id="theme-toggle" class="theme-toggle-pill" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+                <button id="theme-toggle" data-trigger class="theme-toggle-pill" aria-label="Toggle dark mode" title="Toggle dark/light mode">
                     <div class="toggle-slider">
                         <svg class="toggle-icon sun-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
@@ -25,8 +28,10 @@
                     </div>
                 </button>
             </div>
+            </theme-toggle>
             
             <!-- Language Selector -->
+            <language-selector>
             <div data-testid="language-selector-container" class="language-selector-container">
                 <button id="language-toggle" class="language-selector" aria-label="Select language" title="Change language">
                     <span id="current-language" class="language-display">
@@ -40,84 +45,16 @@
                     </span>
                 </button>
                 <div id="language-dropdown" class="language-dropdown">
-                    {% if '/blog/' in page.url %}
-                        {% set blogSlug = page.url | replace('/blog/en-us/', '') | replace('/blog/el/', '') | replace('/blog/tr/', '') | replace('/', '') %}
-                        <a href="/blog/en-us/{{ blogSlug }}/" class="language-option" data-lang="en-us">
-                            <span class="flag">🇺🇸</span>
-                        </a>
-                        <a href="/blog/el/{{ blogSlug }}/" class="language-option" data-lang="el">
-                            <span class="flag">🇬🇷</span>
-                        </a>
-                        <a href="/blog/tr/{{ blogSlug }}/" class="language-option" data-lang="tr">
-                            <span class="flag">🇹🇷</span>
-                        </a>
-                    {% elif '/about/' in page.url %}
-                        <a href="/en-us/about/" class="language-option" data-lang="en-us">
-                            <span class="flag">🇺🇸</span>
-                        </a>
-                        <a href="/el/about/" class="language-option" data-lang="el">
-                            <span class="flag">🇬🇷</span>
-                        </a>
-                        <a href="/tr/about/" class="language-option" data-lang="tr">
-                            <span class="flag">🇹🇷</span>
-                        </a>
-                    {% elif '/acknowledgements/' in page.url %}
-                        <a href="/en-us/acknowledgements/" class="language-option" data-lang="en-us">
-                            <span class="flag">🇺🇸</span>
-                        </a>
-                        <a href="/el/acknowledgements/" class="language-option" data-lang="el">
-                            <span class="flag">🇬🇷</span>
-                        </a>
-                        <a href="/tr/acknowledgements/" class="language-option" data-lang="tr">
-                            <span class="flag">🇹🇷</span>
-                        </a>
-                    {% elif '/ai-disclaimer/' in page.url or '/el/ai-disclaimer/' in page.url or '/tr/ai-disclaimer/' in page.url %}
-                        <a href="/en-us/ai-disclaimer/" class="language-option" data-lang="en-us">
-                            <span class="flag">🇺🇸</span>
-                        </a>
-                        <a href="/el/ai-disclaimer/" class="language-option" data-lang="el">
-                            <span class="flag">🇬🇷</span>
-                        </a>
-                        <a href="/tr/ai-disclaimer/" class="language-option" data-lang="tr">
-                            <span class="flag">🇹🇷</span>
-                        </a>
-                    {% elif '/ai-toolset/' in page.url or '/el/ai-toolset/' in page.url or '/tr/ai-toolset/' in page.url %}
-                        <a href="/en-us/ai-toolset/" class="language-option" data-lang="en-us">
-                            <span class="flag">🇺🇸</span>
-                        </a>
-                        <a href="/el/ai-toolset/" class="language-option" data-lang="el">
-                            <span class="flag">🇬🇷</span>
-                        </a>
-                        <a href="/tr/ai-toolset/" class="language-option" data-lang="tr">
-                            <span class="flag">🇹🇷</span>
-                        </a>
-                    {% elif '/dictionary/' in page.url %}
-                        <a href="/en-us/dictionary/" class="language-option" data-lang="en-us">
-                            <span class="flag">🇺🇸</span>
-                        </a>
-                        <a href="/el/dictionary/" class="language-option" data-lang="el">
-                            <span class="flag">🇬🇷</span>
-                        </a>
-                        <a href="/tr/dictionary/" class="language-option" data-lang="tr">
-                            <span class="flag">🇹🇷</span>
-                        </a>
-                    {% else %}
-                        <a href="/" class="language-option" data-lang="en-us">
-                            <span class="flag">🇺🇸</span>
-                        </a>
-                        <a href="/el/" class="language-option" data-lang="el">
-                            <span class="flag">🇬🇷</span>
-                        </a>
-                        <a href="/tr/" class="language-option" data-lang="tr">
-                            <span class="flag">🇹🇷</span>
-                        </a>
-                    {% endif %}
+                    <a href="#" class="language-option" data-lang="en-us"><span class="flag">🇺🇸</span></a>
+                    <a href="#" class="language-option" data-lang="el"><span class="flag">🇬🇷</span></a>
+                    <a href="#" class="language-option" data-lang="tr"><span class="flag">🇹🇷</span></a>
+                </div>
             </div>
-        </div>
+            </language-selector>
     </div>
     
     <!-- Burger Menu Overlay -->
-    <div id="burger-overlay" class="burger-overlay">
+    <div id="burger-overlay" data-overlay class="burger-overlay">
         <div class="burger-menu-content">
             <!-- Site Branding in Menu -->
             <div class="burger-branding">
