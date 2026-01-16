@@ -3,6 +3,12 @@
   'use strict';
 
   const SCROLL_THRESHOLD = 300;
+
+  // Only activate on article pages
+  if (!document.querySelector('article[data-blog-post]')) {
+    return;
+  }
+
   const backToTopBtn = document.getElementById('back-to-top');
 
   if (!backToTopBtn) {

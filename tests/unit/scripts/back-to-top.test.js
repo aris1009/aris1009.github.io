@@ -28,10 +28,17 @@ describe('Back to Top Button', () => {
       style: {}
     };
 
+    // Mock article element
+    const mockArticle = { dataset: { blogPost: '' } };
+
     // Mock document
     mockDocument = {
       getElementById: vi.fn((id) => {
         if (id === 'back-to-top') return mockButton;
+        return null;
+      }),
+      querySelector: vi.fn((selector) => {
+        if (selector === 'article[data-blog-post]') return mockArticle;
         return null;
       })
     };
@@ -64,6 +71,15 @@ describe('Back to Top Button', () => {
       expect(mockConsole.warn).not.toHaveBeenCalled();
       expect(mockWindow.addEventListener).toHaveBeenCalledWith('scroll', expect.any(Function), { passive: true });
       expect(mockButton.addEventListener).toHaveBeenCalledWith('click', expect.any(Function));
+    });
+
+    it('should not initialize on non-article pages', async () => {
+      mockDocument.querySelector.mockReturnValue(null);
+
+      await import('src/_static/js/back-to-top.js');
+
+      expect(mockDocument.getElementById).not.toHaveBeenCalled();
+      expect(mockWindow.addEventListener).not.toHaveBeenCalled();
     });
 
     it('should warn when button does not exist', async () => {
