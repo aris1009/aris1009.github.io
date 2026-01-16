@@ -1,8 +1,11 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Back to Top Button Functionality', () => {
+  // Back-to-top button only appears on article/blog post pages
+  const BLOG_POST_URL = '/blog/en-us/gru-kms-windows/';
+
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto(BLOG_POST_URL);
   });
 
   test('back to top button is present in DOM', async ({ page }) => {
@@ -122,8 +125,8 @@ test.describe('Back to Top Button Functionality', () => {
   });
 
   test('button works on pages with different content heights', async ({ page }) => {
-    // Test on homepage first
-    await page.goto('/');
+    // Test on a blog post (back-to-top only appears on article pages)
+    await page.goto(BLOG_POST_URL);
 
     // Ensure page has some height
     const pageHeight = await page.evaluate(() => document.body.scrollHeight);
@@ -136,16 +139,16 @@ test.describe('Back to Top Button Functionality', () => {
     const backToTopButton = page.locator('#back-to-top');
     await expect(backToTopButton).toHaveCSS('opacity', '1');
 
-    // Test on blog page if it exists (has more content)
-    await page.goto('/blog/');
-    const blogPageHeight = await page.evaluate(() => document.body.scrollHeight);
+    // Test on another blog post with different content
+    await page.goto('/blog/en-us/get-most-out-of-claude-code/');
+    const otherPostHeight = await page.evaluate(() => document.body.scrollHeight);
 
-    if (blogPageHeight > 500) { // Only test if page has substantial content
+    if (otherPostHeight > 500) { // Only test if page has substantial content
       await page.evaluate(() => window.scrollTo(0, 350));
       await page.waitForTimeout(100);
 
-      const backToTopButtonBlog = page.locator('#back-to-top');
-      await expect(backToTopButtonBlog).toHaveCSS('opacity', '1');
+      const backToTopButtonOther = page.locator('#back-to-top');
+      await expect(backToTopButtonOther).toHaveCSS('opacity', '1');
     }
   });
 
@@ -206,6 +209,23 @@ test.describe('Back to Top Button Functionality', () => {
     // Check icon is present and visible
     const icon = backToTopButton.locator('.icon');
     await expect(icon).toBeVisible();
+  });
+
+  test('button does not activate on non-article pages', async ({ page }) => {
+    // Navigate to homepage (not an article page)
+    await page.goto('/');
+
+    const backToTopButton = page.locator('#back-to-top');
+
+    // Button element exists in DOM (rendered by footer)
+    await expect(backToTopButton).toBeAttached();
+
+    // Scroll past threshold
+    await page.evaluate(() => window.scrollTo(0, 500));
+    await page.waitForTimeout(100);
+
+    // Button should remain hidden (script doesn't activate on non-article pages)
+    await expect(backToTopButton).toHaveCSS('opacity', '0');
   });
 
   test('button works across different viewport sizes', async ({ page }) => {

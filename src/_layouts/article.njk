@@ -12,7 +12,7 @@ type: article
     <!-- Start Body -->
     <body>
         {% include "nav.njk" %}
-        <article>
+        <article data-blog-post>
             <small class="info">
                 <time datetime="{{page.date}}">{{page.date | readableDate(locale or 'en-us')}}</time> -
             {{content | localizedReadingTime(locale or 'en-us')}}
