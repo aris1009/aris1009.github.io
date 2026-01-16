@@ -12,7 +12,7 @@ class ReadingProgressBar {
 
   init() {
     // Only initialize on article pages
-    this.article = document.querySelector('article');
+    this.article = document.querySelector('article[data-blog-post]');
     if (!this.article) {
       return;
     }
