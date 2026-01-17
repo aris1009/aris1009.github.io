@@ -45,7 +45,33 @@ export default function (eleventyConfig) {
   eleventyConfig.addPlugin(pluginMermaid, {
     mermaid_config: {
       startOnLoad: true,
-      theme: 'default'
+      theme: 'base',
+      themeVariables: {
+        // Light mode defaults (matches blog zinc/slate/sky palette)
+        background: '#f4f4f5',
+        primaryColor: '#e0f2fe',
+        secondaryColor: '#f0f9ff',
+        tertiaryColor: '#f8fafc',
+        primaryTextColor: '#0f172a',
+        secondaryTextColor: '#334155',
+        lineColor: '#64748b',
+        primaryBorderColor: '#94a3b8',
+        mainBkg: '#e0f2fe',
+        nodeBorder: '#0284c7',
+        actorBkg: '#f1f5f9',
+        actorBorder: '#64748b',
+        actorTextColor: '#0f172a',
+        actorLineColor: '#64748b',
+        signalColor: '#0f172a',
+        signalTextColor: '#0f172a',
+        labelBoxBkgColor: '#e0f2fe',
+        labelTextColor: '#0f172a',
+        loopTextColor: '#0f172a',
+        noteBkgColor: '#fef9c3',
+        noteTextColor: '#713f12',
+        noteBorderColor: '#fbbf24',
+        fontFamily: 'ui-sans-serif, system-ui, sans-serif'
+      }
     }
   });
 
