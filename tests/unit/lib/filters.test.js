@@ -97,29 +97,16 @@ describe('filters', () => {
   });
 
   describe('localizedReadingTime', () => {
-    it('should return localized reading time for default locale', () => {
-      const mockEleventyConfig = {
-        getFilter: vi.fn().mockReturnValue(() => '5 min read')
-      };
-      
-      vi.doMock('../../_data/translations.js', () => ({
-        article: {
-          readTime: { 'en-us': 'read' },
-          readTimeFormat: { 'en-us': '{time} min {readText}' }
-        }
-      }));
-
-      const result = localizedReadingTime('content', 'en-us', mockEleventyConfig);
+    it('should calculate reading time based on word count', () => {
+      // ~1000 words at 200 wpm = 5 min
+      const longContent = 'word '.repeat(1000);
+      const result = localizedReadingTime(longContent, 'en-us');
       expect(result).toBe('5 min read');
     });
 
-    it('should return original text if no time match found', () => {
-      const mockEleventyConfig = {
-        getFilter: vi.fn().mockReturnValue(() => 'no time here')
-      };
-
-      const result = localizedReadingTime('content', 'en-us', mockEleventyConfig);
-      expect(result).toBe('no time here');
+    it('should return minimum 1 min for short content', () => {
+      const result = localizedReadingTime('short content', 'en-us');
+      expect(result).toBe('1 min read');
     });
   });
 });

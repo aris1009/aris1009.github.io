@@ -1,9 +1,10 @@
-const readingTime = require("eleventy-plugin-reading-time");
-const navigationPlugin = require("@11ty/eleventy-navigation");
-const sitemap = require("@quasibit/eleventy-plugin-sitemap");
-const i18n = require("eleventy-plugin-i18n");
+import readingTime from "eleventy-plugin-reading-time";
+import navigationPlugin from "@11ty/eleventy-navigation";
+import sitemap from "@quasibit/eleventy-plugin-sitemap";
+import i18n from "eleventy-plugin-i18n";
+import pluginMermaid from "@kevingimbel/eleventy-plugin-mermaid";
 
-const {
+import {
   filters,
   collections,
   transforms,
@@ -11,9 +12,13 @@ const {
   globalData,
   constants,
   imageShortcodes
-} = require("./src/lib");
+} from "./src/lib/index.js";
 
-module.exports = function (eleventyConfig) {
+import meta from "./src/_data/meta.js";
+import translations from "./src/_data/translations.js";
+import dictionary from "./src/_data/dictionary.js";
+
+export default function (eleventyConfig) {
   // Configure .webmanifest files to use Nunjucks template engine
   eleventyConfig.addExtension("webmanifest", {
     key: "njk",
@@ -25,16 +30,23 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addPlugin(sitemap, {
     sitemap: {
-      hostname: require("./src/_data/meta.js").url
+      hostname: meta.url
     }
   });
 
   eleventyConfig.addPlugin(i18n, {
     translations: {
-      ...require("./src/_data/translations.js")
+      ...translations
     },
     fallbackLocales: constants.FALLBACK_LOCALES,
     markdownIteration: true
+  });
+
+  eleventyConfig.addPlugin(pluginMermaid, {
+    mermaid_config: {
+      startOnLoad: true,
+      theme: 'default'
+    }
   });
 
   eleventyConfig.addPassthroughCopy("src/_static");
@@ -46,14 +58,12 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("head", filters.head);
   eleventyConfig.addFilter("min", filters.min);
   eleventyConfig.addFilter("filterTagList", filters.filterTagList);
-  eleventyConfig.addFilter("localizedReadingTime", function (content, locale) {
-    return filters.localizedReadingTime(content, locale, eleventyConfig);
-  });
+  eleventyConfig.addFilter("localizedReadingTime", filters.localizedReadingTime);
   eleventyConfig.addFilter("getDictionaryTerms", filters.getDictionaryTerms);
 
   eleventyConfig.addGlobalData("supportedLocales", globalData.supportedLocales);
   eleventyConfig.addGlobalData("locale", globalData.getLocale);
-  eleventyConfig.addGlobalData("dictionary", require("./src/_data/dictionary.js"));
+  eleventyConfig.addGlobalData("dictionary", dictionary);
 
   eleventyConfig.addCollection("postsEn_us", collections.postsEn_us);
   eleventyConfig.addCollection("postsEl", collections.postsEl);
@@ -107,4 +117,4 @@ module.exports = function (eleventyConfig) {
       output: "_site"
     }
   };
-};
+}

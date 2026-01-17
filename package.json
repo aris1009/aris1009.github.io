@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "scripts": {
     "dev": "run-p dev:*",
     "build": "run-s clean favicons css:website eleventy",

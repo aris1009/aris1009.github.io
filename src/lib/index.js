@@ -1,12 +1,12 @@
-const filters = require("./filters");
-const collections = require("./collections");
-const transforms = require("./transforms");
-const shortcodes = require("./shortcodes");
-const globalData = require("./global-data");
-const constants = require("./constants");
-const imageShortcodes = require("./image-shortcodes");
+import * as filters from "./filters.js";
+import * as collections from "./collections.js";
+import * as transforms from "./transforms.js";
+import * as shortcodes from "./shortcodes.js";
+import * as globalData from "./global-data.js";
+import * as constants from "./constants.js";
+import * as imageShortcodes from "./image-shortcodes.js";
 
-module.exports = {
+export {
   filters,
   collections,
   transforms,

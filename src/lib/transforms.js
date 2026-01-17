@@ -1,14 +1,14 @@
-const htmlmin = require("html-minifier");
-const { HTML_MINIFY_OPTIONS } = require("./constants");
+import htmlmin from "html-minifier";
+import { HTML_MINIFY_OPTIONS } from "./constants.js";
 
-function htmlminTransform(content, outputPath) {
+export function htmlminTransform(content, outputPath) {
   if (outputPath && outputPath.endsWith(".html")) {
-    let minified = htmlmin.minify(content, HTML_MINIFY_OPTIONS);
-    return minified;
+    try {
+      return htmlmin.minify(content, HTML_MINIFY_OPTIONS);
+    } catch (error) {
+      console.warn(`HTML minification failed for ${outputPath}: ${error.message}`);
+      return content; // Return unminified content if minification fails
+    }
   }
   return content;
 }
-
-module.exports = {
-  htmlminTransform
-};
