@@ -37,11 +37,6 @@ This blog is enhanced by several Eleventy plugins that provide additional functi
 - **[eleventy-plugin-reading-time](https://github.com/johanbrook/eleventy-plugin-reading-time)** - Reading time calculation for articles
 - **[eleventy-plugin-i18n](https://github.com/adamduncan/eleventy-plugin-i18n)** - Internationalization support for multiple languages
 
-## Development Utilities
-
-Additional tools and utilities that power the development and build process:
-[Luxon](https://github.com/moment/luxon), [html-minifier](https://github.com/kangax/html-minifier), [npm-run-all](https://github.com/mysticatea/npm-run-all), [Husky](https://github.com/typicode/husky), [rimraf](https://github.com/isaacs/rimraf), [@tailwindcss/typography](https://github.com/tailwindlabs/tailwindcss-typography), [JSDOM](https://github.com/jsdom/jsdom)
-
 ## Theme
 
 This blog builds upon the **Minimalism** theme by [Marco Micale](https://github.com/MarcoMicale).
@@ -83,11 +78,6 @@ Thank you to all the open-source developers and contributors who make projects l
 - **[eleventy-plugin-reading-time](https://github.com/johanbrook/eleventy-plugin-reading-time)** - Υπολογισμός χρόνου ανάγνωσης για άρθρα
 - **[eleventy-plugin-i18n](https://github.com/adamduncan/eleventy-plugin-i18n)** - Υποστήριξη διεθνοποίησης για πολλαπλές γλώσσες
 
-## Εργαλεία Ανάπτυξης
-
-Επιπλέον εργαλεία και utilities που τροφοδοτούν τη διαδικασία ανάπτυξης και κατασκευής:
-[Luxon](https://github.com/moment/luxon), [html-minifier](https://github.com/kangax/html-minifier), [npm-run-all](https://github.com/mysticatea/npm-run-all), [Husky](https://github.com/typicode/husky), [rimraf](https://github.com/isaacs/rimraf), [@tailwindcss/typography](https://github.com/tailwindlabs/tailwindcss-typography), [JSDOM](https://github.com/jsdom/jsdom)
-
 ## Θέμα
 
 Αυτό το ιστολόγιο χρησιμοποιεί το θέμα **Minimalism** από τον [Marco Micale](https://github.com/MarcoMicale).
@@ -128,11 +118,6 @@ Bu blog, ek işlevsellik sağlayan çeşitli Eleventy eklentileri ile geliştiri
 - **[@11ty/eleventy-navigation](https://github.com/11ty/eleventy-navigation)** - Yapılandırılmış site navigasyonu için navigasyon eklentisi
 - **[eleventy-plugin-reading-time](https://github.com/johanbrook/eleventy-plugin-reading-time)** - Makaleler için okuma süresi hesaplama
 - **[eleventy-plugin-i18n](https://github.com/adamduncan/eleventy-plugin-i18n)** - Çoklu dil için uluslararasılaştırma desteği
-
-## Geliştirme Araçları
-
-Geliştirme ve yapı sürecini destekleyen ek araçlar ve yardımcı programlar:
-[Luxon](https://github.com/moment/luxon), [html-minifier](https://github.com/kangax/html-minifier), [npm-run-all](https://github.com/mysticatea/npm-run-all), [Husky](https://github.com/typicode/husky), [rimraf](https://github.com/isaacs/rimraf), [@tailwindcss/typography](https://github.com/tailwindlabs/tailwindcss-typography), [JSDOM](https://github.com/jsdom/jsdom)
 
 ## Tema
 

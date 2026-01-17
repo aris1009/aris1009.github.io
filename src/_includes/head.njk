@@ -115,12 +115,14 @@
         })();
     </script>
     
-    <!-- Prism.js for syntax highlighting -->
+    {% if layout == 'article.njk' or (tags and 'posts' in tags) %}
+    <!-- Prism.js for syntax highlighting (article pages only) -->
     <link rel="stylesheet" href="{{'/_static/css/prism.css' | url}}">
     <script src="{{'/_static/js/prism.js' | url}}" defer></script>
-    
+
     <!-- Code copy buttons -->
     <script src="{{'/_static/js/code-copy-buttons.js' | url}}" defer></script>
+    {% endif %}
     
     <!-- Reading Progress Script -->
     <script src="{{'/_static/js/reading-progress.js' | url}}" defer></script>
