@@ -1,5 +1,7 @@
-module.exports = {
-  content: ["./src/**/*.{html,njk,md,json,js}", "./.eleventy.js"],
+import typography from "@tailwindcss/typography";
+
+export default {
+  content: ["./src/**/*.{html,njk,md,json,js}", "./eleventy.config.js"],
   presets: [],
   darkMode: "class", // Enable class-based dark mode
   theme: {
@@ -959,5 +961,5 @@ module.exports = {
     "active",
     "disabled",
   ],
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [typography],
 };

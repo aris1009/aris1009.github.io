@@ -5,6 +5,7 @@ import {
   processDictionaryTerms,
   isExternalUrl,
   isMarkdownLinkAlreadyProcessed,
+  separateFrontmatter,
   CONFIG
 } from '../../../scripts/process-links.js';
 
@@ -54,6 +55,137 @@ describe('process-links.js', () => {
     it('should not detect regular markdown links as processed', () => {
       const regularLink = '[text](url)';
       expect(isMarkdownLinkAlreadyProcessed(regularLink)).toBe(false);
+    });
+  });
+
+  describe('separateFrontmatter', () => {
+    it('should separate standard frontmatter from body', () => {
+      const content = `---
+title: "Test Post"
+date: 2024-01-01
+---
+This is the body content.`;
+
+      const { frontmatter, body } = separateFrontmatter(content);
+
+      expect(frontmatter).toBe(`---
+title: "Test Post"
+date: 2024-01-01
+---
+`);
+      expect(body).toBe('This is the body content.');
+    });
+
+    it('should handle content without frontmatter', () => {
+      const content = 'Just body content without frontmatter.';
+
+      const { frontmatter, body } = separateFrontmatter(content);
+
+      expect(frontmatter).toBe('');
+      expect(body).toBe(content);
+    });
+
+    it('should preserve frontmatter with permalink containing terms', () => {
+      const content = `---
+title: "Great Firewall Article"
+permalink: /blog/el/great-firewall-wallbleed/
+locale: el
+---
+Body text with firewall term.`;
+
+      const { frontmatter, body } = separateFrontmatter(content);
+
+      expect(frontmatter).toContain('permalink: /blog/el/great-firewall-wallbleed/');
+      expect(frontmatter).not.toContain('dictionaryLink');
+      expect(body).toBe('Body text with firewall term.');
+    });
+
+    it('should not process dictionary terms in frontmatter', () => {
+      const content = `---
+title: "Encryption Best Practices"
+description: "Learn about encryption and firewall security"
+permalink: /blog/encryption-guide/
+---
+This article covers encryption basics.`;
+
+      const { frontmatter, body } = separateFrontmatter(content);
+
+      // Frontmatter should remain untouched
+      expect(frontmatter).toContain('title: "Encryption Best Practices"');
+      expect(frontmatter).toContain('description: "Learn about encryption and firewall security"');
+      expect(frontmatter).not.toContain('dictionaryLink');
+
+      // Only body should be processed
+      const processedBody = processDictionaryTerms(body);
+      expect(processedBody).toContain('dictionaryLink');
+    });
+
+    it('should handle frontmatter with complex YAML values', () => {
+      const content = `---
+title: "API Security"
+tags:
+  - security
+  - api
+  - encryption
+keywords: firewall, malware, phishing
+---
+Article body here.`;
+
+      const { frontmatter, body } = separateFrontmatter(content);
+
+      expect(frontmatter).toContain('keywords: firewall, malware, phishing');
+      expect(body).toBe('Article body here.');
+    });
+
+    it('should handle frontmatter with multiline strings', () => {
+      const content = `---
+title: "Test"
+description: |
+  This is a multiline
+  description with encryption
+  and firewall terms.
+---
+Body content.`;
+
+      const { frontmatter, body } = separateFrontmatter(content);
+
+      expect(frontmatter).toContain('encryption');
+      expect(frontmatter).toContain('firewall');
+      expect(body).toBe('Body content.');
+    });
+
+    it('should handle empty frontmatter as no frontmatter', () => {
+      // Edge case: empty frontmatter (---\n---) doesn't match the regex pattern
+      // This is acceptable as empty frontmatter is not meaningful
+      const content = `---
+---
+Body only.`;
+
+      const { frontmatter, body } = separateFrontmatter(content);
+
+      // Empty frontmatter is treated as no frontmatter
+      expect(frontmatter).toBe('');
+      expect(body).toBe(content);
+    });
+
+    it('should not be confused by --- in body content', () => {
+      const content = `---
+title: "Test"
+---
+Body with --- horizontal rule.
+
+---
+
+More content.`;
+
+      const { frontmatter, body } = separateFrontmatter(content);
+
+      expect(frontmatter).toBe(`---
+title: "Test"
+---
+`);
+      expect(body).toContain('Body with --- horizontal rule.');
+      expect(body).toContain('More content.');
     });
   });
 
