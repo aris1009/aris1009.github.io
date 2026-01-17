@@ -49,6 +49,31 @@ export default function (eleventyConfig) {
     }
   });
 
+  // Add language- prefix to code blocks for Prism.js compatibility
+  // This must come AFTER mermaid plugin so mermaid blocks are handled first
+  const existingHighlighter = eleventyConfig.markdownHighlighter;
+  eleventyConfig.addMarkdownHighlighter((str, language) => {
+    // Let previous highlighters (like mermaid) handle their languages first
+    if (existingHighlighter) {
+      const result = existingHighlighter(str, language);
+      // If the previous highlighter returned something other than the default,
+      // use that result (e.g., mermaid's <pre class="mermaid">)
+      if (result && !result.includes(`class="${language}"`)) {
+        return result;
+      }
+    }
+
+    // Add language- prefix for Prism.js
+    if (language) {
+      const escaped = str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      return `<pre class="language-${language}"><code class="language-${language}">${escaped}</code></pre>`;
+    }
+
+    // No language specified
+    const escaped = str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return `<pre><code>${escaped}</code></pre>`;
+  });
+
   eleventyConfig.addPassthroughCopy("src/_static");
   eleventyConfig.addPassthroughCopy({ "src/_static/img": "img" });
   eleventyConfig.addPassthroughCopy({ "src/_static/sw.js": "sw.js" });

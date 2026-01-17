@@ -47,16 +47,22 @@ describe('Code Copy Buttons', () => {
     mockDocument = {
       createElement: vi.fn((tagName) => {
         if (tagName === 'sl-copy-button') return mockCopyButton;
-        if (tagName === 'div') return { 
-          className: '', 
+        if (tagName === 'div') return {
+          className: '',
           classList: { add: vi.fn() },
           appendChild: vi.fn()
         };
         return mockElement;
       }),
-      querySelectorAll: vi.fn(() => []),
+      querySelectorAll: vi.fn((selector) => {
+        // Return empty array for mermaid selector by default
+        // Tests can override this for specific cases
+        return [];
+      }),
       addEventListener: vi.fn(),
-      readyState: 'complete',
+      // Set to 'loading' to prevent auto-initialization during module import
+      // Tests can call initializeCopyButtons() manually when needed
+      readyState: 'loading',
       body: mockElement
     };
 
@@ -98,6 +104,7 @@ describe('Code Copy Buttons', () => {
 
   afterEach(() => {
     vi.clearAllMocks();
+    vi.resetModules();
     delete global.document;
     delete global.window;
     delete global.MutationObserver;
