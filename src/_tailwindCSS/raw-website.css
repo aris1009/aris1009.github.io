@@ -800,4 +800,116 @@
   .back-to-top:focus {
     @apply outline-none;
   }
+
+  /* Mermaid Diagram Styling */
+  pre.mermaid {
+    @apply bg-zinc-100 dark:bg-zinc-900 rounded-lg p-4 my-6 overflow-x-auto border border-zinc-200 dark:border-zinc-700;
+  }
+
+  /* Center the SVG diagram within the container */
+  pre.mermaid svg {
+    @apply mx-auto;
+  }
+
+  /* Dark mode overrides for Mermaid SVG elements */
+
+  /* Text elements */
+  html.dark pre.mermaid text,
+  html.dark pre.mermaid .messageText,
+  html.dark pre.mermaid .labelText,
+  html.dark pre.mermaid .loopText,
+  html.dark pre.mermaid .noteText,
+  html.dark pre.mermaid tspan {
+    fill: theme('colors.slate.100') !important;
+  }
+
+  /* Actor boxes (sequence diagrams) */
+  html.dark pre.mermaid .actor {
+    fill: theme('colors.slate.800') !important;
+    stroke: theme('colors.slate.500') !important;
+  }
+
+  /* Actor lines */
+  html.dark pre.mermaid .actor-line {
+    stroke: theme('colors.slate.500') !important;
+  }
+
+  /* Signal/message lines */
+  html.dark pre.mermaid .messageLine0,
+  html.dark pre.mermaid .messageLine1 {
+    stroke: theme('colors.slate.400') !important;
+  }
+
+  /* Arrowheads */
+  html.dark pre.mermaid .arrowhead,
+  html.dark pre.mermaid marker path {
+    fill: theme('colors.slate.400') !important;
+    stroke: theme('colors.slate.400') !important;
+  }
+
+  /* Loop/alt boxes */
+  html.dark pre.mermaid .loopLine {
+    stroke: theme('colors.slate.500') !important;
+  }
+
+  html.dark pre.mermaid .labelBox {
+    fill: theme('colors.sky.900') !important;
+    stroke: theme('colors.sky.400') !important;
+  }
+
+  /* Note boxes */
+  html.dark pre.mermaid .note {
+    fill: theme('colors.yellow.950') !important;
+    stroke: theme('colors.yellow.600') !important;
+  }
+
+  html.dark pre.mermaid .noteText {
+    fill: theme('colors.yellow.100') !important;
+  }
+
+  /* Activation boxes */
+  html.dark pre.mermaid .activation0,
+  html.dark pre.mermaid .activation1,
+  html.dark pre.mermaid .activation2 {
+    fill: theme('colors.slate.700') !important;
+    stroke: theme('colors.slate.500') !important;
+  }
+
+  /* Flowchart nodes */
+  html.dark pre.mermaid .node rect,
+  html.dark pre.mermaid .node polygon,
+  html.dark pre.mermaid .node circle,
+  html.dark pre.mermaid .node ellipse {
+    fill: theme('colors.sky.900') !important;
+    stroke: theme('colors.sky.400') !important;
+  }
+
+  html.dark pre.mermaid .node .label {
+    color: theme('colors.slate.100') !important;
+  }
+
+  /* Edge labels */
+  html.dark pre.mermaid .edgeLabel {
+    background-color: theme('colors.zinc.900') !important;
+    color: theme('colors.slate.100') !important;
+  }
+
+  html.dark pre.mermaid .edgeLabel rect {
+    fill: theme('colors.zinc.900') !important;
+  }
+
+  /* Flowchart edges/arrows */
+  html.dark pre.mermaid .flowchart-link {
+    stroke: theme('colors.slate.400') !important;
+  }
+
+  /* Cluster/subgraph backgrounds */
+  html.dark pre.mermaid .cluster rect {
+    fill: theme('colors.sky.950') !important;
+    stroke: theme('colors.sky.500') !important;
+  }
+
+  html.dark pre.mermaid .cluster text {
+    fill: theme('colors.slate.100') !important;
+  }
 }

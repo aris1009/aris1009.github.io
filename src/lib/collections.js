@@ -1,4 +1,4 @@
-const { BLOG_GLOBS } = require("./constants");
+import { BLOG_GLOBS } from "./constants.js";
 
 // Factory function to create posts collection for any locale
 function createPostsCollection(locale) {
@@ -8,11 +8,11 @@ function createPostsCollection(locale) {
 }
 
 // Create locale-specific collection functions
-const postsEn_us = createPostsCollection("en-us");
-const postsEl = createPostsCollection("el");
-const postsTr = createPostsCollection("tr");
+export const postsEn_us = createPostsCollection("en-us");
+export const postsEl = createPostsCollection("el");
+export const postsTr = createPostsCollection("tr");
 
-function allPosts(collectionApi) {
+export function allPosts(collectionApi) {
   return [
     ...collectionApi.getFilteredByGlob(BLOG_GLOBS["en-us"]),
     ...collectionApi.getFilteredByGlob(BLOG_GLOBS.el),
@@ -20,14 +20,6 @@ function allPosts(collectionApi) {
   ].filter(post => !post.data.draft).sort((a, b) => b.date - a.date);
 }
 
-function dictionary(collectionApi) {
+export function dictionary(collectionApi) {
   return collectionApi.getFilteredByGlob("src/pages/dictionary.njk");
 }
-
-module.exports = {
-  postsEn_us,
-  postsEl,
-  postsTr,
-  allPosts,
-  dictionary
-};

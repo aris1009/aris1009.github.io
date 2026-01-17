@@ -5,8 +5,12 @@
  * Measures Core Web Vitals and image optimization metrics
  */
 
-const fs = require('fs').promises;
-const path = require('path');
+import fs from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 class ImagePerformanceAnalyzer {
   constructor() {
@@ -69,7 +73,7 @@ class ImagePerformanceAnalyzer {
 
       // Try to get image dimensions
       try {
-        const sharp = require('sharp');
+        const sharp = (await import('sharp')).default;
         const metadata = await sharp(filePath).metadata();
         imageInfo.width = metadata.width;
         imageInfo.height = metadata.height;
@@ -217,10 +221,8 @@ class ImagePerformanceAnalyzer {
 }
 
 // CLI interface
-if (require.main === module) {
-  const buildDir = process.argv[2] || '_site';
-  const analyzer = new ImagePerformanceAnalyzer();
-  analyzer.analyzeBuildDirectory(buildDir);
-}
+const buildDir = process.argv[2] || '_site';
+const analyzer = new ImagePerformanceAnalyzer();
+analyzer.analyzeBuildDirectory(buildDir);
 
-module.exports = ImagePerformanceAnalyzer;
+export default ImagePerformanceAnalyzer;

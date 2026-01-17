@@ -1,13 +1,11 @@
 import { describe, it, expect } from "vitest";
 import { SUPPORTED_LOCALES } from "src/lib/constants.js";
+import translations from "../../src/_data/translations.js";
 
 /**
  * Unit tests for translations data structure
  * Ensures all required translations exist for all supported locales
  */
-
-// Import the actual translations
-const translations = require("../../src/_data/translations.js");
 
 describe("Translations Data Structure", () => {
   describe("Required Translation Keys", () => {

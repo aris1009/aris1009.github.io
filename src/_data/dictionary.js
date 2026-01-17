@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   "encryption": {
     "en-us": "The process of converting readable data into coded form to prevent unauthorized access. Modern encryption uses mathematical algorithms to scramble data so that only those with the correct key can decrypt and read it.",
     "el": "Η διαδικασία μετατροπής αναγνώσιμων δεδομένων σε κωδικοποιημένη μορφή για την αποτροπή μη εξουσιοδοτημένης πρόσβασης. Η σύγχρονη κρυπτογράφηση χρησιμοποιεί μαθηματικούς αλγόριθμους για να κωδικοποιεί δεδομένα έτσι ώστε μόνο όσοι έχουν το σωστό κλειδί να μπορούν να τα αποκρυπτογραφήσουν και να τα διαβάσουν.",

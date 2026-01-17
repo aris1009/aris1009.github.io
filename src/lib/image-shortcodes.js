@@ -1,8 +1,8 @@
-const Image = require("@11ty/eleventy-img");
-const path = require("path");
+import Image from "@11ty/eleventy-img";
+import path from "path";
 
 // Default configurations for different image types
-const IMAGE_CONFIGS = {
+export const IMAGE_CONFIGS = {
   article: {
     widths: [640, 960, 1280, 1536],
     formats: ["avif", "webp", "jpeg"],
@@ -43,7 +43,7 @@ const IMAGE_CONFIGS = {
 /**
  * Generate responsive image shortcode
  */
-async function responsiveImage(src, alt, options = {}) {
+export async function responsiveImage(src, alt, options = {}) {
   const {
     type = "article",
     className = "",
@@ -106,7 +106,7 @@ async function responsiveImage(src, alt, options = {}) {
 /**
  * Generate hero image with eager loading
  */
-async function heroImage(src, alt, options = {}) {
+export async function heroImage(src, alt, options = {}) {
   return await responsiveImage(src, alt, {
     type: "hero",
     ...options
@@ -116,17 +116,10 @@ async function heroImage(src, alt, options = {}) {
 /**
  * Generate thumbnail image
  */
-async function thumbnail(src, alt, options = {}) {
+export async function thumbnail(src, alt, options = {}) {
   return await responsiveImage(src, alt, {
     type: "thumbnail",
     className: `thumbnail ${options.className || ""}`,
     ...options
   });
 }
-
-module.exports = {
-  responsiveImage,
-  heroImage,
-  thumbnail,
-  IMAGE_CONFIGS
-};

@@ -1,6 +1,6 @@
-const { SUPPORTED_LOCALES, DEFAULT_LOCALE } = require("./constants");
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from "./constants.js";
 
-function getLocale() {
+export function getLocale() {
   return function() {
     const pathParts = this.page.filePathStem.split('/');
     if (pathParts.includes('el')) return 'el';
@@ -9,7 +9,4 @@ function getLocale() {
   };
 }
 
-module.exports = {
-  supportedLocales: SUPPORTED_LOCALES,
-  getLocale
-};
+export const supportedLocales = SUPPORTED_LOCALES;

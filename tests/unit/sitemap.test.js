@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeAll } from 'vitest';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
+import meta from '../../src/_data/meta.js';
 
 describe('sitemap', () => {
   let sitemapContent;
@@ -47,13 +48,11 @@ describe('sitemap', () => {
     });
 
     it('should include homepage URL', () => {
-      const meta = require('../../src/_data/meta.js');
       const expectedUrl = `${meta.url}/`;
       expect(urls).toContain(expectedUrl);
     });
 
     it('should include some main pages', () => {
-      const meta = require('../../src/_data/meta.js');
       const expectedUrls = [
         `${meta.url}/en-us/dictionary/`,
         `${meta.url}/en-us/about/`,
@@ -68,7 +67,6 @@ describe('sitemap', () => {
     });
 
     it('should include all blog posts for all locales', () => {
-      const meta = require('../../src/_data/meta.js');
       const posts = [
         'dealing-with-rate-limits',
         'get-most-out-of-claude-code',
@@ -86,7 +84,6 @@ describe('sitemap', () => {
     });
 
     it('should not include the sitemap itself', () => {
-      const meta = require('../../src/_data/meta.js');
       const sitemapUrl = `${meta.url}/sitemap.xml`;
       expect(urls).not.toContain(sitemapUrl);
     });

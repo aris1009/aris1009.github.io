@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * Link Processing Helper Script for Blog Posts
@@ -17,7 +21,7 @@ const DICTIONARY_PATH = path.join(__dirname, '..', 'src', '_data', 'dictionary.j
 let dictionaryTerms = [];
 
 try {
-  const dictionary = require(DICTIONARY_PATH);
+  const dictionary = (await import(DICTIONARY_PATH)).default;
   dictionaryTerms = Object.keys(dictionary);
 } catch (error) {
   console.warn('Warning: Could not load dictionary terms:', error.message);
@@ -213,42 +217,61 @@ function processDictionaryTerms(content) {
 }
 
 /**
+ * Separate frontmatter from body content
+ * Returns { frontmatter, body } where frontmatter includes the --- delimiters
+ */
+function separateFrontmatter(content) {
+  const frontmatterMatch = content.match(/^(---\n[\s\S]*?\n---\n)/);
+  if (frontmatterMatch) {
+    return {
+      frontmatter: frontmatterMatch[1],
+      body: content.slice(frontmatterMatch[1].length)
+    };
+  }
+  return { frontmatter: '', body: content };
+}
+
+/**
  * Process a single blog post file
  */
 function processFile(filePath) {
   console.log(`Processing: ${filePath}`);
-  
+
   try {
-    let content = fs.readFileSync(filePath, 'utf8');
+    const content = fs.readFileSync(filePath, 'utf8');
     const originalContent = content;
-    
-    // Note: We now process individual links even if file has existing shortcodes
-    
+
+    // Separate frontmatter from body - only process body
+    const { frontmatter, body } = separateFrontmatter(content);
+
     // Process external links first
-    content = processExternalLinks(content);
-    
+    let processedBody = processExternalLinks(body);
+
     // Process internal links
-    content = processInternalLinks(content);
-    
+    processedBody = processInternalLinks(processedBody);
+
     // Process dictionary terms
-    content = processDictionaryTerms(content);
-    
+    processedBody = processDictionaryTerms(processedBody);
+
+    // Recombine frontmatter and processed body
+    const finalContent = frontmatter + processedBody;
+
     // Check if any changes were made
-    if (content === originalContent) {
+    if (finalContent === originalContent) {
       console.log(`  ↳ No changes needed`);
       return { processed: false, reason: 'no_changes' };
     }
-    
+
     // Write the processed content back to file
-    fs.writeFileSync(filePath, content, 'utf8');
+    fs.writeFileSync(filePath, finalContent, 'utf8');
     console.log(`  ↳ Updated successfully`);
-    
-    return { 
-      processed: true, 
+
+    return {
+      processed: true,
       changes: {
-        hasExternalLinks: content.includes('externalLink'),
-        hasInternalLinks: content.includes('internalLink'),
-        hasDictionaryLinks: content.includes('dictionaryLink')
+        hasExternalLinks: finalContent.includes('externalLink'),
+        hasInternalLinks: finalContent.includes('internalLink'),
+        hasDictionaryLinks: finalContent.includes('dictionaryLink')
       }
     };
     
@@ -433,12 +456,13 @@ Examples:
 }
 
 // Export functions for testing
-module.exports = {
+export {
   processExternalLinks,
   processInternalLinks,
   processDictionaryTerms,
   isExternalUrl,
   isMarkdownLinkAlreadyProcessed,
+  separateFrontmatter,
   processFile,
   processAllPosts,
   createStatsTracker,
@@ -448,7 +472,8 @@ module.exports = {
   CONFIG
 };
 
-// Run if called directly
-if (require.main === module) {
+// Run main only when executed directly (not when imported for testing)
+const isMainModule = import.meta.url === `file://${process.argv[1]}`;
+if (isMainModule) {
   main();
 }

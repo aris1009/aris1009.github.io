@@ -1,17 +1,18 @@
-const { DateTime } = require("luxon");
-const { LOCALE_MAP, DEFAULT_LOCALE, EXCLUDED_TAGS } = require("./constants");
+import { DateTime } from "luxon";
+import { LOCALE_MAP, DEFAULT_LOCALE, EXCLUDED_TAGS } from "./constants.js";
+import translations from "../_data/translations.js";
 
-function readableDate(dateObj, locale = DEFAULT_LOCALE) {
+export function readableDate(dateObj, locale = DEFAULT_LOCALE) {
   return DateTime.fromJSDate(dateObj, { zone: "utc" })
     .setLocale(LOCALE_MAP[locale] || LOCALE_MAP[DEFAULT_LOCALE])
     .toFormat("dd LLL yyyy");
 }
 
-function htmlDateString(dateObj) {
+export function htmlDateString(dateObj) {
   return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat("yyyy-LL-dd");
 }
 
-function head(array, n) {
+export function head(array, n) {
   if (!Array.isArray(array) || array.length === 0) {
     return [];
   }
@@ -21,11 +22,11 @@ function head(array, n) {
   return array.slice(0, n);
 }
 
-function min(...numbers) {
+export function min(...numbers) {
   return Math.min.apply(null, numbers);
 }
 
-function filterTagList(tags) {
+export function filterTagList(tags) {
   return (tags || []).filter(tag => EXCLUDED_TAGS.indexOf(tag) === -1);
 }
 
@@ -42,21 +43,23 @@ function getTranslatedText(translations, path, locale, fallback) {
   return current?.[locale] || current?.['en-us'] || fallback;
 }
 
-function localizedReadingTime(content, locale = DEFAULT_LOCALE, eleventyConfig) {
-  const translations = require("../_data/translations.js");
-  const readingTimeText = eleventyConfig.getFilter("readingTime")(content);
-  const timeMatch = readingTimeText.match(/(\d+)/);
-  
-  if (!timeMatch) return readingTimeText;
-  
-  const time = timeMatch[1];
+// Calculate reading time from content (avg 200 words per minute)
+function calculateReadingTime(content) {
+  if (!content) return 1;
+  const plainText = content.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+  const wordCount = plainText.split(/\s+/).length;
+  return Math.max(1, Math.ceil(wordCount / 200));
+}
+
+export function localizedReadingTime(content, locale = DEFAULT_LOCALE) {
+  const time = calculateReadingTime(content);
   const readText = getTranslatedText(translations, 'article.readTime', locale, 'read');
   const format = getTranslatedText(translations, 'article.readTimeFormat', locale, '{time} min {readText}');
   
   return format.replace('{time}', time).replace('{readText}', readText);
 }
 
-function getDictionaryTerms(dictionaryData, locale = DEFAULT_LOCALE) {
+export function getDictionaryTerms(dictionaryData, locale = DEFAULT_LOCALE) {
   if (!dictionaryData || typeof dictionaryData !== 'object') {
     return [];
   }
@@ -69,13 +72,3 @@ function getDictionaryTerms(dictionaryData, locale = DEFAULT_LOCALE) {
     .filter(term => term.definition)
     .sort((a, b) => a.key.localeCompare(b.key, LOCALE_MAP[locale] || LOCALE_MAP[DEFAULT_LOCALE]));
 }
-
-module.exports = {
-  readableDate,
-  htmlDateString,
-  head,
-  min,
-  filterTagList,
-  localizedReadingTime,
-  getDictionaryTerms
-};

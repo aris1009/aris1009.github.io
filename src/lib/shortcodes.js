@@ -1,19 +1,21 @@
-function currentYear() {
+import dictionary from '../_data/dictionary.js';
+import translations from '../_data/translations.js';
+
+export function currentYear() {
   return `${new Date().getFullYear()}`;
 }
 
-const externalLink = (text, url, ariaLabel = '') => {
+export const externalLink = (text, url, ariaLabel = '') => {
   const label = ariaLabel || `${text} (opens in new tab)`;
   return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="external-link inline-flex items-center" aria-label="${label}"><span class="link-text">${text}</span><span class="emoji-indicator external-emoji" aria-hidden="true">↗️</span></a>`;
 };
 
-const internalLink = (text, url, ariaLabel = '') => {
+export const internalLink = (text, url, ariaLabel = '') => {
   const label = ariaLabel || text;
   return `<a href="${url}" class="internal-link inline-flex items-center" aria-label="${label}"><span class="link-text">${text}</span><span class="emoji-indicator internal-emoji" aria-hidden="true">➡️</span></a>`;
 };
 
-function dictionaryLink(text, term, locale = 'en-us') {
-  const dictionary = require('../_data/dictionary.js');
+export function dictionaryLink(text, term, locale = 'en-us') {
   const definition = dictionary[term];
   let definitionText = 'Term not found in dictionary';
 
@@ -36,7 +38,7 @@ function dictionaryLink(text, term, locale = 'en-us') {
   </sl-tooltip>`;
 }
 
-function themeToggle() {
+export function themeToggle() {
   return `<button 
     class="theme-toggle inline-flex items-center p-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors duration-200" 
     onclick="window.themeManager.toggle()" 
@@ -111,9 +113,7 @@ function createTechnologyLabels(technologies, locale, translations) {
 }
 
 // Main function - now focused on orchestration and HTML generation
-function articleLabels(difficulty, contentType, technologies = [], locale = 'en-us') {
-  const translations = require("../_data/translations.js");
-  
+export function articleLabels(difficulty, contentType, technologies = [], locale = 'en-us') {
   if (!difficulty && !contentType && (!technologies || technologies.length === 0)) {
     return '';
   }
@@ -134,12 +134,3 @@ function articleLabels(difficulty, contentType, technologies = [], locale = 'en-
     ${labels.join('\n    ')}
   </div>`;
 }
-
-module.exports = {
-  currentYear,
-  externalLink,
-  internalLink,
-  dictionaryLink,
-  themeToggle,
-  articleLabels
-};
