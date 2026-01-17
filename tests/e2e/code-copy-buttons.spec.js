@@ -312,10 +312,7 @@ test.describe("Code Copy Buttons", () => {
     });
 
     test("should handle empty code blocks", async ({ page }) => {
-      // Create a page with empty code block
-      await page.goto('/');
-      
-      // Add empty code block via JavaScript
+      // Add empty code block via JavaScript (on article page from beforeEach)
       await page.evaluate(() => {
         const pre = document.createElement('pre');
         pre.className = 'language-text';

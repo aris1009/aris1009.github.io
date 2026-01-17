@@ -17,19 +17,16 @@ This page contains my curated collection of AI tools and services that I use for
 
 ## Development & Programming
 
-- {% externalLink "Claude Code", "https://docs.anthropic.com/en/docs/claude-code" %} with specialized agents
-- {% externalLink "Aider", "https://aider.chat/" %} with {% externalLink "OpenRouter", "https://openrouter.ai/" %}
-- {% externalLink "Cline", "https://github.com/cline/cline" %} with {% externalLink "OpenRouter", "https://openrouter.ai/" %}
+- {% externalLink "Claude Code", "https://docs.anthropic.com/en/docs/claude-code" %}
+- {% externalLink "Opencode", "https://opencode.ai/" %}
 
 ## Research
 
 - {% externalLink "Perplexity", "https://www.perplexity.ai/" %}; I use different models to compare responses
-- {% externalLink "Claude Desktop", "https://claude.ai/desktop" %}
 
 ## Task automation
 
 - self-hosted {% externalLink "n8n", "https://n8n.io/" %}
-- {% externalLink "openhands", "https://github.com/All-Hands-AI/OpenHands" %}
 
 ---
 
@@ -45,18 +42,15 @@ This page contains my curated collection of AI tools and services that I use for
 ## Development & Programming
 
 - {% externalLink "Claude Code", "https://docs.anthropic.com/en/docs/claude-code" %} with specialized agents
-- {% externalLink "Aider", "https://aider.chat/" %} with {% externalLink "OpenRouter", "https://openrouter.ai/" %}
-- {% externalLink "Cline", "https://github.com/cline/cline" %} with {% externalLink "OpenRouter", "https://openrouter.ai/" %}
+- {% externalLink "Opencode", "https://opencode.ai/" %}
 
 ## Research
 
 - {% externalLink "Perplexity", "https://www.perplexity.ai/" %}; I use different models to compare responses
-- {% externalLink "Claude Desktop", "https://claude.ai/desktop" %}
 
 ## Task automation
 
 - self-hosted {% externalLink "n8n", "https://n8n.io/" %}
-- {% externalLink "openhands", "https://github.com/All-Hands-AI/OpenHands" %}
 
 ---
 
@@ -72,22 +66,19 @@ This page contains my curated collection of AI tools and services that I use for
 ## Development & Programming
 
 - {% externalLink "Claude Code", "https://docs.anthropic.com/en/docs/claude-code" %} with specialized agents
-- {% externalLink "Aider", "https://aider.chat/" %} with {% externalLink "OpenRouter", "https://openrouter.ai/" %}
-- {% externalLink "Cline", "https://github.com/cline/cline" %} with {% externalLink "OpenRouter", "https://openrouter.ai/" %}
+- {% externalLink "Opencode", "https://opencode.ai/" %}
 
 ## Research
 
 - {% externalLink "Perplexity", "https://www.perplexity.ai/" %}; I use different models to compare responses
-- {% externalLink "Claude Desktop", "https://claude.ai/desktop" %}
 
 ## Task automation
 
 - self-hosted {% externalLink "n8n", "https://n8n.io/" %}
-- {% externalLink "openhands", "https://github.com/All-Hands-AI/OpenHands" %}
 
 ---
 
-*Last updated: July 2025*
+*Last updated: January 2026*
 
 *This toolset reflects my personal experience and preferences. Your needs may vary.*
 
