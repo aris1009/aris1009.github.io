@@ -63,7 +63,7 @@ export function getDictionaryTerms(dictionaryData, locale = DEFAULT_LOCALE) {
   if (!dictionaryData || typeof dictionaryData !== 'object') {
     return [];
   }
-  
+
   return Object.keys(dictionaryData)
     .map(key => ({
       key: key,
@@ -71,4 +71,24 @@ export function getDictionaryTerms(dictionaryData, locale = DEFAULT_LOCALE) {
     }))
     .filter(term => term.definition)
     .sort((a, b) => a.key.localeCompare(b.key, LOCALE_MAP[locale] || LOCALE_MAP[DEFAULT_LOCALE]));
+}
+
+export function getAlternateLanguages(allPosts, pageUrl) {
+  if (!pageUrl?.startsWith('/blog/') || !Array.isArray(allPosts)) {
+    return [];
+  }
+
+  const urlParts = pageUrl.split('/').filter(Boolean);
+  const slug = urlParts[urlParts.length - 1];
+
+  return allPosts
+    .filter(post => {
+      const postSlug = post.url.split('/').filter(Boolean).pop();
+      return postSlug === slug;
+    })
+    .map(post => ({
+      locale: post.data.locale,
+      hreflang: LOCALE_MAP[post.data.locale] || post.data.locale,
+      url: post.url
+    }));
 }
