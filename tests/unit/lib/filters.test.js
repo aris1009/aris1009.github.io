@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { readableDate, htmlDateString, head, min, filterTagList, localizedReadingTime } from 'src/lib/filters.js';
+import { readableDate, htmlDateString, head, min, filterTagList, localizedReadingTime, getAlternateLanguages } from 'src/lib/filters.js';
 
 describe('filters', () => {
   describe('readableDate', () => {
@@ -107,6 +107,51 @@ describe('filters', () => {
     it('should return minimum 1 min for short content', () => {
       const result = localizedReadingTime('short content', 'en-us');
       expect(result).toBe('1 min read');
+    });
+  });
+
+  describe('getAlternateLanguages', () => {
+    const mockPosts = [
+      { url: '/blog/en-us/test-post/', data: { locale: 'en-us' } },
+      { url: '/blog/el/test-post/', data: { locale: 'el' } },
+      { url: '/blog/tr/test-post/', data: { locale: 'tr' } },
+      { url: '/blog/en-us/another-post/', data: { locale: 'en-us' } }
+    ];
+
+    it('should return all language versions for a post with translations', () => {
+      const result = getAlternateLanguages(mockPosts, '/blog/en-us/test-post/');
+      expect(result).toHaveLength(3);
+      expect(result).toContainEqual({ locale: 'en-us', hreflang: 'en-US', url: '/blog/en-us/test-post/' });
+      expect(result).toContainEqual({ locale: 'el', hreflang: 'el', url: '/blog/el/test-post/' });
+      expect(result).toContainEqual({ locale: 'tr', hreflang: 'tr', url: '/blog/tr/test-post/' });
+    });
+
+    it('should return single item for post without translations', () => {
+      const result = getAlternateLanguages(mockPosts, '/blog/en-us/another-post/');
+      expect(result).toHaveLength(1);
+      expect(result[0]).toEqual({ locale: 'en-us', hreflang: 'en-US', url: '/blog/en-us/another-post/' });
+    });
+
+    it('should return empty array for non-blog pages', () => {
+      expect(getAlternateLanguages(mockPosts, '/en-us/about/')).toEqual([]);
+      expect(getAlternateLanguages(mockPosts, '/')).toEqual([]);
+      expect(getAlternateLanguages(mockPosts, '/el/dictionary/')).toEqual([]);
+    });
+
+    it('should return empty array when allPosts is not an array', () => {
+      expect(getAlternateLanguages(null, '/blog/en-us/test-post/')).toEqual([]);
+      expect(getAlternateLanguages(undefined, '/blog/en-us/test-post/')).toEqual([]);
+      expect(getAlternateLanguages({}, '/blog/en-us/test-post/')).toEqual([]);
+    });
+
+    it('should return empty array when pageUrl is undefined', () => {
+      expect(getAlternateLanguages(mockPosts, undefined)).toEqual([]);
+      expect(getAlternateLanguages(mockPosts, null)).toEqual([]);
+    });
+
+    it('should match posts by slug only, ignoring locale path', () => {
+      const result = getAlternateLanguages(mockPosts, '/blog/el/test-post/');
+      expect(result).toHaveLength(3);
     });
   });
 });

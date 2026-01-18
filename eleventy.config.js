@@ -111,6 +111,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("filterTagList", filters.filterTagList);
   eleventyConfig.addFilter("localizedReadingTime", filters.localizedReadingTime);
   eleventyConfig.addFilter("getDictionaryTerms", filters.getDictionaryTerms);
+  eleventyConfig.addFilter("getAlternateLanguages", filters.getAlternateLanguages);
 
   eleventyConfig.addGlobalData("supportedLocales", globalData.supportedLocales);
   eleventyConfig.addGlobalData("locale", globalData.getLocale);
