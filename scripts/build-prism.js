@@ -12,6 +12,20 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 /**
+ * Load Prism's official components.json
+ */
+function loadPrismComponents() {
+  const componentsPath = path.join(process.cwd(), 'node_modules', 'prismjs', 'components.json');
+  try {
+    const content = fs.readFileSync(componentsPath, 'utf8');
+    return JSON.parse(content);
+  } catch (error) {
+    console.warn('Could not load Prism components.json:', error.message);
+    return null;
+  }
+}
+
+/**
  * PrismJS Bundle Builder
  *
  * Reads detected languages from src/_data/detectedLanguages.json
@@ -79,39 +93,71 @@ function generateEntryContent(languages) {
 }
 
 /**
+ * Build dependency graph from Prism's components.json
+ */
+function buildDependencyGraph(componentsData) {
+  const graph = {};
+  const languages = componentsData?.languages || {};
+
+  for (const [lang, data] of Object.entries(languages)) {
+    const requires = data.require;
+    const deps = requires ? (Array.isArray(requires) ? requires : [requires]) : [];
+    graph[lang] = deps;
+  }
+
+  return graph;
+}
+
+/**
+ * Topological sort to order languages by dependencies
+ * Languages with no dependencies come first, then languages that depend on them, etc.
+ */
+function topologicalSort(languages, dependencyGraph) {
+  const sorted = [];
+  const visited = new Set();
+  const visiting = new Set();
+
+  function visit(lang) {
+    if (visited.has(lang)) return;
+    if (visiting.has(lang)) {
+      // Circular dependency detected - just skip
+      return;
+    }
+
+    visiting.add(lang);
+
+    const deps = dependencyGraph[lang] || [];
+    for (const dep of deps) {
+      visit(dep);
+    }
+
+    visiting.delete(lang);
+    visited.add(lang);
+    sorted.push(lang);
+  }
+
+  for (const lang of languages) {
+    visit(lang);
+  }
+
+  return sorted;
+}
+
+/**
  * Order languages by their dependencies (simpler ones first)
+ * Uses Prism's components.json for dependency information
  */
 function orderLanguagesByDependency(languages) {
-  // Languages that depend on others should come after their dependencies
-  const dependencyOrder = {
-    'markup': 0,
-    'css': 1,
-    'clike': 2,
-    'javascript': 3,
-    'c': 4,
-    'bash': 5,
-    'json': 5,
-    'yaml': 5,
-    'python': 5,
-    'go': 5,
-    'rust': 5,
-    'java': 5,
-    'cpp': 6,
-    'csharp': 6,
-    'typescript': 7,
-    'jsx': 8,
-    'tsx': 9,
-    'markdown': 10,
-    'docker': 10,
-    'git': 10,
-    'diff': 10,
-  };
+  const componentsData = loadPrismComponents();
 
-  return [...languages].sort((a, b) => {
-    const orderA = dependencyOrder[a] ?? 50;
-    const orderB = dependencyOrder[b] ?? 50;
-    return orderA - orderB;
-  });
+  if (!componentsData) {
+    // Fallback: return as-is
+    console.warn('Using languages without dependency ordering');
+    return [...languages];
+  }
+
+  const dependencyGraph = buildDependencyGraph(componentsData);
+  return topologicalSort([...languages], dependencyGraph);
 }
 
 /**
@@ -189,6 +235,9 @@ async function main() {
 
 // Export for testing
 export {
+  loadPrismComponents,
+  buildDependencyGraph,
+  topologicalSort,
   readDetectedLanguages,
   generateEntryContent,
   orderLanguagesByDependency,

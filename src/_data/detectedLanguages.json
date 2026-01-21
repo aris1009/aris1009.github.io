@@ -1,9 +1,12 @@
 {
-  "generatedAt": "2026-01-17T19:51:03.253Z",
+  "generatedAt": "2026-01-21T21:11:54.449Z",
   "detectedLanguages": [
     "bash",
+    "javascript",
     "json",
     "markdown",
+    "markup",
+    "php",
     "python"
   ],
   "bundleLanguages": [
@@ -14,6 +17,8 @@
     "json",
     "markdown",
     "markup",
+    "markup-templating",
+    "php",
     "python"
   ],
   "articleMap": {
@@ -24,9 +29,20 @@
     "get-most-out-of-claude-code": [
       "markdown"
     ],
+    "github-pages-domain-hijacking": [
+      "bash",
+      "json",
+      "markup"
+    ],
     "great-firewall-wallbleed": [
       "bash",
       "json"
+    ],
+    "shell-metacharacters-command-injection": [
+      "bash",
+      "python",
+      "javascript",
+      "php"
     ]
   }
 }

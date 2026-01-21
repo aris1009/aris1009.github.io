@@ -1,4 +1,14 @@
 export default {
+  "context-window": {
+    "en-us": "The maximum amount of text (measured in tokens) that a language model can process in a single interaction. Think of it as the model's working memory - everything in the context window is available for the model to reference when generating a response.",
+    "el": "Η μέγιστη ποσότητα κειμένου (μετρούμενη σε tokens) που μπορεί να επεξεργαστεί ένα γλωσσικό μοντέλο σε μία αλληλεπίδραση. Σκέψου το σαν τη μνήμη εργασίας του μοντέλου · ό,τι βρίσκεται στο context window είναι διαθέσιμο για αναφορά κατά τη δημιουργία απάντησης.",
+    "tr": "Bir dil modelinin tek bir etkileşimde işleyebileceği maksimum metin miktarı (token olarak ölçülür). Bunu modelin çalışma belleği olarak düşün · bağlam penceresindeki her şey, model yanıt oluştururken referans alınabilir."
+  },
+  "rag": {
+    "en-us": "Retrieval-Augmented Generation - A technique that enhances language models by retrieving relevant information from external sources before generating a response. RAG combines the knowledge stored in the model with fresh, specific data from databases or documents.",
+    "el": "Retrieval-Augmented Generation · Μια τεχνική που ενισχύει τα γλωσσικά μοντέλα ανακτώντας σχετικές πληροφορίες από εξωτερικές πηγές πριν δημιουργήσει απάντηση. Το RAG συνδυάζει τη γνώση που είναι αποθηκευμένη στο μοντέλο με φρέσκα, συγκεκριμένα δεδομένα από βάσεις δεδομένων ή έγγραφα.",
+    "tr": "Retrieval-Augmented Generation · Bir yanıt oluşturmadan önce harici kaynaklardan ilgili bilgileri alarak dil modellerini geliştiren bir teknik. RAG, modelde depolanan bilgiyi veritabanları veya belgelerden gelen taze, spesifik verilerle birleştirir."
+  },
   "encryption": {
     "en-us": "The process of converting readable data into coded form to prevent unauthorized access. Modern encryption uses mathematical algorithms to scramble data so that only those with the correct key can decrypt and read it.",
     "el": "Η διαδικασία μετατροπής αναγνώσιμων δεδομένων σε κωδικοποιημένη μορφή για την αποτροπή μη εξουσιοδοτημένης πρόσβασης. Η σύγχρονη κρυπτογράφηση χρησιμοποιεί μαθηματικούς αλγόριθμους για να κωδικοποιεί δεδομένα έτσι ώστε μόνο όσοι έχουν το σωστό κλειδί να μπορούν να τα αποκρυπτογραφήσουν και να τα διαβάσουν.",
