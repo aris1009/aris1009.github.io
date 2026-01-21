@@ -40,6 +40,7 @@
     "@11ty/eleventy": "^3.1.2",
     "@11ty/eleventy-img": "^6.0.2",
     "@fullhuman/postcss-purgecss": "^7.0.2",
+    "@html-to/text-cli": "^0.5.4",
     "@kevingimbel/eleventy-plugin-mermaid": "^3.0.1",
     "@playwright/test": "^1.57.0",
     "@quasibit/eleventy-plugin-sitemap": "^2.2.0",

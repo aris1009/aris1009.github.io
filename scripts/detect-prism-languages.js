@@ -8,6 +8,20 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 /**
+ * Load Prism's official components.json for dependency information
+ */
+function loadPrismComponents() {
+  const componentsPath = path.join(process.cwd(), 'node_modules', 'prismjs', 'components.json');
+  try {
+    const content = fs.readFileSync(componentsPath, 'utf8');
+    return JSON.parse(content);
+  } catch (error) {
+    console.warn('Could not load Prism components.json:', error.message);
+    return null;
+  }
+}
+
+/**
  * PrismJS Language Detection Script
  *
  * Scans blog posts for code blocks and outputs detected languages
@@ -146,40 +160,61 @@ function scanAllPosts() {
 }
 
 /**
+ * Recursively resolve all dependencies for a language from Prism's components.json
+ */
+function resolveDependencies(lang, componentsData, resolved = new Set()) {
+  // Avoid circular dependencies
+  if (resolved.has(lang)) {
+    return;
+  }
+
+  resolved.add(lang);
+
+  // Get language metadata
+  const languages = componentsData?.languages;
+  if (!languages || !languages[lang]) {
+    return;
+  }
+
+  const langData = languages[lang];
+  const requires = langData.require;
+
+  // Handle different require formats (string or array)
+  if (requires) {
+    const deps = Array.isArray(requires) ? requires : [requires];
+    for (const dep of deps) {
+      // Recursively resolve dependencies of dependencies
+      resolveDependencies(dep, componentsData, resolved);
+    }
+  }
+
+  return resolved;
+}
+
+/**
  * Add required Prism dependencies for detected languages
+ * Reads dependencies from Prism's official components.json
  */
 function addLanguageDependencies(languages) {
   const withDeps = new Set(CONFIG.coreLanguages);
+  const componentsData = loadPrismComponents();
 
-  // Language dependency map (simplified - Prism handles most internally)
-  const dependencies = {
-    'typescript': ['javascript'],
-    'jsx': ['javascript'],
-    'tsx': ['typescript', 'javascript'],
-    'markdown': ['markup'],
-    'docker': ['clike'],
-    'git': [],
-    'bash': ['clike'],
-    'python': ['clike'],
-    'go': ['clike'],
-    'rust': ['clike'],
-    'java': ['clike'],
-    'c': ['clike'],
-    'cpp': ['c', 'clike'],
-    'csharp': ['clike'],
-    'json': ['clike'],
-    'yaml': [],
-    'toml': [],
-    'sql': ['clike'],
-    'graphql': [],
-    'regex': [],
-    'diff': [],
-  };
+  if (!componentsData) {
+    // Fallback: just add the languages without dependency resolution
+    console.warn('Using languages without dependency resolution');
+    languages.forEach(lang => withDeps.add(lang));
+    return Array.from(withDeps).sort();
+  }
 
+  // Resolve dependencies for each detected language
   for (const lang of languages) {
-    withDeps.add(lang);
-    const deps = dependencies[lang] || [];
-    deps.forEach(dep => withDeps.add(dep));
+    const allDeps = resolveDependencies(lang, componentsData);
+    if (allDeps) {
+      allDeps.forEach(dep => withDeps.add(dep));
+    } else {
+      // Language not found in components.json, add it anyway
+      withDeps.add(lang);
+    }
   }
 
   return Array.from(withDeps).sort();
@@ -241,6 +276,8 @@ function main() {
 
 // Export for testing
 export {
+  loadPrismComponents,
+  resolveDependencies,
   extractLanguagesFromContent,
   normalizeLanguage,
   getArticleSlug,
