@@ -115,28 +115,28 @@ export default {
     },
     message: {
       'en-us': 'Sorry, the page you\'re looking for doesn\'t exist. It might have been moved, deleted, or the URL might be incorrect.',
-      'el': 'Λυπούμαστε, η σελίδα που αναζητάτε δεν υπάρχει. Ίσως έχει μετακινηθεί, διαγραφεί ή το URL να είναι εσφαλμένο.',
-      'tr': 'Üzgünüz, aradığınız sayfa mevcut değil. Sayfa taşınmış, silinmiş olabilir veya URL hatalı olabilir.'
+      'el': 'Λυπάμαι, η σελίδα που ψάχνεις δεν υπάρχει. Ίσως έχει μετακινηθεί, διαγραφεί ή το URL να είναι λάθος.',
+      'tr': 'Üzgünüm, aradığın sayfa mevcut değil. Sayfa taşınmış, silinmiş olabilir veya URL hatalı olabilir.'
     },
     suggestions: {
       'en-us': 'What you can do:',
-      'el': 'Τι μπορείτε να κάνετε:',
-      'tr': 'Yapabilecekleriniz:'
+      'el': 'Τι μπορείς να κάνεις:',
+      'tr': 'Neler yapabilirsin:'
     },
     checkUrl: {
       'en-us': 'Check the URL for typos',
-      'el': 'Ελέγξτε το URL για τυπογραφικά λάθη',
-      'tr': 'URL\'de yazım hatası olup olmadığını kontrol edin'
+      'el': 'Έλεγξε το URL για λάθη',
+      'tr': 'URL\'de yazım hatası olup olmadığını kontrol et'
     },
     goHome: {
       'en-us': 'Go back to the home page',
-      'el': 'Επιστρέψτε στην αρχική σελίδα',
+      'el': 'Πήγαινε πίσω στην αρχική σελίδα',
       'tr': 'Ana sayfaya dön'
     },
     contactError: {
       'en-us': 'If you think this is an error, please let me know.',
-      'el': 'Αν θεωρείτε ότι πρόκειται για λάθος, παρακαλώ ενημερώστε με.',
-      'tr': 'Bunun bir hata olduğunu düşünüyorsanız, lütfen bana bildirin.'
+      'el': 'Αν νομίζεις ότι είναι λάθος, ενημέρωσέ με.',
+      'tr': 'Bunun bir hata olduğunu düşünüyorsan, lütfen bana bildir.'
     }
   },
 

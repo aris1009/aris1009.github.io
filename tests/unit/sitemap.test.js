@@ -67,19 +67,30 @@ describe('sitemap', () => {
     });
 
     it('should include all blog posts for all locales', () => {
-      const posts = [
-        'dealing-with-rate-limits',
-        'get-most-out-of-claude-code',
-        'great-firewall-wallbleed',
+      // Posts that exist in all locales
+      const postsInAllLocales = [
         'gru-kms-windows'
       ];
-      const locales = ['en-us', 'el', 'tr'];
 
-      posts.forEach(post => {
-        locales.forEach(locale => {
+      // Posts that only exist in en-us
+      const postsInEnUsOnly = [
+        'dealing-with-rate-limits',
+        'get-most-out-of-claude-code',
+        'great-firewall-wallbleed'
+      ];
+
+      // Check posts in all locales
+      postsInAllLocales.forEach(post => {
+        ['en-us', 'el', 'tr'].forEach(locale => {
           const expectedUrl = `${meta.url}/blog/${locale}/${post}/`;
           expect(urls).toContain(expectedUrl);
         });
+      });
+
+      // Check en-us only posts
+      postsInEnUsOnly.forEach(post => {
+        const expectedUrl = `${meta.url}/blog/en-us/${post}/`;
+        expect(urls).toContain(expectedUrl);
       });
     });
 
