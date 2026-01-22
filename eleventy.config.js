@@ -29,17 +29,36 @@ export default function (eleventyConfig) {
   });
 
   // Configure markdown-it with anchor plugin for heading IDs
-  eleventyConfig.setLibrary(
-    'md',
-    markdownIt({ html: true, linkify: true, typographer: true })
-      .use(markdownItAnchor, {
-        slugify: (s) =>
-          s.toLowerCase()
-           .trim()
-           .replace(/[\s+~\/]/g, '-')
-           .replace(/[().`,%·'"!?¿:@*]/g, '')
-      })
-  );
+  const md = markdownIt({ html: true, linkify: true, typographer: true })
+    .use(markdownItAnchor, {
+      slugify: (s) =>
+        s.toLowerCase()
+         .trim()
+         .replace(/[\s+~\/]/g, '-')
+         .replace(/[().`,%·'"!?¿:@*]/g, '')
+    });
+
+  // Add header anchor links to h2 headings
+  md.renderer.rules.heading_open = (tokens, idx, options, env, self) => {
+    const token = tokens[idx];
+    const headingLevel = token.tag;
+
+    if (headingLevel === 'h2') {
+      const headingId = token.attrGet('id');
+
+      if (headingId) {
+        const defaultOpen = self.renderToken(tokens, idx, options);
+        return `${defaultOpen}
+        <a href="#${headingId}" class="header-anchor" data-testid="anchor-link-${headingId}" aria-label="Link to this section">
+          <sl-icon name="paragraph" library="default"></sl-icon>
+        </a>`;
+      }
+    }
+
+    return self.renderToken(tokens, idx, options);
+  };
+
+  eleventyConfig.setLibrary('md', md);
 
   eleventyConfig.addPlugin(readingTime);
   eleventyConfig.addPlugin(navigationPlugin);

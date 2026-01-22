@@ -568,6 +568,33 @@
     @apply text-sm text-gray-700 dark:text-gray-300 leading-relaxed;
   }
 
+  /* Header anchor links */
+  h2 {
+    @apply relative;
+  }
+
+  .header-anchor {
+    @apply absolute left-0 inline-flex items-center opacity-0 transition-opacity duration-200 text-sky-600 dark:text-sky-400;
+    text-decoration: none;
+    transform: translateX(-100%) translateY(50%);
+    padding-right: 0.5rem;
+  }
+
+  h2:hover .header-anchor,
+  .header-anchor:focus {
+    @apply opacity-60;
+  }
+
+  .header-anchor:hover {
+    @apply opacity-100;
+  }
+
+  /* Ensure icon is sized properly */
+  .header-anchor sl-icon {
+    font-size: 1rem;
+    vertical-align: middle;
+  }
+
   /* Theme Toggle Shortcode Styles */
   .theme-toggle {
     @apply relative;
