@@ -24,9 +24,9 @@ export default {
       'tr': 'Güvenlik Blogu'
     },
     welcome: {
-      'en-us': 'Welcome to my blog about cybersecurity, technology, and digital privacy. Here I share insights, analysis, and practical advice to help you stay secure in the digital world.',
-      'el': 'Καλώς ήρθες στο ιστολόγιό μου για την κυβερνοασφάλεια, την τεχνολογία και την τεχνητή νοημοσύνη. Εδώ μοιράζομαι εμπειρίες, αναλύσεις και πρακτικές συμβουλές για να σε βοηθήσω να παραμείς ασφαλείς στον ψηφιακό κόσμο.',
-      'tr': 'Siber güvenlik, teknoloji ve dijital gizlilik üzerine olan bloguma hoş geldiniz. Burada dijital dünyada güvende kalmanıza yardımcı olmak için deneyimlerimi, analizlerimi ve pratik önerilerimi paylaşıyorum.'
+      'en-us': 'Come on in! Welcome to my little corner in the internet. This is where I get to spill my thoughts about cybersecurity, technology, and digital privacy. Hopefully I can help you stay secure in the digital world.',
+      'el': 'Πέρασε μέσα! Καλώς ήρθες στη μικρή μου γωνιά του διαδικτύου. Εδώ ξεδιπλώνω τις σκέψεις μου για την κυβερνοασφάλεια, την τεχνολογία και την ψηφιακή ιδιωτικότητα. Ελπίζω να σε βοηθήσω να μείνεις ασφαλής στον ψηφιακό κόσμο.',
+      'tr': 'Buyur içeri! İnternetin bu küçük köşesine hoş geldin. Burası siber güvenlik, teknoloji ve dijital gizlilik hakkındaki düşüncelerimi döktüğüm yer. Umarım dijital dünyada güvende kalmana yardımcı olabilirim.'
     },
     latestPosts: {
       'en-us': 'Latest Posts',

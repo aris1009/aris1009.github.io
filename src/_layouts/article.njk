@@ -19,6 +19,7 @@ type: article
             </small>
             <h1>{{ title }}</h1>
             {% articleLabels difficulty, contentType, technologies %}
+            {% include "components/table-of-contents.njk" %}
             {{content | safe}}
         </article>
         {% include "footer.njk" %}

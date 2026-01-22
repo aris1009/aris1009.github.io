@@ -1,0 +1,10 @@
+{% set tocContent = content | toc | safe %}
+{% set headingCount = content | match('<h2') | length %}
+
+{% if tocContent and headingCount >= 3 %}
+<sl-details class="toc-details" summary="{% if locale == 'el' %}Περιεχόμενα{% elif locale == 'tr' %}İçindekiler{% else %}Table of Contents{% endif %}">
+  <div class="toc-content">
+    {{ tocContent }}
+  </div>
+</sl-details>
+{% endif %}

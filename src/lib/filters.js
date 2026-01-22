@@ -92,3 +92,9 @@ export function getAlternateLanguages(allPosts, pageUrl) {
       url: post.url
     }));
 }
+
+export function match(content, pattern) {
+  if (!content) return [];
+  const regex = new RegExp(pattern, 'g');
+  return content.match(regex) || [];
+}

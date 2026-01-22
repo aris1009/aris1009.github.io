@@ -3,6 +3,9 @@ import navigationPlugin from "@11ty/eleventy-navigation";
 import sitemap from "@quasibit/eleventy-plugin-sitemap";
 import i18n from "eleventy-plugin-i18n";
 import pluginMermaid from "@kevingimbel/eleventy-plugin-mermaid";
+import markdownIt from "markdown-it";
+import markdownItAnchor from "markdown-it-anchor";
+import pluginTOC from "eleventy-plugin-toc";
 
 import {
   filters,
@@ -25,8 +28,28 @@ export default function (eleventyConfig) {
     extension: "webmanifest"
   });
 
+  // Configure markdown-it with anchor plugin for heading IDs
+  eleventyConfig.setLibrary(
+    'md',
+    markdownIt({ html: true, linkify: true, typographer: true })
+      .use(markdownItAnchor, {
+        slugify: (s) =>
+          s.toLowerCase()
+           .trim()
+           .replace(/[\s+~\/]/g, '-')
+           .replace(/[().`,%·'"!?¿:@*]/g, '')
+      })
+  );
+
   eleventyConfig.addPlugin(readingTime);
   eleventyConfig.addPlugin(navigationPlugin);
+  eleventyConfig.addPlugin(pluginTOC, {
+    tags: ['h2'],
+    wrapper: 'nav',
+    wrapperClass: 'toc-nav',
+    ul: true,
+    flat: true
+  });
 
   eleventyConfig.addPlugin(sitemap, {
     sitemap: {
@@ -103,6 +126,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/_static");
   eleventyConfig.addPassthroughCopy({ "src/_static/img": "img" });
   eleventyConfig.addPassthroughCopy({ "src/_static/sw.js": "sw.js" });
+  eleventyConfig.addPassthroughCopy({ "src/_static/js": "js" });
 
   eleventyConfig.addFilter("readableDate", filters.readableDate);
   eleventyConfig.addFilter("htmlDateString", filters.htmlDateString);
@@ -112,6 +136,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("localizedReadingTime", filters.localizedReadingTime);
   eleventyConfig.addFilter("getDictionaryTerms", filters.getDictionaryTerms);
   eleventyConfig.addFilter("getAlternateLanguages", filters.getAlternateLanguages);
+  eleventyConfig.addFilter("match", filters.match);
 
   eleventyConfig.addGlobalData("supportedLocales", globalData.supportedLocales);
   eleventyConfig.addGlobalData("locale", globalData.getLocale);
