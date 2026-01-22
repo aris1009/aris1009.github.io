@@ -1,0 +1,21 @@
+---
+pagination:
+  data: supportedLocales
+  size: 1
+  alias: locale
+layout: page.njk
+permalink: "{{ locale }}/post-not-translated/"
+eleventyExcludeFromCollections: true
+eleventyComputed:
+  title: "{{ 'translation.notAvailableTitle' | i18n }}"
+  description: "{{ 'translation.placeholder' | i18n }}"
+---
+
+<h1>{{ 'translation.notAvailableTitle' | i18n }}</h1>
+
+<p>{{ 'translation.placeholder' | i18n }}</p>
+
+<p><strong>{{ 'notFound.suggestions' | i18n }}</strong></p>
+<ul>
+  <li><a href="{% if locale == 'en-us' %}/{% else %}/{{ locale }}/{% endif %}">{{ 'notFound.goHome' | i18n }}</a></li>
+</ul>

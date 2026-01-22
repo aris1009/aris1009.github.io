@@ -180,7 +180,10 @@ describe('LanguageSelector Web Component', () => {
       const clickHandler = mockOptions[1].addEventListener.mock.calls[0][1];
 
       // Simulate click on Greek option
-      clickHandler({ currentTarget: mockOptions[1] });
+      clickHandler({
+        currentTarget: mockOptions[1],
+        preventDefault: vi.fn()
+      });
 
       expect(mockLocalStorage.setItem).toHaveBeenCalledWith('language', 'el');
     });
@@ -192,7 +195,10 @@ describe('LanguageSelector Web Component', () => {
       selector.connectedCallback();
 
       const clickHandler = mockOptions[0].addEventListener.mock.calls[0][1];
-      clickHandler({ currentTarget: mockOptions[0] });
+      clickHandler({
+        currentTarget: mockOptions[0],
+        preventDefault: vi.fn()
+      });
 
       expect(mockContainer.style.pointerEvents).toBe('none');
 
@@ -211,7 +217,10 @@ describe('LanguageSelector Web Component', () => {
 
       // Mock option returning invalid language
       const invalidOption = { getAttribute: vi.fn(() => 'invalid-lang') };
-      clickHandler({ currentTarget: invalidOption });
+      clickHandler({
+        currentTarget: invalidOption,
+        preventDefault: vi.fn()
+      });
 
       expect(mockLocalStorage.setItem).not.toHaveBeenCalled();
     });
