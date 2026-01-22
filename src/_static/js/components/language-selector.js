@@ -92,7 +92,10 @@ class LanguageSelector extends HTMLElement {
   }
 
   _onOptionClick(e) {
+    e.preventDefault(); // Prevent immediate navigation
+
     const selectedLang = e.currentTarget.getAttribute('data-lang');
+    const targetUrl = e.currentTarget.href;
 
     if (selectedLang && LanguageSelector.LANGUAGES[selectedLang]) {
       // Save to localStorage
@@ -112,8 +115,27 @@ class LanguageSelector extends HTMLElement {
         bubbles: true,
         detail: { language: selectedLang }
       }));
+
+      // Check if target URL exists before navigating
+      this._checkAndNavigate(targetUrl, selectedLang);
     }
-    // Navigation happens via the <a> href - no need to prevent default
+  }
+
+  async _checkAndNavigate(targetUrl, lang) {
+    try {
+      const response = await fetch(targetUrl, { method: 'HEAD' });
+
+      if (response.ok) {
+        // Page exists, navigate normally
+        window.location.href = targetUrl;
+      } else {
+        // Page doesn't exist, redirect to post-not-translated
+        window.location.href = `/${lang}/post-not-translated/`;
+      }
+    } catch (error) {
+      // Network error, try to navigate anyway
+      window.location.href = targetUrl;
+    }
   }
 
   _updateDisplay(langCode) {
