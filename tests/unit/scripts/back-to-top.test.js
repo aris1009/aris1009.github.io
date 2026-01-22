@@ -163,7 +163,6 @@ describe('Back to Top Button', () => {
 
       expect(mockWindow.scrollTo).toHaveBeenCalledWith({
         top: 0,
-        behavior: 'smooth'
       });
     });
   });

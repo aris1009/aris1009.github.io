@@ -183,6 +183,11 @@ When new link processing edge cases are discovered, add them to the test suite i
 - Test dark mode compatibility
 - Test multi-language support
 
+**IMPORTANT - Blog Post References in E2E Tests:**
+- Always use `/blog/en-us/gru-kms-windows/` when E2E tests require a blog post to exist
+- This is the oldest committed blog post and guaranteed to exist in CI
+- Never reference staged/uncommitted blog posts in tests as they won't exist in CI
+
 ### Test Selectors
 Use `data-testid` attributes for reliable element selection:
 ```javascript
