@@ -25,11 +25,10 @@
     }
   }
 
-  // Function to scroll to top smoothly
+  // Function to scroll to top
   function scrollToTop() {
     window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
+      top: 0
     });
   }
 
