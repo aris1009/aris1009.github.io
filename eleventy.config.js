@@ -38,25 +38,6 @@ export default function (eleventyConfig) {
          .replace(/[().`,%·'"!?¿:@*]/g, '')
     });
 
-  // Add header anchor links to h2 headings
-  md.renderer.rules.heading_open = (tokens, idx, options, env, self) => {
-    const token = tokens[idx];
-    const headingLevel = token.tag;
-
-    if (headingLevel === 'h2') {
-      const headingId = token.attrGet('id');
-
-      if (headingId) {
-        const defaultOpen = self.renderToken(tokens, idx, options);
-        return `${defaultOpen}
-        <a href="#${headingId}" class="header-anchor" data-testid="anchor-link-${headingId}" aria-label="Link to this section">
-          <sl-icon name="paragraph" library="default"></sl-icon>
-        </a>`;
-      }
-    }
-
-    return self.renderToken(tokens, idx, options);
-  };
 
   eleventyConfig.setLibrary('md', md);
 
@@ -167,6 +148,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addCollection("allPosts", collections.allPosts);
   eleventyConfig.addCollection("dictionary", collections.dictionary);
 
+  eleventyConfig.addTransform("addHeaderAnchors", transforms.addHeaderAnchors);
   eleventyConfig.addTransform("htmlmin", transforms.htmlminTransform);
 
   // Existing shortcodes
