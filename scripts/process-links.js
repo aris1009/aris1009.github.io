@@ -199,8 +199,8 @@ function processDictionaryTerms(content) {
         return line;
       }
       
-      // Skip lines that already contain shortcodes or markdown links
-      if (/{%.*%}/.test(line) || /\[[^\]]*\]\([^)]*\)/.test(line)) {
+      // Skip lines that already contain shortcodes, markdown links, or headers
+      if (/{%.*%}/.test(line) || /\[[^\]]*\]\([^)]*\)/.test(line) || /^\s*#{1,6}\s/.test(line)) {
         return line;
       }
       

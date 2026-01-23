@@ -605,15 +605,103 @@ function test() {
 // Missing closing backticks
 
 More encryption text.`;
-      
+
       const result = processDictionaryTerms(input);
-      
+
       // Should still process the first occurrence
       expect(result).toContain('Text with {% dictionaryLink "encryption", "encryption" %}.');
-      
+
       // The malformed block should not be processed as it's considered inside the code block
       expect(result).toContain('return encryption;');
       expect(result).not.toContain('return {% dictionaryLink "encryption", "encryption" %};');
+    });
+
+    it('should not process dictionary terms in markdown headers', () => {
+      const input = `## How Attackers Exploit This
+
+Regular encryption text here.
+
+### The Buffer Timing Attack
+
+More encryption content.
+
+# Main Header with Encryption
+
+Body text with encryption term.`;
+
+      const result = processDictionaryTerms(input);
+
+      // Headers should remain unchanged
+      expect(result).toContain('## How Attackers Exploit This\n');
+      expect(result).toContain('### The Buffer Timing Attack\n');
+      expect(result).toContain('# Main Header with Encryption\n');
+
+      // Headers should NOT contain dictionary links
+      expect(result).not.toContain('## How {% dictionaryLink');
+      expect(result).not.toContain('### The Buffer Timing {% dictionaryLink');
+      expect(result).not.toContain('# Main Header with {% dictionaryLink');
+
+      // Body text should still be processed
+      expect(result).toContain('Regular {% dictionaryLink "encryption", "encryption" %} text here.');
+      expect(result).toContain('More {% dictionaryLink "encryption", "encryption" %} content.');
+      expect(result).toContain('Body text with {% dictionaryLink "encryption", "encryption" %} term.');
+    });
+
+    it('should not process dictionary terms in h1-h6 headers', () => {
+      const input = `# H1 with encryption
+## H2 with encryption
+### H3 with encryption
+#### H4 with encryption
+##### H5 with encryption
+###### H6 with encryption
+
+Body with encryption.`;
+
+      const result = processDictionaryTerms(input);
+
+      // All header levels should remain unchanged
+      expect(result).toContain('# H1 with encryption\n');
+      expect(result).toContain('## H2 with encryption\n');
+      expect(result).toContain('### H3 with encryption\n');
+      expect(result).toContain('#### H4 with encryption\n');
+      expect(result).toContain('##### H5 with encryption\n');
+      expect(result).toContain('###### H6 with encryption\n');
+
+      // Body should be processed
+      expect(result).toContain('Body with {% dictionaryLink "encryption", "encryption" %}.');
+    });
+
+    it('should handle headers with leading whitespace', () => {
+      const input = `  ## Header with encryption
+   ### Another header with encryption
+
+Body encryption.`;
+
+      const result = processDictionaryTerms(input);
+
+      // Headers with leading whitespace should not be processed
+      expect(result).toContain('  ## Header with encryption\n');
+      expect(result).toContain('   ### Another header with encryption\n');
+
+      // Body should be processed
+      expect(result).toContain('Body {% dictionaryLink "encryption", "encryption" %}.');
+    });
+
+    it('should distinguish between headers and hashtag text', () => {
+      const input = `## Real Header with encryption
+
+Body text with #hashtag and encryption term.
+
+Regular #encryption hashtag should be processed.`;
+
+      const result = processDictionaryTerms(input);
+
+      // Header should not be processed (starts line with ##)
+      expect(result).toContain('## Real Header with encryption\n');
+
+      // Body text with hashtag should still process dictionary terms
+      expect(result).toContain('Body text with #hashtag and {% dictionaryLink "encryption", "encryption" %} term.');
+      expect(result).toContain('Regular #{% dictionaryLink "encryption", "encryption" %} hashtag should be processed.');
     });
   });
 
