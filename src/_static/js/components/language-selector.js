@@ -30,6 +30,9 @@ class LanguageSelector extends HTMLElement {
       return;
     }
 
+    // Track current blog in sessionStorage if on a blog post
+    this._trackCurrentBlog();
+
     // Generate hrefs for options based on current URL
     this._generateLinks();
 
@@ -52,6 +55,15 @@ class LanguageSelector extends HTMLElement {
   }
 
   _parsePath(path) {
+    // Check if on "post-not-translated" page
+    if (path.includes('/post-not-translated/')) {
+      // Try to restore original blog context from sessionStorage
+      const lastSlug = sessionStorage.getItem('lastViewedBlogSlug');
+      if (lastSlug) {
+        return { basePath: `/${lastSlug}/`, isBlog: true };
+      }
+    }
+
     // Check if it's a blog post
     const isBlog = path.startsWith('/blog/');
 
@@ -83,6 +95,33 @@ class LanguageSelector extends HTMLElement {
     }
 
     return `/${lang}${basePath}`;
+  }
+
+  /**
+   * Extract blog slug from URL
+   * @param {string} url - URL to parse (e.g. /blog/en-us/post-slug/)
+   * @returns {string|null} - Blog slug or null if not a blog URL
+   */
+  _extractBlogSlug(url) {
+    const match = url.match(/\/blog\/[^/]+\/([^/]+)/);
+    return match ? match[1] : null;
+  }
+
+  /**
+   * Track current blog post in sessionStorage
+   * Called on every blog page load to update last viewed blog
+   */
+  _trackCurrentBlog() {
+    const currentPath = window.location.pathname;
+    const slug = this._extractBlogSlug(currentPath);
+
+    if (slug) {
+      try {
+        sessionStorage.setItem('lastViewedBlogSlug', slug);
+      } catch (e) {
+        console.warn('LanguageSelector: Failed to store blog slug', e);
+      }
+    }
   }
 
   disconnectedCallback() {
