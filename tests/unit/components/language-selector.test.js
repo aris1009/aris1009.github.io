@@ -11,6 +11,8 @@ describe('LanguageSelector Web Component', () => {
   let mockOptions;
   let mockLocalStorage;
 
+  let mockSessionStorage;
+
   beforeEach(async () => {
     vi.resetModules();
 
@@ -21,6 +23,14 @@ describe('LanguageSelector Web Component', () => {
       setItem: vi.fn((key, value) => { mockLocalStorage.store[key] = value; })
     };
     vi.stubGlobal('localStorage', mockLocalStorage);
+
+    // Mock sessionStorage
+    mockSessionStorage = {
+      store: {},
+      getItem: vi.fn((key) => mockSessionStorage.store[key] || null),
+      setItem: vi.fn((key, value) => { mockSessionStorage.store[key] = value; })
+    };
+    vi.stubGlobal('sessionStorage', mockSessionStorage);
 
     // Mock display element
     mockDisplay = {
@@ -340,6 +350,62 @@ describe('LanguageSelector Web Component', () => {
       expect(mockOptions[0].href).toBe('/en-us/about/');
       expect(mockOptions[1].href).toBe('/el/about/');
       expect(mockOptions[2].href).toBe('/tr/about/');
+    });
+  });
+
+  describe('_extractBlogSlug', () => {
+    it('should extract slug from blog URL', () => {
+      const selector = new LanguageSelector();
+      expect(selector._extractBlogSlug('/blog/en-us/my-post/')).toBe('my-post');
+      expect(selector._extractBlogSlug('/blog/el/another-post/')).toBe('another-post');
+      expect(selector._extractBlogSlug('/blog/tr/test-slug/')).toBe('test-slug');
+    });
+
+    it('should return null for non-blog URLs', () => {
+      const selector = new LanguageSelector();
+      expect(selector._extractBlogSlug('/en-us/about/')).toBe(null);
+      expect(selector._extractBlogSlug('/el/')).toBe(null);
+      expect(selector._extractBlogSlug('/tr/post-not-translated/')).toBe(null);
+    });
+  });
+
+  describe('_trackCurrentBlog', () => {
+    it('should store slug in sessionStorage when on blog page', () => {
+      window.location.pathname = '/blog/en-us/gru-kms-windows/';
+
+      const selector = new LanguageSelector();
+      selector._trackCurrentBlog();
+
+      expect(mockSessionStorage.setItem).toHaveBeenCalledWith('lastViewedBlogSlug', 'gru-kms-windows');
+    });
+
+    it('should not store anything when not on blog page', () => {
+      window.location.pathname = '/en-us/about/';
+
+      const selector = new LanguageSelector();
+      selector._trackCurrentBlog();
+
+      expect(mockSessionStorage.setItem).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('_parsePath - post-not-translated restoration', () => {
+    it('should restore blog context from sessionStorage when on post-not-translated page', () => {
+      mockSessionStorage.store['lastViewedBlogSlug'] = 'gru-kms-windows';
+
+      const selector = new LanguageSelector();
+      const result = selector._parsePath('/tr/post-not-translated/');
+
+      expect(result.isBlog).toBe(true);
+      expect(result.basePath).toBe('/gru-kms-windows/');
+    });
+
+    it('should fall back to normal parsing if no slug in sessionStorage', () => {
+      const selector = new LanguageSelector();
+      const result = selector._parsePath('/tr/post-not-translated/');
+
+      expect(result.isBlog).toBe(false);
+      expect(result.basePath).toBe('/post-not-translated/');
     });
   });
 });
