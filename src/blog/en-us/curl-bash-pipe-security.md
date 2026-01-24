@@ -5,6 +5,9 @@ description: "Learn why piping scripts to bash is risky, how attackers exploit t
 date: 2026-01-16
 keywords: ["curl bash security", "supply chain attack", "DevSecOps", "script execution", "CI/CD security", "bash scripting security", "software installation security", "checksum verification"]
 tags: ["security", "devops", "linux", "bash-scripting", "supply-chain-security", "ci-cd-security", "shell-security"]
+difficulty: intermediate
+contentType: deep-dive
+technologies: []
 type: article
 locale: en-us
 permalink: /blog/en-us/curl-bash-pipe-security/

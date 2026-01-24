@@ -28,7 +28,6 @@ export default function (eleventyConfig) {
     extension: "webmanifest"
   });
 
-  // Configure markdown-it with anchor plugin for heading IDs
   const md = markdownIt({ html: true, linkify: true, typographer: true })
     .use(markdownItAnchor, {
       slugify: (s) =>
@@ -149,6 +148,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addCollection("dictionary", collections.dictionary);
 
   eleventyConfig.addTransform("addHeaderAnchors", transforms.addHeaderAnchors);
+  eleventyConfig.addTransform("processEmphasisInHTML", transforms.processEmphasisInHTML);
   eleventyConfig.addTransform("htmlmin", transforms.htmlminTransform);
 
   // Existing shortcodes

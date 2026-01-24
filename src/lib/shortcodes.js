@@ -72,6 +72,7 @@ function createDifficultyLabel(difficulty, locale, translations) {
   
   const variants = {
     'beginner': 'success',
+    'intermediate': 'warning',
     'expert': 'primary'
   };
   const variant = variants[difficulty] || 'neutral';
