@@ -129,8 +129,7 @@ class ReadingProgressBar {
     // Update progress bar width
     const percentage = Math.round(progress * 100);
     this.progressFill.style.width = `${percentage}%`;
-    try { console.log('[reading-progress] update', { percentage, scrollTop, articleTop, articleHeight, viewportHeight }); } catch (e) {}
-    
+
     // Show/hide based on scroll position
     const shouldShow = scrollTop > 50 || progress > 0;
     
