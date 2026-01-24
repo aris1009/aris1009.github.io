@@ -20,6 +20,9 @@ tags:
   - shell-security
   - owasp-top-10
   - input-validation
+difficulty: intermediate
+contentType: tutorial
+technologies: []
 type: article
 locale: en-us
 draft: false
