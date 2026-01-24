@@ -230,6 +230,11 @@ export default {
         'el': 'Για αρχάριους',
         'tr': 'Başlangıç'
       },
+      intermediate: {
+        'en-us': 'Intermediate',
+        'el': 'Μεσαίο',
+        'tr': 'Orta seviye'
+      },
       expert: {
         'en-us': 'Technical',
         'el': 'Τεχνικό',
@@ -247,6 +252,11 @@ export default {
         'el': 'Αναφορά',
         'tr': 'Rehber'
       },
+      'deep-dive': {
+        'en-us': 'Deep Dive',
+        'el': 'Εις Βάθος',
+        'tr': 'Derinlemesine'
+      },
       opinion: {
         'en-us': 'Opinion',
         'el': 'Γνώμη',
@@ -256,6 +266,11 @@ export default {
         'en-us': 'News',
         'el': 'Ειδήσεις',
         'tr': 'Haberler'
+      },
+      postmortem: {
+        'en-us': 'Postmortem',
+        'el': 'Ανάλυση',
+        'tr': 'Olay İncelemesi'
       },
       'case-study': {
         'en-us': 'Case Study',

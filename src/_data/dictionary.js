@@ -168,5 +168,35 @@ export default {
     "en-us": "Open Source Intelligence - The collection and analysis of publicly available information from sources like websites, social media, public records, and news. OSINT is used in security research, investigations, and threat intelligence.",
     "el": "Open Source Intelligence - Η συλλογή και ανάλυση δημόσια διαθέσιμων πληροφοριών από πηγές όπως ιστοσελίδες, κοινωνικά δίκτυα, δημόσια αρχεία και ειδήσεις. Το OSINT χρησιμοποιείται στην έρευνα ασφαλείας, τις έρευνες και την πληροφορία απειλών.",
     "tr": "Açık Kaynak İstihbaratı - Web siteleri, sosyal medya, kamu kayıtları ve haberler gibi kaynaklardan kamuya açık bilgilerin toplanması ve analizi. OSINT, güvenlik araştırması, soruşturmalar ve tehdit istihbaratında kullanılır."
+  },
+  "ai-agent": {
+    "en-us": "An autonomous AI system that can execute tasks, make decisions, and take actions across multiple systems without constant human intervention. Agents use language models to understand goals and interact with tools, APIs, and data sources to accomplish work.",
+    "el": "Ένα αυτόνομο σύστημα AI που μπορεί να εκτελεί εργασίες, να παίρνει αποφάσεις και να ενεργεί σε πολλαπλά συστήματα χωρίς συνεχή ανθρώπινη παρέμβαση. Οι agents χρησιμοποιούν γλωσσικά μοντέλα για να κατανοούν στόχους και να αλληλεπιδρούν με εργαλεία, APIs και πηγές δεδομένων για να ολοκληρώνουν δουλειά.",
+    "tr": "Sürekli insan müdahalesi olmadan birden fazla sistem genelinde görevleri yürütebilen, kararlar alabilen ve eylemler gerçekleştirebilen otonom bir AI sistemi. Ajanlar, hedefleri anlamak ve işleri tamamlamak için araçlar, API'ler ve veri kaynaklarıyla etkileşim kurmak üzere dil modellerini kullanır."
+  },
+  "systems-of-record": {
+    "en-us": "Enterprise software applications that serve as the authoritative source of truth for specific business data. Examples include CRMs for customer data, ERPs for financial data, and HRIS for employee information. These systems capture what happened but often miss why decisions were made.",
+    "el": "Εφαρμογές εταιρικού λογισμικού που λειτουργούν ως η επίσημη πηγή αλήθειας για συγκεκριμένα επιχειρηματικά δεδομένα. Παραδείγματα περιλαμβάνουν CRMs για δεδομένα πελατών, ERPs για οικονομικά δεδομένα και HRIS για πληροφορίες εργαζομένων. Αυτά τα συστήματα καταγράφουν τι συνέβη αλλά συχνά χάνουν το γιατί πάρθηκαν αποφάσεις.",
+    "tr": "Belirli iş verileri için yetkili gerçeklik kaynağı olarak hizmet veren kurumsal yazılım uygulamaları. Örnekler arasında müşteri verileri için CRM'ler, finansal veriler için ERP'ler ve çalışan bilgileri için HRIS bulunur. Bu sistemler ne olduğunu kaydeder ancak genellikle kararların neden verildiğini kaçırır."
+  },
+  "crm": {
+    "en-us": "Customer Relationship Management - Software that manages a company's interactions with customers and prospects. CRMs track sales pipelines, customer communications, deal stages, and revenue data, serving as the system of record for customer information.",
+    "el": "Customer Relationship Management - Λογισμικό που διαχειρίζεται τις αλληλεπιδράσεις μιας εταιρείας με πελάτες και υποψήφιους πελάτες. Τα CRMs παρακολουθούν pipelines πωλήσεων, επικοινωνίες πελατών, στάδια συμφωνιών και δεδομένα εσόδων, λειτουργώντας ως σύστημα καταγραφής για πληροφορίες πελατών.",
+    "tr": "Müşteri İlişkileri Yönetimi - Bir şirketin müşteriler ve potansiyel müşterilerle etkileşimlerini yöneten yazılım. CRM'ler satış hatlarını, müşteri iletişimlerini, anlaşma aşamalarını ve gelir verilerini izler, müşteri bilgileri için kayıt sistemi olarak hizmet eder."
+  },
+  "knowledge-graph": {
+    "en-us": "A structured representation of knowledge using entities and their relationships, typically stored as a graph database. Knowledge graphs help AI systems understand connections between concepts, but they require predefined schemas unlike context graphs which emerge from agent execution traces.",
+    "el": "Μια δομημένη αναπαράσταση γνώσης χρησιμοποιώντας οντότητες και τις σχέσεις τους, συνήθως αποθηκευμένη ως graph database. Τα knowledge graphs βοηθούν τα συστήματα AI να κατανοούν συνδέσεις μεταξύ εννοιών, αλλά απαιτούν προκαθορισμένα schemas σε αντίθεση με τα context graphs που προκύπτουν από ίχνη εκτέλεσης agents.",
+    "tr": "Varlıkları ve ilişkilerini kullanarak genellikle grafik veritabanı olarak depolanan yapılandırılmış bilgi temsili. Bilgi grafikleri, AI sistemlerinin kavramlar arasındaki bağlantıları anlamasına yardımcı olur, ancak ajan yürütme izlerinden ortaya çıkan bağlam grafiklerinin aksine önceden tanımlanmış şemalar gerektirir."
+  },
+  "decision-trace": {
+    "en-us": "A record of why a specific decision was made, including the context, inputs considered, exceptions granted, approvals obtained, and precedents followed. Decision traces capture the reasoning behind actions, not just the final outcome, and form the building blocks of context graphs.",
+    "el": "Μια καταγραφή του γιατί πάρθηκε μια συγκεκριμένη απόφαση, συμπεριλαμβανομένου του πλαισίου, των εισόδων που εξετάστηκαν, των εξαιρέσεων που χορηγήθηκαν, των εγκρίσεων που ελήφθησαν και των προηγουμένων που ακολουθήθηκαν. Τα decision traces καταγράφουν τη σκέψη πίσω από ενέργειες, όχι μόνο το τελικό αποτέλεσμα, και αποτελούν τα δομικά στοιχεία των context graphs.",
+    "tr": "Bağlam, değerlendirilen girdiler, verilen istisnalar, alınan onaylar ve takip edilen emsaller dahil olmak üzere belirli bir kararın neden verildiğinin kaydı. Karar izleri, yalnızca nihai sonucu değil, eylemlerin arkasındaki mantığı yakalar ve bağlam grafiklerinin yapı taşlarını oluşturur."
+  },
+  "context-graph": {
+    "en-us": "A living record of decision traces stitched across entities over time, capturing not just what happened but why it happened. Context graphs make decision lineage queryable, turning exceptions into precedent and enabling AI agents to understand how organizations actually operate beyond formal policies.",
+    "el": "Μια ζωντανή καταγραφή decision traces συνδεδεμένων σε οντότητες με το χρόνο, καταγράφοντας όχι μόνο τι συνέβη αλλά γιατί συνέβη. Τα context graphs κάνουν τη γενεαλογία αποφάσεων αναζητήσιμη, μετατρέποντας εξαιρέσεις σε προηγούμενα και επιτρέποντας στους AI agents να κατανοούν πώς οι οργανισμοί λειτουργούν πραγματικά πέρα από τις επίσημες πολιτικές.",
+    "tr": "Yalnızca ne olduğunu değil, neden olduğunu da yakalayarak zaman içinde varlıklar arasında birleştirilen karar izlerinin canlı kaydı. Bağlam grafikleri, karar soyunu sorgulanabilir hale getirir, istisnaları emsale dönüştürür ve AI ajanlarının kuruluşların resmi politikaların ötesinde gerçekte nasıl çalıştığını anlamasını sağlar."
   }
 };
