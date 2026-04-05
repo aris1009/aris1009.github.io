@@ -60,6 +60,11 @@ export default {
       'en-us': 'AI Toolset',
       'el': 'Εργαλεία Τ.Ν.',
       'tr': 'YZ Araç Seti'
+    },
+    security: {
+      'en-us': 'Security',
+      'el': 'Ασφάλεια',
+      'tr': 'Güvenlik'
     }
   },
 
@@ -299,6 +304,19 @@ export default {
         'el': 'Τεχνολογία',
         'tr': 'Teknoloji'
       }
+    }
+  },
+
+  security: {
+    description: {
+      'en-us': 'Security disclosure policy and PGP contact information',
+      'el': 'Πολιτική αποκάλυψης ασφαλείας και πληροφορίες επικοινωνίας PGP',
+      'tr': 'Güvenlik ifşa politikası ve PGP iletişim bilgileri'
+    },
+    englishOnly: {
+      'en-us': 'This page is available in English only.',
+      'el': 'Αυτή η σελίδα είναι διαθέσιμη μόνο στα Αγγλικά.',
+      'tr': 'Bu sayfa yalnızca İngilizce olarak mevcuttur.'
     }
   }
 };
