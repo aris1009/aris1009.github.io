@@ -7,6 +7,9 @@ import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
 import pluginTOC from "eleventy-plugin-toc";
 
+import { execSync } from "child_process";
+import { readFileSync, writeFileSync } from "fs";
+
 import {
   filters,
   collections,
@@ -181,6 +184,23 @@ export default function (eleventyConfig) {
   // Add passthrough copy for optimized images
   eleventyConfig.addPassthroughCopy({ "img/optimized": "img/optimized" });
   eleventyConfig.addPassthroughCopy({ "img/placeholders": "img/placeholders" });
+
+  // Inject build hash into service worker for cache busting
+  eleventyConfig.on("eleventy.after", () => {
+    let buildHash;
+    try {
+      buildHash = execSync("git rev-parse --short HEAD", { encoding: "utf-8" }).trim();
+    } catch {
+      buildHash = Date.now().toString(36);
+    }
+    const swPath = "./_site/sw.js";
+    try {
+      const content = readFileSync(swPath, "utf-8");
+      writeFileSync(swPath, content.replace("__BUILD_HASH__", buildHash));
+    } catch {
+      // sw.js may not exist in test environments
+    }
+  });
 
   return {
     templateFormats: constants.TEMPLATE_FORMATS,
