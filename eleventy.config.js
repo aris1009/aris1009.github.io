@@ -144,6 +144,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addGlobalData("supportedLocales", globalData.supportedLocales);
   eleventyConfig.addGlobalData("locale", globalData.getLocale);
   eleventyConfig.addGlobalData("dictionary", dictionary);
+  eleventyConfig.addGlobalData("buildVersion", process.env.BUILD_VERSION || "dev");
 
   eleventyConfig.addCollection("postsEn_us", collections.postsEn_us);
   eleventyConfig.addCollection("postsEl", collections.postsEl);
