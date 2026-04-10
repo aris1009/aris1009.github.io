@@ -1,11 +1,10 @@
 {
-  "generatedAt": "2026-01-23T09:19:25.148Z",
+  "generatedAt": "2026-04-10T15:28:57.913Z",
   "detectedLanguages": [
     "bash",
     "javascript",
     "json",
     "markdown",
-    "markup",
     "php",
     "python"
   ],
@@ -29,14 +28,12 @@
     "get-most-out-of-claude-code": [
       "markdown"
     ],
-    "github-pages-domain-hijacking": [
-      "bash",
-      "json",
-      "markup"
-    ],
     "great-firewall-wallbleed": [
       "bash",
       "json"
+    ],
+    "opnsense-wireguard-vpn-failover": [
+      "bash"
     ],
     "shell-metacharacters-command-injection": [
       "bash",
