@@ -90,7 +90,7 @@ describe('shortcodes', () => {
     it('should handle terms with special characters in text', () => {
       const result = dictionaryLink('VPN & security', 'vpn');
       
-      expect(result).toContain('VPN & security'); // Text preserved as-is
+      expect(result).toContain('VPN &amp; security'); // Text is HTML-escaped
       expect(result).toContain('data-testid="dictionary-tooltip-vpn"');
       expect(result).toContain('Virtual Private Network');
     });

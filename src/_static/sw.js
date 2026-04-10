@@ -1,4 +1,5 @@
-const CACHE_VERSION = 'v1';
+// BUILD_HASH is replaced at build time by the Eleventy transform
+const CACHE_VERSION = '__BUILD_HASH__';
 const CACHE_NAME = `aris-blog-${CACHE_VERSION}`;
 
 // Assets to cache on install
@@ -7,7 +8,6 @@ const PRECACHE_ASSETS = [
   '/css/style.css',
   '/manifest.webmanifest',
   '/_static/favicon/favicon.ico',
-  '/_static/favicon/favicon.svg',
 ];
 
 // Install event - cache essential assets

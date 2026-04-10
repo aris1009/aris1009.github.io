@@ -29,6 +29,6 @@ export default {
   twitterUser: "", 
   facebookUser: "",
   githubUser: "aris1009",
-  telegramkUser: "",
-  linkedinkUser: "aris-konstantoulas",
+  telegramUser: "",
+  linkedinUser: "aris-konstantoulas",
 };

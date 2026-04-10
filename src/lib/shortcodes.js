@@ -1,18 +1,34 @@
 import dictionary from '../_data/dictionary.js';
 import translations from '../_data/translations.js';
 
+/**
+ * Escape HTML special characters to prevent XSS in interpolated attributes/content.
+ */
+function escapeHtml(str) {
+  if (typeof str !== 'string') return str;
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 export function currentYear() {
   return `${new Date().getFullYear()}`;
 }
 
 export const externalLink = (text, url, ariaLabel = '') => {
-  const label = ariaLabel || `${text} (opens in new tab)`;
-  return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="external-link inline-flex items-center" aria-label="${label}"><span class="link-text">${text}</span><span class="emoji-indicator external-emoji" aria-hidden="true">↗️</span></a>`;
+  const safeText = escapeHtml(text);
+  const safeUrl = escapeHtml(url);
+  const label = escapeHtml(ariaLabel || `${text} (opens in new tab)`);
+  return `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="external-link inline-flex items-center" aria-label="${label}"><span class="link-text">${safeText}</span><span class="emoji-indicator external-emoji" aria-hidden="true">↗️</span></a>`;
 };
 
 export const internalLink = (text, url, ariaLabel = '') => {
-  const label = ariaLabel || text;
-  return `<a href="${url}" class="internal-link inline-flex items-center" aria-label="${label}"><span class="link-text">${text}</span><span class="emoji-indicator internal-emoji" aria-hidden="true">➡️</span></a>`;
+  const safeText = escapeHtml(text);
+  const safeUrl = escapeHtml(url);
+  const label = escapeHtml(ariaLabel || text);
+  return `<a href="${safeUrl}" class="internal-link inline-flex items-center" aria-label="${label}"><span class="link-text">${safeText}</span><span class="emoji-indicator internal-emoji" aria-hidden="true">➡️</span></a>`;
 };
 
 export function dictionaryLink(text, term, locale = 'en-us') {
@@ -24,16 +40,21 @@ export function dictionaryLink(text, term, locale = 'en-us') {
     definitionText = definition[locale] || definition['en-us'] || 'Definition not available';
   }
 
+  const safeTerm = escapeHtml(term);
+  const safeText = escapeHtml(text);
+  const safeDefinition = escapeHtml(definitionText);
+  const capitalizedTerm = escapeHtml(term.charAt(0).toUpperCase() + term.slice(1));
+
   // Use slot="content" for HTML content in tooltip
-  return `<sl-tooltip placement="bottom" data-testid="dictionary-tooltip-${term}">
+  return `<sl-tooltip placement="bottom" data-testid="dictionary-tooltip-${safeTerm}">
     <span slot="content" class="dictionary-tooltip-content">
-      <span class="tooltip-term">${term.charAt(0).toUpperCase() + term.slice(1)}</span>
+      <span class="tooltip-term">${capitalizedTerm}</span>
       <br />
-      <span class="tooltip-definition">${definitionText}</span>
+      <span class="tooltip-definition">${safeDefinition}</span>
     </span>
-    <button class="dictionary-link inline-flex items-center" data-testid="dictionary-link-${term}" aria-label="Definition of ${term}">
-      <span class="dictionary-text">${text}</span>
-      <span class="emoji-indicator dictionary-emoji" data-testid="dictionary-emoji-${term}" aria-hidden="true">📘</span>
+    <button class="dictionary-link inline-flex items-center" data-testid="dictionary-link-${safeTerm}" aria-label="Definition of ${safeTerm}">
+      <span class="dictionary-text">${safeText}</span>
+      <span class="emoji-indicator dictionary-emoji" data-testid="dictionary-emoji-${safeTerm}" aria-hidden="true">📘</span>
     </button>
   </sl-tooltip>`;
 }

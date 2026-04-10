@@ -79,14 +79,22 @@
    * Initialize theme sync
    */
   function init() {
+    // Guard flag: when themeChanged fires, suppress the MutationObserver
+    // callback that would otherwise also trigger from the same classList change.
+    let handledByEvent = false;
+
     // Listen for theme change events from the theme toggle
     document.addEventListener('themeChanged', function(event) {
+      handledByEvent = true;
       const newTheme = event.detail?.theme || getCurrentTheme();
       updateMermaidTheme(newTheme);
+      // Reset after microtask so the MutationObserver callback sees the flag
+      Promise.resolve().then(() => { handledByEvent = false; });
     });
 
-    // Also handle direct class changes (for initial load)
+    // Also handle direct class changes (for initial load where no event is dispatched)
     const observer = new MutationObserver(function(mutations) {
+      if (handledByEvent) return;
       for (const mutation of mutations) {
         if (mutation.attributeName === 'class') {
           const theme = getCurrentTheme();
