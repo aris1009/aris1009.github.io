@@ -152,67 +152,115 @@ function processInternalLinks(content) {
 }
 
 /**
- * Process dictionary terms - find dictionary terms in text and wrap them
+ * Regex that matches protected zones within a line — content that should never
+ * have dictionary terms injected into it. Matches left-to-right; the first
+ * branch that wins is the one we keep verbatim.
+ *
+ * Order matters — longer/greedier patterns first:
+ *   1. Nunjucks shortcodes:  {% ... %}
+ *   2. Inline code spans:    `...`
+ *   3. Markdown links/images: [text](url) or ![alt](url)
+ *   4. Bare URLs:            https://… until whitespace
+ */
+const PROTECTED_ZONE = /\{%[^%]*%\}|`[^`]+`|!?\[[^\]]*\]\([^)]*\)|https?:\/\/\S+/g;
+
+/**
+ * Replace dictionary terms only in the plain-text segments of a line.
+ * Protected zones (code spans, URLs, shortcodes, links) are preserved verbatim.
+ */
+function replaceInPlainText(line, termRegex, replacement) {
+  // Split the line into alternating [plain, protected, plain, protected, …] segments
+  let lastIndex = 0;
+  const parts = [];
+
+  for (const match of line.matchAll(PROTECTED_ZONE)) {
+    if (match.index > lastIndex) {
+      parts.push({ text: line.slice(lastIndex, match.index), plain: true });
+    }
+    parts.push({ text: match[0], plain: false });
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < line.length) {
+    parts.push({ text: line.slice(lastIndex), plain: true });
+  }
+
+  // Only replace inside plain segments
+  let replaced = false;
+  const result = parts.map(part => {
+    if (!part.plain || replaced) return part.text;
+    const after = part.text.replace(termRegex, (m) => {
+      replaced = true;
+      return replacement(m);
+    });
+    return after;
+  }).join('');
+
+  return { result, replaced };
+}
+
+/**
+ * Process dictionary terms — find dictionary terms in text and wrap them.
+ *
+ * Rules:
+ *   - Only the first occurrence of each term in the entire content gets a tooltip.
+ *   - Terms inside fenced code blocks (``` or ~~~), inline code spans, URLs,
+ *     markdown links, shortcodes, or headings are never touched.
  */
 function processDictionaryTerms(content) {
   if (!CONFIG.dictionaryDetection.enabled || dictionaryTerms.length === 0) {
     return content;
   }
-  
+
   // Sort terms by length (longest first) to avoid partial matches
   const sortedTerms = [...dictionaryTerms].sort((a, b) => b.length - a.length);
-  
+
   let processedContent = content;
-  
+
   for (const term of sortedTerms) {
     if (term.length < CONFIG.dictionaryDetection.minWordLength) {
       continue;
     }
-    
+
     if (CONFIG.dictionaryDetection.excludeWords.includes(term.toLowerCase())) {
       continue;
     }
-    
+
     // Skip if term is already wrapped in a dictionaryLink shortcode
     const existingPattern = new RegExp(`{%\\s*dictionaryLink\\s[^}]*"${term}"[^}]*%}`, 'gi');
     if (existingPattern.test(processedContent)) {
       continue;
     }
-    
-    // Create regex for the term (word boundaries to avoid partial matches)
-    const flags = CONFIG.dictionaryDetection.caseSensitive ? 'g' : 'gi';
-    const termRegex = new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, flags);
-    
-    // Only replace if not already inside a link or shortcode
+
+    // Build a regex that matches the term once (no g flag — we only want the first match per line)
+    const caseFlag = CONFIG.dictionaryDetection.caseSensitive ? '' : 'i';
+    const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const termRegex = new RegExp(`\\b${escapedTerm}\\b`, caseFlag);
+    const replacement = (match) => `{% dictionaryLink "${match}", "${term.toLowerCase()}" %}`;
+
     const lines = processedContent.split('\n');
     let insideCodeBlock = false;
-    
+    let found = false;
+
     const processedLines = lines.map(line => {
-      // Check for code block boundaries (triple backticks)
-      if (line.trim().startsWith('```')) {
+      // Fenced code block boundaries (``` or ~~~)
+      if (/^\s*(```|~~~)/.test(line)) {
         insideCodeBlock = !insideCodeBlock;
-        return line; // Don't process the code block delimiter itself
-      }
-      
-      // Skip lines inside code blocks
-      if (insideCodeBlock) {
         return line;
       }
-      
-      // Skip lines that already contain shortcodes, markdown links, or headers
-      if (/{%.*%}/.test(line) || /\[[^\]]*\]\([^)]*\)/.test(line) || /^\s*#{1,6}\s/.test(line)) {
+
+      // Skip lines inside code blocks, headers, or if we already placed this term
+      if (insideCodeBlock || found || /^\s*#{1,6}\s/.test(line)) {
         return line;
       }
-      
-      // Replace the term with dictionaryLink shortcode
-      return line.replace(termRegex, (match) => {
-        return `{% dictionaryLink "${match}", "${term.toLowerCase()}" %}`;
-      });
+
+      const { result, replaced } = replaceInPlainText(line, termRegex, replacement);
+      if (replaced) found = true;
+      return result;
     });
-    
+
     processedContent = processedLines.join('\n');
   }
-  
+
   return processedContent;
 }
 

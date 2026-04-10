@@ -234,7 +234,7 @@ Model Context Protocol (MCP) tools extend an agent's capabilities by connecting 
 
 ### Context7: Always-Current Documentation
 
-The biggest frustration with AI coding assistants is their knowledge cutoff. It is not uncommon to reference outdated API schemas, invalid Typescript types, or obsolete library versions. {% externalLink "Context7", "https://github.com/upstash/context7" %} solves this by providing real-time access to current documentation.
+The biggest frustration with AI coding assistants is their knowledge cutoff. It is not uncommon to reference outdated {% dictionaryLink "API", "api" %} schemas, invalid Typescript types, or obsolete library versions. {% externalLink "Context7", "https://github.com/upstash/context7" %} solves this by providing real-time access to current documentation.
 
 **Why This Matters:**
 Instead of the agent suggesting deprecated AWS SDK commands, Context7 ensures the AI always references current best practices and APIs. This also eliminates searching for docs using Fetch, resulting in fewer tool calls.
@@ -324,7 +324,7 @@ The structured nature of these languages, combined with extensive documentation 
 
 ### RFC-Based and Standardized Implementations
 
-When implementing well-documented standards like OAuth 2.0, SAML, SCIM, or {% dictionaryLink "OpenAPI", "openapi" %} specifications, AI agents can quickly produce functional implementations. The extensive documentation and standardized patterns make these tasks particularly suitable for AI assistance.
+When implementing well-documented standards like {% dictionaryLink "OAuth", "oauth" %} 2.0, {% dictionaryLink "SAML", "saml" %}, {% dictionaryLink "SCIM", "scim" %}, or {% dictionaryLink "OpenAPI", "openapi" %} specifications, AI agents can quickly produce functional implementations. The extensive documentation and standardized patterns make these tasks particularly suitable for AI assistance.
 
 **Critical Caveat:** While the implementation may be functionally correct, you must personally understand the security implications of authentication and authorization code. AI agents lack the critical thinking necessary to identify subtle security vulnerabilities or implementation pitfalls that could compromise your system.
 
