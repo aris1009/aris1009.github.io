@@ -503,15 +503,16 @@ def encrypt_data(data):
 Final encryption text.`;
       
       const result = processDictionaryTerms(input);
-      
-      // Should process terms outside all code blocks (3 occurrences)
+
+      // Should process only the first occurrence outside code blocks
       const outsideMatches = result.match(/{% dictionaryLink "encryption", "encryption" %}/g);
-      expect(outsideMatches).toHaveLength(3);
-      
+      expect(outsideMatches).toHaveLength(1);
+      expect(result).toContain('First {% dictionaryLink "encryption", "encryption" %} text.');
+
       // Should not process terms inside either code block
       const bashBlock = result.match(/```bash[\s\S]*?```/);
       const pythonBlock = result.match(/```python[\s\S]*?```/);
-      
+
       expect(bashBlock[0]).not.toContain('dictionaryLink');
       expect(pythonBlock[0]).not.toContain('dictionaryLink');
       expect(bashBlock[0]).toContain('# This encryption should not be processed');
@@ -553,10 +554,11 @@ Final encryption text.`;
       
       const result = processDictionaryTerms(input);
       
-      // Should process terms outside code blocks
+      // Should process only the first occurrence outside code blocks
       expect(result).toContain('Regular {% dictionaryLink "encryption", "encryption" %} text.');
-      expect(result).toContain('Final {% dictionaryLink "encryption", "encryption" %} text.');
-      
+      // Second occurrence outside code block should NOT be processed (first-only)
+      expect(result).toContain('Final encryption text.');
+
       // Should not process terms inside the code block
       const codeBlock = result.match(/```markdown[\s\S]*?```/);
       expect(codeBlock[0]).not.toContain('dictionaryLink');
@@ -641,10 +643,11 @@ Body text with encryption term.`;
       expect(result).not.toContain('### The Buffer Timing {% dictionaryLink');
       expect(result).not.toContain('# Main Header with {% dictionaryLink');
 
-      // Body text should still be processed
+      // Only the first body occurrence should be processed
       expect(result).toContain('Regular {% dictionaryLink "encryption", "encryption" %} text here.');
-      expect(result).toContain('More {% dictionaryLink "encryption", "encryption" %} content.');
-      expect(result).toContain('Body text with {% dictionaryLink "encryption", "encryption" %} term.');
+      // Subsequent occurrences should remain plain text
+      expect(result).toContain('More encryption content.');
+      expect(result).toContain('Body text with encryption term.');
     });
 
     it('should not process dictionary terms in h1-h6 headers', () => {
@@ -699,9 +702,10 @@ Regular #encryption hashtag should be processed.`;
       // Header should not be processed (starts line with ##)
       expect(result).toContain('## Real Header with encryption\n');
 
-      // Body text with hashtag should still process dictionary terms
+      // Only the first body occurrence should be processed
       expect(result).toContain('Body text with #hashtag and {% dictionaryLink "encryption", "encryption" %} term.');
-      expect(result).toContain('Regular #{% dictionaryLink "encryption", "encryption" %} hashtag should be processed.');
+      // Second occurrence should remain plain (first-only rule)
+      expect(result).toContain('Regular #encryption hashtag should be processed.');
     });
   });
 
@@ -840,9 +844,123 @@ You can read more about it in the {% externalLink "documentation", "https://docs
     it('should handle URLs with only opening parenthesis (malformed)', () => {
       const input = '[Malformed](https://example.com/path_(incomplete) test.';
       const result = processExternalLinks(input);
-      
+
       // Should still process correctly even with malformed parentheses
       expect(result).toContain('externalLink');
+    });
+  });
+
+  describe('Bug fixes: processDictionaryTerms edge cases', () => {
+    // Bug 1: Inline code spans are not protected
+    describe('inline code span protection', () => {
+      it('should not process dictionary terms inside inline code spans', () => {
+        const input = 'Visit `https://api.ivpn.net/v5/servers.json` for the server list.';
+        const result = processDictionaryTerms(input);
+
+        // "api" should NOT be wrapped inside backticks
+        expect(result).toContain('`https://api.ivpn.net/v5/servers.json`');
+        expect(result).not.toContain('dictionaryLink');
+      });
+
+      it('should not process terms inside inline code but should process them outside', () => {
+        const input = 'The API is at `https://api.example.com` endpoint.';
+        const result = processDictionaryTerms(input);
+
+        // "API" outside code should be processed
+        expect(result).toContain('{% dictionaryLink "API", "api" %}');
+        // "api" inside code should NOT be processed
+        expect(result).toContain('`https://api.example.com`');
+      });
+
+      it('should handle multiple inline code spans on the same line', () => {
+        const input = 'Use `encryption` and `firewall` for security.';
+        const result = processDictionaryTerms(input);
+
+        // Neither term inside backticks should be processed
+        expect(result).not.toContain('dictionaryLink');
+      });
+
+      it('should handle mixed code and plain text terms on the same line', () => {
+        const input = 'Set up encryption with `openssl enc` for your firewall.';
+        const result = processDictionaryTerms(input);
+
+        // "encryption" and "firewall" are outside backticks — should be processed
+        expect(result).toContain('{% dictionaryLink "encryption", "encryption" %}');
+        expect(result).toContain('{% dictionaryLink "firewall", "firewall" %}');
+        // "enc" inside backticks should not be touched
+        expect(result).toContain('`openssl enc`');
+      });
+    });
+
+    // Bug 2: Entire line skipped if any shortcode or markdown link exists
+    describe('mixed content lines', () => {
+      it('should process dictionary terms on a line that also has a markdown link', () => {
+        const input = 'Read the [docs](https://example.com) about encryption basics.';
+        const result = processDictionaryTerms(input);
+
+        // "encryption" should still be processed even though the line has a markdown link
+        expect(result).toContain('{% dictionaryLink "encryption", "encryption" %}');
+      });
+
+      it('should process dictionary terms on a line that already has a shortcode', () => {
+        const input = 'Open {% dictionaryLink "VPN", "vpn" %} settings and configure the firewall.';
+        const result = processDictionaryTerms(input);
+
+        // "firewall" should be processed even though the line already has a shortcode
+        expect(result).toContain('{% dictionaryLink "firewall", "firewall" %}');
+      });
+    });
+
+    // Bug 3: Terms inside bare URLs in plain text
+    describe('bare URL protection', () => {
+      it('should not process terms that are part of a bare URL', () => {
+        const input = 'Visit https://api.example.com for more info about encryption.';
+        const result = processDictionaryTerms(input);
+
+        // "api" inside URL should NOT be processed
+        expect(result).toContain('https://api.example.com');
+        expect(result).not.toContain('https://{% dictionaryLink');
+        // "encryption" outside URL should be processed
+        expect(result).toContain('{% dictionaryLink "encryption", "encryption" %}');
+      });
+    });
+
+    // Bug 4: Tilde-fenced code blocks not handled
+    describe('tilde-fenced code blocks', () => {
+      it('should not process dictionary terms inside tilde-fenced code blocks', () => {
+        const input = `Text with encryption.
+
+~~~bash
+echo "encryption test"
+~~~
+
+More encryption text.`;
+
+        const result = processDictionaryTerms(input);
+
+        // First occurrence outside code block should be processed
+        expect(result).toContain('Text with {% dictionaryLink "encryption", "encryption" %}.');
+        // Second occurrence outside code block should NOT (first-only)
+        expect(result).toContain('More encryption text.');
+        // Inside tilde code block should NOT be processed
+        expect(result).toContain('echo "encryption test"');
+        expect(result).not.toContain('echo "{% dictionaryLink');
+      });
+    });
+
+    // Bug 5: Only first occurrence should get a tooltip (not all on one line)
+    describe('first occurrence only', () => {
+      it('should only wrap the first occurrence of a term, not every occurrence', () => {
+        const input = `Encryption is important.
+
+Use encryption for everything. Encryption protects your data.`;
+
+        const result = processDictionaryTerms(input);
+
+        // Count occurrences — should be exactly 1
+        const matches = result.match(/dictionaryLink/g) || [];
+        expect(matches).toHaveLength(1);
+      });
     });
   });
 });
