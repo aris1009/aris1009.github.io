@@ -31,8 +31,16 @@ jobs:
     - name: Install dependencies
       run: npm ci && npm install --cpu=x64 --os=linux --libc=glibc sharp
 
+    - name: Extract build version
+      run: |
+        PR_NUM=$(git log -1 --pretty=%s | grep -oP '\(#\K[0-9]+(?=\))' || echo "")
+        SHA=$(git rev-parse --short HEAD)
+        echo "BUILD_VERSION=${PR_NUM:+#${PR_NUM}.}${SHA}" >> "$GITHUB_ENV"
+
     - name: Build site
       run: npm run build:prod
+      env:
+        BUILD_VERSION: ${{ env.BUILD_VERSION }}
 
     - name: Run unit tests
       run: npm test
