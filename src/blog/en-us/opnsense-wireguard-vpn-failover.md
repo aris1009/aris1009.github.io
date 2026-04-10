@@ -50,7 +50,7 @@ We will refer to the existing tunnel as `wg1` throughout. If yours has a differe
 
 First, we need the connection details for our two fallback servers. We want to pick servers with low load in geographically close locations.
 
-IVPN publishes their server list at `https://{% dictionaryLink "api", "api" %}.ivpn.net/v5/servers.json`. Open that URL and find two WireGuard servers in your preferred locations. For each server, note down:
+IVPN publishes their server list at `https://api.ivpn.net/v5/servers.json`. Open that URL and find two WireGuard servers in your preferred locations. For each server, note down:
 
 - **Hostname** (e.g., `us-ca6.wg.ivpn.net`)
 - **Public key**
