@@ -27,7 +27,7 @@ EEA1 FE96 F44D 31CB 169B  E924 96BA 5662 7A68 85D5
 ```
 
 **Obtain my public key:**
-- Download: [pgp.asc](https://ariscodes.com/pgp.asc)
+- Download: [pgp.asc](/pgp.asc)
 - WKD auto-discovery: your email client may fetch it automatically when composing to security@ariscodes.com
 - Keyserver: [keys.openpgp.org](https://keys.openpgp.org/search?q=security%40ariscodes.com)
 
@@ -37,7 +37,7 @@ If you are not familiar with PGP, here is a quick guide using GPG:
 
 ```bash
 # Import my public key
-curl -sL https://ariscodes.com/pgp.asc | gpg --import
+gpg --fetch-keys https://blog.ariscodes.com/pgp.asc
 
 # Verify the fingerprint matches the one above
 gpg --fingerprint security@ariscodes.com
@@ -54,7 +54,7 @@ Attach the resulting `.asc` file to your email, or paste the armored text into t
 
 - **Response time:** I will acknowledge your report within 72 hours.
 - **Resolution timeline:** I aim to resolve confirmed vulnerabilities within 90 days of acknowledgement. If a fix requires more time, I will communicate a revised timeline.
-- **Scope:** Any service hosted under `ariscodes.com` or `home.arpa`, including web applications, APIs, DNS, and infrastructure.
+- **Scope:** Any service hosted under `ariscodes.com`, including web applications, APIs, DNS, and infrastructure.
 - **Out of scope:** Third-party services I do not control, social engineering, and denial of service attacks.
 - **Safe harbor:** I will not pursue legal action against researchers who report vulnerabilities in good faith, follow this policy, and do not access or modify data belonging to others.
 
