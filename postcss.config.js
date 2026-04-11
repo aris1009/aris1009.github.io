@@ -1,4 +1,4 @@
-import { purgeCSSPlugin } from '@fullhuman/postcss-purgecss';
+import purgeCSSPlugin from '@fullhuman/postcss-purgecss';
 import tailwindcss from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
 
