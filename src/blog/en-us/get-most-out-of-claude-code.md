@@ -67,9 +67,9 @@ Then create a mermaid diagram showing the complete OAuth 2.0 authorization flow 
 - **Cost management**: Use sparingly to avoid hitting rate limits or budget constraints
 - **Tracking complexity**: Monitor what each agent is doing to avoid losing oversight
 
-## Custom Agents with `/agents`
+**Update (January 2026):** Claude Code v2.0 (September 2025) introduced model selection per subagent and enhanced background execution capabilities. With the October 2025 release of Claude Haiku 4.5, you can now optimize costs by using Haiku for lightweight sub-agent tasks—achieving 3x cost savings and 2x speed while maintaining 73.3% SWE-bench performance.
 
-Claude Code allows you to create specialized agents with custom instructions that operate independently. The `/agents` command provides a way to manage these custom AI sub-agents for specialized tasks.
+## Custom Agents with `/agents`
 
 ### Creating Custom Agents
 
@@ -100,7 +100,7 @@ Configure an agent specialized in writing comprehensive test suites, including u
 
 For more advanced agent orchestration, consider these community tools:
 - {% externalLink "**Claude Squad**", "https://github.com/smtg-ai/claude-squad" %} - Multi-agent coordination system
-- {% externalLink "**Claudia**", "https://github.com/getAsterisk/claudia" %} - Agent interaction management
+- {% externalLink "**opcode**", "https://github.com/winfunc/opcode" %} - Agent interaction management
 
 *Note: Custom agents maintain their specialized instructions across sessions, making them ideal for consistent, domain-specific work.*
 
@@ -230,7 +230,7 @@ The practice also enforces better discipline around feature scope. When you know
 
 ## Essential MCP Tools for Development
 
-Model Context Protocol (MCP) tools extend an agent's capabilities by connecting it to external systems and data sources. These tools can dramatically improve AI accuracy and efficiency for specific development tasks.
+Model Context Protocol ({% dictionaryLink "MCP", "mcp" %}) tools extend an agent's capabilities by connecting it to external systems and data sources. These tools can dramatically improve AI accuracy and efficiency for specific development tasks.
 
 ### Context7: Always-Current Documentation
 
@@ -408,3 +408,52 @@ This type of failure—where individual components work but the system logic is 
 - AI excels at: DSL generation, RFC implementations, and work in popular technology stacks
 - AI struggles with: Critical thinking, security analysis, and logical system design
 - Never rely on AI for code review or security assessment. They're implementation tools, not judgment systems
+
+---
+
+## Update: What's Changed Since July 2025
+
+This article was originally published in July 2025. Since then, Claude Code has evolved significantly with multiple major releases and platform expansions.
+
+### Claude Code v2.0 (September 2025)
+
+The September 2025 release introduced transformative new capabilities:
+
+**Extended Autonomy:**
+Claude Code can now maintain focus for 30+ hours of continuous operation, enabled by a checkpoint system with 30-day retention. This solves the multi-day development workflow challenge that plagued earlier versions.
+
+**VS Code Extension (Beta):**
+Native VS Code integration brings Claude Code directly into your IDE, eliminating context switching between terminal and editor.
+
+**Platform Expansion:**
+- Desktop application (November 2025)
+- GitHub Actions integration for CI/CD workflows
+- Slack integration (December 2025) for task delegation from chat
+
+### Breaking Changes
+
+**`.claude.json` Deprecated (v2.0.8+):**
+Project configuration has moved to `settings.json`. Migration is required for projects using the old format.
+
+**MCP Syntax Changes:**
+The @-mention syntax for MCP resources has been replaced with `/mcp enable` commands.
+
+**Windows Settings Path:**
+Settings location changed in newer versions—check documentation for current path.
+
+### Enterprise Adoption
+
+Claude Code achieved $1 billion in revenue within 6 months of launch, with enterprise deployments at Netflix, Spotify, and Salesforce. The rapid adoption validates the agentic coding approach but also drove the need for rate limiting infrastructure.
+
+### What Remains True
+
+Despite these significant updates, the core principles in this article remain valid:
+
+- PRD-first development still determines success
+- Obsessive committing is still essential
+- AI agents still lack critical thinking
+- Security analysis still requires human judgment
+- Git worktrees still solve context switching
+- Linear history still helps AI debugging
+
+The tools have gotten significantly better, but the human guidance requirements haven't changed
