@@ -141,6 +141,6 @@ Use your Level 1 monitoring data to check these warning signs:
 
 **🔴 Extreme Token Usage for Seemingly Simple Tasks**
 - **Problem:** Basic requests consume massive tokens
-- **Root Cause:** Too many MCP servers or missing prompt caching
+- **Root Cause:** Too many {% dictionaryLink "MCP", "mcp" %} servers or missing prompt caching
 - **Optimal token order:** Cache Reads > Cache Creation > Output > Input
-- **Fix:** Disable unused MCP servers, verify prompt caching is enabled
+- **Fix:** Disable unused {% dictionaryLink "MCP", "mcp" %} servers, verify prompt caching is enabled

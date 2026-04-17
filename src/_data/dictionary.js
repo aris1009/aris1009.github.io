@@ -198,5 +198,20 @@ export default {
     "en-us": "A living record of decision traces stitched across entities over time, capturing not just what happened but why it happened. Context graphs make decision lineage queryable, turning exceptions into precedent and enabling AI agents to understand how organizations actually operate beyond formal policies.",
     "el": "Μια ζωντανή καταγραφή decision traces συνδεδεμένων σε οντότητες με το χρόνο, καταγράφοντας όχι μόνο τι συνέβη αλλά γιατί συνέβη. Τα context graphs κάνουν τη γενεαλογία αποφάσεων αναζητήσιμη, μετατρέποντας εξαιρέσεις σε προηγούμενα και επιτρέποντας στους AI agents να κατανοούν πώς οι οργανισμοί λειτουργούν πραγματικά πέρα από τις επίσημες πολιτικές.",
     "tr": "Yalnızca ne olduğunu değil, neden olduğunu da yakalayarak zaman içinde varlıklar arasında birleştirilen karar izlerinin canlı kaydı. Bağlam grafikleri, karar soyunu sorgulanabilir hale getirir, istisnaları emsale dönüştürür ve AI ajanlarının kuruluşların resmi politikaların ötesinde gerçekte nasıl çalıştığını anlamasını sağlar."
+  },
+  "auto-regressive-model": {
+    "en-us": "A type of language model that generates text by predicting the next token based on all previous tokens in the sequence. Auto-regressive models like GPT and Claude process input sequentially, using the entire context history to inform each prediction.",
+    "el": "Ένας τύπος γλωσσικού μοντέλου που δημιουργεί κείμενο προβλέποντας το επόμενο token με βάση όλα τα προηγούμενα tokens στην ακολουθία. Τα auto-regressive μοντέλα όπως το GPT και το Claude επεξεργάζονται το input διαδοχικά, χρησιμοποιώντας ολόκληρο το ιστορικό του context για να ενημερώσουν κάθε πρόβλεψη.",
+    "tr": "Dizideki tüm önceki tokenlara dayanarak sonraki tokeni tahmin ederek metin üreten bir dil modeli türü. GPT ve Claude gibi oto-regresif modeller, her tahmini bilgilendirmek için tüm bağlam geçmişini kullanarak girdiyi sırayla işler."
+  },
+  "kv-cache": {
+    "en-us": "Key-Value cache · A memory optimization technique in transformer models that stores previously computed attention key and value matrices. KV cache enables faster inference by avoiding redundant computations, but becomes a memory bandwidth bottleneck as context windows grow.",
+    "el": "Key-Value cache · Μια τεχνική βελτιστοποίησης μνήμης σε transformer μοντέλα που αποθηκεύει προηγουμένως υπολογισμένες attention key και value matrices. Το KV cache επιτρέπει ταχύτερη inference αποφεύγοντας περιττούς υπολογισμούς, αλλά γίνεται bottleneck εύρους ζώνης μνήμης καθώς τα context windows μεγαλώνουν.",
+    "tr": "Anahtar-Değer önbelleği · Daha önce hesaplanmış dikkat anahtarı ve değer matrislerini depolayan transformer modellerinde bellek optimizasyon tekniği. KV önbelleği, gereksiz hesaplamaları önleyerek daha hızlı çıkarım sağlar, ancak bağlam pencereleri büyüdükçe bellek bant genişliği darboğazı haline gelir."
+  },
+  "mcp": {
+    "en-us": "Model Context Protocol · An open standard by Anthropic that enables AI applications to securely connect to external data sources and tools. MCP provides a standardized way for AI models to access databases, APIs, and local resources through server implementations.",
+    "el": "Model Context Protocol · Ένα ανοιχτό πρότυπο από την Anthropic που επιτρέπει στις AI εφαρμογές να συνδέονται με ασφάλεια σε εξωτερικές πηγές δεδομένων και εργαλεία. Το MCP παρέχει έναν τυποποιημένο τρόπο για τα AI μοντέλα να έχουν πρόσβαση σε βάσεις δεδομένων, APIs και τοπικούς πόρους μέσω υλοποιήσεων διακομιστή.",
+    "tr": "Model Bağlam Protokolü · AI uygulamalarının harici veri kaynaklarına ve araçlarına güvenli bir şekilde bağlanmasını sağlayan Anthropic tarafından geliştirilen açık standart. MCP, AI modellerinin sunucu uygulamaları aracılığıyla veritabanlarına, API'lere ve yerel kaynaklara erişmesi için standartlaştırılmış bir yol sağlar."
   }
 };
