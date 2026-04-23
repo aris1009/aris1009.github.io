@@ -130,6 +130,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/_static/sw.js": "sw.js" });
   eleventyConfig.addPassthroughCopy({ "src/_static/js": "js" });
   eleventyConfig.addPassthroughCopy({ "src/_static/pgp.asc": "pgp.asc" });
+  eleventyConfig.addPassthroughCopy({ "src/_static/wordlists": "wordlists" });
 
   eleventyConfig.addFilter("readableDate", filters.readableDate);
   eleventyConfig.addFilter("htmlDateString", filters.htmlDateString);
