@@ -2,9 +2,10 @@
   "type": "module",
   "scripts": {
     "dev": "run-p dev:*",
-    "build": "run-s clean detect-languages build:prism favicons css:website eleventy",
-    "build:prod": "NODE_ENV=production run-s clean detect-languages build:prism favicons eleventy css:website",
+    "build": "run-s clean detect-languages verify-wordlists build:prism favicons css:website eleventy",
+    "build:prod": "NODE_ENV=production run-s clean detect-languages verify-wordlists build:prism favicons eleventy css:website",
     "detect-languages": "node scripts/detect-prism-languages.js",
+    "verify-wordlists": "node scripts/verify-wordlists.js",
     "build:prism": "node scripts/build-prism.js",
     "favicons": "node scripts/generate-favicons.js",
     "clean": "rimraf _site",
