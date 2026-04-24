@@ -7,3 +7,8 @@ playwright-report/
 test-results/
 plans/
 research
+
+# Beads / Dolt files (added by bd init)
+.dolt/
+*.db
+.beads-credential-key
