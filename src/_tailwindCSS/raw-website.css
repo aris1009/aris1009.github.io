@@ -184,7 +184,12 @@
     font-weight: 400;
   }
 
-  /* Remove decorative backticks from Typography plugin */
+  /* Remove decorative backticks from Typography plugin.
+     The plugin emits `.prose :where(code)::before { content: "\`" }` at
+     specificity 0-1-2; an `article`/`main` selector (0-0-*) can't beat that.
+     Match `.prose` ourselves so the override wins. */
+  .prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)):not(pre code)::before,
+  .prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)):not(pre code)::after,
   article :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)):not(pre code)::before,
   article :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)):not(pre code)::after,
   main :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *)):not(pre code)::before,

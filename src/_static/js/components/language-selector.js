@@ -57,11 +57,21 @@ class LanguageSelector extends HTMLElement {
   _parsePath(path) {
     // Check if on "post-not-translated" page
     if (path.includes('/post-not-translated/')) {
-      // Try to restore original blog context from sessionStorage
+      // Blog context takes precedence (older behavior).
       const lastSlug = sessionStorage.getItem('lastViewedBlogSlug');
       if (lastSlug) {
         return { basePath: `/${lastSlug}/`, isBlog: true };
       }
+      // Fall back to the last non-blog page the user was on, so switching
+      // languages from a tool/page that lacks a translation returns them to
+      // that same page in the new language rather than stranding them on
+      // post-not-translated.
+      try {
+        const saved = sessionStorage.getItem('lastViewedBasePath');
+        if (saved) {
+          return { basePath: saved, isBlog: false };
+        }
+      } catch (e) { /* ignore */ }
     }
 
     // Check if it's a blog post
@@ -121,7 +131,24 @@ class LanguageSelector extends HTMLElement {
       } catch (e) {
         console.warn('LanguageSelector: Failed to store blog slug', e);
       }
+      return;
     }
+
+    // Non-blog page: remember the language-stripped path so that if this
+    // URL has no translation and we land on post-not-translated, switching
+    // back to another language can return to the same page.
+    if (currentPath.includes('/post-not-translated/')) return;
+    let basePath = currentPath;
+    for (const prefix of LanguageSelector.LANG_PREFIXES) {
+      if (currentPath.startsWith(prefix)) {
+        basePath = currentPath.slice(prefix.length - 1);
+        break;
+      }
+    }
+    if (!basePath || basePath === '/') return;
+    try {
+      sessionStorage.setItem('lastViewedBasePath', basePath);
+    } catch (e) { /* ignore */ }
   }
 
   disconnectedCallback() {
