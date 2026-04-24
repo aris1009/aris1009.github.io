@@ -31,7 +31,7 @@
             </theme-toggle>
             
             <!-- Language Selector -->
-            {%- set languageOptions = page.url | languageSwitcherOptions(page.lang, supportedLocales, page.url | locale_links) -%}
+            {%- set languageOptions = page.url | languageSwitcherOptions(supportedLocales, page.url | locale_links) -%}
             <language-selector>
             <div data-testid="language-selector-container" class="language-selector-container">
                 <button id="language-toggle" class="language-selector" aria-label="Select language" title="Change language">

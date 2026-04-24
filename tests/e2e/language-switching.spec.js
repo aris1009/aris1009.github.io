@@ -8,6 +8,22 @@ test.describe('Language switcher', () => {
     await page.waitForURL('/blog/el/gru-kms-windows/');
   });
 
+  test('round-trips en → el → en on a blog post without losing the slug', async ({ page }) => {
+    await page.goto('/blog/en-us/gru-kms-windows/');
+    await page.click('language-selector');
+    await page.click('[data-lang="el"]');
+    await page.waitForURL('/blog/el/gru-kms-windows/');
+
+    // On the Greek page, the en-us option must point at the English post,
+    // and the el option must point at itself (not at post-not-translated).
+    expect(await page.getAttribute('[data-lang="en-us"]', 'href')).toBe('/blog/en-us/gru-kms-windows/');
+    expect(await page.getAttribute('[data-lang="el"]', 'href')).toBe('/blog/el/gru-kms-windows/');
+
+    await page.click('language-selector');
+    await page.click('[data-lang="en-us"]');
+    await page.waitForURL('/blog/en-us/gru-kms-windows/');
+  });
+
   test('points to post-not-translated when the locale has no translation', async ({ page }) => {
     await page.goto('/blog/en-us/dealing-with-rate-limits/');
 

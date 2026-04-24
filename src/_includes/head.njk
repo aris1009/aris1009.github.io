@@ -9,11 +9,11 @@
 {%- set altLinks = page.url | locale_links -%}
 {% if altLinks.length > 0 %}
 <!-- Alternate language versions -->
-    <link rel="alternate" hreflang="{{ page.lang }}" href="{{meta.url}}{{page.url}}" />
+    <link rel="alternate" hreflang="{{ locale }}" href="{{meta.url}}{{page.url}}" />
 {% for link in altLinks %}
     <link rel="alternate" hreflang="{{ link.lang }}" href="{{meta.url}}{{link.url}}" />
 {% endfor %}
-{% if page.lang == 'en-us' %}
+{% if locale == 'en-us' %}
     <link rel="alternate" hreflang="x-default" href="{{meta.url}}{{page.url}}" />
 {% else %}{% for link in altLinks %}{% if link.lang == 'en-us' %}
     <link rel="alternate" hreflang="x-default" href="{{meta.url}}{{link.url}}" />

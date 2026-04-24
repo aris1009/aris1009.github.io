@@ -79,10 +79,12 @@ const LOCALE_FLAGS = {
   'tr': '🇹🇷'
 };
 
-export function languageSwitcherOptions(pageUrl, pageLang, supportedLocales, altLinks) {
+export function languageSwitcherOptions(pageUrl, supportedLocales, altLinks) {
+  const segments = (pageUrl || '/').split('/').filter(Boolean);
+  const currentLang = segments.find(s => supportedLocales.includes(s)) || supportedLocales[0];
   const byLang = Object.fromEntries((altLinks || []).map(l => [l.lang, l.url]));
   return supportedLocales.map(lang => {
-    const href = lang === pageLang
+    const href = lang === currentLang
       ? pageUrl
       : (byLang[lang] || `/${lang}/post-not-translated/`);
     return {
@@ -90,8 +92,8 @@ export function languageSwitcherOptions(pageUrl, pageLang, supportedLocales, alt
       flag: LOCALE_FLAGS[lang] || '',
       hreflang: LOCALE_MAP[lang] || lang,
       href,
-      current: lang === pageLang,
-      translated: lang === pageLang || Boolean(byLang[lang])
+      current: lang === currentLang,
+      translated: lang === currentLang || Boolean(byLang[lang])
     };
   });
 }
