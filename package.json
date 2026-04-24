@@ -8,6 +8,7 @@
     "verify-wordlists": "node scripts/verify-wordlists.js",
     "build:prism": "node scripts/build-prism.js",
     "favicons": "node scripts/generate-favicons.js",
+    "og:regen": "node scripts/generate-og-images.js",
     "clean": "rimraf _site",
     "css:website": "npx tailwindcss -i src/_tailwindCSS/raw-website.css -o _site/css/style.css --minify --postcss",
     "eleventy": "eleventy",

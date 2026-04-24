@@ -26,7 +26,23 @@ async function init(root) {
     return;
   }
 
+  // crypto.subtle (used to verify the wordlist hash) is a secure-context
+  // feature. On plain HTTP the API is undefined by design, in every browser,
+  // so we refuse to run rather than silently skipping integrity verification.
+  // crypto.getRandomValues itself works outside secure contexts; the blocker
+  // is the hash check, which is non-negotiable.
+  if (!window.isSecureContext || !window.crypto || !window.crypto.subtle) {
+    setStatus(
+      'This generator requires a secure context (HTTPS, or localhost). The ' +
+        'browser disables crypto.subtle on plain HTTP, so the wordlist ' +
+        'integrity check cannot run. Visit the site over HTTPS.',
+      'error'
+    );
+    return;
+  }
+
   const countEl = document.getElementById('dw-count');
+  const countValueEl = document.getElementById('dw-count-value');
   const sepEl = document.getElementById('dw-separator');
   const capEl = document.getElementById('dw-capitalize');
   const genBtn = document.getElementById('dw-generate');
@@ -37,6 +53,21 @@ async function init(root) {
   const anchorEl = document.getElementById('dw-anchor');
 
   let words = null;
+
+  // Wait for Shoelace to upgrade our custom elements so property access
+  // (sepEl.value, capEl.checked, countEl.value) returns the real values
+  // rather than the pre-upgrade defaults.
+  if (window.customElements) {
+    await Promise.all([
+      customElements.whenDefined('sl-range'),
+      customElements.whenDefined('sl-radio-group'),
+      customElements.whenDefined('sl-radio-button'),
+      customElements.whenDefined('sl-switch'),
+      customElements.whenDefined('sl-icon-button'),
+      customElements.whenDefined('sl-copy-button'),
+      customElements.whenDefined('sl-tooltip')
+    ]);
+  }
 
   try {
     const map = await loadWordlist({ url, expectedSha256 });
@@ -55,21 +86,22 @@ async function init(root) {
 
   function currentCount() {
     const raw = Number(countEl.value);
-    if (!Number.isInteger(raw)) return 6;
-    return Math.min(12, Math.max(4, raw));
+    if (!Number.isFinite(raw)) return 6;
+    return Math.min(12, Math.max(4, Math.round(raw)));
   }
 
   function generate() {
+    if (!words) return;
     const n = currentCount();
-    countEl.value = String(n);
+    countValueEl.textContent = String(n);
     const drawn = pickWords(n, words);
-    const cap = capEl.checked;
-    const sep = sepEl.value;
+    const cap = capEl.checked === true;
+    const sep = sepEl.value != null ? sepEl.value : (sepEl.getAttribute('value') || '-');
     const phrase = drawn
       .map((w) => (cap ? w[0].toUpperCase() + w.slice(1) : w))
       .join(sep);
     outEl.textContent = phrase;
-    copyBtn.disabled = false;
+    copyBtn.value = phrase;
     renderEntropy(n);
   }
 
@@ -106,18 +138,19 @@ async function init(root) {
     anchorEl.textContent = `For scale (offline fast attacker): ${anchor.phrase}.`;
   }
 
+  // Manual regenerate.
   genBtn.addEventListener('click', generate);
-  copyBtn.addEventListener('click', async () => {
-    if (!outEl.textContent.trim()) return;
-    try {
-      await navigator.clipboard.writeText(outEl.textContent);
-      const original = copyBtn.textContent;
-      copyBtn.textContent = 'Copied!';
-      setTimeout(() => { copyBtn.textContent = original; }, 1500);
-    } catch {
-      setStatus('Clipboard unavailable — select the passphrase manually.', 'error');
-    }
-  });
 
+  // Auto-regenerate on any form change. sl-range and sl-switch fire sl-change
+  // (rather than the native change event) when the user commits a value;
+  // sl-radio-group fires sl-change when the selected radio flips.
+  countEl.addEventListener('sl-change', generate);
+  countEl.addEventListener('sl-input', () => {
+    countValueEl.textContent = String(currentCount());
+  });
+  sepEl.addEventListener('sl-change', generate);
+  capEl.addEventListener('sl-change', generate);
+
+  // Initial draw.
   generate();
 }
