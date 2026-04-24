@@ -4,6 +4,12 @@ Multilingual (en-us, el, tr) security/tech blog. 11ty + Nunjucks + Tailwind, Sho
 
 Stack details and scripts: see `package.json`. Layout: see `src/` tree.
 
+## Contributing & branch policy
+
+All changes to `main` MUST land via PR — direct pushes are prohibited, including for admins ("Include administrators" is enabled). Branch protection requires the `build` check (`.github/workflows/test.yml`: production build, CSS bundle size guard, unit tests, Playwright e2e) to be green before merge. Squash-merge after green.
+
+Even for emergency fixes: open a PR. The bundle size guard rejects changes exceeding `package.json` `bundleSizeLimit.css`.
+
 ## Conventions
 
 - **Dictionary tooltips**: `{% dictionaryLink "text", "term" %}`. Test IDs follow `dictionary-{link,tooltip,emoji}-{term}`. Details in `docs/testing.md`.
