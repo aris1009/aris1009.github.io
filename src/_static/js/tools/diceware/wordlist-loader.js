@@ -73,10 +73,11 @@ export async function verifyAndParse(bytes, expectedSha256, subtle) {
  * @param {object} opts
  * @param {string} opts.url - versioned URL
  * @param {string} opts.expectedSha256 - lowercase hex digest
+ * @param {string} [opts.integrity] - SRI string (e.g. "sha256-<base64>") passed to fetch
  * @param {object} [opts.deps] - injectable for tests
  * @returns {Promise<Map<string,string>>}
  */
-export async function loadWordlist({ url, expectedSha256, deps = {} }) {
+export async function loadWordlist({ url, expectedSha256, integrity, deps = {} }) {
   const {
     fetchImpl = globalThis.fetch?.bind(globalThis),
     cachesImpl = globalThis.caches,
@@ -93,7 +94,9 @@ export async function loadWordlist({ url, expectedSha256, deps = {} }) {
     response = await cache.match(url);
   }
   if (!response) {
-    response = await fetchImpl(url, { cache: 'no-store' });
+    const fetchOpts = { cache: 'no-store' };
+    if (integrity) fetchOpts.integrity = integrity;
+    response = await fetchImpl(url, fetchOpts);
     if (!response.ok) {
       throw new Error(`wordlist fetch failed: ${response.status} ${response.statusText}`);
     }
