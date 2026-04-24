@@ -3,6 +3,12 @@
 ## Project Overview
 This is a multilingual security and technology blog built with modern web technologies, supporting English, Greek, and Turkish languages.
 
+## Contributing & Branch Policy
+
+All changes to `main` MUST land via pull request — direct pushes are prohibited, including for repository administrators. Branch protection on `main` enforces this and requires the `build` status check (defined in `.github/workflows/test.yml`, which runs the production build, CSS bundle size check, unit tests, and Playwright e2e tests) to pass before a PR can be merged. "Include administrators" is enabled on the protection rule, so admin bypass is disabled by policy.
+
+Workflow: branch from `main`, open a PR, wait for the `build` check to go green, then squash-merge. If you need to ship an emergency fix, still open a PR — do not push directly. The bundle size guard in the `build` job will reject changes that exceed `package.json` `bundleSizeLimit.css`, so size regressions are caught before merge rather than after.
+
 ## Technologies Used
 
 ### Core Framework
