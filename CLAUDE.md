@@ -206,6 +206,15 @@ const tooltip = page.getByTestId('dictionary-tooltip-encryption');
 
 `tests/e2e/visual-regression.spec.js` captures full-page screenshots of CSS-sensitive pages (home, a prose blog post, the diceware tool, the dictionary, and a TOC + mermaid post) across light/dark themes and three viewports (375, 768, 1440). Baselines live alongside the spec under `tests/e2e/visual-regression.spec.js-snapshots/` and are committed to the repo. CI fails on any pixel diff over Playwright's default threshold. To regenerate baselines after an intentional CSS change, run `npx playwright test visual-regression --update-snapshots` locally on Linux (CI also runs on Linux, so the baselines should match), then review and commit the updated PNGs.
 
+## CSS Hygiene
+
+Two gates protect the CSS bundle from drift:
+
+- `npm run lint:css` — Stylelint over `src/_tailwindCSS/**/*.css`. Catches duplicate properties, invalid hex, empty blocks, unknown properties/pseudo-elements. Config in `.stylelintrc.cjs` disables rules that fight Tailwind/`@apply` idioms (each disable is commented inline). Runs in pre-commit and CI.
+- `npm run analyze:css` — Project Wallace (`scripts/analyze-css.js`) over the BUILT `_site/css/style.css`. Compares selector count, max specificity, declarations, important count, unique colors, and declared/used/orphan custom properties against thresholds in `wallace-thresholds.json`. CI-only (requires a build).
+
+Trim PRs should ratchet `wallace-thresholds.json` downward as they trim, parallel to `bundleSizeLimit.css` in `package.json`. The thresholds are a one-way ratchet: only loosen with explicit cause.
+
 ## Build Process
 
 1. **CSS Generation**: Tailwind processes `src/_tailwindCSS/raw-website.css`
