@@ -1,0 +1,5 @@
+#!/bin/sh
+# Beads hook chain — see CLAUDE.md "Git hooks and beads".
+if command -v bd >/dev/null 2>&1; then
+  BD_GIT_HOOK=1 bd hooks run post-checkout "$@" || exit $?
+fi

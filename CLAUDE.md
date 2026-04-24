@@ -256,6 +256,14 @@ bd close <id>         # Complete work
 - Run `bd prime` for detailed command reference and session close protocol
 - Use `bd remember` for persistent knowledge — do NOT use MEMORY.md files
 
+### Git hooks and beads
+
+This repo uses Husky, which sets `core.hooksPath=.husky/_`. That means git **only** runs hooks from `.husky/_` and ignores both `.git/hooks/` and `.beads/hooks/`. `bd hooks list` will still report hooks as "installed" because the files exist on disk — but git never calls them unless they're chained from husky.
+
+Each file in `.husky/` invokes `bd hooks run <name>` so beads can auto-export `.beads/issues.jsonl` and stage it into the current commit. Without this, `issues.jsonl` stays dirty in the working tree after every `bd` action and has to be committed by hand.
+
+**If you add or regenerate husky hooks** (humans or agents): keep the `bd hooks run …` block at the top of each hook file (`pre-commit`, `pre-push`, `post-merge`, `post-checkout`, `prepare-commit-msg`). If `bd hooks list` looks green but `issues.jsonl` keeps showing up in `git status` after bd commands, the chain is broken — check `core.hooksPath` and the husky hook files first.
+
 ## Session Completion
 
 **When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
