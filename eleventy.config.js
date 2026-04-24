@@ -3,7 +3,6 @@ import navigationPlugin from "@11ty/eleventy-navigation";
 import sitemap from "@quasibit/eleventy-plugin-sitemap";
 import i18n from "eleventy-plugin-i18n";
 import { I18nPlugin } from "@11ty/eleventy";
-import pluginMermaid from "@kevingimbel/eleventy-plugin-mermaid";
 import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
 import pluginTOC from "eleventy-plugin-toc";
@@ -72,62 +71,34 @@ export default function (eleventyConfig) {
     defaultLanguage: "en-us"
   });
 
-  eleventyConfig.addPlugin(pluginMermaid, {
-    mermaid_config: {
-      startOnLoad: true,
-      theme: 'base',
-      themeVariables: {
-        // Light mode defaults (matches blog zinc/slate/sky palette)
-        background: '#f4f4f5',
-        primaryColor: '#e0f2fe',
-        secondaryColor: '#f0f9ff',
-        tertiaryColor: '#f8fafc',
-        primaryTextColor: '#0f172a',
-        secondaryTextColor: '#334155',
-        lineColor: '#64748b',
-        primaryBorderColor: '#94a3b8',
-        mainBkg: '#e0f2fe',
-        nodeBorder: '#0284c7',
-        actorBkg: '#f1f5f9',
-        actorBorder: '#64748b',
-        actorTextColor: '#0f172a',
-        actorLineColor: '#64748b',
-        signalColor: '#0f172a',
-        signalTextColor: '#0f172a',
-        labelBoxBkgColor: '#e0f2fe',
-        labelTextColor: '#0f172a',
-        loopTextColor: '#0f172a',
-        noteBkgColor: '#fef9c3',
-        noteTextColor: '#713f12',
-        noteBorderColor: '#fbbf24',
-        fontFamily: 'ui-sans-serif, system-ui, sans-serif'
-      }
-    }
+  // Mermaid: self-hosted. We drop @kevingimbel/eleventy-plugin-mermaid because
+  // its mermaid_js shortcode imports from https://unpkg.com/..., which is
+  // blocked by the site CSP (script-src 'self' https://cdn.jsdelivr.net ...).
+  // Instead, scripts/build-mermaid.js Rollup-bundles mermaid from node_modules
+  // into /_static/js/vendor/mermaid/ and we emit a same-origin <script>.
+  // Themeing is handled at runtime by src/_static/js/mermaid-theme-sync.js.
+  eleventyConfig.addShortcode("mermaid_js", () => {
+    return '<script type="module" src="/_static/js/vendor/mermaid/index.js"></script>';
   });
 
-  // Add language- prefix to code blocks for Prism.js compatibility
-  // This must come AFTER mermaid plugin so mermaid blocks are handled first
-  const existingHighlighter = eleventyConfig.markdownHighlighter;
+  // Markdown highlighter for fenced ```mermaid blocks: emit <pre class="mermaid">
+  // so mermaid.run() picks it up. (Replaces the highlighter the plugin used to
+  // register.) Prism language prefixing for other languages is handled below.
+
   eleventyConfig.addMarkdownHighlighter((str, language) => {
-    // Let previous highlighters (like mermaid) handle their languages first
-    if (existingHighlighter) {
-      const result = existingHighlighter(str, language);
-      // If the previous highlighter returned something other than the default,
-      // use that result (e.g., mermaid's <pre class="mermaid">)
-      if (result && !result.includes(`class="${language}"`)) {
-        return result;
-      }
+    const escape = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    // Mermaid fenced blocks → <pre class="mermaid"> for mermaid.run() to pick up.
+    if (language === 'mermaid') {
+      return `<pre class="mermaid">${escape(str)}</pre>`;
     }
 
-    // Add language- prefix for Prism.js
+    // Prism.js language-prefixed class for syntax-highlighted blocks.
     if (language) {
-      const escaped = str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-      return `<pre class="language-${language}"><code class="language-${language}">${escaped}</code></pre>`;
+      return `<pre class="language-${language}"><code class="language-${language}">${escape(str)}</code></pre>`;
     }
 
-    // No language specified
-    const escaped = str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    return `<pre><code>${escaped}</code></pre>`;
+    return `<pre><code>${escape(str)}</code></pre>`;
   });
 
   eleventyConfig.addPassthroughCopy("src/_static");
