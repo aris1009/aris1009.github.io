@@ -65,6 +65,16 @@ export default {
       'en-us': 'Security',
       'el': 'Ασφάλεια',
       'tr': 'Güvenlik'
+    },
+    diceware: {
+      'en-us': 'Diceware',
+      'el': 'Diceware',
+      'tr': 'Diceware'
+    },
+    tools: {
+      'en-us': 'Tools',
+      'el': 'Εργαλεία',
+      'tr': 'Araçlar'
     }
   },
 

@@ -2,18 +2,42 @@
 layout: page.njk
 permalink: "/en-us/tools/diceware/"
 locale: en-us
-title: "Diceware Passphrase Generator"
+title: "Diceware passphrase generator"
 description: "Generate strong diceware passphrases entirely in your browser using the EFF large wordlist and a CSPRNG."
-eleventyExcludeFromCollections: true
 ---
 
-<article class="prose dark:prose-invert mx-auto max-w-3xl px-4 py-10">
-  <h1 class="text-4xl font-bold mb-4">Diceware Passphrase Generator</h1>
+<style>
+  .dw-prose code,
+  .dw-prose a {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  .dw-output {
+    overflow-wrap: anywhere;
+  }
+</style>
+
+<article class="dw-prose prose dark:prose-invert mx-auto max-w-3xl px-4 py-10">
+  <h1 class="text-4xl font-bold mb-4">Diceware passphrase generator</h1>
+
+  <p class="text-sm italic text-zinc-500 dark:text-zinc-400 mb-4">
+    This tool is currently available in English only.
+  </p>
+
+  <noscript>
+    <div class="my-4 rounded border border-amber-500 bg-amber-50 dark:bg-amber-950 p-3 text-sm text-amber-900 dark:text-amber-200">
+      This generator runs entirely in your browser and needs JavaScript (and
+      HTTPS) to verify the wordlist hash and draw random words. Please enable
+      JavaScript to use it.
+    </div>
+  </noscript>
   <p class="text-zinc-600 dark:text-zinc-300">
-    Everything runs in your browser. No passphrase, seed, or request leaves this page.
-    The word list is the
+    Pick a length, pick a separator, hit regenerate. Everything runs in your
+    browser· no passphrase, no seed, nothing that looks like one, ever leaves
+    the page. Words come from the
     <a href="https://www.eff.org/dice" rel="noopener">EFF large wordlist</a>
-    (7,776 words), bundled with this site so you can verify exactly what you ran.
+    (7,776 words). I bundled a copy with this site so you can audit what you
+    actually ran.
   </p>
 
   <section id="diceware-app"
@@ -21,49 +45,62 @@ eleventyExcludeFromCollections: true
            data-wordlist-url="{{ wordlists.eff_large_v1.url }}"
            data-wordlist-sha256="{{ wordlists.eff_large_v1.sha256 }}">
 
-    <div id="diceware-status" class="mb-4 text-sm text-zinc-500 dark:text-zinc-400" role="status" aria-live="polite">
+    <div id="diceware-status"
+         class="mb-4 text-sm text-zinc-500 dark:text-zinc-400"
+         role="status" aria-live="polite">
       Loading wordlist…
     </div>
 
-    <div class="grid gap-4 md:grid-cols-3 mb-4">
-      <label class="flex flex-col text-sm">
-        <span class="mb-1 font-medium">Word count</span>
-        <input id="dw-count" type="number" min="4" max="12" value="6"
-               class="rounded border border-zinc-300 dark:border-zinc-600 bg-transparent px-3 py-2" />
-      </label>
-
-      <label class="flex flex-col text-sm">
-        <span class="mb-1 font-medium">Separator</span>
-        <select id="dw-separator" class="rounded border border-zinc-300 dark:border-zinc-600 bg-transparent px-3 py-2">
-          <option value=" ">space</option>
-          <option value="-" selected>dash</option>
-          <option value=".">dot</option>
-        </select>
-      </label>
-
-      <label class="flex items-end gap-2 text-sm">
-        <input id="dw-capitalize" type="checkbox" class="h-4 w-4" />
-        <span class="font-medium">Capitalize each word</span>
-      </label>
+    <div class="relative mb-6">
+      <pre id="dw-output" class="dw-output font-mono text-lg break-all rounded bg-zinc-50 dark:bg-zinc-800 py-3 pl-4 pr-12 min-h-[3rem] whitespace-pre-wrap" data-testid="dw-output"> </pre>
+      <sl-copy-button id="dw-copy"
+                      class="dw-copy-btn"
+                      style="position:absolute; top:0.5rem; right:0.5rem; z-index:10;"
+                      value=""
+                      copy-label="Copy passphrase"
+                      success-label="Copied!"
+                      error-label="Copy failed"
+                      feedback-duration="1500"
+                      data-testid="dw-copy"></sl-copy-button>
     </div>
 
-    <div class="flex gap-2 mb-4">
-      <button id="dw-generate" type="button" disabled
-              class="rounded bg-sky-600 hover:bg-sky-700 disabled:opacity-50 text-white px-4 py-2 font-medium">
-        Generate
-      </button>
-      <button id="dw-copy" type="button" disabled
-              class="rounded border border-zinc-300 dark:border-zinc-600 px-4 py-2 font-medium">
-        Copy
-      </button>
+    <div class="flex flex-col gap-5">
+      <!-- Row 1: length slider -->
+      <div class="flex flex-col gap-1">
+        <label for="dw-count" class="text-sm font-medium text-zinc-700 dark:text-zinc-200">
+          Length: <span id="dw-count-value" data-testid="dw-count-value">6</span> words
+        </label>
+        <sl-range id="dw-count"
+                  min="4" max="12" step="1" value="6"
+                  tooltip="top"
+                  data-testid="dw-count"></sl-range>
+      </div>
+
+      <!-- Row 2: separator button group -->
+      <div class="flex flex-col gap-1">
+        <span class="text-sm font-medium text-zinc-700 dark:text-zinc-200">Separator</span>
+        <sl-radio-group id="dw-separator" value="-" data-testid="dw-separator">
+          <sl-radio-button value=" ">space</sl-radio-button>
+          <sl-radio-button value="-">dash</sl-radio-button>
+          <sl-radio-button value=".">dot</sl-radio-button>
+        </sl-radio-group>
+      </div>
+
+      <!-- Row 3: capitalize toggle + regenerate button, flex space between -->
+      <div class="flex items-center justify-between gap-4">
+        <sl-switch id="dw-capitalize" data-testid="dw-capitalize">Capitalize each word</sl-switch>
+        <sl-tooltip content="Generate">
+          <sl-icon-button id="dw-generate"
+                          name="arrow-clockwise"
+                          label="Generate"
+                          disabled
+                          data-testid="dw-generate"
+                          class="dw-generate-btn"></sl-icon-button>
+        </sl-tooltip>
+      </div>
     </div>
 
-    <output id="dw-output" for="dw-generate"
-            class="block font-mono text-lg break-all rounded bg-zinc-50 dark:bg-zinc-800 px-4 py-3 min-h-[3rem]">
-      &nbsp;
-    </output>
-
-    <dl id="dw-entropy" class="mt-4 text-sm">
+    <dl id="dw-entropy" class="mt-6 text-sm">
       <dt class="inline font-medium">Entropy:</dt>
       <dd id="dw-entropy-value" class="inline">—</dd>
     </dl>
@@ -75,45 +112,45 @@ eleventyExcludeFromCollections: true
 
   <h2>What is diceware?</h2>
   <p>
-    Diceware builds a passphrase by picking random words from a fixed list. With
-    the EFF large list of 7,776 words, each word contributes log₂(7776) ≈ 12.925
-    bits of entropy, so a six-word passphrase has about 77.5 bits — enough to
-    resist offline cracking even against well-funded attackers, and far easier
-    to remember than random characters.
+    Diceware is the idea of building a passphrase by picking random words from
+    a fixed list. The EFF large list has 7,776 words, so each word you draw
+    adds log₂(7776) ≈ 12.925 bits of entropy. Six words gets you about 77.5
+    bits· enough to survive offline cracking, and a lot easier to remember
+    than a random string of characters.
   </p>
 
   <h2>Where does the list come from?</h2>
   <p>
-    The wordlist is the EFF large wordlist for passphrases (published 2016-07-18),
-    licensed under CC-BY-3.0. A copy lives in this site's repository at
-    <code>{{ wordlists.eff_large_v1.url }}</code> so you can audit exactly what
-    you ran. The SHA-256 of that file is pinned in the page source
-    (<code>{{ wordlists.eff_large_v1.sha256 }}</code>) and verified by your
-    browser before any word is drawn — if the file has been tampered with, the
-    generator refuses to run. Upstream source:
+    It's the EFF large wordlist for passphrases, published 2016-07-18 under
+    CC-BY-3.0. A copy lives in this site's repository at
+    <code>{{ wordlists.eff_large_v1.url }}</code>, and its SHA-256 is pinned in
+    the page source (<code>{{ wordlists.eff_large_v1.sha256 }}</code>). Your
+    browser verifies that hash before drawing a single word; if the file on
+    disk doesn't match, the generator refuses to run. Upstream source:
     <a href="https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt" rel="noopener">eff.org/files/2016/07/18/eff_large_wordlist.txt</a>.
   </p>
 
   <h2>How random is this, really?</h2>
   <p>
-    Words are drawn with <code>crypto.getRandomValues</code> — the browser's
-    cryptographically secure RNG — using rejection sampling to guarantee a
-    uniform distribution over the 7,776 words. No <code>Math.random</code>,
-    no predictable seeds. The page ships no telemetry and makes no network
-    requests after the wordlist loads (subsequent visits serve it from your
-    browser's Cache Storage).
+    Words are drawn with <code>crypto.getRandomValues</code>, the browser's
+    cryptographically secure RNG. The code uses rejection sampling so the
+    distribution over the 7,776 words stays exactly uniform; there is no
+    <code>Math.random</code> anywhere, and nothing is seeded from anything
+    predictable. After the first load the wordlist sits in your browser's
+    Cache Storage, so revisiting the page makes no network request at all.
   </p>
 
   <h2>What the crack-time figures mean</h2>
   <p>
-    The numbers above are rough average-case estimates: time to brute-force an
-    unknown passphrase, assuming the attacker knows it's a diceware phrase of
-    the shown length. Three attacker profiles are shown — an online service that
-    throttles to ~10 guesses/sec, an offline attacker against a fast hash like
-    NTLM (~10<sup>11</sup> guesses/sec on a modern GPU), and an offline attacker
-    against a slow KDF like argon2 or bcrypt with sensible parameters
-    (~10<sup>4</sup> guesses/sec). Real-world attacker rates vary, so treat
-    these as order-of-magnitude figures.
+    The numbers above are average-case estimates for brute-forcing an unknown
+    passphrase, given that the attacker already knows it's a diceware phrase
+    of the shown length. The three rows cover the attacker profiles that tend
+    to matter in practice: an online service throttling to ~10 guesses/sec;
+    an offline attacker hammering a fast hash like NTLM at ~10<sup>11</sup>
+    guesses/sec on a modern GPU; and an offline attacker up against a slow KDF
+    like argon2 or bcrypt, which holds them to ~10<sup>4</sup> guesses/sec if
+    the parameters are sensible. Real attacker rates vary, so treat these as
+    orders of magnitude, not precision figures.
   </p>
 </article>
 
