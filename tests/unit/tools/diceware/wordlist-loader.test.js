@@ -134,6 +134,41 @@ describe('loadWordlist', () => {
     expect(fetchCount).toBe(1); // served from cache
   });
 
+  it('passes integrity string through to fetch when provided', async () => {
+    const url = '/wordlists/eff_large_wordlist-v1.txt';
+    const integrity = 'sha256-rd01U2URWXoC+gqf8eUoRne4iDuD6YbkPxWj25lrkD4=';
+    let seenOpts = null;
+    const fetchImpl = async (_url, opts) => {
+      seenOpts = opts;
+      return makeFakeResponse(WORDLIST_BYTES);
+    };
+
+    await loadWordlist({
+      url,
+      expectedSha256: WORDLIST_SHA256,
+      integrity,
+      deps: { fetchImpl, cachesImpl: makeFakeCache(), subtle: webcrypto.subtle }
+    });
+    expect(seenOpts.integrity).toBe(integrity);
+    expect(seenOpts.cache).toBe('no-store');
+  });
+
+  it('omits integrity when not provided', async () => {
+    const url = '/wordlists/eff_large_wordlist-v1.txt';
+    let seenOpts = null;
+    const fetchImpl = async (_url, opts) => {
+      seenOpts = opts;
+      return makeFakeResponse(WORDLIST_BYTES);
+    };
+
+    await loadWordlist({
+      url,
+      expectedSha256: WORDLIST_SHA256,
+      deps: { fetchImpl, cachesImpl: makeFakeCache(), subtle: webcrypto.subtle }
+    });
+    expect(seenOpts).not.toHaveProperty('integrity');
+  });
+
   it('propagates integrity errors without populating cache', async () => {
     const url = '/wordlists/eff_large_wordlist-v1.txt';
     const fetchImpl = async () => makeFakeResponse(WORDLIST_BYTES);

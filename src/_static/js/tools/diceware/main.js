@@ -21,6 +21,7 @@ function setStatus(message, kind = 'info') {
 async function init(root) {
   const url = root.dataset.wordlistUrl;
   const expectedSha256 = root.dataset.wordlistSha256;
+  const integrity = root.dataset.wordlistIntegrity;
   if (!url || !expectedSha256) {
     setStatus('Page misconfigured: wordlist metadata missing.', 'error');
     return;
@@ -70,7 +71,7 @@ async function init(root) {
   }
 
   try {
-    const map = await loadWordlist({ url, expectedSha256 });
+    const map = await loadWordlist({ url, expectedSha256, integrity });
     words = wordlistMapToArray(map);
     setStatus(`Wordlist loaded (${words.length} words, integrity verified).`);
     genBtn.disabled = false;
@@ -138,6 +139,11 @@ async function init(root) {
     anchorEl.textContent = `For scale (offline fast attacker): ${anchor.phrase}.`;
   }
 
+  function clearPhrase() {
+    outEl.textContent = '';
+    if (copyBtn) copyBtn.value = '';
+  }
+
   // Manual regenerate.
   genBtn.addEventListener('click', generate);
 
@@ -151,6 +157,11 @@ async function init(root) {
   sepEl.addEventListener('sl-change', generate);
   capEl.addEventListener('sl-change', generate);
 
-  // Initial draw.
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) clearPhrase();
+  });
+  window.addEventListener('pagehide', clearPhrase);
+  window.addEventListener('pageshow', generate);
+
   generate();
 }
