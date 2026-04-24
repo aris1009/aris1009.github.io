@@ -73,24 +73,27 @@ export function getDictionaryTerms(dictionaryData, locale = DEFAULT_LOCALE) {
     .sort((a, b) => a.key.localeCompare(b.key, LOCALE_MAP[locale] || LOCALE_MAP[DEFAULT_LOCALE]));
 }
 
-export function getAlternateLanguages(allPosts, pageUrl) {
-  if (!pageUrl?.startsWith('/blog/') || !Array.isArray(allPosts)) {
-    return [];
-  }
+const LOCALE_FLAGS = {
+  'en-us': '🇺🇸',
+  'el': '🇬🇷',
+  'tr': '🇹🇷'
+};
 
-  const urlParts = pageUrl.split('/').filter(Boolean);
-  const slug = urlParts[urlParts.length - 1];
-
-  return allPosts
-    .filter(post => {
-      const postSlug = post.url.split('/').filter(Boolean).pop();
-      return postSlug === slug;
-    })
-    .map(post => ({
-      locale: post.data.locale,
-      hreflang: LOCALE_MAP[post.data.locale] || post.data.locale,
-      url: post.url
-    }));
+export function languageSwitcherOptions(pageUrl, pageLang, supportedLocales, altLinks) {
+  const byLang = Object.fromEntries((altLinks || []).map(l => [l.lang, l.url]));
+  return supportedLocales.map(lang => {
+    const href = lang === pageLang
+      ? pageUrl
+      : (byLang[lang] || `/${lang}/post-not-translated/`);
+    return {
+      lang,
+      flag: LOCALE_FLAGS[lang] || '',
+      hreflang: LOCALE_MAP[lang] || lang,
+      href,
+      current: lang === pageLang,
+      translated: lang === pageLang || Boolean(byLang[lang])
+    };
+  });
 }
 
 export function match(content, pattern) {
