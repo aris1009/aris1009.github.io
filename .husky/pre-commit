@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# Beads: export + stage issues.jsonl so it rides with this commit.
+# See CLAUDE.md "Git hooks and beads" for why this lives here.
+if command -v bd >/dev/null 2>&1; then
+  BD_GIT_HOOK=1 bd hooks run pre-commit "$@" || exit $?
+fi
+
 # Run tests first (original husky behavior)
 npm test
 if [ $? -ne 0 ]; then
