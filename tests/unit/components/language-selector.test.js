@@ -379,13 +379,55 @@ describe('LanguageSelector Web Component', () => {
       expect(mockSessionStorage.setItem).toHaveBeenCalledWith('lastViewedBlogSlug', 'gru-kms-windows');
     });
 
-    it('should not store anything when not on blog page', () => {
-      window.location.pathname = '/en-us/about/';
+    it('should store language-stripped base path for non-blog pages', () => {
+      window.location.pathname = '/en-us/tools/diceware/';
+
+      const selector = new LanguageSelector();
+      selector._trackCurrentBlog();
+
+      expect(mockSessionStorage.setItem).toHaveBeenCalledWith('lastViewedBasePath', '/tools/diceware/');
+      expect(mockSessionStorage.setItem).not.toHaveBeenCalledWith('lastViewedBlogSlug', expect.anything());
+    });
+
+    it('should not store anything on the home page', () => {
+      window.location.pathname = '/en-us/';
 
       const selector = new LanguageSelector();
       selector._trackCurrentBlog();
 
       expect(mockSessionStorage.setItem).not.toHaveBeenCalled();
+    });
+
+    it('should not store anything on post-not-translated', () => {
+      window.location.pathname = '/en-us/post-not-translated/';
+
+      const selector = new LanguageSelector();
+      selector._trackCurrentBlog();
+
+      expect(mockSessionStorage.setItem).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('_parsePath - non-blog post-not-translated restoration', () => {
+    it('should restore non-blog base path from sessionStorage', () => {
+      mockSessionStorage.store['lastViewedBasePath'] = '/tools/diceware/';
+
+      const selector = new LanguageSelector();
+      const result = selector._parsePath('/el/post-not-translated/');
+
+      expect(result.isBlog).toBe(false);
+      expect(result.basePath).toBe('/tools/diceware/');
+    });
+
+    it('should prefer blog slug over base path when both are stored', () => {
+      mockSessionStorage.store['lastViewedBlogSlug'] = 'gru-kms-windows';
+      mockSessionStorage.store['lastViewedBasePath'] = '/tools/diceware/';
+
+      const selector = new LanguageSelector();
+      const result = selector._parsePath('/el/post-not-translated/');
+
+      expect(result.isBlog).toBe(true);
+      expect(result.basePath).toBe('/gru-kms-windows/');
     });
   });
 
