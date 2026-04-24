@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { readableDate, htmlDateString, head, min, filterTagList, localizedReadingTime, getAlternateLanguages } from 'src/lib/filters.js';
+import { readableDate, htmlDateString, head, min, filterTagList, localizedReadingTime, languageSwitcherOptions } from 'src/lib/filters.js';
 
 describe('filters', () => {
   describe('readableDate', () => {
@@ -110,48 +110,66 @@ describe('filters', () => {
     });
   });
 
-  describe('getAlternateLanguages', () => {
-    const mockPosts = [
-      { url: '/blog/en-us/test-post/', data: { locale: 'en-us' } },
-      { url: '/blog/el/test-post/', data: { locale: 'el' } },
-      { url: '/blog/tr/test-post/', data: { locale: 'tr' } },
-      { url: '/blog/en-us/another-post/', data: { locale: 'en-us' } }
-    ];
+  describe('languageSwitcherOptions', () => {
+    const supportedLocales = ['en-us', 'el', 'tr'];
 
-    it('should return all language versions for a post with translations', () => {
-      const result = getAlternateLanguages(mockPosts, '/blog/en-us/test-post/');
-      expect(result).toHaveLength(3);
-      expect(result).toContainEqual({ locale: 'en-us', hreflang: 'en-US', url: '/blog/en-us/test-post/' });
-      expect(result).toContainEqual({ locale: 'el', hreflang: 'el', url: '/blog/el/test-post/' });
-      expect(result).toContainEqual({ locale: 'tr', hreflang: 'tr', url: '/blog/tr/test-post/' });
+    it('derives the current locale from the URL, not from a caller-supplied lang', () => {
+      const result = languageSwitcherOptions('/blog/el/gru-kms-windows/', supportedLocales, [
+        { lang: 'en-us', url: '/blog/en-us/gru-kms-windows/' },
+        { lang: 'tr', url: '/blog/tr/gru-kms-windows/' }
+      ]);
+
+      expect(result[0]).toMatchObject({ lang: 'en-us', href: '/blog/en-us/gru-kms-windows/', current: false });
+      expect(result[1]).toMatchObject({ lang: 'el', href: '/blog/el/gru-kms-windows/', current: true });
+      expect(result[2]).toMatchObject({ lang: 'tr', href: '/blog/tr/gru-kms-windows/', current: false });
     });
 
-    it('should return single item for post without translations', () => {
-      const result = getAlternateLanguages(mockPosts, '/blog/en-us/another-post/');
-      expect(result).toHaveLength(1);
-      expect(result[0]).toEqual({ locale: 'en-us', hreflang: 'en-US', url: '/blog/en-us/another-post/' });
+    it('treats a non-blog page URL like /el/about/ the same way', () => {
+      const result = languageSwitcherOptions('/el/about/', supportedLocales, [
+        { lang: 'en-us', url: '/en-us/about/' },
+        { lang: 'tr', url: '/tr/about/' }
+      ]);
+
+      expect(result[0]).toMatchObject({ lang: 'en-us', current: false, href: '/en-us/about/' });
+      expect(result[1]).toMatchObject({ lang: 'el', current: true, href: '/el/about/' });
     });
 
-    it('should return empty array for non-blog pages', () => {
-      expect(getAlternateLanguages(mockPosts, '/en-us/about/')).toEqual([]);
-      expect(getAlternateLanguages(mockPosts, '/')).toEqual([]);
-      expect(getAlternateLanguages(mockPosts, '/el/dictionary/')).toEqual([]);
+    it('falls back to post-not-translated for locales with no alternate', () => {
+      const result = languageSwitcherOptions('/en-us/tools/diceware/', supportedLocales, []);
+
+      expect(result[0].href).toBe('/en-us/tools/diceware/');
+      expect(result[1]).toMatchObject({ lang: 'el', href: '/el/post-not-translated/', translated: false });
+      expect(result[2]).toMatchObject({ lang: 'tr', href: '/tr/post-not-translated/', translated: false });
     });
 
-    it('should return empty array when allPosts is not an array', () => {
-      expect(getAlternateLanguages(null, '/blog/en-us/test-post/')).toEqual([]);
-      expect(getAlternateLanguages(undefined, '/blog/en-us/test-post/')).toEqual([]);
-      expect(getAlternateLanguages({}, '/blog/en-us/test-post/')).toEqual([]);
+    it('mixes real alternates with fallbacks when some translations exist', () => {
+      const result = languageSwitcherOptions(
+        '/blog/en-us/gru-kms-windows/',
+        supportedLocales,
+        [{ lang: 'el', url: '/blog/el/gru-kms-windows/' }]
+      );
+
+      expect(result[1]).toMatchObject({ lang: 'el', href: '/blog/el/gru-kms-windows/', translated: true });
+      expect(result[2]).toMatchObject({ lang: 'tr', href: '/tr/post-not-translated/', translated: false });
     });
 
-    it('should return empty array when pageUrl is undefined', () => {
-      expect(getAlternateLanguages(mockPosts, undefined)).toEqual([]);
-      expect(getAlternateLanguages(mockPosts, null)).toEqual([]);
+    it('tolerates missing altLinks argument', () => {
+      const result = languageSwitcherOptions('/en-us/', supportedLocales);
+      expect(result.map(o => o.translated)).toEqual([true, false, false]);
     });
 
-    it('should match posts by slug only, ignoring locale path', () => {
-      const result = getAlternateLanguages(mockPosts, '/blog/el/test-post/');
-      expect(result).toHaveLength(3);
+    it('defaults the root URL to the first supported locale (en-us)', () => {
+      const result = languageSwitcherOptions('/', supportedLocales, []);
+      expect(result[0].current).toBe(true);
+      expect(result[0].href).toBe('/');
+    });
+
+    it('attaches a flag and hreflang to each option', () => {
+      const result = languageSwitcherOptions('/en-us/about/', supportedLocales, []);
+      expect(result[0].flag).toBe('🇺🇸');
+      expect(result[1].flag).toBe('🇬🇷');
+      expect(result[2].flag).toBe('🇹🇷');
+      expect(result[0].hreflang).toBe('en-US');
     });
   });
 });

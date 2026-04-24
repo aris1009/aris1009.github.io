@@ -1,103 +1,27 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
-/**
- * Unit tests for language-selector web component
- */
-
 describe('LanguageSelector Web Component', () => {
   let LanguageSelector;
-  let mockDisplay;
   let mockContainer;
   let mockOptions;
-  let mockLocalStorage;
-
-  let mockSessionStorage;
 
   beforeEach(async () => {
     vi.resetModules();
 
-    // Mock localStorage
-    mockLocalStorage = {
-      store: {},
-      getItem: vi.fn((key) => mockLocalStorage.store[key] || null),
-      setItem: vi.fn((key, value) => { mockLocalStorage.store[key] = value; })
-    };
-    vi.stubGlobal('localStorage', mockLocalStorage);
+    mockContainer = { style: { pointerEvents: '' } };
 
-    // Mock sessionStorage
-    mockSessionStorage = {
-      store: {},
-      getItem: vi.fn((key) => mockSessionStorage.store[key] || null),
-      setItem: vi.fn((key, value) => { mockSessionStorage.store[key] = value; })
-    };
-    vi.stubGlobal('sessionStorage', mockSessionStorage);
+    mockOptions = ['en-us', 'el', 'tr'].map(lang => ({
+      getAttribute: vi.fn(() => lang),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn()
+    }));
 
-    // Mock display element
-    mockDisplay = {
-      firstChild: null,
-      appendChild: vi.fn(),
-      removeChild: vi.fn()
-    };
-
-    // Mock container
-    mockContainer = {
-      style: { pointerEvents: '' }
-    };
-
-    // Mock options (language links)
-    mockOptions = [
-      {
-        getAttribute: vi.fn(() => 'en-us'),
-        addEventListener: vi.fn(),
-        removeEventListener: vi.fn(),
-        href: ''
-      },
-      {
-        getAttribute: vi.fn(() => 'el'),
-        addEventListener: vi.fn(),
-        removeEventListener: vi.fn(),
-        href: ''
-      },
-      {
-        getAttribute: vi.fn(() => 'tr'),
-        addEventListener: vi.fn(),
-        removeEventListener: vi.fn(),
-        href: ''
-      }
-    ];
-
-    // Mock document
-    const mockDocument = {
-      createElement: vi.fn(() => ({
-        className: '',
-        textContent: ''
-      }))
-    };
-    vi.stubGlobal('document', mockDocument);
-
-    // Mock window.location
-    vi.stubGlobal('window', {
-      location: { pathname: '/en-us/about/' }
-    });
-
-    // Mock console
-    vi.stubGlobal('console', { warn: vi.fn() });
-
-    // Mock HTMLElement
     class MockHTMLElement {
-      constructor() {
-        this._container = null;
-        this._display = null;
-        this._options = [];
-      }
       querySelector(selector) {
-        if (selector === '.language-selector-container') return mockContainer;
-        if (selector === '#current-language') return mockDisplay;
-        return null;
+        return selector === '.language-selector-container' ? mockContainer : null;
       }
       querySelectorAll(selector) {
-        if (selector === '.language-option') return mockOptions;
-        return [];
+        return selector === '.language-option' ? mockOptions : [];
       }
       dispatchEvent() {}
     }
@@ -112,7 +36,6 @@ describe('LanguageSelector Web Component', () => {
     });
     vi.stubGlobal('customElements', { define: vi.fn() });
 
-    // Import the module
     const module = await import('src/_static/js/components/language-selector.js');
     LanguageSelector = module.LanguageSelector;
   });
@@ -122,332 +45,61 @@ describe('LanguageSelector Web Component', () => {
     vi.unstubAllGlobals();
   });
 
-  describe('LANGUAGES constant', () => {
-    it('should have en-us, el, and tr languages', () => {
-      expect(LanguageSelector.LANGUAGES['en-us']).toEqual({ flag: '🇺🇸' });
-      expect(LanguageSelector.LANGUAGES['el']).toEqual({ flag: '🇬🇷' });
-      expect(LanguageSelector.LANGUAGES['tr']).toEqual({ flag: '🇹🇷' });
+  it('registers as a custom element', () => {
+    expect(customElements.define).toHaveBeenCalledWith('language-selector', LanguageSelector);
+  });
+
+  it('binds a click listener to every language option', () => {
+    const selector = new LanguageSelector();
+    selector.connectedCallback();
+    mockOptions.forEach(option => {
+      expect(option.addEventListener).toHaveBeenCalledWith('click', expect.any(Function));
     });
   });
 
-  describe('LANG_PREFIXES constant', () => {
-    it('should include all language prefixes', () => {
-      expect(LanguageSelector.LANG_PREFIXES).toContain('/en-us/');
-      expect(LanguageSelector.LANG_PREFIXES).toContain('/el/');
-      expect(LanguageSelector.LANG_PREFIXES).toContain('/tr/');
-      expect(LanguageSelector.LANG_PREFIXES).toContain('/blog/en-us/');
-      expect(LanguageSelector.LANG_PREFIXES).toContain('/blog/el/');
-      expect(LanguageSelector.LANG_PREFIXES).toContain('/blog/tr/');
+  it('removes listeners on disconnect', () => {
+    const selector = new LanguageSelector();
+    selector.connectedCallback();
+    selector.disconnectedCallback();
+    mockOptions.forEach(option => {
+      expect(option.removeEventListener).toHaveBeenCalledWith('click', expect.any(Function));
     });
   });
 
-  describe('connectedCallback', () => {
-    it('should find and store required elements', () => {
-      const selector = new LanguageSelector();
-      selector.connectedCallback();
+  it('suppresses pointer events briefly on click so the dropdown closes cleanly', () => {
+    vi.useFakeTimers();
+    const selector = new LanguageSelector();
+    selector.connectedCallback();
 
-      expect(selector._container).toBe(mockContainer);
-      expect(selector._display).toBe(mockDisplay);
-    });
+    const handler = mockOptions[1].addEventListener.mock.calls[0][1];
+    handler({ currentTarget: mockOptions[1] });
 
-    it('should add click listeners to all language options', () => {
-      const selector = new LanguageSelector();
-      selector.connectedCallback();
+    expect(mockContainer.style.pointerEvents).toBe('none');
+    vi.advanceTimersByTime(300);
+    expect(mockContainer.style.pointerEvents).toBe('auto');
 
-      mockOptions.forEach(option => {
-        expect(option.addEventListener).toHaveBeenCalledWith('click', expect.any(Function));
-      });
-    });
-
-    it('should warn if display element is missing', () => {
-      const selector = new LanguageSelector();
-      selector.querySelector = () => null;
-      selector.querySelectorAll = () => [];
-      selector.connectedCallback();
-
-      expect(console.warn).toHaveBeenCalledWith('LanguageSelector: Missing #current-language element');
-    });
+    vi.useRealTimers();
   });
 
-  describe('disconnectedCallback', () => {
-    it('should remove click listeners from all options', () => {
-      const selector = new LanguageSelector();
-      selector.connectedCallback();
-      selector.disconnectedCallback();
+  it('dispatches a language-change event on click', () => {
+    const selector = new LanguageSelector();
+    selector.connectedCallback();
+    const events = [];
+    selector.dispatchEvent = (e) => events.push(e);
 
-      mockOptions.forEach(option => {
-        expect(option.removeEventListener).toHaveBeenCalledWith('click', expect.any(Function));
-      });
-    });
+    const handler = mockOptions[2].addEventListener.mock.calls[0][1];
+    handler({ currentTarget: mockOptions[2] });
+
+    expect(events).toHaveLength(1);
+    expect(events[0].type).toBe('language-change');
+    expect(events[0].detail).toEqual({ language: 'tr' });
   });
 
-  describe('_onOptionClick', () => {
-    it('should save language to localStorage', () => {
-      const selector = new LanguageSelector();
-      selector.connectedCallback();
+  it('does not navigate from JS — the anchor href drives navigation', () => {
+    const selector = new LanguageSelector();
+    selector.connectedCallback();
 
-      // Get the click handler
-      const clickHandler = mockOptions[1].addEventListener.mock.calls[0][1];
-
-      // Simulate click on Greek option
-      clickHandler({
-        currentTarget: mockOptions[1],
-        preventDefault: vi.fn()
-      });
-
-      expect(mockLocalStorage.setItem).toHaveBeenCalledWith('language', 'el');
-    });
-
-    it('should temporarily disable pointer events on container', () => {
-      vi.useFakeTimers();
-
-      const selector = new LanguageSelector();
-      selector.connectedCallback();
-
-      const clickHandler = mockOptions[0].addEventListener.mock.calls[0][1];
-      clickHandler({
-        currentTarget: mockOptions[0],
-        preventDefault: vi.fn()
-      });
-
-      expect(mockContainer.style.pointerEvents).toBe('none');
-
-      vi.advanceTimersByTime(300);
-
-      expect(mockContainer.style.pointerEvents).toBe('auto');
-
-      vi.useRealTimers();
-    });
-
-    it('should not save if language is not in LANGUAGES', () => {
-      const selector = new LanguageSelector();
-      selector.connectedCallback();
-
-      const clickHandler = mockOptions[0].addEventListener.mock.calls[0][1];
-
-      // Mock option returning invalid language
-      const invalidOption = { getAttribute: vi.fn(() => 'invalid-lang') };
-      clickHandler({
-        currentTarget: invalidOption,
-        preventDefault: vi.fn()
-      });
-
-      expect(mockLocalStorage.setItem).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('_updateDisplay', () => {
-    it('should create flag span with correct content', () => {
-      const mockFlagSpan = { className: '', textContent: '' };
-      document.createElement.mockReturnValue(mockFlagSpan);
-
-      const selector = new LanguageSelector();
-      selector.connectedCallback();
-      selector._updateDisplay('el');
-
-      expect(document.createElement).toHaveBeenCalledWith('span');
-      expect(mockFlagSpan.className).toBe('flag');
-      expect(mockFlagSpan.textContent).toBe('🇬🇷');
-      expect(mockDisplay.appendChild).toHaveBeenCalledWith(mockFlagSpan);
-    });
-
-    it('should clear existing children before adding new flag', () => {
-      const selector = new LanguageSelector();
-      selector.connectedCallback();
-
-      // Simulate existing child
-      mockDisplay.firstChild = { id: 'old-child' };
-      mockDisplay.removeChild.mockImplementation(() => {
-        mockDisplay.firstChild = null;
-      });
-
-      selector._updateDisplay('tr');
-
-      expect(mockDisplay.removeChild).toHaveBeenCalled();
-    });
-  });
-
-  describe('currentLanguage getter', () => {
-    it('should return language from localStorage', () => {
-      mockLocalStorage.store['language'] = 'el';
-
-      const selector = new LanguageSelector();
-      expect(selector.currentLanguage).toBe('el');
-    });
-
-    it('should return en-us as default', () => {
-      const selector = new LanguageSelector();
-      expect(selector.currentLanguage).toBe('en-us');
-    });
-  });
-
-  describe('component registration', () => {
-    it('should register custom element', () => {
-      expect(customElements.define).toHaveBeenCalledWith('language-selector', LanguageSelector);
-    });
-  });
-
-  describe('_parsePath', () => {
-    it('should detect blog posts', () => {
-      const selector = new LanguageSelector();
-      const result = selector._parsePath('/blog/en-us/my-post/');
-      expect(result.isBlog).toBe(true);
-      expect(result.basePath).toBe('/my-post/');
-    });
-
-    it('should strip language prefix from pages', () => {
-      const selector = new LanguageSelector();
-      const result = selector._parsePath('/el/about/');
-      expect(result.isBlog).toBe(false);
-      expect(result.basePath).toBe('/about/');
-    });
-
-    it('should handle root path', () => {
-      const selector = new LanguageSelector();
-      const result = selector._parsePath('/');
-      expect(result.basePath).toBe('/');
-    });
-
-    it('should handle Greek root path', () => {
-      const selector = new LanguageSelector();
-      const result = selector._parsePath('/el/');
-      expect(result.basePath).toBe('/');
-    });
-  });
-
-  describe('_buildUrl', () => {
-    it('should build blog URLs correctly', () => {
-      const selector = new LanguageSelector();
-      expect(selector._buildUrl('el', '/my-post/', true)).toBe('/blog/el/my-post/');
-      expect(selector._buildUrl('en-us', '/my-post/', true)).toBe('/blog/en-us/my-post/');
-    });
-
-    it('should build page URLs correctly', () => {
-      const selector = new LanguageSelector();
-      expect(selector._buildUrl('el', '/about/', false)).toBe('/el/about/');
-      expect(selector._buildUrl('tr', '/dictionary/', false)).toBe('/tr/dictionary/');
-    });
-
-    it('should handle home page for en-us', () => {
-      const selector = new LanguageSelector();
-      expect(selector._buildUrl('en-us', '/', false)).toBe('/');
-    });
-
-    it('should handle home page for other languages', () => {
-      const selector = new LanguageSelector();
-      expect(selector._buildUrl('el', '/', false)).toBe('/el/');
-      expect(selector._buildUrl('tr', '/', false)).toBe('/tr/');
-    });
-  });
-
-  describe('_generateLinks', () => {
-    it('should set href on all options', () => {
-      window.location.pathname = '/en-us/about/';
-
-      const selector = new LanguageSelector();
-      selector.connectedCallback();
-
-      expect(mockOptions[0].href).toBe('/en-us/about/');
-      expect(mockOptions[1].href).toBe('/el/about/');
-      expect(mockOptions[2].href).toBe('/tr/about/');
-    });
-  });
-
-  describe('_extractBlogSlug', () => {
-    it('should extract slug from blog URL', () => {
-      const selector = new LanguageSelector();
-      expect(selector._extractBlogSlug('/blog/en-us/my-post/')).toBe('my-post');
-      expect(selector._extractBlogSlug('/blog/el/another-post/')).toBe('another-post');
-      expect(selector._extractBlogSlug('/blog/tr/test-slug/')).toBe('test-slug');
-    });
-
-    it('should return null for non-blog URLs', () => {
-      const selector = new LanguageSelector();
-      expect(selector._extractBlogSlug('/en-us/about/')).toBe(null);
-      expect(selector._extractBlogSlug('/el/')).toBe(null);
-      expect(selector._extractBlogSlug('/tr/post-not-translated/')).toBe(null);
-    });
-  });
-
-  describe('_trackCurrentBlog', () => {
-    it('should store slug in sessionStorage when on blog page', () => {
-      window.location.pathname = '/blog/en-us/gru-kms-windows/';
-
-      const selector = new LanguageSelector();
-      selector._trackCurrentBlog();
-
-      expect(mockSessionStorage.setItem).toHaveBeenCalledWith('lastViewedBlogSlug', 'gru-kms-windows');
-    });
-
-    it('should store language-stripped base path for non-blog pages', () => {
-      window.location.pathname = '/en-us/tools/diceware/';
-
-      const selector = new LanguageSelector();
-      selector._trackCurrentBlog();
-
-      expect(mockSessionStorage.setItem).toHaveBeenCalledWith('lastViewedBasePath', '/tools/diceware/');
-      expect(mockSessionStorage.setItem).not.toHaveBeenCalledWith('lastViewedBlogSlug', expect.anything());
-    });
-
-    it('should not store anything on the home page', () => {
-      window.location.pathname = '/en-us/';
-
-      const selector = new LanguageSelector();
-      selector._trackCurrentBlog();
-
-      expect(mockSessionStorage.setItem).not.toHaveBeenCalled();
-    });
-
-    it('should not store anything on post-not-translated', () => {
-      window.location.pathname = '/en-us/post-not-translated/';
-
-      const selector = new LanguageSelector();
-      selector._trackCurrentBlog();
-
-      expect(mockSessionStorage.setItem).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('_parsePath - non-blog post-not-translated restoration', () => {
-    it('should restore non-blog base path from sessionStorage', () => {
-      mockSessionStorage.store['lastViewedBasePath'] = '/tools/diceware/';
-
-      const selector = new LanguageSelector();
-      const result = selector._parsePath('/el/post-not-translated/');
-
-      expect(result.isBlog).toBe(false);
-      expect(result.basePath).toBe('/tools/diceware/');
-    });
-
-    it('should prefer blog slug over base path when both are stored', () => {
-      mockSessionStorage.store['lastViewedBlogSlug'] = 'gru-kms-windows';
-      mockSessionStorage.store['lastViewedBasePath'] = '/tools/diceware/';
-
-      const selector = new LanguageSelector();
-      const result = selector._parsePath('/el/post-not-translated/');
-
-      expect(result.isBlog).toBe(true);
-      expect(result.basePath).toBe('/gru-kms-windows/');
-    });
-  });
-
-  describe('_parsePath - post-not-translated restoration', () => {
-    it('should restore blog context from sessionStorage when on post-not-translated page', () => {
-      mockSessionStorage.store['lastViewedBlogSlug'] = 'gru-kms-windows';
-
-      const selector = new LanguageSelector();
-      const result = selector._parsePath('/tr/post-not-translated/');
-
-      expect(result.isBlog).toBe(true);
-      expect(result.basePath).toBe('/gru-kms-windows/');
-    });
-
-    it('should fall back to normal parsing if no slug in sessionStorage', () => {
-      const selector = new LanguageSelector();
-      const result = selector._parsePath('/tr/post-not-translated/');
-
-      expect(result.isBlog).toBe(false);
-      expect(result.basePath).toBe('/post-not-translated/');
-    });
+    const handler = mockOptions[0].addEventListener.mock.calls[0][1];
+    expect(() => handler({ currentTarget: mockOptions[0] })).not.toThrow();
   });
 });
