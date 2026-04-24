@@ -12,3 +12,6 @@ research
 .dolt/
 *.db
 .beads-credential-key
+
+# Generated vendor bundles (rebuilt by `npm run build`)
+src/_static/js/vendor/
