@@ -2,6 +2,11 @@ name: Update Visual Regression Baselines
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - visual-regression-baselines
+    paths:
+      - .github/workflows/update-visual-baselines.yml
 
 jobs:
   update-baselines:
