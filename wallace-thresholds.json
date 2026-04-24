@@ -1,0 +1,22 @@
+{
+  "_comment": "CSS hygiene thresholds enforced by scripts/analyze-css.js against the BUILT _site/css/style.css. Set ~5% above current values when introduced, so the gate is meaningful but not immediately blocking. Trim PRs (see CLAUDE.md > CSS hygiene) MUST ratchet these values DOWN as they trim, parallel to bundleSizeLimit.css in package.json.",
+  "selectors": {
+    "total": 740,
+    "totalUnique": 600,
+    "maxSpecificity": [0, 5, 0]
+  },
+  "rules": {
+    "total": 565
+  },
+  "declarations": {
+    "total": 1555,
+    "importants": 8
+  },
+  "colors": {
+    "totalUnique": 100
+  },
+  "customProperties": {
+    "declared": 115,
+    "orphans": 45
+  }
+}
