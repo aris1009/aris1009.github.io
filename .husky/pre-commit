@@ -6,6 +6,14 @@ if command -v bd >/dev/null 2>&1; then
   BD_GIT_HOOK=1 bd hooks run pre-commit "$@" || exit $?
 fi
 
+# Lint CSS source (cheap; runs on every commit). analyze:css needs a build, so it
+# is CI-only — see .github/workflows/test.yml.
+npm run lint:css
+if [ $? -ne 0 ]; then
+  echo "❌ stylelint failed, aborting commit"
+  exit 1
+fi
+
 # Run tests first (original husky behavior)
 npm test
 if [ $? -ne 0 ]; then
