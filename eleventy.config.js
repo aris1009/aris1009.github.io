@@ -2,6 +2,7 @@ import readingTime from "eleventy-plugin-reading-time";
 import navigationPlugin from "@11ty/eleventy-navigation";
 import sitemap from "@quasibit/eleventy-plugin-sitemap";
 import i18n from "eleventy-plugin-i18n";
+import { I18nPlugin } from "@11ty/eleventy";
 import pluginMermaid from "@kevingimbel/eleventy-plugin-mermaid";
 import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
@@ -65,6 +66,10 @@ export default function (eleventyConfig) {
     },
     fallbackLocales: constants.FALLBACK_LOCALES,
     markdownIteration: true
+  });
+
+  eleventyConfig.addPlugin(I18nPlugin, {
+    defaultLanguage: "en-us"
   });
 
   eleventyConfig.addPlugin(pluginMermaid, {
@@ -139,7 +144,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("filterTagList", filters.filterTagList);
   eleventyConfig.addFilter("localizedReadingTime", filters.localizedReadingTime);
   eleventyConfig.addFilter("getDictionaryTerms", filters.getDictionaryTerms);
-  eleventyConfig.addFilter("getAlternateLanguages", filters.getAlternateLanguages);
+  eleventyConfig.addFilter("languageSwitcherOptions", filters.languageSwitcherOptions);
   eleventyConfig.addFilter("match", filters.match);
 
   eleventyConfig.addGlobalData("supportedLocales", globalData.supportedLocales);

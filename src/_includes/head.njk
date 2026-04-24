@@ -6,15 +6,18 @@
     <meta name="generator" content="Eleventy {{buildVersion}}" />
 <!-- Canonical URL -->
     <link rel="canonical" href="{{meta.url}}{{page.url}}" />
-{%- set alternateLanguages = collections.allPosts | getAlternateLanguages(page.url) -%}
-{% if alternateLanguages.length > 1 %}
+{%- set altLinks = page.url | locale_links -%}
+{% if altLinks.length > 0 %}
 <!-- Alternate language versions -->
-{% for alt in alternateLanguages %}
-    <link rel="alternate" hreflang="{{alt.hreflang}}" href="{{meta.url}}{{alt.url}}" />
+    <link rel="alternate" hreflang="{{ locale }}" href="{{meta.url}}{{page.url}}" />
+{% for link in altLinks %}
+    <link rel="alternate" hreflang="{{ link.lang }}" href="{{meta.url}}{{link.url}}" />
 {% endfor %}
-{% for alt in alternateLanguages %}{% if alt.locale == 'en-us' %}
-    <link rel="alternate" hreflang="x-default" href="{{meta.url}}{{alt.url}}" />
-{% endif %}{% endfor %}
+{% if locale == 'en-us' %}
+    <link rel="alternate" hreflang="x-default" href="{{meta.url}}{{page.url}}" />
+{% else %}{% for link in altLinks %}{% if link.lang == 'en-us' %}
+    <link rel="alternate" hreflang="x-default" href="{{meta.url}}{{link.url}}" />
+{% endif %}{% endfor %}{% endif %}
 {% endif %}
 <!-- About Page -->
     <title>{{pageTitle | safe}}</title>

@@ -31,23 +31,18 @@
             </theme-toggle>
             
             <!-- Language Selector -->
+            {%- set languageOptions = page.url | languageSwitcherOptions(supportedLocales, page.url | locale_links) -%}
             <language-selector>
             <div data-testid="language-selector-container" class="language-selector-container">
                 <button id="language-toggle" class="language-selector" aria-label="Select language" title="Change language">
                     <span id="current-language" class="language-display">
-                        {% if '/blog/el/' in page.url or '/el/' in page.url %}
-                            <span class="flag">🇬🇷</span>
-                        {% elif '/blog/tr/' in page.url or '/tr/' in page.url %}
-                            <span class="flag">🇹🇷</span>
-                        {% else %}
-                            <span class="flag">🇺🇸</span>
-                        {% endif %}
+                        {%- for opt in languageOptions -%}{%- if opt.current -%}<span class="flag">{{ opt.flag }}</span>{%- endif -%}{%- endfor -%}
                     </span>
                 </button>
                 <div id="language-dropdown" class="language-dropdown">
-                    <a href="#" class="language-option" data-lang="en-us"><span class="flag">🇺🇸</span></a>
-                    <a href="#" class="language-option" data-lang="el"><span class="flag">🇬🇷</span></a>
-                    <a href="#" class="language-option" data-lang="tr"><span class="flag">🇹🇷</span></a>
+                    {%- for opt in languageOptions %}
+                    <a href="{{ opt.href }}" class="language-option" data-lang="{{ opt.lang }}" hreflang="{{ opt.hreflang }}"><span class="flag">{{ opt.flag }}</span></a>
+                    {%- endfor %}
                 </div>
             </div>
             </language-selector>
