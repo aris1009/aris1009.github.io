@@ -31,13 +31,9 @@ const THEMES = ['light', 'dark'];
  * Tracked separately for follow-up beads:
  *   - dark home: archive list `time` + .text-blue-600 read-more links
  *     have insufficient contrast against the dark background.
- *   - light blog posts: .external-link / .internal-link `.link-text`
- *     uses sky-700 which falls just under 4.5:1 on the light background.
  */
 const EXCLUDE_BY_KEY = {
   'home|dark': ['time', '.text-blue-600.font-medium', '.text-blue-600.hover\\:text-blue-800'],
-  'blog-post-prose|light': ['.external-link .link-text', '.internal-link .link-text'],
-  'blog-post-toc-mermaid|light': ['.external-link .link-text', '.internal-link .link-text'],
 };
 
 test.describe('A11y (axe-core, CSS-relevant rules)', () => {

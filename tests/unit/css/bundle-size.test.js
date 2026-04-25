@@ -16,8 +16,16 @@ const CATEGORY_BUDGETS = {
   'typography-prose': 36000,
   'burger-menu': 6000,
   preflight: 6600,
-  'feature-components': 8000,
-  other: 14500,
+  // feature-components: bumped from 8000 → 9000 to absorb the prose link-text
+  // rules (PR #144 — sky-800 in light, sky-300 in dark, plus dictionary parity
+  // updates) which the categorizer routes here via .link-text/.dictionary-*.
+  'feature-components': 9000,
+  // other: bumped from 14500 → 18500 to absorb the Shoelace ↔ Tailwind theme
+  // token bridge (--sl-color-* vars in :root + html.dark, ~3.4KB). The bridge
+  // replaces ad-hoc per-component overrides with a single source of truth and
+  // is what makes every future Shoelace component theme-correctly without new
+  // CSS — a fixed cost that's explicitly worth paying.
+  other: 18500,
   'keyframes-at': 2000,
 };
 

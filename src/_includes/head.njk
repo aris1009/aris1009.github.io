@@ -56,6 +56,20 @@
           href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/dark.css"
           integrity="sha384-GWYIqFA394qpD/MvZTDi2pLPBjEux2y3wDvsvEa/s+DXOt1YxPYCRsisFUKlaJf/"
           crossorigin="anonymous" />
+    <!-- Register same-origin icon libraries so <sl-icon> never fetches from
+         cdn.jsdelivr.net or via data: URIs (both are blocked by our tight CSP
+         connect-src). Must run before the autoloader so component upgrades
+         resolve icons locally. We override BOTH the 'default' library and
+         Shoelace's built-in 'system' library — sl-copy-button hard-codes
+         library="system" for its copy/success/error icons. Vendored icons
+         live under /_static/vendor/shoelace/icons/ and are kept in sync with
+         the installed Shoelace version by scripts/sync-shoelace-assets.js. -->
+    <script type="module">
+      import { registerIconLibrary } from 'https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/utilities/icon-library.js';
+      const resolver = (name) => `{{'/_static/vendor/shoelace/icons/' | url}}${name}.svg`;
+      registerIconLibrary('default', { resolver });
+      registerIconLibrary('system', { resolver });
+    </script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace-autoloader.js"></script>
 
 <!-- Sitemap -->
