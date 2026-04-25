@@ -1045,4 +1045,28 @@
   :target {
     scroll-margin-top: 2rem;
   }
+
+  /* Shoelace icon-button + copy-button visibility. Defaults resolve to
+     site bg in some theme combinations, making the icon invisible. Pin
+     the icon color to a token that contrasts in both themes. */
+  sl-icon-button,
+  sl-copy-button {
+    color: theme(colors.zinc.700);
+  }
+  sl-icon-button:hover,
+  sl-icon-button:focus-visible,
+  sl-copy-button:hover,
+  sl-copy-button:focus-visible {
+    color: theme(colors.sky.600);
+  }
+  html.dark sl-icon-button,
+  html.dark sl-copy-button {
+    color: theme(colors.zinc.200);
+  }
+  html.dark sl-icon-button:hover,
+  html.dark sl-icon-button:focus-visible,
+  html.dark sl-copy-button:hover,
+  html.dark sl-copy-button:focus-visible {
+    color: theme(colors.sky.400);
+  }
 }
