@@ -152,7 +152,29 @@
   
   main,
   article {
-    @apply prose prose-sky dark:prose-invert dark:prose-p:text-slate-50 dark:prose-li:text-slate-50 dark:prose-lead:text-slate-100 prose-lead:font-light mx-auto text-left;
+    @apply prose prose-sky dark:prose-invert mx-auto text-left;
+  }
+
+  /* Dark-mode prose contrast (blog-6vt): the typography plugin's
+     `--tw-prose-invert-body` is #d1d5db, dimmer than the rest of the page's
+     dark-mode text. The previous `dark:prose-p:text-slate-50` modifiers
+     emitted no rules — they were inside @apply, where modifiers compile to
+     inline declarations only when the underlying utility resolves, which
+     prose-* modifiers don't. Raw rules instead. `html.dark article p`
+     (specificity 0-1-3) beats `.prose :where(p)` (0-1-0). */
+  article .lead,
+  main .lead {
+    font-weight: 300;
+  }
+  html.dark article p,
+  html.dark main p,
+  html.dark article li,
+  html.dark main li {
+    color: theme(colors.slate.50);
+  }
+  html.dark article .lead,
+  html.dark main .lead {
+    color: theme(colors.slate.100);
   }
 
   /* Custom prose header sizing with CSS custom properties for easy configuration */
