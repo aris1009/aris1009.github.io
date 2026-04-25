@@ -525,6 +525,19 @@
     @apply text-blue-600 dark:text-blue-400;
   }
 
+  /* WCAG 1.4.3 contrast (blog-mla): prose-sky's --tw-prose-links is sky-700
+     (#0369a1), ~4.4:1 on zinc-100 — fails AA. Pin .link-text to sky-800
+     (#075985, ~5.7:1) in light mode. Dark mode uses sky-300 for parity with
+     dictionary-link hover and well above the dark-bg threshold. */
+  .external-link .link-text,
+  .internal-link .link-text {
+    color: theme(colors.sky.800);
+  }
+  html.dark .external-link .link-text,
+  html.dark .internal-link .link-text {
+    color: theme(colors.sky.300);
+  }
+
   .dictionary-link {
     @apply cursor-pointer bg-transparent border-none p-0 text-blue-600 dark:text-blue-400 underline underline-offset-2;
   }
