@@ -213,5 +213,20 @@ export default {
     "en-us": "Model Context Protocol · An open standard by Anthropic that enables AI applications to securely connect to external data sources and tools. MCP provides a standardized way for AI models to access databases, APIs, and local resources through server implementations.",
     "el": "Model Context Protocol · Ένα ανοιχτό πρότυπο από την Anthropic που επιτρέπει στις AI εφαρμογές να συνδέονται με ασφάλεια σε εξωτερικές πηγές δεδομένων και εργαλεία. Το MCP παρέχει έναν τυποποιημένο τρόπο για τα AI μοντέλα να έχουν πρόσβαση σε βάσεις δεδομένων, APIs και τοπικούς πόρους μέσω υλοποιήσεων διακομιστή.",
     "tr": "Model Bağlam Protokolü · AI uygulamalarının harici veri kaynaklarına ve araçlarına güvenli bir şekilde bağlanmasını sağlayan Anthropic tarafından geliştirilen açık standart. MCP, AI modellerinin sunucu uygulamaları aracılığıyla veritabanlarına, API'lere ve yerel kaynaklara erişmesi için standartlaştırılmış bir yol sağlar."
+  },
+  "xml-canonicalization": {
+    "en-us": "The process of converting an XML document into a standardized byte sequence by normalizing attribute order, whitespace, and namespace declarations. Canonicalization (C14N) ensures two logically identical XML documents produce identical output, making cryptographic signatures over XML reliable.",
+    "el": "Η διαδικασία μετατροπής ενός εγγράφου XML σε τυποποιημένη ακολουθία bytes με κανονικοποίηση της σειράς χαρακτηριστικών, των κενών και των δηλώσεων namespace. Η κανονικοποίηση (C14N) εξασφαλίζει ότι δύο λογικά πανομοιότυπα έγγραφα XML παράγουν πανομοιότυπη έξοδο, κάνοντας αξιόπιστες τις κρυπτογραφικές υπογραφές σε XML.",
+    "tr": "Bir XML belgesini öznitelik sırası, boşluk ve ad alanı bildirimlerini normalleştirerek standartlaştırılmış bir bayt dizisine dönüştürme işlemi. Kanonikleştirme (C14N), mantıksal olarak aynı iki XML belgesinin aynı çıktıyı üretmesini sağlayarak XML üzerindeki kriptografik imzaları güvenilir kılar."
+  },
+  "parser-differential": {
+    "en-us": "An attack class that exploits the fact that two different XML parsers processing the same document can construct different logical trees. When one parser is used for security verification and another for reading data, an attacker can craft input that passes the security check while the data parser reads attacker-controlled content.",
+    "el": "Μια κατηγορία επίθεσης που εκμεταλλεύεται το γεγονός ότι δύο διαφορετικοί XML parsers που επεξεργάζονται το ίδιο έγγραφο μπορούν να κατασκευάσουν διαφορετικά λογικά δένδρα. Όταν ένας parser χρησιμοποιείται για επαλήθευση ασφάλειας και άλλος για ανάγνωση δεδομένων, ένας επιτιθέμενος μπορεί να δημιουργήσει input που περνά τον έλεγχο ασφάλειας ενώ ο parser δεδομένων διαβάζει περιεχόμενο ελεγχόμενο από τον επιτιθέμενο.",
+    "tr": "Aynı belgeyi işleyen iki farklı XML ayrıştırıcısının farklı mantıksal ağaçlar oluşturabileceği gerçeğini kullanan bir saldırı sınıfı. Güvenlik doğrulaması için bir ayrıştırıcı, veri okuma için başka bir ayrıştırıcı kullanıldığında, saldırgan güvenlik kontrolünü geçerken veri ayrıştırıcısının saldırganın kontrolündeki içeriği okuduğu bir girdi oluşturabilir."
+  },
+  "identity-provider": {
+    "en-us": "A system that authenticates users and issues identity assertions to other applications. In SAML and SSO flows, the Identity Provider (IdP) holds user credentials, signs assertions about who the user is, and vouches for their identity to Service Providers that trust the IdP's public key.",
+    "el": "Ένα σύστημα που επαληθεύει χρήστες και εκδίδει ισχυρισμούς ταυτότητας σε άλλες εφαρμογές. Στις ροές SAML και SSO, ο Identity Provider (IdP) κατέχει τα διαπιστευτήρια χρηστών, υπογράφει ισχυρισμούς για το ποιος είναι ο χρήστης και εγγυάται την ταυτότητά τους σε Service Providers που εμπιστεύονται το δημόσιο κλειδί του IdP.",
+    "tr": "Kullanıcıların kimliğini doğrulayan ve diğer uygulamalara kimlik onayları veren bir sistem. SAML ve SSO akışlarında, Kimlik Sağlayıcı (IdP) kullanıcı kimlik bilgilerini tutar, kullanıcının kim olduğuna dair onayları imzalar ve IdP'nin ortak anahtarına güvenen Hizmet Sağlayıcılara kimliğini garanti eder."
   }
 };
