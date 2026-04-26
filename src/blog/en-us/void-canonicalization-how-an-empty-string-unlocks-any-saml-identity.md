@@ -31,7 +31,7 @@ permalink: /blog/en-us/void-canonicalization-how-an-empty-string-unlocks-any-sam
 
 Every SHA-256 implementation, on every machine, agrees on one thing:
 
-```
+```text
 SHA-256("") = e3b0c44298fc1c149afbf4c8996fb924
               27ae41e4649b934ca495991b7852b855
 ```
@@ -76,7 +76,7 @@ Fedotkin's research identified the specific failure mode: **when libxml2's C14N 
 
 ruby-saml, trusting the canonicalization output without checking its length, proceeds to compute:
 
-```
+```text
 canonicalize(malformed SignedInfo) → ""
 SHA-256("") = e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 ```
