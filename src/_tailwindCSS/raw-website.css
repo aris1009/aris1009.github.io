@@ -525,6 +525,21 @@
     @apply text-blue-600 dark:text-blue-400;
   }
 
+  /* WCAG 1.4.3 contrast: prose-sky's --tw-prose-links is sky-700 (#0369a1),
+     ~4.4:1 on zinc-100 — fails AA. Pin .link-text to sky-800 (~5.7:1) in
+     light mode; dark mode uses sky-300 for parity with dictionary-link hover
+     and well above the dark-bg threshold. Originally PR #144; folded in here
+     because it's the same theming-contrast concern the visibility contract
+     guards against. */
+  .external-link .link-text,
+  .internal-link .link-text {
+    color: theme(colors.sky.800);
+  }
+  html.dark .external-link .link-text,
+  html.dark .internal-link .link-text {
+    color: theme(colors.sky.300);
+  }
+
   .dictionary-link {
     @apply cursor-pointer bg-transparent border-none p-0 text-blue-600 dark:text-blue-400 underline underline-offset-2;
   }
@@ -1046,27 +1061,56 @@
     scroll-margin-top: 2rem;
   }
 
-  /* Shoelace icon-button + copy-button visibility. Defaults resolve to
-     site bg in some theme combinations, making the icon invisible. Pin
-     the icon color to a token that contrasts in both themes. */
-  sl-icon-button,
-  sl-copy-button {
-    color: theme(colors.zinc.700);
+  /* Shoelace ↔ Tailwind theme bridge.
+     Shoelace components read --sl-color-* CSS variables from the shadow DOM.
+     Setting `color` on the host doesn't work — the shadow rules use the
+     variables explicitly. By overriding the variables here we drive every
+     Shoelace component (icon-button, copy-button, button, input, tooltip,
+     tabs, etc.) from a single source of truth tied to Tailwind's `dark`
+     class — without needing Shoelace's own `sl-theme-dark` class.
+     Add new mappings here, not per-component rules. */
+  :root {
+    --sl-color-neutral-0:    theme(colors.white);
+    --sl-color-neutral-50:   theme(colors.zinc.50);
+    --sl-color-neutral-100:  theme(colors.zinc.100);
+    --sl-color-neutral-200:  theme(colors.zinc.200);
+    --sl-color-neutral-300:  theme(colors.zinc.300);
+    --sl-color-neutral-400:  theme(colors.zinc.400);
+    --sl-color-neutral-500:  theme(colors.zinc.500);
+    --sl-color-neutral-600:  theme(colors.zinc.600);
+    --sl-color-neutral-700:  theme(colors.zinc.700);
+    --sl-color-neutral-800:  theme(colors.zinc.800);
+    --sl-color-neutral-900:  theme(colors.zinc.900);
+    --sl-color-neutral-950:  theme(colors.zinc.950);
+    --sl-color-neutral-1000: theme(colors.zinc.950);
+    --sl-color-primary-50:   theme(colors.sky.50);
+    --sl-color-primary-100:  theme(colors.sky.100);
+    --sl-color-primary-200:  theme(colors.sky.200);
+    --sl-color-primary-300:  theme(colors.sky.300);
+    --sl-color-primary-400:  theme(colors.sky.400);
+    --sl-color-primary-500:  theme(colors.sky.500);
+    --sl-color-primary-600:  theme(colors.sky.600);
+    --sl-color-primary-700:  theme(colors.sky.700);
+    --sl-color-primary-800:  theme(colors.sky.800);
+    --sl-color-primary-900:  theme(colors.sky.900);
+    --sl-color-primary-950:  theme(colors.sky.950);
   }
-  sl-icon-button:hover,
-  sl-icon-button:focus-visible,
-  sl-copy-button:hover,
-  sl-copy-button:focus-visible {
-    color: theme(colors.sky.600);
-  }
-  html.dark sl-icon-button,
-  html.dark sl-copy-button {
-    color: theme(colors.zinc.200);
-  }
-  html.dark sl-icon-button:hover,
-  html.dark sl-icon-button:focus-visible,
-  html.dark sl-copy-button:hover,
-  html.dark sl-copy-button:focus-visible {
-    color: theme(colors.sky.400);
+
+  html.dark {
+    /* Invert the neutral ramp so "neutral-600" (Shoelace's default icon-button
+       colour) is a *light* gray on dark backgrounds. */
+    --sl-color-neutral-0:    theme(colors.zinc.950);
+    --sl-color-neutral-50:   theme(colors.zinc.900);
+    --sl-color-neutral-100:  theme(colors.zinc.800);
+    --sl-color-neutral-200:  theme(colors.zinc.700);
+    --sl-color-neutral-300:  theme(colors.zinc.600);
+    --sl-color-neutral-400:  theme(colors.zinc.500);
+    --sl-color-neutral-500:  theme(colors.zinc.400);
+    --sl-color-neutral-600:  theme(colors.zinc.300);
+    --sl-color-neutral-700:  theme(colors.zinc.200);
+    --sl-color-neutral-800:  theme(colors.zinc.100);
+    --sl-color-neutral-900:  theme(colors.zinc.50);
+    --sl-color-neutral-950:  theme(colors.white);
+    --sl-color-neutral-1000: theme(colors.white);
   }
 }
