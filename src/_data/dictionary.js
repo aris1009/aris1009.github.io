@@ -213,5 +213,30 @@ export default {
     "en-us": "Model Context Protocol · An open standard by Anthropic that enables AI applications to securely connect to external data sources and tools. MCP provides a standardized way for AI models to access databases, APIs, and local resources through server implementations.",
     "el": "Model Context Protocol · Ένα ανοιχτό πρότυπο από την Anthropic που επιτρέπει στις AI εφαρμογές να συνδέονται με ασφάλεια σε εξωτερικές πηγές δεδομένων και εργαλεία. Το MCP παρέχει έναν τυποποιημένο τρόπο για τα AI μοντέλα να έχουν πρόσβαση σε βάσεις δεδομένων, APIs και τοπικούς πόρους μέσω υλοποιήσεων διακομιστή.",
     "tr": "Model Bağlam Protokolü · AI uygulamalarının harici veri kaynaklarına ve araçlarına güvenli bir şekilde bağlanmasını sağlayan Anthropic tarafından geliştirilen açık standart. MCP, AI modellerinin sunucu uygulamaları aracılığıyla veritabanlarına, API'lere ve yerel kaynaklara erişmesi için standartlaştırılmış bir yol sağlar."
+  },
+  "selinux": {
+    "en-us": "Security-Enhanced Linux · A Linux kernel security module that enforces mandatory access control (MAC) policies on top of standard Unix permissions. SELinux assigns type labels to files and processes; operations are only permitted when the policy explicitly allows the source type to interact with the target type.",
+    "el": "Security-Enhanced Linux · Ένα module ασφαλείας του πυρήνα Linux που επιβάλλει πολιτικές υποχρεωτικού ελέγχου πρόσβασης (MAC) πάνω από τα τυπικά δικαιώματα Unix. Το SELinux αναθέτει ετικέτες τύπου σε αρχεία και διεργασίες· οι λειτουργίες επιτρέπονται μόνο όταν η πολιτική το επιτρέπει ρητά.",
+    "tr": "Security-Enhanced Linux · Standart Unix izinlerinin üzerine zorunlu erişim denetimi (MAC) politikaları uygulayan bir Linux çekirdek güvenlik modülü. SELinux, dosyalara ve süreçlere tür etiketleri atar; işlemlere yalnızca politika kaynak türünün hedef türüyle etkileşimine açıkça izin verdiğinde izin verilir."
+  },
+  "posix-dac": {
+    "en-us": "POSIX Discretionary Access Control · The traditional Unix file permission model based on owner, group, and other read/write/execute bits. Under DAC, the file owner decides who can access a file, in contrast to Mandatory Access Control (MAC) systems like SELinux where a central policy decides.",
+    "el": "POSIX Discretionary Access Control · Το παραδοσιακό μοντέλο δικαιωμάτων αρχείων Unix βασισμένο στον ιδιοκτήτη, την ομάδα και τα bits ανάγνωσης/εγγραφής/εκτέλεσης. Στο DAC, ο ιδιοκτήτης του αρχείου αποφασίζει ποιος μπορεί να έχει πρόσβαση σε ένα αρχείο, σε αντίθεση με τα συστήματα MAC όπως το SELinux.",
+    "tr": "POSIX İsteğe Bağlı Erişim Denetimi · Sahip, grup ve diğer okuma/yazma/çalıştırma bitlerine dayalı geleneksel Unix dosya izin modeli. DAC'ta dosya sahibi kimin bir dosyaya erişebileceğine karar verir; SELinux gibi Zorunlu Erişim Denetimi (MAC) sistemlerinin aksine merkezi politika yerine sahibin kararı geçerlidir."
+  },
+  "user-namespace": {
+    "en-us": "A Linux kernel feature that isolates user and group ID ranges between a process and the host. Inside a user namespace, a process can appear to run as root while actually being an unprivileged user on the host. Rootless containers use user namespaces to run without host root privileges.",
+    "el": "Ένα χαρακτηριστικό του πυρήνα Linux που απομονώνει τα εύρη αναγνωριστικών χρήστη και ομάδας μεταξύ μιας διεργασίας και του host. Μέσα σε ένα user namespace, μια διεργασία μπορεί να φαίνεται ότι εκτελείται ως root, ενώ στην πραγματικότητα είναι ένας μη προνομιούχος χρήστης στον host. Τα rootless containers χρησιμοποιούν user namespaces για να τρέχουν χωρίς root privileges.",
+    "tr": "Bir süreç ile host arasında kullanıcı ve grup kimliği aralıklarını yalıtan bir Linux çekirdeği özelliği. Bir kullanıcı ad alanının içinde, bir süreç aslında host üzerinde ayrıcalıksız bir kullanıcı olurken root olarak çalışıyor gibi görünebilir. Rootless konteynerler, host root ayrıcalıkları olmadan çalışmak için kullanıcı ad alanlarını kullanır."
+  },
+  "seccomp": {
+    "en-us": "Secure Computing Mode · A Linux kernel feature that restricts which system calls a process is allowed to make. Container runtimes apply seccomp profiles by default to reduce the attack surface; a blocked syscall returns EPERM or causes the process to be killed.",
+    "el": "Secure Computing Mode · Ένα χαρακτηριστικό του πυρήνα Linux που περιορίζει ποιες κλήσεις συστήματος επιτρέπεται να κάνει μια διεργασία. Τα container runtimes εφαρμόζουν seccomp profiles από προεπιλογή για να μειώσουν την επιφάνεια επίθεσης· μια αποκλεισμένη syscall επιστρέφει EPERM ή προκαλεί τον τερματισμό της διεργασίας.",
+    "tr": "Güvenli Bilişim Modu · Bir sürecin yapmasına izin verilen sistem çağrılarını kısıtlayan bir Linux çekirdeği özelliği. Konteyner çalışma zamanları, saldırı yüzeyini azaltmak için varsayılan olarak seccomp profilleri uygular; engellenmiş bir syscall EPERM döndürür veya sürecin sonlandırılmasına neden olur."
+  },
+  "rootless-container": {
+    "en-us": "A container that runs without host root privileges, using Linux user namespaces to simulate a root environment inside the container while remaining an unprivileged user on the host. Rootless containers reduce the blast radius of container escapes but introduce additional complexity around file ownership and volume mounts.",
+    "el": "Ένα container που εκτελείται χωρίς root privileges στον host, χρησιμοποιώντας Linux user namespaces για να προσομοιώσει ένα root περιβάλλον μέσα στο container, ενώ παραμένει μη προνομιούχος χρήστης στον host. Τα rootless containers μειώνουν τον αντίκτυπο τυχόν διαφυγής από container, αλλά εισάγουν επιπλέον πολυπλοκότητα γύρω από την ιδιοκτησία αρχείων και τα volume mounts.",
+    "tr": "Linux kullanıcı ad alanlarını kullanarak konteyner içinde bir kök ortamı simüle ederken host üzerinde ayrıcalıksız bir kullanıcı olarak kalan, host kök ayrıcalıkları olmadan çalışan bir konteyner. Rootless konteynerler, konteyner kaçışlarının patlama yarıçapını azaltır, ancak dosya sahipliği ve birim bağlantıları konusunda ek karmaşıklık getirir."
   }
 };
