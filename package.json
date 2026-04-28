@@ -2,9 +2,10 @@
   "type": "module",
   "scripts": {
     "dev": "run-p dev:*",
-    "build": "NODE_ENV=production run-s clean detect-languages verify-wordlists sync:shoelace build:prism build:mermaid favicons eleventy css:website",
-    "build:prod": "NODE_ENV=production run-s clean detect-languages verify-wordlists sync:shoelace build:prism build:mermaid favicons eleventy css:website",
+    "build": "NODE_ENV=production run-s clean detect-languages verify-wordlists sync:shoelace check:icons build:prism build:mermaid favicons eleventy css:website",
+    "build:prod": "NODE_ENV=production run-s clean detect-languages verify-wordlists sync:shoelace check:icons build:prism build:mermaid favicons eleventy css:website",
     "sync:shoelace": "node scripts/sync-shoelace-assets.js",
+    "check:icons": "node scripts/check-shoelace-icons.js",
     "detect-languages": "node scripts/detect-prism-languages.js",
     "verify-wordlists": "node scripts/verify-wordlists.js",
     "build:prism": "node scripts/build-prism.js",

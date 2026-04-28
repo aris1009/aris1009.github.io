@@ -21,6 +21,10 @@ const ICON_NAMES = [
   'copy',            // sl-copy-button default copy icon
   'check',           // sl-copy-button default success icon
   'x-lg',            // sl-copy-button default error icon
+  'paragraph',       // header-anchor pilcrow (src/lib/transforms.js)
+  'chevron-right',   // sl-details summary chevron (LTR + RTL fallback)
+  'chevron-left',    // sl-details summary chevron (RTL primary)
+  'chevron-down',    // sl-details open-state chevron (some Shoelace builds)
 ];
 
 const SRC_DIR = join(ROOT, 'node_modules/@shoelace-style/shoelace/cdn/assets/icons');
