@@ -209,6 +209,26 @@ export default {
     "el": "Key-Value cache · Μια τεχνική βελτιστοποίησης μνήμης σε transformer μοντέλα που αποθηκεύει προηγουμένως υπολογισμένες attention key και value matrices. Το KV cache επιτρέπει ταχύτερη inference αποφεύγοντας περιττούς υπολογισμούς, αλλά γίνεται bottleneck εύρους ζώνης μνήμης καθώς τα context windows μεγαλώνουν.",
     "tr": "Anahtar-Değer önbelleği · Daha önce hesaplanmış dikkat anahtarı ve değer matrislerini depolayan transformer modellerinde bellek optimizasyon tekniği. KV önbelleği, gereksiz hesaplamaları önleyerek daha hızlı çıkarım sağlar, ancak bağlam pencereleri büyüdükçe bellek bant genişliği darboğazı haline gelir."
   },
+  "seccomp": {
+    "en-us": "Secure Computing Mode · A Linux kernel feature that restricts which system calls a process is allowed to make. Containers use seccomp profiles to limit the attack surface; a denied syscall returns EPERM, not EACCES, making it easy to distinguish from file permission errors.",
+    "el": "Secure Computing Mode · Χαρακτηριστικό του Linux kernel που περιορίζει ποιες κλήσεις συστήματος επιτρέπεται να κάνει μια διεργασία. Τα containers χρησιμοποιούν seccomp profiles για να περιορίσουν την επιφάνεια επίθεσης; μια απαγορευμένη syscall επιστρέφει EPERM, όχι EACCES.",
+    "tr": "Güvenli Hesaplama Modu · Bir işlemin hangi sistem çağrılarını yapmasına izin verildiğini kısıtlayan Linux çekirdeği özelliği. Konteynerler, saldırı yüzeyini sınırlamak için seccomp profilleri kullanır; reddedilen bir syscall EPERM döndürür, EACCES değil."
+  },
+  "posix-dac": {
+    "en-us": "POSIX Discretionary Access Control · The classic Unix permission model based on file owner, group, and mode bits (rwx). DAC controls who can read, write, or execute a file — including traversal of directory paths — based on the process's UID and GID.",
+    "el": "POSIX Discretionary Access Control · Το κλασικό μοντέλο αδειών Unix βασισμένο στον ιδιοκτήτη αρχείου, την ομάδα και τα bits λειτουργίας (rwx). Το DAC ελέγχει ποιος μπορεί να διαβάσει, να γράψει ή να εκτελέσει ένα αρχείο — συμπεριλαμβανομένης της διέλευσης μονοπατιών καταλόγου — με βάση το UID και GID της διεργασίας.",
+    "tr": "POSIX İsteğe Bağlı Erişim Denetimi · Dosya sahibi, grup ve mod bitlerine (rwx) dayalı klasik Unix izin modeli. DAC, bir işlemin UID ve GID'sine göre dizin yolu geçişi dahil olmak üzere bir dosyayı kimin okuyabileceğini, yazabileceğini veya çalıştırabileceğini kontrol eder."
+  },
+  "user-namespace": {
+    "en-us": "A Linux kernel feature that maps user and group IDs inside a process to different IDs on the host. Rootless containers use user namespaces so that processes appear to run as root inside the container while remaining an unprivileged user on the host system.",
+    "el": "Χαρακτηριστικό του Linux kernel που αντιστοιχίζει IDs χρήστη και ομάδας μέσα σε μια διεργασία σε διαφορετικά IDs στον host. Τα rootless containers χρησιμοποιούν user namespaces ώστε οι διεργασίες να φαίνονται να τρέχουν ως root μέσα στο container ενώ παραμένουν μη προνομιούχοι χρήστες στο host σύστημα.",
+    "tr": "Bir işlem içindeki kullanıcı ve grup kimliklerini konaktaki farklı kimliklere eşleyen Linux çekirdeği özelliği. Rootless konteynerler, işlemlerin konakta ayrıcalıksız bir kullanıcı olarak kalırken konteynerin içinde root olarak çalışıyormuş gibi görünmesi için kullanıcı ad alanları kullanır."
+  },
+  "mcs-label": {
+    "en-us": "Multi-Category Security label · An SELinux label extension that assigns category pairs (such as c123,c456) to processes and files. MCS labels enforce isolation between containers on the same host: a container's process can only access files sharing its exact category pair.",
+    "el": "Multi-Category Security label · Επέκταση ετικέτας SELinux που αναθέτει ζεύγη κατηγοριών (π.χ. c123,c456) σε διεργασίες και αρχεία. Οι ετικέτες MCS επιβάλλουν απομόνωση μεταξύ containers στον ίδιο host: η διεργασία ενός container μπορεί να έχει πρόσβαση μόνο σε αρχεία που μοιράζονται το ακριβές ζεύγος κατηγοριών της.",
+    "tr": "Çok Kategorili Güvenlik etiketi · Süreçlere ve dosyalara kategori çiftleri (c123,c456 gibi) atayan bir SELinux etiket uzantısı. MCS etiketleri aynı konaktaki konteynerler arasında izolasyonu zorlar: bir konteynerin süreci yalnızca tam kategori çiftini paylaşan dosyalara erişebilir."
+  },
   "mcp": {
     "en-us": "Model Context Protocol · An open standard by Anthropic that enables AI applications to securely connect to external data sources and tools. MCP provides a standardized way for AI models to access databases, APIs, and local resources through server implementations.",
     "el": "Model Context Protocol · Ένα ανοιχτό πρότυπο από την Anthropic που επιτρέπει στις AI εφαρμογές να συνδέονται με ασφάλεια σε εξωτερικές πηγές δεδομένων και εργαλεία. Το MCP παρέχει έναν τυποποιημένο τρόπο για τα AI μοντέλα να έχουν πρόσβαση σε βάσεις δεδομένων, APIs και τοπικούς πόρους μέσω υλοποιήσεων διακομιστή.",
