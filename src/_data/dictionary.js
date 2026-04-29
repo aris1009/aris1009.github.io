@@ -213,5 +213,25 @@ export default {
     "en-us": "Model Context Protocol · An open standard by Anthropic that enables AI applications to securely connect to external data sources and tools. MCP provides a standardized way for AI models to access databases, APIs, and local resources through server implementations.",
     "el": "Model Context Protocol · Ένα ανοιχτό πρότυπο από την Anthropic που επιτρέπει στις AI εφαρμογές να συνδέονται με ασφάλεια σε εξωτερικές πηγές δεδομένων και εργαλεία. Το MCP παρέχει έναν τυποποιημένο τρόπο για τα AI μοντέλα να έχουν πρόσβαση σε βάσεις δεδομένων, APIs και τοπικούς πόρους μέσω υλοποιήσεων διακομιστή.",
     "tr": "Model Bağlam Protokolü · AI uygulamalarının harici veri kaynaklarına ve araçlarına güvenli bir şekilde bağlanmasını sağlayan Anthropic tarafından geliştirilen açık standart. MCP, AI modellerinin sunucu uygulamaları aracılığıyla veritabanlarına, API'lere ve yerel kaynaklara erişmesi için standartlaştırılmış bir yol sağlar."
+  },
+  "speculative-execution": {
+    "en-us": "A technique that runs predicted future instructions or actions before knowing which path is correct, then discards work that proves wrong. Originally a CPU optimization, it trades occasional wasted computation for dramatically lower latency on the common path.",
+    "el": "Μια τεχνική που εκτελεί προβλεπόμενες μελλοντικές οδηγίες ή ενέργειες πριν γνωρίζει ποιο μονοπάτι είναι σωστό, απορρίπτοντας εργασία που αποδεικνύεται λανθασμένη. Αρχικά βελτιστοποίηση CPU, ανταλλάσσει περιστασιακή σπατάλη υπολογισμού με δραματικά χαμηλότερη καθυστέρηση στο κοινό μονοπάτι.",
+    "tr": "Hangi yolun doğru olduğunu bilmeden tahmin edilen gelecekteki talimatları veya eylemleri çalıştıran ve yanlış olduğu kanıtlanan çalışmayı atan bir teknik. Başlangıçta bir CPU optimizasyonu olan bu teknik, zaman zaman israf edilen hesaplamayı ortak yolda dramatik ölçüde düşük gecikme süresiyle değiş tokuş eder."
+  },
+  "speculative-decoding": {
+    "en-us": "A technique for accelerating large language model inference by using a small draft model to generate candidate token sequences, which a larger target model validates in a single forward pass. Valid drafts are accepted without quality loss; misses are rejected and resampled.",
+    "el": "Μια τεχνική επιτάχυνσης inference μεγάλων γλωσσικών μοντέλων χρησιμοποιώντας ένα μικρό draft μοντέλο για τη δημιουργία ακολουθιών υποψήφιων tokens, τις οποίες ένα μεγαλύτερο μοντέλο επαληθεύει σε ένα μόνο forward pass. Τα έγκυρα drafts γίνονται αποδεκτά χωρίς απώλεια ποιότητας· τα λανθασμένα απορρίπτονται και δειγματίζονται εκ νέου.",
+    "tr": "Büyük dil modeli çıkarımını hızlandırmak için küçük bir taslak modelin aday token dizileri oluşturduğu ve daha büyük bir hedef modelin bunları tek bir ileri geçişte doğruladığı bir teknik. Geçerli taslaklar kalite kaybı olmadan kabul edilir; yanlış olanlar reddedilir ve yeniden örneklenir."
+  },
+  "draft-model": {
+    "en-us": "A small, fast language model paired with a larger target model to speculatively predict future outputs for efficient verification. Draft models trade raw accuracy for speed, relying on the target model to accept correct predictions and reject incorrect ones.",
+    "el": "Ένα μικρό, γρήγορο γλωσσικό μοντέλο που συνδυάζεται με ένα μεγαλύτερο μοντέλο-στόχο για να προβλέπει κερδοσκοπικά μελλοντικά αποτελέσματα για αποτελεσματική επαλήθευση. Τα draft μοντέλα ανταλλάσσουν ακρίβεια για ταχύτητα, βασιζόμενα στο μοντέλο-στόχο να αποδέχεται σωστές προβλέψεις και να απορρίπτει λανθασμένες.",
+    "tr": "Verimli doğrulama için gelecekteki çıktıları spekülatif olarak tahmin etmek amacıyla daha büyük bir hedef modelle eşleştirilen küçük, hızlı bir dil modeli. Taslak modeller, hedef modelin doğru tahminleri kabul etmesine ve yanlışları reddetmesine güvenerek ham doğruluğu hız için değiş tokuş eder."
+  },
+  "branch-prediction": {
+    "en-us": "A CPU optimization technique that guesses the outcome of conditional branches before they are evaluated, allowing the processor to continue executing code speculatively on the predicted path and avoid costly pipeline stalls.",
+    "el": "Μια τεχνική βελτιστοποίησης CPU που μαντεύει την έκβαση δεσμευτικών κλάδων πριν αξιολογηθούν, επιτρέποντας στον επεξεργαστή να συνεχίσει να εκτελεί κώδικα κερδοσκοπικά στο προβλεπόμενο μονοπάτι και να αποφύγει δαπανηρές διακοπές pipeline.",
+    "tr": "Koşullu dalların değerlendirilmeden önce sonucunu tahmin eden bir CPU optimizasyon tekniği; işlemcinin tahmin edilen yolda kodu spekülatif olarak yürütmeye devam etmesine ve maliyetli boru hattı durdurmalarından kaçınmasına olanak tanır."
   }
 };
