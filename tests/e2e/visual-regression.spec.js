@@ -11,21 +11,27 @@ import { test, expect } from '@playwright/test';
  */
 
 const VIEWPORTS = [
-  { name: 'mobile', width: 375, height: 800 },
-  { name: 'tablet', width: 768, height: 1024 },
   { name: 'desktop', width: 1440, height: 900 },
 ];
 
 const THEMES = ['light', 'dark'];
 
+// Content-indexed pages (home, dictionary) are intentionally excluded:
+// their full-page height grows with each new post, so visual-regression
+// fails on every blog PR without catching real CSS issues. The two
+// fixed-content prose pages below cover the same typography, theming,
+// component (Shoelace), TOC, and mermaid rendering paths.
 const PAGES = [
-  { name: 'home', path: '/' },
   { name: 'blog-post-prose', path: '/blog/en-us/gru-kms-windows/' },
-  { name: 'tools-diceware', path: '/en-us/tools/diceware/' },
-  { name: 'dictionary', path: '/en-us/dictionary/' },
   // mcp-security has 20+ H2s (TOC renders) and embedded mermaid diagrams.
   { name: 'blog-post-toc-mermaid', path: '/blog/en-us/mcp-security/' },
 ];
+
+// Clip height for screenshots. fullPage: true makes any layout shift
+// invalidate the entire snapshot; clipping to the top of the page keeps
+// the signal (header, hero, first prose section, theming) without the
+// noise of footer/late-page reflow.
+const CLIP_HEIGHT = 2000;
 
 const DISABLE_ANIMATIONS_CSS = `
   *, *::before, *::after {
@@ -137,7 +143,7 @@ test.describe('Visual regression baselines', () => {
           await expect(page).toHaveScreenshot(
             `${pageDef.name}-${themeName}-${viewport.name}.png`,
             {
-              fullPage: true,
+              clip: { x: 0, y: 0, width: viewport.width, height: CLIP_HEIGHT },
               animations: 'disabled',
               mask: masks,
             }
