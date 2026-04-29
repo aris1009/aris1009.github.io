@@ -859,7 +859,7 @@
   }
 
   .back-to-top .icon {
-    @apply h-8 w-8 stroke-1 stroke-slate-900 dark:stroke-slate-100;
+    @apply h-8 w-8 stroke-2 stroke-slate-900 dark:stroke-slate-100;
   }
 
   .back-to-top:hover .icon,
