@@ -213,5 +213,25 @@ export default {
     "en-us": "Model Context Protocol · An open standard by Anthropic that enables AI applications to securely connect to external data sources and tools. MCP provides a standardized way for AI models to access databases, APIs, and local resources through server implementations.",
     "el": "Model Context Protocol · Ένα ανοιχτό πρότυπο από την Anthropic που επιτρέπει στις AI εφαρμογές να συνδέονται με ασφάλεια σε εξωτερικές πηγές δεδομένων και εργαλεία. Το MCP παρέχει έναν τυποποιημένο τρόπο για τα AI μοντέλα να έχουν πρόσβαση σε βάσεις δεδομένων, APIs και τοπικούς πόρους μέσω υλοποιήσεων διακομιστή.",
     "tr": "Model Bağlam Protokolü · AI uygulamalarının harici veri kaynaklarına ve araçlarına güvenli bir şekilde bağlanmasını sağlayan Anthropic tarafından geliştirilen açık standart. MCP, AI modellerinin sunucu uygulamaları aracılığıyla veritabanlarına, API'lere ve yerel kaynaklara erişmesi için standartlaştırılmış bir yol sağlar."
+  },
+  "drum-memory": {
+    "en-us": "A storage technology used in 1950s–60s computers consisting of a rotating magnetic drum. Instructions and data lived on the drum's tracks, and execution speed depended on placing instructions at precise angular positions to minimize the time spent waiting for the drum to rotate to the right spot.",
+    "el": "Τεχνολογία αποθήκευσης που χρησιμοποιούνταν σε υπολογιστές της δεκαετίας 1950–60, αποτελούμενη από έναν περιστρεφόμενο μαγνητικό τύμπανο. Εντολές και δεδομένα βρίσκονταν στα ίχνη του τυμπάνου, και η ταχύτητα εκτέλεσης εξαρτιόταν από την τοποθέτηση εντολών στις σωστές γωνιακές θέσεις.",
+    "tr": "1950–60'lı yıllarda kullanılan, dönen manyetik bir tambur içeren depolama teknolojisi. Komutlar ve veriler tambur üzerindeki izlerde bulunurdu; yürütme hızı, tambur doğru noktaya dönene kadar bekleme süresini en aza indirmek için komutların hassas açısal konumlara yerleştirilmesine bağlıydı."
+  },
+  "self-modifying-code": {
+    "en-us": "Code that alters its own instructions at runtime. Common in early computing where loops often worked by incrementing memory addresses embedded directly in instruction words, blurring the boundary between code and data.",
+    "el": "Κώδικας που αλλάζει τις δικές του εντολές κατά τη διάρκεια εκτέλεσης. Ήταν συνηθισμένος στους πρώτους υπολογιστές, όπου οι βρόχοι συχνά λειτουργούσαν αυξάνοντας διευθύνσεις μνήμης ενσωματωμένες απευθείας στις λέξεις εντολών, θολώνοντας τα όρια μεταξύ κώδικα και δεδομένων.",
+    "tr": "Çalışma zamanında kendi komutlarını değiştiren kod. Döngülerin genellikle doğrudan komut sözcüklerine gömülü bellek adreslerini artırarak çalıştığı erken bilgisayar döneminde yaygındı; bu da kod ile veri arasındaki sınırı bulanıklaştırıyordu."
+  },
+  "instruction-word": {
+    "en-us": "A fixed-width binary value that encodes a single CPU operation. Instruction words contain fields for the operation type (opcode), memory address, and control bits. The exact field layout varies by architecture and determines what operations are possible.",
+    "el": "Μια δυαδική τιμή σταθερού πλάτους που κωδικοποιεί μια μόνο λειτουργία CPU. Οι λέξεις εντολών περιέχουν πεδία για τον τύπο λειτουργίας (opcode), τη διεύθυνση μνήμης και bits ελέγχου. Η ακριβής διάταξη πεδίων ποικίλλει ανά αρχιτεκτονική.",
+    "tr": "Tek bir CPU işlemini kodlayan sabit genişlikte ikili değer. Komut sözcükleri işlem türü (opcode), bellek adresi ve kontrol bitleri için alanlar içerir. Tam alan düzeni mimariye göre değişir ve hangi işlemlerin mümkün olduğunu belirler."
+  },
+  "opcode": {
+    "en-us": "The portion of an instruction word that specifies which operation the processor should perform — such as load, store, add, or jump. The opcode field's position within the instruction word is defined by the processor architecture.",
+    "el": "Το τμήμα μιας λέξης εντολής που καθορίζει ποια λειτουργία πρέπει να εκτελέσει ο επεξεργαστής — όπως φόρτωση, αποθήκευση, πρόσθεση ή μετάβαση. Η θέση του πεδίου opcode στη λέξη εντολής ορίζεται από την αρχιτεκτονική του επεξεργαστή.",
+    "tr": "Bir işlemcinin gerçekleştirmesi gereken işlemi belirten komut sözcüğünün bölümü; yükleme, depolama, toplama veya atlama gibi. Opcode alanının komut sözcüğü içindeki konumu işlemci mimarisi tarafından belirlenir."
   }
 };
