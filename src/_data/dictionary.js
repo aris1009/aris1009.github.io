@@ -213,5 +213,25 @@ export default {
     "en-us": "Model Context Protocol · An open standard by Anthropic that enables AI applications to securely connect to external data sources and tools. MCP provides a standardized way for AI models to access databases, APIs, and local resources through server implementations.",
     "el": "Model Context Protocol · Ένα ανοιχτό πρότυπο από την Anthropic που επιτρέπει στις AI εφαρμογές να συνδέονται με ασφάλεια σε εξωτερικές πηγές δεδομένων και εργαλεία. Το MCP παρέχει έναν τυποποιημένο τρόπο για τα AI μοντέλα να έχουν πρόσβαση σε βάσεις δεδομένων, APIs και τοπικούς πόρους μέσω υλοποιήσεων διακομιστή.",
     "tr": "Model Bağlam Protokolü · AI uygulamalarının harici veri kaynaklarına ve araçlarına güvenli bir şekilde bağlanmasını sağlayan Anthropic tarafından geliştirilen açık standart. MCP, AI modellerinin sunucu uygulamaları aracılığıyla veritabanlarına, API'lere ve yerel kaynaklara erişmesi için standartlaştırılmış bir yol sağlar."
+  },
+  "xml-canonicalization": {
+    "en-us": "The process of transforming an XML document into a canonical byte sequence so that two parties hashing the same logical document will always start from identical bytes. Defined in W3C Canonical XML 1.0 (2001), it normalizes whitespace, namespace prefixes, and attribute ordering before a digital signature is computed.",
+    "el": "Η διαδικασία μετατροπής ενός XML εγγράφου σε κανονική ακολουθία bytes, ώστε δύο μέρη που υπολογίζουν hash του ίδιου λογικού εγγράφου να ξεκινούν πάντα από ταυτόσημα bytes. Ορίζεται στο W3C Canonical XML 1.0 (2001) και κανονικοποιεί κενά, προθήματα namespace και σειρά χαρακτηριστικών πριν από την υπολογισμό ψηφιακής υπογραφής.",
+    "tr": "Aynı mantıksal belgeyi hash'leyen iki tarafın her zaman özdeş baytlardan başlaması için bir XML belgesini kurallı bayt dizisine dönüştürme işlemi. W3C Canonical XML 1.0'da (2001) tanımlanan bu işlem, dijital imza hesaplanmadan önce boşlukları, namespace öneklerini ve öznitelik sıralamasını normalleştirir."
+  },
+  "xml-digital-signature": {
+    "en-us": "A W3C standard (XMLDSig) for cryptographically signing XML documents, allowing recipients to verify that the content came from a known signer and has not been altered. Used as the trust backbone of SAML assertions and other XML-based security protocols.",
+    "el": "Ένα πρότυπο W3C (XMLDSig) για κρυπτογραφική υπογραφή XML εγγράφων, που επιτρέπει στους παραλήπτες να επαληθεύουν ότι το περιεχόμενο προέρχεται από γνωστό υπογράφοντα και δεν έχει αλλοιωθεί. Χρησιμοποιείται ως η βάση εμπιστοσύνης των SAML assertions και άλλων πρωτοκόλλων ασφαλείας που βασίζονται σε XML.",
+    "tr": "Alıcıların içeriğin bilinen bir imzalayandan geldiğini ve değiştirilmediğini doğrulamasına olanak tanıyarak XML belgelerini kriptografik olarak imzalamaya yönelik bir W3C standardı (XMLDSig). SAML assertion'larının ve diğer XML tabanlı güvenlik protokollerinin güven omurgası olarak kullanılır."
+  },
+  "parser-differential": {
+    "en-us": "A class of attack where two different XML parsers process the same byte sequence and construct different logical document trees. If one tree is used for security decisions (such as signature verification) and the other for data extraction (such as reading identity claims), an attacker can craft input that passes validation in one tree while injecting forged content in the other.",
+    "el": "Μια κατηγορία επίθεσης όπου δύο διαφορετικοί XML parsers επεξεργάζονται την ίδια ακολουθία bytes και κατασκευάζουν διαφορετικά λογικά δέντρα εγγράφων. Αν ένα δέντρο χρησιμοποιείται για αποφάσεις ασφαλείας και το άλλο για εξαγωγή δεδομένων, ένας εισβολέας μπορεί να κατασκευάσει είσοδο που περνά την επαλήθευση σε ένα δέντρο ενώ εισάγει πλαστό περιεχόμενο στο άλλο.",
+    "tr": "İki farklı XML ayrıştırıcısının aynı bayt dizisini işleyip farklı mantıksal belge ağaçları oluşturduğu bir saldırı sınıfı. Bir ağaç güvenlik kararları için (imza doğrulama gibi), diğeri veri çıkarma için (kimlik talepleri okuma gibi) kullanılıyorsa, saldırgan bir ağaçta doğrulamayı geçen ancak diğerinde sahte içerik enjekte eden bir girdi oluşturabilir."
+  },
+  "identity-provider": {
+    "en-us": "A service that authenticates users and issues cryptographically signed security assertions to service providers in federated identity systems. In SAML and OIDC flows, the identity provider (IdP) is the trusted authority whose signature a service provider verifies before granting access.",
+    "el": "Μια υπηρεσία που επαληθεύει χρήστες και εκδίδει κρυπτογραφικά υπογεγραμμένες διαβεβαιώσεις ασφαλείας σε παρόχους υπηρεσιών σε συστήματα ομοσπονδιακής ταυτότητας. Στις ροές SAML και OIDC, ο πάροχος ταυτότητας (IdP) είναι η αξιόπιστη αρχή της οποίας την υπογραφή επαληθεύει ένας πάροχος υπηρεσιών πριν χορηγήσει πρόσβαση.",
+    "tr": "Federe kimlik sistemlerinde kullanıcıların kimliğini doğrulayan ve hizmet sağlayıcılara kriptografik olarak imzalanmış güvenlik assertion'ları düzenleyen bir hizmet. SAML ve OIDC akışlarında, kimlik sağlayıcı (IdP), hizmet sağlayıcının erişim vermeden önce imzasını doğruladığı güvenilir otoritedir."
   }
 };
