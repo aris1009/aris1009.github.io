@@ -213,5 +213,25 @@ export default {
     "en-us": "Model Context Protocol · An open standard by Anthropic that enables AI applications to securely connect to external data sources and tools. MCP provides a standardized way for AI models to access databases, APIs, and local resources through server implementations.",
     "el": "Model Context Protocol · Ένα ανοιχτό πρότυπο από την Anthropic που επιτρέπει στις AI εφαρμογές να συνδέονται με ασφάλεια σε εξωτερικές πηγές δεδομένων και εργαλεία. Το MCP παρέχει έναν τυποποιημένο τρόπο για τα AI μοντέλα να έχουν πρόσβαση σε βάσεις δεδομένων, APIs και τοπικούς πόρους μέσω υλοποιήσεων διακομιστή.",
     "tr": "Model Bağlam Protokolü · AI uygulamalarının harici veri kaynaklarına ve araçlarına güvenli bir şekilde bağlanmasını sağlayan Anthropic tarafından geliştirilen açık standart. MCP, AI modellerinin sunucu uygulamaları aracılığıyla veritabanlarına, API'lere ve yerel kaynaklara erişmesi için standartlaştırılmış bir yol sağlar."
+  },
+  "speculative-execution": {
+    "en-us": "A technique where a processor or system pre-executes future operations before knowing they are needed, then discards results if the prediction was wrong. Speculative execution trades occasional wasted work for reduced average latency, and is the foundation of both CPU branch prediction and LLM speculative decoding.",
+    "el": "Μια τεχνική όπου ένας επεξεργαστής ή σύστημα προ-εκτελεί μελλοντικές λειτουργίες πριν ξέρει αν χρειάζονται, και απορρίπτει τα αποτελέσματα αν η πρόβλεψη ήταν λάθος. Ανταλλάσσει περιστασιακή σπαταλημένη εργασία με μειωμένη μέση καθυστέρηση.",
+    "tr": "Bir işlemcinin veya sistemin gelecekteki işlemleri gerekip gerekmediğini bilmeden önceden yürüttüğü ve tahmin yanlışsa sonuçları attığı bir teknik. Spekülatif yürütme, zaman zaman yapılan gereksiz işlerle ortalama gecikmeyi azaltmayı dengeler."
+  },
+  "react-loop": {
+    "en-us": "The canonical Thought → Action → Observation loop used by tool-using LLM agents, formalized in the ReAct paper (ICLR 2023). Each reasoning step produces a tool call, which produces an observation that feeds the next reasoning step — creating a strictly sequential dependency chain that is the primary latency bottleneck in multi-step agents.",
+    "el": "Ο κανονικός βρόχος Thought → Action → Observation που χρησιμοποιείται από LLM agents με εργαλεία, τυποποιημένος στο paper ReAct (ICLR 2023). Κάθε βήμα συλλογισμού παράγει μια κλήση εργαλείου, η οποία παράγει μια παρατήρηση που τροφοδοτεί το επόμενο βήμα — δημιουργώντας αυστηρά διαδοχικές εξαρτήσεις.",
+    "tr": "ReAct makalesinde (ICLR 2023) resmileştirilen, araç kullanan LLM ajanları tarafından kullanılan kanonik Düşünce → Eylem → Gözlem döngüsü. Her akıl yürütme adımı bir araç çağrısı üretir ve bu da bir sonraki adımı besleyen bir gözlem üretir — çok adımlı ajanlarda temel gecikme darboğazını oluşturur."
+  },
+  "branch-prediction": {
+    "en-us": "A CPU optimization that guesses which path a conditional branch will take before the branch condition is evaluated. Modern processors achieve 95–99% prediction accuracy, allowing them to pre-execute instructions and avoid costly pipeline stalls when the guess is correct.",
+    "el": "Μια βελτιστοποίηση CPU που μαντεύει ποιο μονοπάτι θα ακολουθήσει μια υπό συνθήκη διακλάδωση πριν αξιολογηθεί η συνθήκη. Οι σύγχρονοι επεξεργαστές επιτυγχάνουν ακρίβεια πρόβλεψης 95–99%, αποφεύγοντας δαπανηρές στάσεις pipeline.",
+    "tr": "Dal koşulu değerlendirilmeden önce koşullu dalın hangi yolu izleyeceğini tahmin eden bir CPU optimizasyonu. Modern işlemciler %95–99 tahmin doğruluğuna ulaşarak, tahmin doğru olduğunda maliyetli ardışık düzen durmalarından kaçınır."
+  },
+  "transactional-memory": {
+    "en-us": "A CPU mechanism that allows concurrent read operations to proceed optimistically without locking, committing writes atomically only after validating no conflicts occurred. Hardware transactional memory (HTM), as in Intel's TSX extensions, applies this read/write asymmetry at the hardware level — the same asymmetry exploited by speculative agent action frameworks.",
+    "el": "Ένας μηχανισμός CPU που επιτρέπει σε ταυτόχρονες λειτουργίες ανάγνωσης να προχωρούν αισιόδοξα χωρίς κλείδωμα, δεσμεύοντας εγγραφές ατομικά μόνο αφού επαληθευτεί ότι δεν υπήρξαν συγκρούσεις. Υλοποιήσεις όπως το Intel TSX εφαρμόζουν αυτή την ασυμμετρία ανάγνωσης/εγγραφής σε επίπεδο hardware.",
+    "tr": "Eşzamanlı okuma işlemlerinin kilitleme olmadan iyimser bir şekilde ilerlemesine izin veren, yazmaları yalnızca çakışma olmadığını doğruladıktan sonra atomik olarak işleyen bir CPU mekanizması. Intel TSX gibi donanım işlemsel bellek uygulamaları bu okuma/yazma asimetrisini donanım düzeyinde uygular."
   }
 };
