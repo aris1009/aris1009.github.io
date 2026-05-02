@@ -233,5 +233,25 @@ export default {
     "en-us": "A CPU mechanism that allows concurrent read operations to proceed optimistically without locking, committing writes atomically only after validating no conflicts occurred. Hardware transactional memory (HTM), as in Intel's TSX extensions, applies this read/write asymmetry at the hardware level — the same asymmetry exploited by speculative agent action frameworks.",
     "el": "Ένας μηχανισμός CPU που επιτρέπει σε ταυτόχρονες λειτουργίες ανάγνωσης να προχωρούν αισιόδοξα χωρίς κλείδωμα, δεσμεύοντας εγγραφές ατομικά μόνο αφού επαληθευτεί ότι δεν υπήρξαν συγκρούσεις. Υλοποιήσεις όπως το Intel TSX εφαρμόζουν αυτή την ασυμμετρία ανάγνωσης/εγγραφής σε επίπεδο hardware.",
     "tr": "Eşzamanlı okuma işlemlerinin kilitleme olmadan iyimser bir şekilde ilerlemesine izin veren, yazmaları yalnızca çakışma olmadığını doğruladıktan sonra atomik olarak işleyen bir CPU mekanizması. Intel TSX gibi donanım işlemsel bellek uygulamaları bu okuma/yazma asimetrisini donanım düzeyinde uygular."
+  },
+  "drum-memory": {
+    "en-us": "A type of computer storage used in 1950s–60s machines where data was recorded on a rotating magnetic cylinder. Programs ran by reading instructions off the drum as it spun, making the physical placement of code critical to performance — a well-placed program could run 50x faster than a naively arranged one.",
+    "el": "Ένας τύπος αποθήκευσης υπολογιστή που χρησιμοποιήθηκε σε μηχανές της δεκαετίας 1950–60, όπου τα δεδομένα καταγράφονταν σε περιστρεφόμενο μαγνητικό κύλινδρο. Τα προγράμματα εκτελούνταν διαβάζοντας εντολές από τον τύμπανο καθώς περιστρεφόταν, καθιστώντας την τοποθέτηση του κώδικα κρίσιμη για τις επιδόσεις.",
+    "tr": "1950'ler–60'larda kullanılan ve verilerin dönen manyetik bir silindire kaydedildiği bilgisayar depolama türü. Programlar, dönerken davuldan talimatları okuyarak çalışırdı; bu da kodun fiziksel yerleşimini performans için kritik kılardı — iyi yerleştirilmiş bir program, rastgele düzenlenmiş birinden 50 kat daha hızlı çalışabilirdi."
+  },
+  "self-modifying-code": {
+    "en-us": "Programs that alter their own instructions while running. Standard practice on early computers where loops were implemented by writing a new address directly into an instruction word — there was no other way to iterate over memory. On modern hardware, self-modifying code is rare and generally discouraged.",
+    "el": "Προγράμματα που τροποποιούν τις δικές τους εντολές ενώ εκτελούνται. Ήταν καθιερωμένη πρακτική στους πρώτους υπολογιστές, όπου οι βρόχοι υλοποιούνταν γράφοντας μια νέα διεύθυνση απευθείας μέσα σε μια λέξη εντολής — δεν υπήρχε άλλος τρόπος επανάληψης.",
+    "tr": "Çalışırken kendi talimatlarını değiştiren programlar. Döngülerin bir talimat sözcüğüne doğrudan yeni bir adres yazılarak uygulandığı erken bilgisayarlarda standart bir uygulamaydı — bellekte yinelemenin başka yolu yoktu. Modern donanımda öz-değiştiren kod nadirdir ve genellikle önerilmez."
+  },
+  "instruction-word": {
+    "en-us": "A fixed-width binary value that encodes a single CPU operation. An instruction word packs the operation type (opcode), the memory address to act on, and modifier bits into one integer the processor decodes and executes. On early computers, instruction words and data words were the same size and lived in the same memory, making it possible to treat code as data.",
+    "el": "Μια δυαδική τιμή σταθερού πλάτους που κωδικοποιεί μία μόνο λειτουργία CPU. Μια λέξη εντολής συμπτύσσει τον τύπο λειτουργίας (opcode), τη διεύθυνση μνήμης και bits τροποποιητή σε έναν ακέραιο που αποκωδικοποιεί και εκτελεί ο επεξεργαστής.",
+    "tr": "Tek bir CPU işlemini kodlayan sabit genişlikli ikili değer. Bir talimat sözcüğü, işlemcinin çözümleyip yürüttüğü bir tam sayıya işlem türünü (işlem kodu), üzerinde çalışılacak bellek adresini ve değiştirici bitleri sıkıştırır."
+  },
+  "opcode": {
+    "en-us": "The part of an instruction word that tells the processor which operation to perform — add, load, jump, compare, and so on. Opcodes are decoded by the CPU's control unit before the instruction executes. On early fixed-width instruction machines, arithmetic overflow could in principle corrupt the opcode field and change what an instruction meant.",
+    "el": "Το τμήμα μιας λέξης εντολής που λέει στον επεξεργαστή ποια λειτουργία να εκτελέσει — πρόσθεση, φόρτωση, άλμα, σύγκριση κ.λπ. Οι opcodes αποκωδικοποιούνται από τη μονάδα ελέγχου της CPU πριν εκτελεστεί η εντολή.",
+    "tr": "İşlemciye hangi işlemi yapacağını söyleyen talimat sözcüğünün parçası — toplama, yükleme, atlama, karşılaştırma vb. İşlem kodları, talimat yürütülmeden önce CPU'nun kontrol birimi tarafından çözümlenir."
   }
 };
