@@ -15,7 +15,7 @@ permalink: /blog/en-us/process-spawning-rootless-containers/
 
 The error was unambiguous. It named a binary, a syscall, and an error code:
 
-```
+```text
 EACCES: permission denied, posix_spawn '/bin/echo'
     path: "/bin/echo",
  syscall: "posix_spawn",
@@ -127,7 +127,7 @@ Both DAC and SELinux operate on uid and gid values. {% dictionaryLink "User name
 
 Rootless Podman maps a range of host subuid values to container uid space. Without `--userns=keep-id`, the default mapping looks like this:
 
-```
+```text
 # cat /proc/self/uid_map  (inside the container)
          0          1       1000    # container 0–999 → host 1–1000
       1000          0          1    # container 1000 → host 0
