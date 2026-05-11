@@ -31,7 +31,7 @@ permalink: /blog/en-us/zip-parser-differentials-the-package-that-is-simultaneous
 
 A Python package can be simultaneously clean and malicious. Same file, two parsers, two entirely different packages installed.
 
-This is not obfuscation. There is no encryption, no polymorphic shellcode, no exotic anti-analysis technique. It is a structural property of ZIP itself, and it breaks the foundational assumption that every package security scanner on the planet rests on.
+This is not obfuscation. There is no {% dictionaryLink "encryption", "encryption" %}, no polymorphic shellcode, no exotic anti-analysis technique. It is a structural property of ZIP itself, and it breaks the foundational assumption that every package security scanner on the planet rests on.
 
 ## TL;DR
 
@@ -41,13 +41,13 @@ A single Python wheel file (`.whl`) can be crafted so that `pip` installs clean 
 
 ## Contents
 
-1. [One File, Two Directories](#one-file-two-directories)
-2. [The Parser Ecosystem](#the-parser-ecosystem)
-3. [Where Parsers Diverge](#where-parsers-diverge)
-4. [The Invariant That Broke](#the-invariant-that-broke)
-5. [First Wave, Second Wave](#first-wave-second-wave)
-6. [Closing the Gap](#closing-the-gap)
-7. [Format Complexity Is Attack Surface](#format-complexity-is-attack-surface)
+1. {% externalLink "One File, Two Directories", "#one-file-two-directories" %}
+2. {% externalLink "The Parser Ecosystem", "#the-parser-ecosystem" %}
+3. {% externalLink "Where Parsers Diverge", "#where-parsers-diverge" %}
+4. {% externalLink "The Invariant That Broke", "#the-invariant-that-broke" %}
+5. {% externalLink "First Wave, Second Wave", "#first-wave-second-wave" %}
+6. {% externalLink "Closing the Gap", "#closing-the-gap" %}
+7. {% externalLink "Format Complexity Is Attack Surface", "#format-complexity-is-attack-surface" %}
 
 ---
 
@@ -55,7 +55,7 @@ A single Python wheel file (`.whl`) can be crafted so that `pip` installs clean 
 
 The ZIP format was designed by Phil Katz and first published by PKWARE in 1989. Its defining architectural decision was pragmatic: file metadata is stored in *two separate locations*.
 
-```
+```text
 ┌─────────────────────────────────────────────────┐
 │  ZIP Archive                                    │
 │                                                 │
@@ -126,7 +126,7 @@ The ZIP specification defines an "extra field" mechanism for attaching non-stand
 
 An attacker can craft an entry where the two fields point to different paths:
 
-```
+```text
 Entry bytes (simplified):
   [standard filename field]:  requests/__init__.py   ← zipfile/pip sees this
   [extra field 0x7075]:       evil/__init__.py        ← uv sees this
@@ -152,7 +152,7 @@ A file named `evil.py\x00.txt` is therefore visible and installed as `evil.py` b
 
 ## The Invariant That Broke
 
-PyPI's security model rests on a foundational assumption: **what the validator scans is what the installer installs**. This invariant enables every scanning architecture built on top of the registry. If you can trust that scanning and installation see identical file contents, you can build meaningful pre-install malware detection.
+PyPI's security model rests on a foundational assumption: **what the validator scans is what the installer installs**. This invariant enables every scanning architecture built on top of the registry. If you can trust that scanning and installation see identical file contents, you can build meaningful pre-install {% dictionaryLink "malware", "malware" %} detection.
 
 Parser differentials break this invariant completely:
 
@@ -235,7 +235,7 @@ ZIP parser differentials are one instance of a broader attack class: **format am
 
 The pattern recurs across the stack:
 
-- **PDF:** Documents that render differently in different viewers have been used to deliver phishing content and bypass sandboxes, applying the same "same bytes, different interpretation" primitive to page rendering
+- **PDF:** Documents that render differently in different viewers have been used to deliver {% dictionaryLink "phishing", "phishing" %} content and bypass sandboxes, applying the same "same bytes, different interpretation" primitive to page rendering
 - **HTTP request smuggling:** Disagreements between proxies and backends about chunked transfer encoding semantics allow request injection. The CDN sees a clean request; the origin server sees something different
 - **ELF binaries:** Section header vs. program header parsing differences have surfaced in binary analysis bypass research. Tools can miss code the kernel will execute
 
