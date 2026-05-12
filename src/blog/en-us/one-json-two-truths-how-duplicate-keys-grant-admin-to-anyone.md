@@ -87,7 +87,7 @@ Apache CouchDB split its document handling across two runtimes. The request inge
 
 When a client PUT the payload above to the `_users` endpoint, an endpoint that required no authentication for user creation at the time, the two runtimes diverged:
 
-```
+```text
 Incoming payload:
 {
   "roles": ["_admin"],   ← first occurrence
@@ -222,7 +222,7 @@ func decode(payload []byte, target any) error {
 
 **Architectural principle**: the threat model must account for every parser on the payload's path. In an {% dictionaryLink "API", "api" %} design review, map the parse stack explicitly:
 
-```
+```text
 client → gateway parser → middleware parser → application parser → storage serializer
 ```
 
