@@ -82,7 +82,7 @@ The {% externalLink "git-config(1) documentation", "https://git-scm.com/docs/git
 
 An attacker assembles a repository with three deliberate components:
 
-```
+```text
 malicious-repo/
 ├── .gitmodules          ← declares submodule path "sub\r" (literal CR embedded)
 ├── sub -> .git/hooks    ← symlink named "sub" pointing to .git/hooks
