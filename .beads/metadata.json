@@ -1,7 +1,9 @@
 {
   "database": "dolt",
   "backend": "dolt",
-  "dolt_mode": "embedded",
+  "dolt_mode": "server",
+  "dolt_server_host": "anvil",
+  "dolt_server_user": "agent",
   "dolt_database": "blog",
-  "project_id": "90e805dd-c5d6-4280-abec-0b00698c0b3d"
+  "project_id": "fe010a25-d61d-4811-8c6f-36178793a468"
 }
