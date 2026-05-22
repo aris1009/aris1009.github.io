@@ -26,7 +26,7 @@ EACCES: permission denied, posix_spawn '/bin/echo'
 So I checked the binary:
 
 ```bash
-$ podman exec systemd-claude-runner-api ls -la /usr/local/bin/bun
+$ podman exec systemd-claude-runner ls -la /usr/local/bin/bun
 -rwxr-xr-x. 1 root root 99651952 Apr  9 06:07 /usr/local/bin/bun
 ```
 
@@ -94,8 +94,8 @@ Both are legitimate for their use cases· the problem is that `:Z` interacts des
 When `:Z` is used alongside `--userns=keep-id`, Podman's relabeling pass over the volume runs in a shifted uid context. Files originally owned by the host user at uid 1000 end up owned by a subuid in the 500000+ range. From the host:
 
 ```bash
-$ sudo stat -c '%u:%g %n' /home/keep/.claude
-525288:525288 /home/keep/.claude
+$ sudo stat -c '%u:%g %n' /home/dev/.claude
+525288:525288 /home/dev/.claude
 ```
 
 Those files are now inaccessible to the original host user and to any other container expecting them at uid 1000. The operation is destructive and not reversible without `chown`.
@@ -111,12 +111,12 @@ Those files are now inaccessible to the original host user and to any other cont
 The fix: use `:z` in the Quadlet, then restore what `:Z` shifted:
 
 ```ini
-Volume=/home/keep/.claude:/home/bun/.claude:z
-Volume=/home/keep/.claude.json:/home/bun/.claude.json:z
+Volume=/home/dev/.claude:/home/bun/.claude:z
+Volume=/home/dev/.claude.json:/home/bun/.claude.json:z
 ```
 
 ```bash
-sudo chown -R 1000:1000 /home/keep/.claude /home/keep/.claude.json
+sudo chown -R 1000:1000 /home/dev/.claude /home/dev/.claude.json
 ```
 
 The `:Z` / `:z` distinction is documented. The destructive interaction with `--userns=keep-id` is not prominently noted. It is the kind of thing you discover after `sudo stat` shows ownership you didn't set.
@@ -134,7 +134,7 @@ Rootless Podman maps a range of host subuid values to container uid space. Witho
       1001       1001      64536    # container 1001+ → host 1001+
 ```
 
-Notice what happens to host uid 1000: the first range maps host uids 1–1000 to container uids 0–999, so host uid 1000 lands at container uid 999. A file owned by host user `keep` (uid 1000) appears inside the container owned by uid 999. If your container has a user at uid 1000, like `bun` in `oven/bun:slim`, that user does not own those files, even though by name they should.
+Notice what happens to host uid 1000: the first range maps host uids 1–1000 to container uids 0–999, so host uid 1000 lands at container uid 999. A file owned by host user `dev` (uid 1000) appears inside the container owned by uid 999. If your container has a user at uid 1000, like `bun` in `oven/bun:slim`, that user does not own those files, even though by name they should.
 
 `--userns=keep-id` changes this. It maps host uid 1000 to container uid 1000, so files mounted from the host user appear with the expected ownership inside the container.
 
@@ -142,11 +142,11 @@ The final Quadlet:
 
 ```ini
 [Container]
-Image=localhost/claude-runner-api:latest
-Volume=/home/keep/.claude:/home/bun/.claude:z
-Volume=/home/keep/.claude.json:/home/bun/.claude.json:z
+Image=localhost/claude-runner:latest
+Volume=/home/dev/.claude:/home/bun/.claude:z
+Volume=/home/dev/.claude.json:/home/bun/.claude.json:z
 PodmanArgs=--userns=keep-id --stop-timeout=10
-Network=n8n.network
+Network=podman
 ```
 
 There is one more wrinkle at this layer. The `oven/bun:slim` image stores `.bun` under `/root`, which has mode 700. The `bun` user can't traverse it· this is the same DAC path traversal problem from Layer 1, now affecting the Bun toolchain itself. The Dockerfile relocates it:
