@@ -54,3 +54,4 @@
 # - github.repo
 
 sync.remote: "git+https://github.com/aris1009/aris1009.github.io.git"
+export.git-add: false
