@@ -52,7 +52,7 @@
     "@playwright/test": "^1.60.0",
     "@projectwallace/css-analyzer": "^9.9.0",
     "@quasibit/eleventy-plugin-sitemap": "^2.2.0",
-    "@rollup/plugin-commonjs": "^29.0.2",
+    "@rollup/plugin-commonjs": "^29.0.3",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^1.0.0",
     "@shoelace-style/shoelace": "^2.20.1",
