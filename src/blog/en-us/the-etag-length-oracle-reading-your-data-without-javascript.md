@@ -70,7 +70,7 @@ An ETag is an opaque identifier that an HTTP server assigns to a specific versio
 
 Node.js-based frameworks (Express, Fastify, Koa) converged on a practical weak ETag strategy: encode the response body's byte length in hexadecimal, concatenated with a timestamp:
 
-```
+```http
 ETag: W/"1fff-18a7b4d3e00"
          ^^^^
          response byte-length in hex (0x1fff = 8,191 bytes)
