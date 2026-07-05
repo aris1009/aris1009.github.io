@@ -9,6 +9,10 @@ updates:
       time: "09:00"
       timezone: "UTC"
     open-pull-requests-limit: 10
+    # Supply-chain cooldown: hold new releases for 7 days before opening a PR,
+    # so a compromised version is likely caught/yanked before it can be merged.
+    cooldown:
+      default-days: 7
     assignees:
       - "aris1009"
     commit-message:
