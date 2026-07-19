@@ -58,6 +58,7 @@ The {% externalLink "actions/cache store", "https://docs.github.com/en/actions/u
 
 Here is what two workflows sharing a cache key look like:
 
+{% raw %}
 ```yaml
 # .github/workflows/triage-bot.yml — triggered by issues, zero secrets
 permissions: {}
@@ -92,6 +93,7 @@ jobs:
       - run: npm run build
       - run: npm publish
 ```
+{% endraw %}
 
 Both workflows generate the same key: `Linux-node-<sha256 of package-lock.json>`. The cache service has no concept of which workflow is privileged. Whatever was last written to that key is what the release workflow will restore and execute against.
 
@@ -132,9 +134,11 @@ flowchart TD
 
 **Step 4. Key derivation: writing the poison.** With the cache empty, Cacheract computes the key the release workflow will request:
 
+{% raw %}
 ```yaml
 key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
 ```
+{% endraw %}
 
 `package-lock.json` is public. Cacheract reads it, computes the same SHA hash that the `hashFiles()` function would produce, and writes a poisoned `node_modules` archive under that exact key. The archive embeds a `postinstall` hook that sends credentials to an attacker-controlled endpoint when `npm run build` executes.
 
