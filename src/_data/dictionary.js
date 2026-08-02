@@ -253,5 +253,15 @@ export default {
     "en-us": "The part of an instruction word that tells the processor which operation to perform — add, load, jump, compare, and so on. Opcodes are decoded by the CPU's control unit before the instruction executes. On early fixed-width instruction machines, arithmetic overflow could in principle corrupt the opcode field and change what an instruction meant.",
     "el": "Το τμήμα μιας λέξης εντολής που λέει στον επεξεργαστή ποια λειτουργία να εκτελέσει — πρόσθεση, φόρτωση, άλμα, σύγκριση κ.λπ. Οι opcodes αποκωδικοποιούνται από τη μονάδα ελέγχου της CPU πριν εκτελεστεί η εντολή.",
     "tr": "İşlemciye hangi işlemi yapacağını söyleyen talimat sözcüğünün parçası — toplama, yükleme, atlama, karşılaştırma vb. İşlem kodları, talimat yürütülmeden önce CPU'nun kontrol birimi tarafından çözümlenir."
+  },
+  "three-way-merge": {
+    "en-us": "A merge algorithm that resolves changes by comparing three snapshots: a common ancestor (base), the current state (ours), and the incoming state (theirs). Git uses this to integrate changes while detecting conflicts when both sides modify the same region.",
+    "el": "Ένας αλγόριθμος merge που επιλύει αλλαγές συγκρίνοντας τρία snapshots: έναν κοινό πρόγονο (base), την τρέχουσα κατάσταση (ours) και την εισερχόμενη κατάσταση (theirs). Το Git το χρησιμοποιεί για να ενσωματώνει αλλαγές εντοπίζοντας conflicts όταν και οι δύο πλευρές τροποποιούν την ίδια περιοχή.",
+    "tr": "Değişiklikleri üç anlık görüntü karşılaştırarak çözen birleştirme algoritması: ortak bir ata (base), mevcut durum (ours) ve gelen durum (theirs). Git, her iki taraf da aynı bölgeyi değiştirdiğinde çakışmaları tespit ederek değişiklikleri entegre etmek için bunu kullanır."
+  },
+  "cherry-pick": {
+    "en-us": "A Git operation that takes the changes introduced by a specific commit and applies them onto the current branch, creating a new commit. Implemented internally as a three-way merge using the picked commit's parent as the merge base.",
+    "el": "Μια λειτουργία Git που παίρνει τις αλλαγές που εισήγαγε ένα συγκεκριμένο commit και τις εφαρμόζει στο τρέχον branch, δημιουργώντας ένα νέο commit. Υλοποιείται εσωτερικά ως three-way merge χρησιμοποιώντας τον γονέα του επιλεγμένου commit ως merge base.",
+    "tr": "Belirli bir commit'in tanıttığı değişiklikleri alıp mevcut dala uygulayan ve yeni bir commit oluşturan Git işlemi. Dahili olarak, seçilen commit'in üst öğesini birleştirme tabanı olarak kullanarak üç yönlü birleştirme olarak uygulanır."
   }
 };
