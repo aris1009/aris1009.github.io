@@ -31,7 +31,7 @@ When you land on a target box, you rarely control what's installed. The machine 
 
 Dynamically linked binaries, the default output of nearly every C/C++ build, carry an embedded list of shared libraries they expect to find at specific paths on the target. If those libraries are absent, wrong-version, or wrong-architecture, the binary fails immediately:
 
-```
+```text
 $ ./nmap-dynamic
 ./nmap-dynamic: error while loading shared libraries: libpcap.so.1:
   cannot open shared object file: No such file or directory
