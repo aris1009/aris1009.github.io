@@ -253,5 +253,25 @@ export default {
     "en-us": "The part of an instruction word that tells the processor which operation to perform — add, load, jump, compare, and so on. Opcodes are decoded by the CPU's control unit before the instruction executes. On early fixed-width instruction machines, arithmetic overflow could in principle corrupt the opcode field and change what an instruction meant.",
     "el": "Το τμήμα μιας λέξης εντολής που λέει στον επεξεργαστή ποια λειτουργία να εκτελέσει — πρόσθεση, φόρτωση, άλμα, σύγκριση κ.λπ. Οι opcodes αποκωδικοποιούνται από τη μονάδα ελέγχου της CPU πριν εκτελεστεί η εντολή.",
     "tr": "İşlemciye hangi işlemi yapacağını söyleyen talimat sözcüğünün parçası — toplama, yükleme, atlama, karşılaştırma vb. İşlem kodları, talimat yürütülmeden önce CPU'nun kontrol birimi tarafından çözümlenir."
+  },
+  "wasm-import-object": {
+    "en-us": "The second argument to WebAssembly.instantiate(): a nested JavaScript object supplying values for every import declared by the WASM module, such as host functions and memory references. The runtime resolves each import by looking up its name in this object using ECMAScript's Get() operation, which traverses the prototype chain.",
+    "el": "Το δεύτερο όρισμα του WebAssembly.instantiate(): ένα εμφωλευμένο JavaScript αντικείμενο που παρέχει τιμές για κάθε import που δηλώνει το WASM module, όπως host functions και αναφορές μνήμης. Το runtime επιλύει κάθε import αναζητώντας το όνομά του στο αντικείμενο αυτό χρησιμοποιώντας τη λειτουργία Get() της ECMAScript, η οποία διασχίζει την αλυσίδα prototype.",
+    "tr": "WebAssembly.instantiate() için ikinci argüman: WASM modülü tarafından bildirilen her import için host fonksiyonları ve bellek referansları gibi değerler sağlayan iç içe JavaScript nesnesi. Çalışma zamanı, ECMAScript'in Get() operasyonunu kullanarak her importu bu nesnede adına göre arar ve bu işlem prototip zincirini gezer."
+  },
+  "wasm-externref": {
+    "en-us": "WebAssembly's opaque reference type that holds an arbitrary host (e.g., JavaScript) object without exposing its internals to the WASM module directly. The module treats an externref as a typed integer handle it can pass between imports and exports; the host runtime manages the underlying object and its lifetime.",
+    "el": "Ο αδιαφανής τύπος αναφοράς της WebAssembly που διατηρεί ένα αυθαίρετο αντικείμενο host (π.χ. JavaScript) χωρίς να εκθέτει τα εσωτερικά του στο WASM module άμεσα. Το module αντιμετωπίζει ένα externref ως ένα δακτυλογραφημένο ακέραιο handle που μπορεί να μεταφέρει μεταξύ imports και exports.",
+    "tr": "WebAssembly'nin, WASM modülüne iç yapısını doğrudan açığa çıkarmadan rastgele bir host (örn. JavaScript) nesnesini tutan opak referans türü. Modül bir externref'i importlar ve exportlar arasında geçirebileceği türlendirilmiş bir tam sayı tutamacı olarak ele alır."
+  },
+  "weird-machine": {
+    "en-us": "A security research term for an unintended Turing-complete computation substrate discovered within a system — a set of primitives that, while not designed for arbitrary computation, can be chained to execute attacker-controlled logic. Classic examples include return-oriented programming chains in memory-unsafe code and exploit techniques that assemble string factories from inherited JavaScript built-ins.",
+    "el": "Ένας όρος έρευνας ασφάλειας για ένα ακούσιο, Turing-complete υπολογιστικό substrate που ανακαλύπτεται μέσα σε ένα σύστημα — ένα σύνολο primitives που, ενώ δεν έχουν σχεδιαστεί για αυθαίρετο υπολογισμό, μπορούν να συνδεθούν αλυσιδωτά για να εκτελέσουν λογική ελεγχόμενη από έναν επιτιθέμενο.",
+    "tr": "Bir sistem içinde keşfedilen kasıtsız Turing-tamamlayıcı hesaplama substratı için güvenlik araştırma terimi — rastgele hesaplama için tasarlanmamış olsa da saldırgan kontrollü mantık yürütmek üzere zincirlenebilen primitifler kümesi. Klasik örnekler arasında bellek güvensiz koddaki dönüş odaklı programlama zincirleri ve miras alınan JavaScript yerleşiklerinden dize fabrikaları oluşturan istismar teknikleri sayılabilir."
+  },
+  "null-prototype-object": {
+    "en-us": "A JavaScript object created with Object.create(null), which has no [[Prototype]] link and therefore inherits no built-in properties from Object.prototype. Unlike plain object literals ({}), a null-prototype object exposes only the properties explicitly assigned to it, making it safer as a whitelist container when exact property control matters.",
+    "el": "Ένα JavaScript αντικείμενο που δημιουργείται με Object.create(null), το οποίο δεν έχει [[Prototype]] σύνδεσμο και επομένως δεν κληρονομεί ενσωματωμένες ιδιότητες από το Object.prototype. Σε αντίθεση με τα απλά object literals ({}), ένα αντικείμενο null-prototype εκθέτει μόνο τις ιδιότητες που του ανατίθενται ρητά.",
+    "tr": "Object.create(null) ile oluşturulan, [[Prototype]] bağlantısı olmayan ve bu nedenle Object.prototype'tan hiçbir yerleşik özellik miras almayan JavaScript nesnesi. Düz nesne değişmezlerinin ({}) aksine, null-prototip nesne yalnızca kendisine açıkça atanan özellikleri ortaya çıkarır."
   }
 };
