@@ -253,5 +253,20 @@ export default {
     "en-us": "The part of an instruction word that tells the processor which operation to perform — add, load, jump, compare, and so on. Opcodes are decoded by the CPU's control unit before the instruction executes. On early fixed-width instruction machines, arithmetic overflow could in principle corrupt the opcode field and change what an instruction meant.",
     "el": "Το τμήμα μιας λέξης εντολής που λέει στον επεξεργαστή ποια λειτουργία να εκτελέσει — πρόσθεση, φόρτωση, άλμα, σύγκριση κ.λπ. Οι opcodes αποκωδικοποιούνται από τη μονάδα ελέγχου της CPU πριν εκτελεστεί η εντολή.",
     "tr": "İşlemciye hangi işlemi yapacağını söyleyen talimat sözcüğünün parçası — toplama, yükleme, atlama, karşılaştırma vb. İşlem kodları, talimat yürütülmeden önce CPU'nun kontrol birimi tarafından çözümlenir."
+  },
+  "chain-of-thought": {
+    "en-us": "A prompting technique that improves language model reasoning by instructing the model to articulate intermediate reasoning steps before reaching a final answer. Chain-of-thought prompting, introduced by Wei et al. (2022), improves performance on multi-step problems by externalizing the reasoning process into the model's output.",
+    "el": "Μια τεχνική prompting που βελτιώνει τον συλλογισμό γλωσσικών μοντέλων ζητώντας από το μοντέλο να αρθρώνει ενδιάμεσα βήματα σκέψης πριν φτάσει στην τελική απάντηση. Βελτιώνει την απόδοση σε σύνθετες πολυβηματικές εργασίες εξωτερικεύοντας τη διαδικασία συλλογισμού στην έξοδο του μοντέλου.",
+    "tr": "Modelin bir son yanıta ulaşmadan önce ara akıl yürütme adımlarını ifade etmesini isteyerek dil modeli akıl yürütmesini geliştiren bir istem tekniği. Wei ve diğerleri (2022) tarafından tanıtılan bu teknik, akıl yürütme sürecini modelin çıktısına dışsallaştırarak çok adımlı problemlerdeki performansı artırır."
+  },
+  "reinforcement-learning": {
+    "en-us": "A machine learning paradigm where a model learns by receiving reward or penalty signals based on the quality of its outputs. In language models, reinforcement learning is used to train on human preferences or verifiable task outcomes — enabling emergent behaviors, like internal self-critique, that supervised training on fixed datasets cannot reliably produce.",
+    "el": "Ένα παράδειγμα μηχανικής μάθησης όπου ένα μοντέλο μαθαίνει λαμβάνοντας σήματα ανταμοιβής ή ποινής βάσει της ποιότητας των εξόδων του. Στα γλωσσικά μοντέλα, χρησιμοποιείται για εκπαίδευση σε ανθρώπινες προτιμήσεις ή επαληθεύσιμα αποτελέσματα — επιτρέποντας αναδυόμενες συμπεριφορές που η επιβλεπόμενη εκπαίδευση δεν παράγει αξιόπιστα.",
+    "tr": "Bir modelin çıktılarının kalitesine göre ödül veya ceza sinyalleri alarak öğrendiği bir makine öğrenimi paradigması. Dil modellerinde, insan tercihlerinde veya doğrulanabilir görev sonuçlarında eğitmek için kullanılır; sabit veri kümelerinde denetimli eğitimin güvenilir biçimde üretemeyeceği, iç öz-eleştiri gibi ortaya çıkan davranışları mümkün kılar."
+  },
+  "extended-thinking": {
+    "en-us": "A mode of language model operation where the model generates an internal reasoning trace before producing a final response. Extended thinking allows reasoning models like DeepSeek-R1 and QwQ-32B to explore problem spaces, self-critique, and revise approaches before committing to an answer — with the trace sometimes visible to the user and sometimes hidden.",
+    "el": "Ένας τρόπος λειτουργίας γλωσσικού μοντέλου όπου το μοντέλο δημιουργεί ένα εσωτερικό ίχνος συλλογισμού πριν παράγει την τελική απάντηση. Επιτρέπει στα μοντέλα συλλογισμού να εξερευνούν χώρους προβλημάτων, να αυτοκριτικάρονται και να αναθεωρούν προσεγγίσεις πριν δεσμευτούν σε μια απάντηση.",
+    "tr": "Modelin nihai bir yanıt üretmeden önce iç bir akıl yürütme izi oluşturduğu dil modeli çalışma modu. DeepSeek-R1 ve QwQ-32B gibi akıl yürütme modellerinin bir yanıta bağlanmadan önce problem alanlarını keşfetmesine, öz-eleştiri yapmasına ve yaklaşımları revize etmesine olanak tanır."
   }
 };
