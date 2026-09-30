@@ -267,7 +267,7 @@ Even with defenses in place, assume they might fail. Run applications with minim
 
 - Don't run web servers as root
 - Use dedicated service accounts with restricted filesystem access
-- Apply mandatory access controls (SELinux, AppArmor)
+- Apply mandatory access controls ({% dictionaryLink "SELinux", "selinux" %}, AppArmor)
 - Containerize applications with minimal capabilities
 
 If command injection occurs, damage stays contained.
