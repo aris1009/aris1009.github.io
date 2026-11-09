@@ -86,5 +86,8 @@
   },
   "bundleSizeLimit": {
     "css": 90000
+  },
+  "overrides": {
+    "@csstools/css-syntax-patches-for-csstree": "1.1.7"
   }
 }
