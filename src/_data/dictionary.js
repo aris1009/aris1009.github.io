@@ -253,5 +253,30 @@ export default {
     "en-us": "The part of an instruction word that tells the processor which operation to perform — add, load, jump, compare, and so on. Opcodes are decoded by the CPU's control unit before the instruction executes. On early fixed-width instruction machines, arithmetic overflow could in principle corrupt the opcode field and change what an instruction meant.",
     "el": "Το τμήμα μιας λέξης εντολής που λέει στον επεξεργαστή ποια λειτουργία να εκτελέσει — πρόσθεση, φόρτωση, άλμα, σύγκριση κ.λπ. Οι opcodes αποκωδικοποιούνται από τη μονάδα ελέγχου της CPU πριν εκτελεστεί η εντολή.",
     "tr": "İşlemciye hangi işlemi yapacağını söyleyen talimat sözcüğünün parçası — toplama, yükleme, atlama, karşılaştırma vb. İşlem kodları, talimat yürütülmeden önce CPU'nun kontrol birimi tarafından çözümlenir."
+  },
+  "profile-guided-optimization": {
+    "en-us": "A compiler technique that uses runtime execution data to inform optimisation decisions. The compiler instruments a binary, runs it on representative inputs to collect a profile of hot paths and branch frequencies, then recompiles using that profile to arrange code for better real-world performance. Often abbreviated PGO.",
+    "el": "Μια τεχνική μεταγλωττιστή που χρησιμοποιεί δεδομένα εκτέλεσης για να καθοδηγήσει αποφάσεις βελτιστοποίησης. Ο μεταγλωττιστής οργανώνει τον κώδικα για καλύτερη πραγματική απόδοση βάσει μετρήσεων εκτέλεσης σε αντιπροσωπευτικές εισόδους. Συντομογραφείται PGO.",
+    "tr": "Optimizasyon kararlarını bilgilendirmek için çalışma zamanı yürütme verilerini kullanan bir derleyici tekniği. Derleyici, temsili girdiler üzerinde çalıştırarak sıcak yolların ve dal frekanslarının profilini toplar, ardından gerçek dünya performansı için kodu düzenlemek amacıyla bu profili kullanarak yeniden derler. Genellikle PGO olarak kısaltılır."
+  },
+  "register-allocation": {
+    "en-us": "The compiler phase that decides which variables to keep in CPU registers — the fastest storage available — versus spilling to slower memory. Since registers are scarce, allocation is an NP-hard problem in the general case; compilers use heuristics such as graph colouring or simulation to find good-enough assignments quickly.",
+    "el": "Η φάση μεταγλωττιστή που αποφασίζει ποιες μεταβλητές θα διατηρηθούν στους καταχωρητές της CPU έναντι χρήσης αργότερης μνήμης. Επειδή οι καταχωρητές είναι σπάνιοι, η κατανομή είναι NP-hard στη γενική περίπτωση· οι μεταγλωττιστές χρησιμοποιούν ευρετικές μεθόδους για γρήγορες ικανοποιητικές λύσεις.",
+    "tr": "Hangi değişkenlerin CPU yazmaçlarında — mevcut en hızlı depolama — tutulacağına karşı daha yavaş belleğe taşınacağına karar veren derleyici aşaması. Yazmaçlar kıt olduğundan, genel durumda tahsis NP-zor bir problemdir; derleyiciler hızlı bir şekilde yeterince iyi atamalar bulmak için sezgisel yöntemler kullanır."
+  },
+  "basic-block": {
+    "en-us": "A straight-line sequence of instructions with a single entry point and a single exit point — no branches in, no branches out until the end. Compilers analyse and optimise programs by breaking them into basic blocks and reasoning about the flow of control between them.",
+    "el": "Μια ευθύγραμμη ακολουθία εντολών με ένα σημείο εισόδου και ένα σημείο εξόδου — χωρίς διακλαδώσεις μέσα ή έξω μέχρι το τέλος. Οι μεταγλωττιστές αναλύουν και βελτιστοποιούν προγράμματα χωρίζοντάς τα σε basic blocks.",
+    "tr": "Tek bir giriş noktası ve tek bir çıkış noktasına sahip düz satır talimat dizisi — içeri dal yok, sona kadar dışarı dal yok. Derleyiciler, programları temel bloklara bölerek ve aralarındaki kontrol akışını analiz ederek optimize eder."
+  },
+  "loop-invariant-code-motion": {
+    "en-us": "A compiler optimisation that moves computations whose results do not change across loop iterations to before the loop, so they execute once instead of on every pass. A loop that computes the same subexpression one million times can often be reduced to computing it once.",
+    "el": "Μια βελτιστοποίηση μεταγλωττιστή που μετακινεί υπολογισμούς των οποίων τα αποτελέσματα δεν αλλάζουν σε επαναλήψεις βρόχου πριν από τον βρόχο, ώστε να εκτελούνται μία φορά αντί για κάθε πάσο. Συντομογραφείται LICM.",
+    "tr": "Döngü yinelemeleri boyunca sonuçları değişmeyen hesaplamaları döngüden önce taşıyan bir derleyici optimizasyonu, böylece her geçişte değil bir kez çalışırlar. Aynı alt ifadeyi bir milyon kez hesaplayan bir döngü genellikle bir kez hesaplamaya indirgenebilir."
+  },
+  "common-subexpression-elimination": {
+    "en-us": "A compiler optimisation that identifies identical subexpressions computed multiple times and replaces subsequent occurrences with a reference to the first computed result. If a program calculates `a * b + c` in two different places, the compiler can compute it once and reuse the value. Often abbreviated CSE.",
+    "el": "Μια βελτιστοποίηση μεταγλωττιστή που εντοπίζει πανομοιότυπες υποεκφράσεις που υπολογίζονται πολλές φορές και αντικαθιστά επόμενες εμφανίσεις με αναφορά στο πρώτο αποτέλεσμα. Συντομογραφείται CSE.",
+    "tr": "Birden fazla kez hesaplanan özdeş alt ifadeleri tanımlayan ve sonraki oluşumları ilk hesaplanan sonuca referansla değiştiren bir derleyici optimizasyonu. Bir program iki farklı yerde `a * b + c` hesaplıyorsa, derleyici bunu bir kez hesaplayıp değeri yeniden kullanabilir. Genellikle CSE olarak kısaltılır."
   }
 };
