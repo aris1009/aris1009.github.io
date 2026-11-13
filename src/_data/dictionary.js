@@ -253,5 +253,35 @@ export default {
     "en-us": "The part of an instruction word that tells the processor which operation to perform — add, load, jump, compare, and so on. Opcodes are decoded by the CPU's control unit before the instruction executes. On early fixed-width instruction machines, arithmetic overflow could in principle corrupt the opcode field and change what an instruction meant.",
     "el": "Το τμήμα μιας λέξης εντολής που λέει στον επεξεργαστή ποια λειτουργία να εκτελέσει — πρόσθεση, φόρτωση, άλμα, σύγκριση κ.λπ. Οι opcodes αποκωδικοποιούνται από τη μονάδα ελέγχου της CPU πριν εκτελεστεί η εντολή.",
     "tr": "İşlemciye hangi işlemi yapacağını söyleyen talimat sözcüğünün parçası — toplama, yükleme, atlama, karşılaştırma vb. İşlem kodları, talimat yürütülmeden önce CPU'nun kontrol birimi tarafından çözümlenir."
+  },
+  "supply-chain-attack": {
+    "en-us": "An attack that targets the software distribution pipeline rather than end systems directly. By compromising a trusted tool, library, or update mechanism, attackers can propagate malicious code to every downstream consumer without individually targeting them.",
+    "el": "Επίθεση που στοχεύει την αλυσίδα διανομής λογισμικού αντί για τα τελικά συστήματα. Με την παραβίαση ενός αξιόπιστου εργαλείου, βιβλιοθήκης ή μηχανισμού ενημέρωσης, οι επιτιθέμενοι μπορούν να διαδώσουν κακόβουλο κώδικα σε κάθε downstream καταναλωτή χωρίς να τους στοχεύουν μεμονωμένα.",
+    "tr": "Yazılım dağıtım hattını son sistemler yerine doğrudan hedef alan saldırı. Güvenilen bir araç, kütüphane veya güncelleme mekanizmasını ele geçirerek saldırganlar, her birini ayrı ayrı hedeflemeksizin tüm aşağı akış tüketicilerine kötü amaçlı kod yayabilir."
+  },
+  "tarball": {
+    "en-us": "A compressed archive file (typically .tar.gz) used to distribute software packages. npm downloads tarballs from the registry — or from arbitrary HTTP URLs — and installs them identically, including running all lifecycle scripts such as postinstall.",
+    "el": "Ένα συμπιεσμένο αρχείο (συνήθως .tar.gz) που χρησιμοποιείται για τη διανομή πακέτων λογισμικού. Το npm κατεβάζει tarballs από το registry — ή από οποιαδήποτε HTTP URL — και τα εγκαθιστά ταυτόσημα, συμπεριλαμβανομένης της εκτέλεσης όλων των lifecycle scripts.",
+    "tr": "Yazılım paketlerini dağıtmak için kullanılan sıkıştırılmış arşiv dosyası (genellikle .tar.gz). npm, kayıt defterinden — veya rastgele HTTP URL'lerden — tarball'ları indirir ve postinstall gibi tüm yaşam döngüsü betiklerini çalıştırmak dahil bunları aynı şekilde yükler."
+  },
+  "sca": {
+    "en-us": "Software Composition Analysis — a security tool that scans an application's dependencies against known vulnerability databases. SCA tools identify vulnerable package versions from lock files and manifests, but typically cannot inspect code fetched from externally hosted URLs.",
+    "el": "Software Composition Analysis — ένα εργαλείο ασφαλείας που σαρώνει τις εξαρτήσεις εφαρμογών σε γνωστές βάσεις δεδομένων ευπαθειών. Τα εργαλεία SCA εντοπίζουν ευπαθείς εκδόσεις πακέτων από lock files και manifests, αλλά συνήθως δεν μπορούν να επιθεωρήσουν κώδικα που ανακτάται από εξωτερικά URLs.",
+    "tr": "Yazılım Bileşim Analizi — bir uygulamanın bağımlılıklarını bilinen güvenlik açığı veritabanlarına karşı tarayan güvenlik aracı. SCA araçları, kilit dosyalarından ve manifestolardan savunmasız paket sürümlerini tanımlar, ancak genellikle harici URL'lerden getirilen kodu inceleyemez."
+  },
+  "sbom": {
+    "en-us": "Software Bill of Materials — a machine-readable inventory of every component, library, and dependency in a software artifact. SBOMs help organisations track vulnerable or malicious components, but are limited to dependencies that appear in registries or manifests as named versions.",
+    "el": "Software Bill of Materials — ένα αναγνώσιμο από μηχανή απόθεμα κάθε συστατικού, βιβλιοθήκης και εξάρτησης σε ένα λογισμικό. Τα SBOMs βοηθούν οργανισμούς να παρακολουθούν ευπαθή ή κακόβουλα συστατικά, αλλά περιορίζονται σε εξαρτήσεις που εμφανίζονται ως ονομαστικές εκδόσεις σε registry ή manifests.",
+    "tr": "Yazılım Malzeme Listesi — bir yazılım yapıtındaki her bileşeni, kütüphaneyi ve bağımlılığı listeleyen makine tarafından okunabilir envanter. SBOM'lar kuruluşların savunmasız veya kötü amaçlı bileşenleri takip etmesine yardımcı olur, ancak kayıt defterlerinde adlandırılmış sürümler olarak görünen bağımlılıklarla sınırlıdır."
+  },
+  "sigstore": {
+    "en-us": "An open-source project for signing and verifying software supply chains. Sigstore's tooling is integrated into npm's provenance feature, allowing publishers to cryptographically attest that a package was built from a specific source repository — but the attestation covers only the registry-published artefact, not external URL dependencies.",
+    "el": "Ένα open-source έργο για υπογραφή και επαλήθευση αλυσίδων παροχής λογισμικού. Τα εργαλεία του Sigstore ενσωματώνονται στη λειτουργία provenance του npm, επιτρέποντας κρυπτογραφική απόδειξη ότι ένα πακέτο κατασκευάστηκε από συγκεκριμένο αποθετήριο — αλλά η απόδειξη καλύπτει μόνο το τεχνούργημα που δημοσιεύτηκε στο registry.",
+    "tr": "Yazılım tedarik zincirlerini imzalamak ve doğrulamak için açık kaynaklı proje. Sigstore araçları npm'nin provenance özelliğine entegre edilmiştir; yayıncıların bir paketin belirli bir kaynak deposundan oluşturulduğunu kriptografik olarak doğrulamasına olanak tanır — ancak tasdik yalnızca kayıt defterinde yayımlanan yapıtı kapsar."
+  },
+  "slopsquatting": {
+    "en-us": "An attack where a malicious actor registers npm or PyPI package names that AI coding assistants commonly hallucinate — recommending with confidence packages that do not exist. Developers who install AI-suggested packages without verifying their existence on the registry are the target.",
+    "el": "Επίθεση όπου ένας κακόβουλος ηθοποιός καταχωρεί ονόματα πακέτων npm ή PyPI που οι AI βοηθοί κώδικα συχνά ψευδαισθάνονται — προτείνοντας με εμπιστοσύνη πακέτα που δεν υπάρχουν. Στόχος είναι οι developers που εγκαθιστούν πακέτα που προτείνει το AI χωρίς να επαληθεύουν την ύπαρξή τους.",
+    "tr": "Kötü niyetli bir aktörün, yapay zeka kodlama asistanlarının sıklıkla halüsine gördüğü — güvenle önerdiği ama var olmayan — npm veya PyPI paket adlarını kaydettiği saldırı. Hedef, AI tarafından önerilen paketleri kayıt defterinde varlıklarını doğrulamadan yükleyen geliştiricilerdir."
   }
 };
