@@ -77,6 +77,9 @@ module.exports = {
 
     // theme('colors.x') resolves at build time but stylelint can't see that.
     'declaration-property-value-no-unknown': null,
+    // Same reason: csstree rejects Tailwind's dotted theme(colors.slate.50) syntax,
+    // which is valid input and resolved by the PostCSS step.
+    'value-no-invalid': null,
 
     // page-break-inside is intentional for print-stylesheet legacy support.
     'property-no-deprecated': null,
