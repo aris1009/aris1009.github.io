@@ -253,5 +253,30 @@ export default {
     "en-us": "The part of an instruction word that tells the processor which operation to perform — add, load, jump, compare, and so on. Opcodes are decoded by the CPU's control unit before the instruction executes. On early fixed-width instruction machines, arithmetic overflow could in principle corrupt the opcode field and change what an instruction meant.",
     "el": "Το τμήμα μιας λέξης εντολής που λέει στον επεξεργαστή ποια λειτουργία να εκτελέσει — πρόσθεση, φόρτωση, άλμα, σύγκριση κ.λπ. Οι opcodes αποκωδικοποιούνται από τη μονάδα ελέγχου της CPU πριν εκτελεστεί η εντολή.",
     "tr": "İşlemciye hangi işlemi yapacağını söyleyen talimat sözcüğünün parçası — toplama, yükleme, atlama, karşılaştırma vb. İşlem kodları, talimat yürütülmeden önce CPU'nun kontrol birimi tarafından çözümlenir."
+  },
+  "csrf": {
+    "en-us": "Cross-Site Request Forgery · A class of web attack where a malicious page tricks your browser into making authenticated requests to a different site without your knowledge. CSRF tokens are session-specific secret values embedded in forms and API calls; the server rejects any request that arrives without a valid token.",
+    "el": "Cross-Site Request Forgery · Μια κατηγορία επίθεσης ιστού όπου μια κακόβουλη σελίδα εξαπατά τον browser σου να κάνει authenticated αιτήματα σε άλλο ιστότοπο χωρίς να το γνωρίζεις. Τα CSRF tokens είναι μυστικές τιμές που εξαρτώνται από τη συνεδρία και ενσωματώνονται σε forms και API calls· ο server απορρίπτει κάθε αίτημα που φθάνει χωρίς έγκυρο token.",
+    "tr": "Cross-Site Request Forgery · Kötü amaçlı bir sayfanın, tarayıcını bilgin olmadan farklı bir siteye kimlik doğrulamalı istekler göndermesi için kandırdığı bir web saldırısı sınıfı. CSRF tokenleri, formlara ve API çağrılarına gömülen oturuma özgü gizli değerlerdir; sunucu, geçerli bir token içermeyen her isteği reddeder."
+  },
+  "content-security-policy": {
+    "en-us": "A browser security mechanism delivered as an HTTP response header that restricts which scripts, stylesheets, images, and other resources a page may load. CSP is the primary browser-level defence against injection attacks· each directive operates independently, so a locked-down script-src does not automatically protect the style layer.",
+    "el": "Ένας μηχανισμός ασφάλειας browser που παραδίδεται ως HTTP response header και περιορίζει ποια scripts, stylesheets, εικόνες και άλλοι πόροι επιτρέπεται να φορτωθούν από μια σελίδα. Το CSP είναι η κύρια άμυνα στο επίπεδο browser κατά επιθέσεων injection· κάθε directive λειτουργεί ανεξάρτητα, οπότε ένα περιορισμένο script-src δεν προστατεύει αυτόματα το style layer.",
+    "tr": "Bir sayfanın yükleyebileceği komut dosyalarını, stil sayfalarını, görselleri ve diğer kaynakları kısıtlayan HTTP yanıt başlığı olarak iletilen tarayıcı güvenlik mekanizması. CSP, enjeksiyon saldırılarına karşı birincil tarayıcı düzeyinde savunmadır· her direktif bağımsız çalışır, bu nedenle kısıtlanmış bir script-src stil katmanını otomatik olarak korumaz."
+  },
+  "css-injection": {
+    "en-us": "An attack where malicious CSS rules are inserted into a web page through an injection point. Beyond visual manipulation, injected CSS can exfiltrate sensitive data by using attribute selectors that trigger network requests for matching values, all without executing any JavaScript.",
+    "el": "Μια επίθεση όπου κακόβουλοι CSS κανόνες εισάγονται σε μια ιστοσελίδα μέσω ενός σημείου injection. Πέρα από οπτική χειραγώγηση, το injected CSS μπορεί να εξάγει ευαίσθητα δεδομένα χρησιμοποιώντας attribute selectors που ενεργοποιούν δικτυακά αιτήματα για αντίστοιχες τιμές, χωρίς να εκτελεστεί κανένα JavaScript.",
+    "tr": "Kötü amaçlı CSS kurallarının bir enjeksiyon noktası aracılığıyla web sayfasına eklendiği saldırı. Görsel manipülasyonun ötesinde, enjekte edilen CSS, hiç JavaScript çalıştırmadan eşleşen değerler için ağ isteklerini tetikleyen öznitelik seçicileri kullanarak hassas verileri dışarı sızdırabilir."
+  },
+  "nonce": {
+    "en-us": "Number Used Once · A randomly generated value tied to a single operation or request. In Content Security Policy, a nonce embedded in a script or style tag proves the server authorised that specific element· the browser blocks any injected element that lacks the matching nonce value.",
+    "el": "Number Used Once · Μια τυχαία τιμή που δημιουργείται για μία μόνο χρήση ή αίτημα. Στο Content Security Policy, ένα nonce που ενσωματώνεται σε script ή style tag αποδεικνύει ότι ο server εξουσιοδότησε αυτό το συγκεκριμένο element· ο browser μπλοκάρει κάθε injected element που δεν φέρει την αντίστοιχη τιμή nonce.",
+    "tr": "Number Used Once · Tek bir işlem veya istek için oluşturulan rastgele değer. Content Security Policy'de, script veya style etiketine gömülen nonce, sunucunun o belirli öğeyi yetkilendirdiğini kanıtlar· tarayıcı, eşleşen nonce değerinden yoksun enjekte edilmiş öğeleri engeller."
+  },
+  "waf": {
+    "en-us": "Web Application Firewall · A security layer that inspects HTTP traffic and blocks requests matching known attack patterns. WAFs reliably block script-based injection payloads but commonly miss style-layer attacks because CSS is not treated as executable code.",
+    "el": "Web Application Firewall · Ένα επίπεδο ασφάλειας που επιθεωρεί την HTTP κίνηση και μπλοκάρει αιτήματα που ταιριάζουν με γνωστά patterns επίθεσης. Τα WAF μπλοκάρουν αξιόπιστα payloads injection βασισμένα σε script αλλά συνήθως χάνουν τις επιθέσεις στο style layer γιατί το CSS δεν αντιμετωπίζεται ως εκτελέσιμος κώδικας.",
+    "tr": "Web Uygulama Güvenlik Duvarı · HTTP trafiğini inceleyen ve bilinen saldırı kalıplarıyla eşleşen istekleri engelleyen güvenlik katmanı. WAF'lar betik tabanlı enjeksiyon yüklerini güvenilir biçimde engeller, ancak CSS yürütülebilir kod olarak ele alınmadığından stil katmanı saldırılarını genellikle kaçırır."
   }
 };
