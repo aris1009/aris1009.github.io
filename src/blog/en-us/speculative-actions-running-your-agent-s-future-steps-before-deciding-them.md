@@ -24,11 +24,11 @@ permalink: /blog/en-us/speculative-actions-running-your-agent-s-future-steps-bef
 
 Open any LLM agent paper from the last two years and you'll find careful benchmarks on task success rate, planning depth, and hallucination reduction. Latency benchmarks are conspicuously absent.
 
-Here's the arithmetic that gets glossed over. The standard {% dictionaryLink "ReAct loop", "react-loop" %}, Thought → Action → Observation repeated, executes tool calls sequentially. Each call blocks until the prior result arrives. [ToolBench](https://arxiv.org/abs/2307.16789), which characterized latency across 16,000 real-world APIs, found that for fast LLM backends, tool-call latency accounts for over 60% of total agent response time.
+Here's the arithmetic that gets glossed over. The standard {% dictionaryLink "ReAct loop", "react-loop" %}, Thought → Action → Observation repeated, executes tool calls sequentially. Each call blocks until the prior result arrives. {% externalLink "ToolBench", "https://arxiv.org/abs/2307.16789" %}, which characterized latency across 16,000 real-world APIs, found that for fast LLM backends, tool-call latency accounts for over 60% of total agent response time.
 
 A 10-step agent with a 2-second average tool latency accumulates 20 seconds of pure idle time. Not computation. Not reasoning. Just waiting. Make your model twice as fast and those 20 seconds don't shrink· the bottleneck is structural, not silicon.
 
-This is the central observation of the [Speculative Actions framework](https://arxiv.org/abs/2510.04371): the latency bottleneck is algorithmic. And algorithms already have a proven solution to this exact problem, one that has been running on your CPU for three decades.
+This is the central observation of the {% externalLink "Speculative Actions framework", "https://arxiv.org/abs/2510.04371" %}: the latency bottleneck is algorithmic. And algorithms already have a proven solution to this exact problem, one that has been running on your CPU for three decades.
 
 ## How CPUs cracked this in 1981
 
@@ -38,20 +38,20 @@ The solution is {% dictionaryLink "speculative execution", "speculative-executio
 
 What makes the approach viable is the math. Branch prediction accuracy reaches 80–95% in practice, which means the cost of occasional rollbacks is easily amortized across the majority of correct predictions. Critically, the correctness guarantee is strong: a misprediction causes a full rollback to consistent architectural state, not silent corruption. Output is identical to non-speculative execution.
 
-Google researchers Leviathan, Kalman, and Matias extended this pattern to LLM token generation in 2023 with [speculative decoding](https://arxiv.org/abs/2211.17192); Chen et al. at DeepMind arrived at the same result independently. A small draft model generates k candidate tokens· a large target model validates all of them in a single forward pass. Acceptance rates of 70–90% yield 2–3× decoding speedups with mathematically guaranteed losslessness. Token quality is provably unchanged.
+Google researchers Leviathan, Kalman, and Matias extended this pattern to LLM token generation in 2023 with {% externalLink "speculative decoding", "https://arxiv.org/abs/2211.17192" %}; Chen et al. at DeepMind arrived at the same result independently. A small draft model generates k candidate tokens· a large target model validates all of them in a single forward pass. Acceptance rates of 70–90% yield 2–3× decoding speedups with mathematically guaranteed losslessness. Token quality is provably unchanged.
 
 {% externalLink "Columbia's DAPLab", "https://daplab.cs.columbia.edu/" %} then asked the natural next question: if we can speculate at the token level, why not at the tool-call level?
 
 ## Lifting the pattern to agent actions
 
-The [Speculative Actions paper](https://arxiv.org/abs/2510.04371), presented as an oral at ICLR 2026, extends the pattern one abstraction level higher, from token sequences to tool-call sequences.
+The {% externalLink "Speculative Actions paper", "https://arxiv.org/abs/2510.04371" %}, presented as an oral at ICLR 2026, extends the pattern one abstraction level higher, from token sequences to tool-call sequences.
 
 The mechanism has five steps:
 
 1. **Draft model predicts ahead.** A small, fast model observes the current agent context and predicts the likely next tool call (name, arguments, expected sequencing) before the primary LLM finishes its reasoning step.
 2. **Safe actions are dispatched immediately.** Only read-only, reversible predicted actions are executed against live systems. Write operations are held until validation.
 3. **Primary LLM produces the actual next action.** This step is happening anyway· no extra wall-clock time is introduced.
-4. **Validation.** If the primary LLM's action matches the draft prediction, the pre-fetched result is consumed. The API call latency is hidden behind reasoning time.
+4. **Validation.** If the primary LLM's action matches the draft prediction, the pre-fetched result is consumed. The {% dictionaryLink "API", "api" %} call latency is hidden behind reasoning time.
 5. **Mismatch means discard.** If the prediction was wrong, the speculative result is thrown away and execution continues on the normal path. No side effects were committed.
 
 ```mermaid
@@ -79,7 +79,7 @@ sequenceDiagram
 
 Across gaming, e-commerce, web-search, and operating-system benchmarks, the draft model achieved up to 55% next-action prediction accuracy. That means for roughly half of all agent steps, the tool-call latency is fully hidden behind the LLM's own reasoning time.
 
-Agent trajectories turn out to be locally predictable in a way that is initially counterintuitive. In a web-shopping task ([WebArena](https://arxiv.org/abs/2307.13854)), "search for product" is almost always followed by "click first result." In data-retrieval pipelines, API call sequences are highly stereotyped within a task type. The draft model doesn't need global intelligence· it only needs to be right often enough for amortization to work. This is precisely the property that makes branch prediction viable in CPUs, applied one level up the abstraction hierarchy.
+Agent trajectories turn out to be locally predictable in a way that is initially counterintuitive. In a web-shopping task ({% externalLink "WebArena", "https://arxiv.org/abs/2307.13854" %}), "search for product" is almost always followed by "click first result." In data-retrieval pipelines, API call sequences are highly stereotyped within a task type. The draft model doesn't need global intelligence· it only needs to be right often enough for amortization to work. This is precisely the property that makes branch prediction viable in CPUs, applied one level up the abstraction hierarchy.
 
 Here's the core logic in pseudocode:
 
@@ -146,19 +146,19 @@ The framework is implementable today without re-architecting your agent. Here's 
 
 ## The bigger picture
 
-The dominant agenda in {% dictionaryLink "AI agent", "ai-agent" %} research focuses on accuracy: better prompting, better {% dictionaryLink "RAG", "rag" %} retrieval, better planning architectures like [Reflexion](https://arxiv.org/abs/2303.11366). Latency is treated as a deployment concern: throw faster GPUs at it, use a smaller model, cache more aggressively.
+The dominant agenda in {% dictionaryLink "AI agent", "ai-agent" %} research focuses on accuracy: better prompting, better {% dictionaryLink "RAG", "rag" %} retrieval, better planning architectures like {% externalLink "Reflexion", "https://arxiv.org/abs/2303.11366" %}. Latency is treated as a deployment concern: throw faster GPUs at it, use a smaller model, cache more aggressively.
 
 Speculative Actions reframes latency as a systems design problem with an algorithmic solution. The 1990s out-of-order execution revolution in CPUs wasn't about faster transistors· it was about restructuring computation to extract parallelism from code that looked strictly sequential. Agent loops that look strictly sequential at the Thought → Action → Observation level are not actually causally sequential at the tool-call level. The observation for step N often doesn't require finishing the reasoning for step N· it only requires knowing what action step N is likely to be. The draft model exploits precisely that gap.
 
-If the next generation of production agents runs 10, 20, or 50 sequential tool calls, and trajectory data from [AgentBench](https://arxiv.org/abs/2308.03688) and WebArena suggests it will, then algorithmic latency optimization isn't an optimization pass. It's the performance axis that separates agents people use from agents people abandon.
+If the next generation of production agents runs 10, 20, or 50 sequential tool calls, and trajectory data from {% externalLink "AgentBench", "https://arxiv.org/abs/2308.03688" %} and WebArena suggests it will, then algorithmic latency optimization isn't an optimization pass. It's the performance axis that separates agents people use from agents people abandon.
 
 ## References
 
-- Columbia DAPLab — [Speculative Actions: A Lossless Framework for Faster Agentic Systems](https://arxiv.org/abs/2510.04371) (ICLR 2026, oral)
-- Leviathan, Kalman & Matias — [Fast Inference from Transformers via Speculative Decoding](https://arxiv.org/abs/2211.17192) (ICML 2023)
-- Chen et al. (DeepMind) — [Accelerating LLM Decoding with Speculative Sampling](https://arxiv.org/abs/2302.01318)
-- Yao et al. — [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629) (ICLR 2023)
-- Shinn et al. — [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/abs/2303.11366) (NeurIPS 2023)
-- Zhou et al. — [WebArena: A Realistic Web Environment for Building Autonomous Agents](https://arxiv.org/abs/2307.13854) (ICLR 2024)
-- Liu et al. — [AgentBench: Evaluating LLMs as Agents](https://arxiv.org/abs/2308.03688) (ICLR 2024)
-- Qin et al. — [ToolBench: Facilitating LLMs to Master 16,000+ Real-world APIs](https://arxiv.org/abs/2307.16789)
+- Columbia DAPLab — {% externalLink "Speculative Actions: A Lossless Framework for Faster Agentic Systems", "https://arxiv.org/abs/2510.04371" %} (ICLR 2026, oral)
+- Leviathan, Kalman & Matias — {% externalLink "Fast Inference from Transformers via Speculative Decoding", "https://arxiv.org/abs/2211.17192" %} (ICML 2023)
+- Chen et al. (DeepMind) — {% externalLink "Accelerating LLM Decoding with Speculative Sampling", "https://arxiv.org/abs/2302.01318" %}
+- Yao et al. — {% externalLink "ReAct: Synergizing Reasoning and Acting in Language Models", "https://arxiv.org/abs/2210.03629" %} (ICLR 2023)
+- Shinn et al. — {% externalLink "Reflexion: Language Agents with Verbal Reinforcement Learning", "https://arxiv.org/abs/2303.11366" %} (NeurIPS 2023)
+- Zhou et al. — {% externalLink "WebArena: A Realistic Web Environment for Building Autonomous Agents", "https://arxiv.org/abs/2307.13854" %} (ICLR 2024)
+- Liu et al. — {% externalLink "AgentBench: Evaluating LLMs as Agents", "https://arxiv.org/abs/2308.03688" %} (ICLR 2024)
+- Qin et al. — {% externalLink "ToolBench: Facilitating LLMs to Master 16,000+ Real-world APIs", "https://arxiv.org/abs/2307.16789" %}
