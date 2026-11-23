@@ -253,5 +253,25 @@ export default {
     "en-us": "The part of an instruction word that tells the processor which operation to perform — add, load, jump, compare, and so on. Opcodes are decoded by the CPU's control unit before the instruction executes. On early fixed-width instruction machines, arithmetic overflow could in principle corrupt the opcode field and change what an instruction meant.",
     "el": "Το τμήμα μιας λέξης εντολής που λέει στον επεξεργαστή ποια λειτουργία να εκτελέσει — πρόσθεση, φόρτωση, άλμα, σύγκριση κ.λπ. Οι opcodes αποκωδικοποιούνται από τη μονάδα ελέγχου της CPU πριν εκτελεστεί η εντολή.",
     "tr": "İşlemciye hangi işlemi yapacağını söyleyen talimat sözcüğünün parçası — toplama, yükleme, atlama, karşılaştırma vb. İşlem kodları, talimat yürütülmeden önce CPU'nun kontrol birimi tarafından çözümlenir."
+  },
+  "rotational-latency": {
+    "en-us": "The wait time incurred on a rotating storage device — drum, hard disk, or similar — between when a read/write head arrives at a track and when the target data location rotates under it. On 1950s drum-memory computers, rotational latency was the dominant performance bottleneck; minimizing it through careful code placement was the central problem that assemblers like SOAP were designed to solve.",
+    "el": "Ο χρόνος αναμονής σε περιστρεφόμενες συσκευές αποθήκευσης — τύμπανο, σκληρό δίσκο κ.λπ. — μεταξύ της άφιξης της κεφαλής ανάγνωσης/εγγραφής σε μια διαδρομή και της στιγμής που η θέση των δεδομένων-στόχων έρχεται κάτω από αυτήν. Στους υπολογιστές με μνήμη τυμπάνου της δεκαετίας 1950, αυτή η καθυστέρηση ήταν το κυρίαρχο εμπόδιο επιδόσεων.",
+    "tr": "Dönen depolama aygıtlarında — tambur, sabit disk veya benzeri — okuma/yazma kafasının bir parçaya ulaşması ile hedef veri konumunun altından geçmesi arasındaki bekleme süresi. 1950'lerin tambur bellek bilgisayarlarında dönme gecikmesi, baskın performans darboğazıydı."
+  },
+  "instruction-scheduling": {
+    "en-us": "A compiler optimization that reorders machine instructions to minimize idle time caused by hardware latencies. On pipelined processors, instructions that depend on a previous result must wait for it; scheduling fills those slots with independent work. The technique is the direct descendant of 1950s drum-memory optimum coding, where instructions were placed at drum addresses that minimized rotational wait.",
+    "el": "Μια βελτιστοποίηση μεταγλωττιστή που αναδιατάσσει εντολές μηχανής για να ελαχιστοποιήσει τον χρόνο αδράνειας λόγω καθυστερήσεων υλικού. Σε pipelined επεξεργαστές, εντολές που εξαρτώνται από προηγούμενο αποτέλεσμα πρέπει να περιμένουν· το scheduling γεμίζει αυτές τις θέσεις με ανεξάρτητη εργασία.",
+    "tr": "Donanım gecikmelerinden kaynaklanan boşta kalma süresini en aza indirmek için makine talimatlarını yeniden düzenleyen bir derleyici optimizasyonu. Ardışık düzenli işlemcilerde, önceki bir sonuca bağımlı talimatlar onu beklemelidir; zamanlama bu yuvaları bağımsız işle doldurur."
+  },
+  "optimum-coding": {
+    "en-us": "The manual practice, common on 1950s drum-memory computers, of placing each instruction at the specific drum address that would arrive under the read head exactly when the CPU finished the previous instruction. Done correctly, it reduced rotational latency to near zero; done naively (sequential placement), programs could spend 66–90% of their time waiting. SOAP automated this process in 1955.",
+    "el": "Η χειροκίνητη πρακτική, κοινή σε υπολογιστές με μνήμη τυμπάνου της δεκαετίας 1950, τοποθέτησης κάθε εντολής στη συγκεκριμένη διεύθυνση τυμπάνου που θα έφτανε κάτω από την κεφαλή ανάγνωσης ακριβώς όταν η CPU τελείωνε την προηγούμενη εντολή. Ο assembler SOAP αυτοματοποίησε αυτή τη διαδικασία το 1955.",
+    "tr": "1950'lerin tambur bellek bilgisayarlarında yaygın olan, her talimatı CPU önceki talimatı bitirdiğinde tam olarak okuma kafasının altına gelecek tambur adresine yerleştirme manuel uygulaması. SOAP, bu süreci 1955'te otomatikleştirdi."
+  },
+  "flash-translation-layer": {
+    "en-us": "Firmware inside an SSD that maps logical block addresses (what the OS sees) to physical NAND flash pages (where data is actually stored). The FTL hides the constraints of NAND — wear limits per cell, the requirement to erase before writing, varying cell health — by dynamically choosing physical placements that balance performance and longevity. It is the modern descendant of 1950s drum-scheduling: a translation layer that uses geometry knowledge invisible to the layer above.",
+    "el": "Firmware μέσα σε έναν SSD που αντιστοιχεί λογικές διευθύνσεις block (αυτό που βλέπει το λειτουργικό σύστημα) σε φυσικές σελίδες NAND flash (όπου αποθηκεύονται πραγματικά τα δεδομένα). Το FTL κρύβει τους περιορισμούς του NAND επιλέγοντας δυναμικά φυσικές τοποθετήσεις που εξισορροπούν απόδοση και διάρκεια ζωής.",
+    "tr": "Mantıksal blok adreslerini (işletim sisteminin gördüğü) fiziksel NAND flash sayfalara (verilerin gerçekte depolandığı yer) eşleyen SSD içindeki ürün yazılımı. FTL, performans ve uzun ömürlülüğü dengeleyen fiziksel yerleşimleri dinamik olarak seçerek NAND kısıtlamalarını gizler."
   }
 };
