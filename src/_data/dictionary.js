@@ -253,5 +253,20 @@ export default {
     "en-us": "The part of an instruction word that tells the processor which operation to perform — add, load, jump, compare, and so on. Opcodes are decoded by the CPU's control unit before the instruction executes. On early fixed-width instruction machines, arithmetic overflow could in principle corrupt the opcode field and change what an instruction meant.",
     "el": "Το τμήμα μιας λέξης εντολής που λέει στον επεξεργαστή ποια λειτουργία να εκτελέσει — πρόσθεση, φόρτωση, άλμα, σύγκριση κ.λπ. Οι opcodes αποκωδικοποιούνται από τη μονάδα ελέγχου της CPU πριν εκτελεστεί η εντολή.",
     "tr": "İşlemciye hangi işlemi yapacağını söyleyen talimat sözcüğünün parçası — toplama, yükleme, atlama, karşılaştırma vb. İşlem kodları, talimat yürütülmeden önce CPU'nun kontrol birimi tarafından çözümlenir."
+  },
+  "prompt-injection": {
+    "en-us": "An attack where malicious instructions are embedded in content that an AI system processes, causing it to deviate from its intended behavior. The injected instructions exploit the model's inability to distinguish between legitimate directives and adversarial ones in its input.",
+    "el": "Μια επίθεση όπου κακόβουλες οδηγίες ενσωματώνονται σε περιεχόμενο που επεξεργάζεται ένα σύστημα AI, αναγκάζοντάς το να αποκλίνει από την προοριζόμενη συμπεριφορά του. Οι εγχυόμενες οδηγίες εκμεταλλεύονται την αδυναμία του μοντέλου να ξεχωρίσει τις νόμιμες οδηγίες από τις κακόβουλες στην είσοδό του.",
+    "tr": "Bir AI sisteminin işlediği içeriğe kötü amaçlı talimatların gömüldüğü ve sistemin amaçlanan davranışından sapmasına neden olan bir saldırı. Enjekte edilen talimatlar, modelin girdisindeki meşru yönergeler ile saldırgan olanlar arasında ayrım yapamamasını istismar eder."
+  },
+  "vector-store": {
+    "en-us": "A database optimized for storing and querying high-dimensional vector embeddings. Vector stores enable semantic search — finding items by meaning rather than exact keyword matching — and are the foundation of RAG systems and AI agent memory banks.",
+    "el": "Μια βάση δεδομένων βελτιστοποιημένη για αποθήκευση και αναζήτηση υψηλοδιάστατων vector embeddings. Τα vector stores επιτρέπουν σημασιολογική αναζήτηση — εύρεση στοιχείων βάσει νοήματος αντί για ακριβή αντιστοίχιση λέξεων — και αποτελούν τη βάση των συστημάτων RAG και των memory banks AI agents.",
+    "tr": "Yüksek boyutlu vektör gömülerini depolamak ve sorgulamak için optimize edilmiş bir veritabanı. Vektör depoları, anlamsal aramayı mümkün kılar — tam anahtar kelime eşleşmesi yerine anlama göre öğeleri bulma — ve RAG sistemlerinin ile AI ajan bellek bankalarının temelidir."
+  },
+  "supply-chain-attack": {
+    "en-us": "A cyber attack that targets the software supply chain by compromising a vendor, library, or tool that many organizations depend on. Rather than attacking targets directly, the attacker poisons an upstream component that is automatically distributed to all downstream users.",
+    "el": "Μια κυβερνοεπίθεση που στοχεύει την αλυσίδα εφοδιασμού λογισμικού μολύνοντας έναν προμηθευτή, βιβλιοθήκη ή εργαλείο από το οποίο εξαρτώνται πολλοί οργανισμοί. Αντί να επιτίθεται άμεσα στους στόχους, ο επιτιθέμενος μολύνει ένα upstream component που διανέμεται αυτόματα σε όλους τους downstream χρήστες.",
+    "tr": "Birçok kuruluşun bağımlı olduğu bir satıcıyı, kütüphaneyi veya aracı tehlikeye atarak yazılım tedarik zincirini hedef alan bir siber saldırı. Hedeflere doğrudan saldırmak yerine, saldırgan tüm downstream kullanıcılara otomatik olarak dağıtılan bir upstream bileşeni zehirler."
   }
 };
